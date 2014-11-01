@@ -7,14 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2BBCFDEA1A052C1E00AE8BA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFDE91A052C1E00AE8BA6 /* AppDelegate.swift */; };
-		2BBCFDEC1A052C1E00AE8BA6 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFDEB1A052C1E00AE8BA6 /* RootViewController.swift */; };
-		2BBCFDEE1A052C1E00AE8BA6 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFDED1A052C1E00AE8BA6 /* DataViewController.swift */; };
-		2BBCFDF01A052C1E00AE8BA6 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFDEF1A052C1E00AE8BA6 /* ModelController.swift */; };
-		2BBCFDF31A052C1E00AE8BA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF11A052C1E00AE8BA6 /* Main.storyboard */; };
 		2BBCFDF51A052C1E00AE8BA6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */; };
 		2BBCFDF81A052C1E00AE8BA6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF61A052C1E00AE8BA6 /* LaunchScreen.xib */; };
 		2BBCFE041A052C1E00AE8BA6 /* lumichatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE031A052C1E00AE8BA6 /* lumichatTests.swift */; };
+		2BBCFE291A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE281A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m */; };
+		2BBCFE331A052CAB00AE8BA6 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE2C1A052CAB00AE8BA6 /* FMDatabasePool.m */; };
+		2BBCFE341A052CAB00AE8BA6 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE2E1A052CAB00AE8BA6 /* FMDatabase.m */; };
+		2BBCFE351A052CAB00AE8BA6 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE301A052CAB00AE8BA6 /* FMDatabaseAdditions.m */; };
+		2BBCFE361A052CAB00AE8BA6 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE321A052CAB00AE8BA6 /* FMResultSet.m */; };
+		2BBCFE3F1A052CC200AE8BA6 /* Goodbye.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE381A052CC200AE8BA6 /* Goodbye.wav */; };
+		2BBCFE401A052CC200AE8BA6 /* Hello.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE391A052CC200AE8BA6 /* Hello.wav */; };
+		2BBCFE411A052CC200AE8BA6 /* How_Are_You.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE3A1A052CC200AE8BA6 /* How_Are_You.wav */; };
+		2BBCFE421A052CC200AE8BA6 /* Im_Hungry.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE3B1A052CC200AE8BA6 /* Im_Hungry.wav */; };
+		2BBCFE431A052CC200AE8BA6 /* Im_Thirsty.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE3C1A052CC200AE8BA6 /* Im_Thirsty.wav */; };
+		2BBCFE441A052CC200AE8BA6 /* Im_Tired.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE3D1A052CC200AE8BA6 /* Im_Tired.wav */; };
+		2BBCFE451A052CC200AE8BA6 /* Please_Help_Me.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE3E1A052CC200AE8BA6 /* Please_Help_Me.wav */; };
+		2BBCFE471A052CD400AE8BA6 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BBCFE461A052CD400AE8BA6 /* libsqlite3.0.dylib */; };
+		2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */; };
+		2BBCFE561A052D5A00AE8BA6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE491A052D5A00AE8BA6 /* TableViewController.swift */; };
+		2BBCFE581A052D5A00AE8BA6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */; };
+		2BBCFE591A052D5A00AE8BA6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */; };
+		2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */; };
+		2BBCFE5B1A052D5A00AE8BA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */; };
+		2BBCFE5C1A052D5A00AE8BA6 /* buttonTest.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4F1A052D5A00AE8BA6 /* buttonTest.jpg */; };
+		2BBCFE5D1A052D5A00AE8BA6 /* face.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE501A052D5A00AE8BA6 /* face.gif */; };
+		2BBCFE5E1A052D5A00AE8BA6 /* ScannerDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE511A052D5A00AE8BA6 /* ScannerDrawer.swift */; };
+		2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */; };
+		2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */; };
+		2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,16 +50,43 @@
 /* Begin PBXFileReference section */
 		2BBCFDE41A052C1E00AE8BA6 /* lumichat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lumichat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBCFDE81A052C1E00AE8BA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2BBCFDE91A052C1E00AE8BA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2BBCFDEB1A052C1E00AE8BA6 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		2BBCFDED1A052C1E00AE8BA6 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
-		2BBCFDEF1A052C1E00AE8BA6 /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
-		2BBCFDF21A052C1E00AE8BA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2BBCFDF71A052C1E00AE8BA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2BBCFDFD1A052C1E00AE8BA6 /* lumichatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lumichatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBCFE021A052C1E00AE8BA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BBCFE031A052C1E00AE8BA6 /* lumichatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lumichatTests.swift; sourceTree = "<group>"; };
+		2BBCFE0D1A052C4D00AE8BA6 /* lumichat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lumichat-Bridging-Header.h"; sourceTree = "<group>"; };
+		2BBCFE271A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		2BBCFE281A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		2BBCFE2B1A052CAB00AE8BA6 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		2BBCFE2C1A052CAB00AE8BA6 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		2BBCFE2D1A052CAB00AE8BA6 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		2BBCFE2E1A052CAB00AE8BA6 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		2BBCFE2F1A052CAB00AE8BA6 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		2BBCFE301A052CAB00AE8BA6 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		2BBCFE311A052CAB00AE8BA6 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		2BBCFE321A052CAB00AE8BA6 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		2BBCFE381A052CC200AE8BA6 /* Goodbye.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Goodbye.wav; sourceTree = "<group>"; };
+		2BBCFE391A052CC200AE8BA6 /* Hello.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Hello.wav; sourceTree = "<group>"; };
+		2BBCFE3A1A052CC200AE8BA6 /* How_Are_You.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = How_Are_You.wav; sourceTree = "<group>"; };
+		2BBCFE3B1A052CC200AE8BA6 /* Im_Hungry.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Im_Hungry.wav; sourceTree = "<group>"; };
+		2BBCFE3C1A052CC200AE8BA6 /* Im_Thirsty.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Im_Thirsty.wav; sourceTree = "<group>"; };
+		2BBCFE3D1A052CC200AE8BA6 /* Im_Tired.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Im_Tired.wav; sourceTree = "<group>"; };
+		2BBCFE3E1A052CC200AE8BA6 /* Please_Help_Me.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Please_Help_Me.wav; sourceTree = "<group>"; };
+		2BBCFE461A052CD400AE8BA6 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2BBCFE491A052D5A00AE8BA6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		2BBCFE4A1A052D5A00AE8BA6 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateButtonViewController.swift; sourceTree = "<group>"; };
+		2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		2BBCFE4F1A052D5A00AE8BA6 /* buttonTest.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = buttonTest.jpg; sourceTree = "<group>"; };
+		2BBCFE501A052D5A00AE8BA6 /* face.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = face.gif; sourceTree = "<group>"; };
+		2BBCFE511A052D5A00AE8BA6 /* ScannerDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerDrawer.swift; sourceTree = "<group>"; };
+		2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXCollectionViewController1.swift; sourceTree = "<group>"; };
+		2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
+		2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BBCFE471A052CD400AE8BA6 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +111,7 @@
 		2BBCFDDB1A052C1E00AE8BA6 = {
 			isa = PBXGroup;
 			children = (
+				2BBCFE461A052CD400AE8BA6 /* libsqlite3.0.dylib */,
 				2BBCFDE61A052C1E00AE8BA6 /* lumichat */,
 				2BBCFE001A052C1E00AE8BA6 /* lumichatTests */,
 				2BBCFDE51A052C1E00AE8BA6 /* Products */,
@@ -81,14 +130,26 @@
 		2BBCFDE61A052C1E00AE8BA6 /* lumichat */ = {
 			isa = PBXGroup;
 			children = (
-				2BBCFDE91A052C1E00AE8BA6 /* AppDelegate.swift */,
-				2BBCFDEB1A052C1E00AE8BA6 /* RootViewController.swift */,
-				2BBCFDED1A052C1E00AE8BA6 /* DataViewController.swift */,
-				2BBCFDEF1A052C1E00AE8BA6 /* ModelController.swift */,
-				2BBCFDF11A052C1E00AE8BA6 /* Main.storyboard */,
+				2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */,
+				2BBCFE491A052D5A00AE8BA6 /* TableViewController.swift */,
+				2BBCFE4A1A052D5A00AE8BA6 /* DetailViewController.swift */,
+				2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */,
+				2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */,
+				2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */,
+				2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */,
+				2BBCFE4F1A052D5A00AE8BA6 /* buttonTest.jpg */,
+				2BBCFE501A052D5A00AE8BA6 /* face.gif */,
+				2BBCFE511A052D5A00AE8BA6 /* ScannerDrawer.swift */,
+				2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */,
+				2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */,
+				2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */,
+				2BBCFE371A052CB700AE8BA6 /* Audio */,
+				2BBCFE2A1A052C9D00AE8BA6 /* FMDB */,
+				2BBCFE261A052C8300AE8BA6 /* Library */,
 				2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */,
 				2BBCFDF61A052C1E00AE8BA6 /* LaunchScreen.xib */,
 				2BBCFDE71A052C1E00AE8BA6 /* Supporting Files */,
+				2BBCFE0D1A052C4D00AE8BA6 /* lumichat-Bridging-Header.h */,
 			);
 			path = lumichat;
 			sourceTree = "<group>";
@@ -116,6 +177,44 @@
 				2BBCFE021A052C1E00AE8BA6 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2BBCFE261A052C8300AE8BA6 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				2BBCFE271A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.h */,
+				2BBCFE281A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		2BBCFE2A1A052C9D00AE8BA6 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				2BBCFE2B1A052CAB00AE8BA6 /* FMDatabasePool.h */,
+				2BBCFE2C1A052CAB00AE8BA6 /* FMDatabasePool.m */,
+				2BBCFE2D1A052CAB00AE8BA6 /* FMDatabase.h */,
+				2BBCFE2E1A052CAB00AE8BA6 /* FMDatabase.m */,
+				2BBCFE2F1A052CAB00AE8BA6 /* FMDatabaseAdditions.h */,
+				2BBCFE301A052CAB00AE8BA6 /* FMDatabaseAdditions.m */,
+				2BBCFE311A052CAB00AE8BA6 /* FMResultSet.h */,
+				2BBCFE321A052CAB00AE8BA6 /* FMResultSet.m */,
+			);
+			name = FMDB;
+			sourceTree = "<group>";
+		};
+		2BBCFE371A052CB700AE8BA6 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				2BBCFE381A052CC200AE8BA6 /* Goodbye.wav */,
+				2BBCFE391A052CC200AE8BA6 /* Hello.wav */,
+				2BBCFE3A1A052CC200AE8BA6 /* How_Are_You.wav */,
+				2BBCFE3B1A052CC200AE8BA6 /* Im_Hungry.wav */,
+				2BBCFE3C1A052CC200AE8BA6 /* Im_Thirsty.wav */,
+				2BBCFE3D1A052CC200AE8BA6 /* Im_Tired.wav */,
+				2BBCFE3E1A052CC200AE8BA6 /* Please_Help_Me.wav */,
+			);
+			name = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,8 +297,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BBCFDF31A052C1E00AE8BA6 /* Main.storyboard in Resources */,
+				2BBCFE401A052CC200AE8BA6 /* Hello.wav in Resources */,
+				2BBCFE5B1A052D5A00AE8BA6 /* Main.storyboard in Resources */,
+				2BBCFE5C1A052D5A00AE8BA6 /* buttonTest.jpg in Resources */,
+				2BBCFE441A052CC200AE8BA6 /* Im_Tired.wav in Resources */,
+				2BBCFE411A052CC200AE8BA6 /* How_Are_You.wav in Resources */,
+				2BBCFE421A052CC200AE8BA6 /* Im_Hungry.wav in Resources */,
+				2BBCFE431A052CC200AE8BA6 /* Im_Thirsty.wav in Resources */,
+				2BBCFE5D1A052D5A00AE8BA6 /* face.gif in Resources */,
 				2BBCFDF81A052C1E00AE8BA6 /* LaunchScreen.xib in Resources */,
+				2BBCFE451A052CC200AE8BA6 /* Please_Help_Me.wav in Resources */,
+				2BBCFE3F1A052CC200AE8BA6 /* Goodbye.wav in Resources */,
 				2BBCFDF51A052C1E00AE8BA6 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,10 +326,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BBCFDEC1A052C1E00AE8BA6 /* RootViewController.swift in Sources */,
-				2BBCFDF01A052C1E00AE8BA6 /* ModelController.swift in Sources */,
-				2BBCFDEE1A052C1E00AE8BA6 /* DataViewController.swift in Sources */,
-				2BBCFDEA1A052C1E00AE8BA6 /* AppDelegate.swift in Sources */,
+				2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */,
+				2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */,
+				2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */,
+				2BBCFE561A052D5A00AE8BA6 /* TableViewController.swift in Sources */,
+				2BBCFE291A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
+				2BBCFE361A052CAB00AE8BA6 /* FMResultSet.m in Sources */,
+				2BBCFE5E1A052D5A00AE8BA6 /* ScannerDrawer.swift in Sources */,
+				2BBCFE341A052CAB00AE8BA6 /* FMDatabase.m in Sources */,
+				2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */,
+				2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */,
+				2BBCFE591A052D5A00AE8BA6 /* Constants.swift in Sources */,
+				2BBCFE331A052CAB00AE8BA6 /* FMDatabasePool.m in Sources */,
+				2BBCFE351A052CAB00AE8BA6 /* FMDatabaseAdditions.m in Sources */,
+				2BBCFE581A052D5A00AE8BA6 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,14 +362,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		2BBCFDF11A052C1E00AE8BA6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2BBCFDF21A052C1E00AE8BA6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2BBCFDF61A052C1E00AE8BA6 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -346,9 +456,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = lumichat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "lumichat/lumichat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -356,9 +469,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = lumichat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "lumichat/lumichat-Bridging-Header.h";
 			};
 			name = Release;
 		};
