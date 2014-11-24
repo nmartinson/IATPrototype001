@@ -50,8 +50,6 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 	{
 		super.viewDidLoad()
         
-//        scanner.cellArray.removeAllObjects()
-        
 		self.tapRec = UITapGestureRecognizer()
 		tapRec.addTarget( self, action: "tapHandler:")
 		tapRec.numberOfTapsRequired = 1
@@ -66,9 +64,6 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		var defaults = NSUserDefaults.standardUserDefaults()
 		buttonSize = defaults.integerForKey("buttonSize")
 		setButtonSize()
-
-//		var theDrawView: ScannerDrawer = scannerDrawer as ScannerDrawer
-//		theDrawView.setup(buttonSize, index: buttonSize)
 		
 		var path = createDBPath()
 		let database = FMDatabase(path: path)
@@ -102,7 +97,6 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
         
 		database.close()
         scanner.size(layout.collectionViewContentSize())
-//        scanner = ScanController(size: layout.collectionViewContentSize())  // get size of the collection view
 	}
 	
 	/* ************************************************************************************************
@@ -208,7 +202,6 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
             mutablePath = "buttonTest.jpg"
 //            UIImageJPEGRepresentation(data["image"] as? UIImage, 1).writeToFile(mutablePath, atomically: true)
         }
-        println(link)
         
         var array = [deck.count, data["title"] as String, data["description"] as String, mutablePath as String, 1]
 		

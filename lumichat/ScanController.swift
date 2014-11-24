@@ -45,7 +45,6 @@ public class ScanController
     
     func size(size: CGSize)
     {
-        println("scanner INIT")
         initialization()
         self.size = size
         update()
@@ -73,7 +72,6 @@ public class ScanController
     ************************************************************************************************** */
     @objc func serialScan()
     {
-        println("cell count  \(cellArray.count)")
         if( cellArray.count > 0)
         {
             var next = 0
@@ -104,7 +102,6 @@ public class ScanController
 //            {
 
                 index = next  // set index to currently selected button to be used for playing audio
-                println(index)
 
                 (cellArray[next] as ButtonCell).selected = true
                 (cellArray[next] as ButtonCell).highlighted = true
@@ -228,9 +225,7 @@ public class ScanController
             {
                 index = cellArray.count - 1
             }
-            
-//            println("column index \(index)\n")
-            
+                        
             (cellArray[index] as ButtonCell).selected = true
             (cellArray[index] as ButtonCell).highlighted = true
             (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth

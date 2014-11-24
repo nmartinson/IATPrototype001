@@ -22,39 +22,19 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
     @IBOutlet weak var collectionview: UICollectionView!
     var selectedIndexPath:NSIndexPath!
     var tapRec: UITapGestureRecognizer!
-    
-//    internal class var sharedInstance: MainViewController{
-//        struct SharedInstance {
-//            static let instance = MainViewController()
-//        }
-////        SharedInstance.instance.cellArray.removeAllObjects()
-//        
-//        return SharedInstance.instance
-//    }
 
 
     override func viewWillAppear(animated: Bool) {
-        println("view will appear")
-//        scanner.cellArray.removeAllObjects()
         scanner.size(layout.collectionViewContentSize())
         collectionview.reloadData()
-//        scanner.update()
         var defaults = NSUserDefaults.standardUserDefaults()
         buttonSize = defaults.integerForKey("buttonSize")
         buttonStyle = defaults.integerForKey("buttonStyle")
         setButtonSize()
     }
-    override func viewDidAppear(animated: Bool) {
-//        println("view did appear")
-//        scanner.update()
-//        var defaults = NSUserDefaults.standardUserDefaults()
-//        buttonSize = defaults.integerForKey("buttonSize")
-//        setButtonSize()
-    }
     
     override func viewDidLoad()
     {
-        println("viewDidLoad Main")
         self.tapRec = UITapGestureRecognizer()
         tapRec.addTarget( self, action: "tapHandler:")
         tapRec.numberOfTapsRequired = 1
@@ -99,9 +79,6 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
             }
         }
         database.close()
-//        scanner.size(layout.collectionViewContentSize())
-//        scanner = ScanController(size: layout.collectionViewContentSize())  // get size of the collection view
-
     }
     
     /* *****************************************************************************************************
@@ -135,8 +112,8 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selectedIndexPath = indexPath
-        println("index path \(selectedIndexPath)")
     }
+    
     /* *******************************************************************************************************
     *	Returns the number of items in each section of the collection view... We are only using one section.
     ******************************************************************************************************** */
