@@ -34,6 +34,7 @@ public class ScanController
     
     func initialization()
     {
+        clearAllButtonSelections()
         timer.invalidate()
         index = 0
         startIndex = 0
@@ -225,7 +226,7 @@ public class ScanController
             {
                 index = cellArray.count - 1
             }
-                        
+            
             (cellArray[index] as ButtonCell).selected = true
             (cellArray[index] as ButtonCell).highlighted = true
             (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
