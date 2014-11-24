@@ -8,11 +8,11 @@
 
 import Foundation
 
-class ScanController
+public class ScanController
 {
     
-    var cellArray: NSMutableArray = []	// stores ButtonCells
-    var size:CGSize
+    public var cellArray: NSMutableArray = []	// stores ButtonCells
+    var size:CGSize!
     var timer = NSTimer()
     var timeInterval: Double = 0.0	// used as scan rate - from settings
     var buttonBorderColor = 0	// from settings
@@ -25,12 +25,34 @@ class ScanController
     var secondStageOfSelection = false
     var endIndex = 0
     var startIndex = 0
+    public class var sharedInstance: ScanController{
+        struct SharedInstance {
+            static let instance = ScanController()
+        }
+        return SharedInstance.instance
+    }
     
-    
-    init(size: CGSize)
+    func initialization()
     {
+        timer.invalidate()
+        index = 0
+        startIndex = 0
+        endIndex = 0
+        secondStageOfSelection = false
+        elementScanningCounter = 0
+        cellArray.removeAllObjects()
+    }
+    
+    func size(size: CGSize)
+    {
+        println("scanner INIT")
+        initialization()
         self.size = size
-        
+        update()
+    }
+
+    func update()
+    {
         var defaults = NSUserDefaults.standardUserDefaults()
         self.timeInterval = defaults.doubleForKey("scanRate")
         self.buttonStyle = defaults.integerForKey("buttonStyle")
@@ -40,13 +62,10 @@ class ScanController
         self.scanMode = defaults.integerForKey("scanMode")
         setScanMode()
     }
-
-
     
     func addCell(cell: ButtonCell)
     {
         self.cellArray.addObject(cell)
-        println(cellArray.count)
     }
     
     /****************************************************************************************************
@@ -54,6 +73,7 @@ class ScanController
     ************************************************************************************************** */
     @objc func serialScan()
     {
+        println("cell count  \(cellArray.count)")
         if( cellArray.count > 0)
         {
             var next = 0
@@ -82,7 +102,10 @@ class ScanController
 //            index = next
 //            if( createButton.selected == false)
 //            {
+
                 index = next  // set index to currently selected button to be used for playing audio
+                println(index)
+
                 (cellArray[next] as ButtonCell).selected = true
                 (cellArray[next] as ButtonCell).highlighted = true
                 (cellArray[next] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
@@ -107,7 +130,6 @@ class ScanController
     {
         var cellWidth = Constants.getCellSize(buttonSize).width
         var cellHeight = Constants.getCellSize(buttonSize).height
-//        var size = collectionViewLayout.collectionViewContentSize()
         var numbtns:Int = Int( (size.width-15)/(cellWidth+15) )
         var numbtnsHeight:Int = Int( (size.height-15)/(cellHeight+15) + 0.5)	// add .5 so that it rounds to the nearest integer, not always down
         
@@ -169,7 +191,6 @@ class ScanController
     {
         var cellHeight = Constants.getCellSize(buttonSize).height
         var cellWidth = Constants.getCellSize(buttonSize).width
-//        var size = collectionViewLayout.collectionViewContentSize()
         var numbtnsWidth:Int = Int( (size.width-15)/(cellWidth+15) )
         var numbtnsHeight:Int = Int( (size.height-15)/(cellHeight+15) + 0.5)	// add .5 so that it rounds to the nearest integer, not always down
         
@@ -200,7 +221,6 @@ class ScanController
         }
         else	// executed if it is the second stage of the scanning process
         {
-            
             index = startIndex * numbtnsWidth + elementScanningCounter // calculates proper array for scanning buttons in a column
             
             // if the calculated index is larger than the deck size, set the index equal to the last element in the deck
@@ -208,6 +228,8 @@ class ScanController
             {
                 index = cellArray.count - 1
             }
+            
+//            println("column index \(index)\n")
             
             (cellArray[index] as ButtonCell).selected = true
             (cellArray[index] as ButtonCell).highlighted = true
@@ -218,7 +240,12 @@ class ScanController
             // If at the last button or at the end of the row, reset the scanning counter to 0
             // Have to also check if its the last button, because for rows that aren't completely full of buttons
             // The test for button width fails because numbtnsWidth holds the number of buttons that can fit
-            if(index == cellArray.count - 1 || index == numbtnsWidth - 1  )
+            
+            var tmp = Double(index + 1)
+            var tmp2 = Double(numbtnsWidth)
+            var row:Int = Int(ceil(tmp/tmp2))
+            
+            if(index != 0 && (index == cellArray.count - 1 || index == row * numbtnsWidth - 1) )//index == numbtnsWidth - 1  )
             {
                 elementScanningCounter = 0
             }
@@ -251,10 +278,10 @@ class ScanController
     ************************************************************************************************* */
     func setScanMode()
     {
+        timer.invalidate()
         switch scanMode
         {
         case 0:
-//            timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: "serialScan", userInfo: nil, repeats: true)
             timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("serialScan"), userInfo: nil, repeats: true)
         case 1:
             timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("blockScan"), userInfo: nil, repeats: true)
@@ -273,12 +300,15 @@ class ScanController
     *   plays the audio. If a different scan mode, it checks if it was the first tap or second tap. First tap changes
     *   scan mode, second selection, makes the selection.
     *********************************************************************************************************** */
-    func selectionMade()
+    func selectionMade(playAudio: Bool)
     {
         timer.invalidate()
         if(scanMode == 0) // if serial scan, make selection
         {
-            (cellArray[index] as ButtonCell).buttonPressRelease(self)
+            if( playAudio)
+            {
+                (cellArray[index] as ButtonCell).buttonPressRelease(self)
+            }
             (cellArray[index] as ButtonCell).selected = false
             (cellArray[index] as ButtonCell).layer.borderWidth = 0
         }
@@ -286,7 +316,10 @@ class ScanController
         {
             if( secondStageOfSelection)
             {
-                (cellArray[index] as ButtonCell).buttonPressRelease(self)
+                if( playAudio)
+                {
+                    (cellArray[index] as ButtonCell).buttonPressRelease(self)
+                }
                 (cellArray[index] as ButtonCell).selected = false
                 (cellArray[index] as ButtonCell).layer.borderWidth = 0
             }

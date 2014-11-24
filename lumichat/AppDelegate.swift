@@ -21,11 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool
 	{
 		// Setup stock database
-		var array1 = [1, "Expressions", "expressions"]
-		var array2 = [2, "Social", "social"]
-		var array3 = [3, "Entertainment", "entertainment"]
-		var array4 = [4, "Compliments", "compliments"]
-		
 		let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
 		let docsPath: String = paths
 		let path = docsPath.stringByAppendingPathComponent("UserDatabase.sqlite")
@@ -33,24 +28,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		database.open()
 		
 //		If there three lines are uncommented then the three DB tables will be deleted and then recreated with stock values
-//		database.executeUpdate("DROP TABLE categories", withArgumentsInArray: nil)
-//		database.executeUpdate("DROP TABLE social", withArgumentsInArray: nil)
-//		database.executeUpdate("DROP TABLE expressions", withArgumentsInArray: nil)
-
+		database.executeUpdate("DROP TABLE categories", withArgumentsInArray: nil)
+		database.executeUpdate("DROP TABLE social", withArgumentsInArray: nil)
+		database.executeUpdate("DROP TABLE expressions", withArgumentsInArray: nil)
+        database.executeUpdate("DROP TABLE pain_scale", withArgumentsInArray: nil)
+        database.executeUpdate("DROP TABLE body_parts", withArgumentsInArray: nil)
+        
 		if(!database.tableExists("categories"))
 		{
-			database.executeUpdate("CREATE TABLE categories(position int primary key, cell text, link text)", withArgumentsInArray: nil)
-			database.executeUpdate("INSERT INTO categories(position, cell, link) values(?, ?, ?)", withArgumentsInArray: array1)
-			database.executeUpdate("INSERT INTO categories(position, cell, link) values(?, ?, ?)", withArgumentsInArray: array2)
-			database.executeUpdate("INSERT INTO categories(position, cell, link) values(?, ?, ?)", withArgumentsInArray: array3)
-			database.executeUpdate("INSERT INTO categories(position, cell, link) values(?, ?, ?)", withArgumentsInArray: array4)
+            // categories
+            var link1 = [0, "Expressions", "expressions", "buttonTest.jpg", 0]
+            var link2 = [1, "Social", "social",  "buttonTest.jpg", 0]
+            var link3 = [2, "Entertainment", "entertainment", "buttonTest.jpg", 0]
+            var link4 = [3, "Compliments", "compliments", "buttonTest.jpg", 0]
+            var link5 = [4, "Pain Scale", "pain_scale", "buttonTest.jpg", 0]
+            var link6 = [5, "Body Parts", "body_parts", "buttonTest.jpg", 0]
+//			database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
+            database.executeUpdate("CREATE TABLE IF NOT EXISTS categories(number INT primary key, title TEXT, link TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
+            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
+            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link2)
+            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link3)
+            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link4)
+            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link5)
+            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link6)
+
 		
-		
-			var link1 = [0, "Im Hungry", "", "buttonTest.jpg", 0]
-			var link2 = [1, "Im Thirsty", "",  "buttonTest.jpg", 0]
-			var link3 = [2, "Im Tired", "", "buttonTest.jpg", 0]
-			var link4 = [3, "Please Help Me", "", "buttonTest.jpg", 0]
-			var link5 = [4, "Im Hungry", "", "buttonTest.jpg", 0]
+            // expressions
+			link1 = [0, "Im Hungry", "", "buttonTest.jpg", 0]
+			link2 = [1, "Im Thirsty", "",  "buttonTest.jpg", 0]
+			link3 = [2, "Im Tired", "", "buttonTest.jpg", 0]
+			link4 = [3, "Please Help Me", "", "buttonTest.jpg", 0]
+			link5 = [4, "Im Hungry", "", "buttonTest.jpg", 0]
 //			database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
 			database.executeUpdate("CREATE TABLE IF NOT EXISTS expressions(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
 			database.executeUpdate("INSERT INTO expressions(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
@@ -59,15 +67,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			database.executeUpdate("INSERT INTO expressions(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link4)
 			database.executeUpdate("INSERT INTO expressions(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link5)
 
-
+            // social
 			link1 = [0, "Hello", "", "buttonTest.jpg", 0]
 			link2 = [1, "Goodbye", "", "buttonTest.jpg", 0]
 			database.executeUpdate("CREATE TABLE IF NOT EXISTS social(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
 			database.executeUpdate("INSERT INTO social(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
 			database.executeUpdate("INSERT INTO social(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link2)
+            
+            //Body parts
+            link1 = [0, "Head", "My head hurts", "buttonTest.jpg", 0]
+            link2 = [1, "Hand", "My hand hurts",  "buttonTest.jpg", 0]
+            link3 = [2, "Foot", "My foot hurts", "buttonTest.jpg", 0]
+            link4 = [3, "Arm", "My arm hurts", "buttonTest.jpg", 0]
+            link5 = [4, "Ear", "My ear hurts", "buttonTest.jpg", 0]
+            link6 = [5, "Eye", "My eye hurts", "buttonTest.jpg", 0]
+            var link7 = [6, "Mouth", "My mouth hurts",  "buttonTest.jpg", 0]
+            var link8 = [7, "Throat", "My throat hurts", "buttonTest.jpg", 0]
+            var link9 = [8, "Back", "My back hurts", "buttonTest.jpg", 0]
+            var link10 = [9, "Leg", "My leg hurts", "buttonTest.jpg", 0]
+            database.executeUpdate("CREATE TABLE IF NOT EXISTS body_parts(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
+            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
+            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link2)
+            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link3)
+            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link4)
+            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link5)
+            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link6)
+            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link7)
+            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link8)
+            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link9)
+            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link10)
+            
+            //Pain Scale
+            link1 = [0, "1", "My pain is at level 1", "buttonTest.jpg", 0]
+            link2 = [1, "2", "My pain is at level 2",  "buttonTest.jpg", 0]
+            link3 = [2, "3", "My pain is at level 3", "buttonTest.jpg", 0]
+            link4 = [3, "4", "My pain is at level 4", "buttonTest.jpg", 0]
+            link5 = [4, "5", "My pain is at level 5", "buttonTest.jpg", 0]
+            link6 = [5, "6", "My pain is at level 6", "buttonTest.jpg", 0]
+            link7 = [6, "7", "My pain is at level 7",  "buttonTest.jpg", 0]
+            link8 = [7, "8", "My pain is at level 8", "buttonTest.jpg", 0]
+            link9 = [8, "9", "My pain is at level 9", "buttonTest.jpg", 0]
+            link10 = [9, "10", "My pain is at level 10", "buttonTest.jpg", 0]
+            database.executeUpdate("CREATE TABLE IF NOT EXISTS pain_scale(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
+            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
+            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link2)
+            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link3)
+            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link4)
+            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link5)
+            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link6)
+            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link7)
+            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link8)
+            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link9)
+            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link10)
 		}
 		database.close()
-		
 		return true
 	}
 

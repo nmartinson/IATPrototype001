@@ -33,8 +33,9 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 		self.button = UIButton.buttonWithType(.System) as UIButton
 		imageString = btn.titleForState(.Selected)!
         sentenceString = btn.titleForState(.Highlighted)
+        var title = btn.titleForState( .Normal)!
         
-        var image:UIImage? = loadImage(btn.titleForState(.Normal)!)
+        var image:UIImage? = loadImage(title)
 		
 		if( image != nil)
 		{
@@ -103,19 +104,20 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	
 	func loadImage(title: String!) -> UIImage
 	{
-		if !( title == "Im Hungry" || title == "Im Thirsty" || title == "Im Tired" || title == "Please Help Me" || title == "Hello" || title == "Goodbye" )
-		{
-            var formattedTitle = title.stringByReplacingOccurrencesOfString(" ", withString: "_")
-            formattedTitle = formattedTitle + ".jpg"
-			let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-			let path = documentDirectory.stringByAppendingPathComponent("\(formattedTitle)")
-			var image = UIImage(named:path)
-			return image!
-		}
-		else
-		{
+//        println(title)
+//        if !( title == "Expressions" || title == "Social" || title == "Compliments" || title == "Entertainment" || title == "Im Hungry" || title == "Im Thirsty" || title == "Im Tired" || title == "Please Help Me" || title == "Hello" || title == "Goodbye" || title == "1" || title == "2" || title == "3" || title == "4" || title == "5" || title == "6" || title == "7" || title == "8" || title == "9" || title == "Head" || title == "Hand" || title == "Foot" || title == "Arm" || title == "Ear" || title == "Eye" || title == "Mouth" || title == "Throat" || title == "Back" || title == "Leg")
+//		{
+//            var formattedTitle = title.stringByReplacingOccurrencesOfString(" ", withString: "_")
+//            formattedTitle = formattedTitle + ".jpg"
+//			let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+//			let path = documentDirectory.stringByAppendingPathComponent("\(formattedTitle)")
+//			var image = UIImage(named:path)
+//			return image!
+//		}
+//		else
+//		{
 			return UIImage(named: "buttonTest.jpg")!
-		}
+//		}
 	}
 	
 }

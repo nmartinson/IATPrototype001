@@ -35,6 +35,7 @@
 		2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */; };
 		2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */; };
 		2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */; };
+		2BBCFE651A0576F500AE8BA6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXCollectionViewController1.swift; sourceTree = "<group>"; };
 		2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
 		2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
+		2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ../MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 		2BBCFDE61A052C1E00AE8BA6 /* lumichat */ = {
 			isa = PBXGroup;
 			children = (
+				2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */,
 				2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */,
 				2BBCFE491A052D5A00AE8BA6 /* TableViewController.swift */,
 				2BBCFE4A1A052D5A00AE8BA6 /* DetailViewController.swift */,
@@ -266,6 +269,7 @@
 				TargetAttributes = {
 					2BBCFDE31A052C1E00AE8BA6 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = QTYS96LR2E;
 					};
 					2BBCFDFC1A052C1E00AE8BA6 = {
 						CreatedOnToolsVersion = 6.1;
@@ -335,6 +339,7 @@
 				2BBCFE5E1A052D5A00AE8BA6 /* ScannerDrawer.swift in Sources */,
 				2BBCFE341A052CAB00AE8BA6 /* FMDatabase.m in Sources */,
 				2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */,
+				2BBCFE651A0576F500AE8BA6 /* MainViewController.swift in Sources */,
 				2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */,
 				2BBCFE591A052D5A00AE8BA6 /* Constants.swift in Sources */,
 				2BBCFE331A052CAB00AE8BA6 /* FMDatabasePool.m in Sources */,
@@ -457,9 +462,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = lumichat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "lumichat/lumichat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -470,9 +479,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = lumichat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "lumichat/lumichat-Bridging-Header.h";
 			};
 			name = Release;
@@ -530,6 +543,7 @@
 				2BBCFE091A052C1E00AE8BA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2BBCFE0A1A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "lumichatTests" */ = {
 			isa = XCConfigurationList;
@@ -538,6 +552,7 @@
 				2BBCFE0C1A052C1E00AE8BA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

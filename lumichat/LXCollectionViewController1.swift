@@ -14,8 +14,10 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 	@IBOutlet weak var navBarTitle: UINavigationItem!
 	@IBOutlet weak var createButton: UIButton!
 	@IBOutlet weak var scannerDrawer: ScannerDrawer!
+    @IBOutlet var collectionview: UICollectionView!
 	
-    var scanner:ScanController!
+    var layout:LXReorderableCollectionViewFlowLayout!
+    var scanner = ScanController.sharedInstance
 	var deck: NSMutableArray = []	// stores buttons
 	var uibutton = UIButton.buttonWithType(.System) as UIButton
 	var navBar = ""	// stores the title for the navigation bar
@@ -38,15 +40,18 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 	var index = 0
 	var imagePath:String = ""
 	var image:UIImage!
-	
+
+    
+    
 	/************************************************************************************************
 	*	Gets called immediately when this view is loaded.  It configures all the necessary components
 	*********************************************************************************************** */
 	override func viewDidLoad()
 	{
 		super.viewDidLoad()
-		
-		
+        
+//        scanner.cellArray.removeAllObjects()
+        
 		self.tapRec = UITapGestureRecognizer()
 		tapRec.addTarget( self, action: "tapHandler:")
 		tapRec.numberOfTapsRequired = 1
@@ -54,7 +59,7 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		self.view.addGestureRecognizer(tapRec)
 		
 //		navBarTitle.title = navBar
-		var layout = self.collectionView.collectionViewLayout as LXReorderableCollectionViewFlowLayout
+		layout = self.collectionView.collectionViewLayout as LXReorderableCollectionViewFlowLayout
 		layout.minimumInteritemSpacing = CGFloat(15)
 		layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
 		// Pull in all the data stored in the settings
@@ -70,6 +75,7 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		database.open()
 		var results = FMResultSet()
 		
+        link = link.stringByReplacingOccurrencesOfString(" ", withString: "_").lowercaseString
 		// If a DB table exists for the current category, extract all the button information
 		if(database.tableExists("\(link)"))
 		{
@@ -95,7 +101,8 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		}
         
 		database.close()
-        scanner = ScanController(size: layout.collectionViewContentSize())  // get size of the collection view
+        scanner.size(layout.collectionViewContentSize())
+//        scanner = ScanController(size: layout.collectionViewContentSize())  // get size of the collection view
 	}
 	
 	/* ************************************************************************************************
@@ -201,7 +208,7 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
             mutablePath = "buttonTest.jpg"
 //            UIImageJPEGRepresentation(data["image"] as? UIImage, 1).writeToFile(mutablePath, atomically: true)
         }
-
+        println(link)
         
         var array = [deck.count, data["title"] as String, data["description"] as String, mutablePath as String, 1]
 		
@@ -314,7 +321,7 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
     *********************************************************************************************************** */
 	func tapHandler(gesture: UITapGestureRecognizer)
 	{
-        scanner.selectionMade()
+        scanner.selectionMade(true)
 	}
 
 }
