@@ -28,14 +28,14 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     *   .Selected = image path
     *   .Normal = button title
 	************************************************************************************************ */
-	func setup(btn: UIButton) {
-		
+	func setup(btn: UIButton)
+    {
 		self.button = UIButton.buttonWithType(.System) as UIButton
 		imageString = btn.titleForState(.Selected)!
         sentenceString = btn.titleForState(.Highlighted)
         var title = btn.titleForState( .Normal)!
         
-        var image:UIImage? = loadImage(title)
+        var image:UIImage? = loadImage(imageString)
 		
 		if( image != nil)
 		{
@@ -47,7 +47,8 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	/* ************************************************************************************************
 	*	Gets called when the button is pressed down. Makes the image slightly transparent
 	************************************************************************************************ */
-	@IBAction func buttonPressDown(sender: AnyObject) {
+	@IBAction func buttonPressDown(sender: AnyObject)
+    {
 		self.buttonImageView.alpha = 0.2
 	}
 	
@@ -56,18 +57,18 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	*	Gets called when the button is release.  Makes image opaque and calls the function to play the 
 	*	audio clip.
 	************************************************************************************************ */
-	@IBAction func buttonPressRelease(sender: AnyObject) {
+	@IBAction func buttonPressRelease(sender: AnyObject)
+    {
 		self.buttonImageView.alpha = 1
-        
 		playMyFile(buttonLabel.text!)
-		
 	}
 	
 	/* ************************************************************************************************
 	*	Gets called when the press is cancel: when the press turns out to be for dragging the button or
 	*	if they drag their finger off the button and release. Restores button to opaque.
 	************************************************************************************************ */
-	@IBAction func buttonPressCanceled(sender: AnyObject) {
+	@IBAction func buttonPressCanceled(sender: AnyObject)
+    {
 		self.buttonImageView.alpha = 1
 	}
 	
@@ -102,22 +103,14 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	}
 	
 	
+    /* ************************************************************************************************
+    *	Loads the specified image that is in the database for that button
+    ************************************************************************************************ */
 	func loadImage(title: String!) -> UIImage
 	{
-//        println(title)
-//        if !( title == "Expressions" || title == "Social" || title == "Compliments" || title == "Entertainment" || title == "Im Hungry" || title == "Im Thirsty" || title == "Im Tired" || title == "Please Help Me" || title == "Hello" || title == "Goodbye" || title == "1" || title == "2" || title == "3" || title == "4" || title == "5" || title == "6" || title == "7" || title == "8" || title == "9" || title == "Head" || title == "Hand" || title == "Foot" || title == "Arm" || title == "Ear" || title == "Eye" || title == "Mouth" || title == "Throat" || title == "Back" || title == "Leg")
-//		{
-//            var formattedTitle = title.stringByReplacingOccurrencesOfString(" ", withString: "_")
-//            formattedTitle = formattedTitle + ".jpg"
-//			let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-//			let path = documentDirectory.stringByAppendingPathComponent("\(formattedTitle)")
-//			var image = UIImage(named:path)
-//			return image!
-//		}
-//		else
-//		{
-			return UIImage(named: "buttonTest.jpg")!
-//		}
+        var image = UIImage(contentsOfFile: title)
+
+        return image!
 	}
 	
 }

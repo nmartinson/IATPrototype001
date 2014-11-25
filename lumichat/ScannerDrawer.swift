@@ -23,7 +23,6 @@ class ScannerDrawer: UIView
 	{
 		self.cellSize.width = Constants.getCellSize(index).width
 		self.cellSize.height = Constants.getCellSize(index).height
-		
 	}
 	
 	/* *******************************************************************
@@ -38,8 +37,7 @@ class ScannerDrawer: UIView
 		var whiteSpace = ((size.width - btnspace)/CGFloat(numbtns))
 		dx = whiteSpace/CGFloat(numbtns - 1)
 		println("WS \(whiteSpace) btns \(numbtns) dx \(dx)")
-//		println(numbtns)
-//		println(dx)
+
 		
 		switch scanMode
 		{

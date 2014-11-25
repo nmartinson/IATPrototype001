@@ -25,6 +25,7 @@ public class ScanController
     var secondStageOfSelection = false
     var endIndex = 0
     var startIndex = 0
+    
     public class var sharedInstance: ScanController{
         struct SharedInstance {
             static let instance = ScanController()

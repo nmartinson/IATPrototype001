@@ -197,9 +197,12 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		let database = FMDatabase(path: path)
 		database.open()
         var mutablePath = data["path"] as String
+//        mutablePath = mutablePath + ".jpg"
         if (mutablePath == "")
         {
-            mutablePath = "buttonTest.jpg"
+            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+            let imagePath = documentDirectory.stringByAppendingPathComponent("buttonTest.jpg")
+            mutablePath = imagePath
 //            UIImageJPEGRepresentation(data["image"] as? UIImage, 1).writeToFile(mutablePath, atomically: true)
         }
         
@@ -211,7 +214,7 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		
 		var button = UIButton.buttonWithType(.System) as UIButton
 		button.setTitle(data["title"] as? String, forState: .Normal)
-        button.setTitle("descrition", forState: .Highlighted)
+        button.setTitle("description", forState: .Highlighted)
 		
 		// Change button tiltle
 		button.setTitle(mutablePath, forState: .Selected)	// Stores the image string
@@ -251,6 +254,7 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 	******************************************************************************************************* */
 	override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
 	{
+        println("cell for item")
 		var button = self.deck[indexPath.item] as UIButton
 		var buttonCell = collectionView.dequeueReusableCellWithReuseIdentifier("PlayingCardCell", forIndexPath: indexPath) as ButtonCell
 		buttonCell.setup(button)

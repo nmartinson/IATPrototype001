@@ -11,7 +11,6 @@ import Foundation
 import UIKit
 import MobileCoreServices
 
-
 class CreateButtonViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
     @IBOutlet weak var textDescription: UITextView!
@@ -23,12 +22,12 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
 	@IBOutlet weak var buttonImage: UIImageView!
 	var data = ["title":"", "description":"", "path":"", "image":UIImage()]
 	
-	override func viewDidLoad() {
+	override func viewDidLoad()
+    {
 		super.viewDidLoad()
         textDescription.layer.cornerRadius = 8
         textDescription.layer.borderWidth = 0.4
         textDescription.layer.borderColor = UIColor.lightGrayColor().CGColor
-        
 	}
 	
 	/* *******************************************************************************************************
@@ -39,9 +38,11 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
 	@IBAction func takePhotoPressed(sender: AnyObject)
 	{
-		
 		if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
 		{
 			var imag = UIImagePickerController()
@@ -56,7 +57,11 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
 		}
 	}
 	
-	func imagePickerController(picker: UIImagePickerController!,didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
+	func imagePickerController(picker: UIImagePickerController!,didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!)
+    {
 		//  let selectedImage : UIImage = image
 		self.capturedImage = image
 		buttonImage.image = self.capturedImage
@@ -68,7 +73,10 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
 //	}
 	
 	
-	
+    /* ************************************************************************************************
+    *	Gets called when a segue is about to take place going back to the collection view
+    *   Passes the new button data back to the LXCollectionViewController
+    ************************************************************************************************ */
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
 	{
 		if segue.identifier == "fromCreate"
@@ -89,16 +97,34 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
 		}
 	}
 	
+    
+    /* *******************************************************************************************************
+    *	Saves image to a new 'image' directory in the Documents directory.
+    ******************************************************************************************************* */
 	func saveImage(image: UIImage?, title: String) -> String
 	{
 		if (image != nil)
 		{
+ 
 			let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-			let path = documentDirectory.stringByAppendingPathComponent("\(title).jpg")
-			let data = UIImageJPEGRepresentation(image, 1)
-			println(path)
-			data.writeToFile(path, atomically: true)
-			return path
+			var path = documentDirectory.stringByAppendingPathComponent("images") // append images to the directory string
+            
+            if(!NSFileManager.defaultManager().fileExistsAtPath(path))
+            {
+                var error:NSError?
+                if(!NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &error)) // create new images directory
+                {
+                    if (error != nil)
+                    {
+                        println("Create directory error \(error)")
+                    }
+                }
+            }
+            
+            path = path.stringByAppendingString("/\(title).jpg") // append the image name with .jpg extension
+			let data = UIImageJPEGRepresentation(image, 1) //create data from jpeg
+            NSFileManager.defaultManager().createFileAtPath(path, contents: data, attributes: nil) // write data to file
+            return path
 		}
 		return ""
 	}
@@ -112,8 +138,6 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
 	{
 		if( buttonTitleField.text != "")
 		{
-//			self.availableData?(data: buttonTitleField.text!)
-
 			performSegueWithIdentifier("fromCreate", sender: self)
 		}
 		else

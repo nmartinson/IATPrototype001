@@ -65,7 +65,6 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
                 var num = results.intForColumn("number")
                 var title = results.stringForColumn("title") as String!
                 var image = results.stringForColumn("image")
-//                var link = results.stringForColumn("link")
                 
                 // If there really is data, configure the button and add it to the array of buttons
                 if(title != nil)
@@ -130,7 +129,8 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
     
     
     /* *******************************************************************************************************
-    *
+    *   Gets called when the collection view is reloaded and the view is being populated. This handles
+    *   presenting the selected button style.
     ******************************************************************************************************* */
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
@@ -201,6 +201,9 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
         }
     }
     
+    /* ************************************************************************************************
+    *	This is
+    ************************************************************************************************ */
     func tapHandler(gesture: UITapGestureRecognizer)
     {
         scanner.selectionMade(false)
