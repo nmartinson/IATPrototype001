@@ -35,6 +35,13 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
     
     override func viewDidLoad()
     {
+        var pathForZip = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
+        let zipPath = pathForZip.stringByAppendingPathComponent("images/files.zip")
+        let filesPath = pathForZip.stringByAppendingPathComponent("images")
+//        var inputPaths = NSArray.a
+        SSZipArchive.createZipFileAtPath(zipPath, withContentsOfDirectory: filesPath)
+        
+        
         self.tapRec = UITapGestureRecognizer()
         tapRec.addTarget( self, action: "tapHandler:")
         tapRec.numberOfTapsRequired = 1

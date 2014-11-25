@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B017F241A25011600008235 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B017F1A1A25011600008235 /* ioapi.c */; };
+		2B017F251A25011600008235 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B017F1C1A25011600008235 /* mztools.c */; };
+		2B017F261A25011600008235 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B017F1E1A25011600008235 /* unzip.c */; };
+		2B017F271A25011600008235 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B017F201A25011600008235 /* zip.c */; };
+		2B017F281A25011600008235 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B017F231A25011600008235 /* SSZipArchive.m */; };
 		2BBCFDF51A052C1E00AE8BA6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */; };
 		2BBCFDF81A052C1E00AE8BA6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF61A052C1E00AE8BA6 /* LaunchScreen.xib */; };
 		2BBCFE041A052C1E00AE8BA6 /* lumichatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE031A052C1E00AE8BA6 /* lumichatTests.swift */; };
@@ -49,6 +54,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B017F191A25011600008235 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		2B017F1A1A25011600008235 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		2B017F1B1A25011600008235 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		2B017F1C1A25011600008235 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		2B017F1D1A25011600008235 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		2B017F1E1A25011600008235 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		2B017F1F1A25011600008235 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		2B017F201A25011600008235 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		2B017F211A25011600008235 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		2B017F221A25011600008235 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		2B017F231A25011600008235 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		2BBCFDE41A052C1E00AE8BA6 /* lumichat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lumichat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBCFDE81A052C1E00AE8BA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -110,6 +126,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B017F171A25011600008235 /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				2B017F181A25011600008235 /* minizip */,
+				2B017F221A25011600008235 /* SSZipArchive.h */,
+				2B017F231A25011600008235 /* SSZipArchive.m */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		2B017F181A25011600008235 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				2B017F191A25011600008235 /* crypt.h */,
+				2B017F1A1A25011600008235 /* ioapi.c */,
+				2B017F1B1A25011600008235 /* ioapi.h */,
+				2B017F1C1A25011600008235 /* mztools.c */,
+				2B017F1D1A25011600008235 /* mztools.h */,
+				2B017F1E1A25011600008235 /* unzip.c */,
+				2B017F1F1A25011600008235 /* unzip.h */,
+				2B017F201A25011600008235 /* zip.c */,
+				2B017F211A25011600008235 /* zip.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
 		2BBCFDDB1A052C1E00AE8BA6 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +174,7 @@
 		2BBCFDE61A052C1E00AE8BA6 /* lumichat */ = {
 			isa = PBXGroup;
 			children = (
+				2B017F171A25011600008235 /* SSZipArchive */,
 				2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */,
 				2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */,
 				2BBCFE491A052D5A00AE8BA6 /* TableViewController.swift */,
@@ -330,18 +373,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B017F261A25011600008235 /* unzip.c in Sources */,
 				2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */,
 				2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */,
 				2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */,
 				2BBCFE561A052D5A00AE8BA6 /* TableViewController.swift in Sources */,
 				2BBCFE291A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
+				2B017F271A25011600008235 /* zip.c in Sources */,
 				2BBCFE361A052CAB00AE8BA6 /* FMResultSet.m in Sources */,
 				2BBCFE5E1A052D5A00AE8BA6 /* ScannerDrawer.swift in Sources */,
+				2B017F251A25011600008235 /* mztools.c in Sources */,
 				2BBCFE341A052CAB00AE8BA6 /* FMDatabase.m in Sources */,
 				2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */,
 				2BBCFE651A0576F500AE8BA6 /* MainViewController.swift in Sources */,
+				2B017F241A25011600008235 /* ioapi.c in Sources */,
 				2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */,
 				2BBCFE591A052D5A00AE8BA6 /* Constants.swift in Sources */,
+				2B017F281A25011600008235 /* SSZipArchive.m in Sources */,
 				2BBCFE331A052CAB00AE8BA6 /* FMDatabasePool.m in Sources */,
 				2BBCFE351A052CAB00AE8BA6 /* FMDatabaseAdditions.m in Sources */,
 				2BBCFE581A052D5A00AE8BA6 /* SettingsViewController.swift in Sources */,
