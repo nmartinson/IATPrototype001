@@ -14,6 +14,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
 	var window: UIWindow?
 
+    /* *******************************************************************************************************
+    *	Saves image to a new 'image' directory in the Documents directory.
+    ******************************************************************************************************* */
+    func saveImage(image: UIImage?, title: String) -> String
+    {
+        if (image != nil)
+        {
+            
+            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+            var path = documentDirectory.stringByAppendingPathComponent("images") // append images to the directory string
+            
+            if(!NSFileManager.defaultManager().fileExistsAtPath(path))
+            {
+                var error:NSError?
+                if(!NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &error)) // create new images directory
+                {
+                    if (error != nil)
+                    {
+                        println("Create directory error \(error)")
+                    }
+                }
+            }
+            
+            path = path.stringByAppendingString("/\(title).jpg") // append the image name with .jpg extension
+            let data = UIImageJPEGRepresentation(image, 1) //create data from jpeg
+            NSFileManager.defaultManager().createFileAtPath(path, contents: data, attributes: nil) // write data to file
+            let imagePath = "images/\(title).jpg" // return only the path that is appended to the 'documents' path
+            return imagePath
+        }
+        return ""
+    }
 
 	/* *******************************************************************************************************************
 	*	This is the very fist method to be called within the app that we have access to.
@@ -37,10 +68,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 		if(!database.tableExists("categories"))
 		{
-            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-            let imagePath = documentDirectory.stringByAppendingPathComponent("buttonTest.jpg")
-            let data = UIImageJPEGRepresentation(UIImage(named: "buttonTest.jpg"), 1)
-            data.writeToFile(imagePath, atomically: true)
+            var image = UIImage(named: "buttonTest.jpg")
+            var imagePath = saveImage(image, title: "buttonTest")
+            
+            
+//            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+//            let imagePath = documentDirectory.stringByAppendingPathComponent("buttonTest.jpg")
+//            let data = UIImageJPEGRepresentation(UIImage(named: "buttonTest.jpg"), 1)
+//            data.writeToFile(imagePath, atomically: true)
             // categories
             var link1 = [0, "Expressions", "expressions", imagePath, 0]
             var link2 = [1, "Social", "social",  imagePath, 0]

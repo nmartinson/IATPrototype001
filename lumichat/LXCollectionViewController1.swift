@@ -42,6 +42,16 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 	var image:UIImage!
 
     
+    override func viewWillAppear(animated: Bool) {
+        println("view will")
+//        collectionview.reloadData()
+
+        scanner.size(layout.collectionViewContentSize())
+        //        var defaults = NSUserDefaults.standardUserDefaults()
+        //        buttonSize = defaults.integerForKey("buttonSize")
+        //        buttonStyle = defaults.integerForKey("buttonStyle")
+        //        setButtonSize()
+    }
     
 	/************************************************************************************************
 	*	Gets called immediately when this view is loaded.  It configures all the necessary components

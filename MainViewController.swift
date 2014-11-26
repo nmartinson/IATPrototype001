@@ -23,7 +23,6 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
     var selectedIndexPath:NSIndexPath!
     var tapRec: UITapGestureRecognizer!
 
-
     override func viewWillAppear(animated: Bool) {
         scanner.size(layout.collectionViewContentSize())
         collectionview.reloadData()
@@ -35,11 +34,15 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
     
     override func viewDidLoad()
     {
+        println("About to zip")
         var pathForZip = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-        let zipPath = pathForZip.stringByAppendingPathComponent("images/files.zip")
-        let filesPath = pathForZip.stringByAppendingPathComponent("images")
-//        var inputPaths = NSArray.a
-        SSZipArchive.createZipFileAtPath(zipPath, withContentsOfDirectory: filesPath)
+        let zipPath:NSString = pathForZip.stringByAppendingString("/images/files.zip")
+        let filesPath:NSString = pathForZip.stringByAppendingString("images/buttonTest.jpg")
+        var array:NSArray = [filesPath]
+        var err:NSError? = NSError()
+        var newPath = NSURL.fileURLWithPath(zipPath)
+        SSZipArchive.createZipFileAtPath(zipPath, withFilesAtPaths: array)
+        println("zipped")
         
         
         self.tapRec = UITapGestureRecognizer()

@@ -108,7 +108,11 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     ************************************************************************************************ */
 	func loadImage(title: String!) -> UIImage
 	{
-        var image = UIImage(contentsOfFile: title)
+        println(title)
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let imagePath = documentDirectory.stringByAppendingPathComponent(title)
+        println(imagePath)
+        var image = UIImage(contentsOfFile: imagePath)
 
         return image!
 	}

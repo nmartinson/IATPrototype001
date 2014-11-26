@@ -98,14 +98,47 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
 	}
 	
     
+    func imageWithImage(image: UIImage) -> UIImage
+    {
+        var actualHeight = image.size.height;
+        var actualWidth = image.size.width;
+        var imgRatio = actualWidth/actualHeight;
+        var maxRatio:CGFloat = 320.0/480.0;
+        
+        if(imgRatio != maxRatio){
+            if(imgRatio < maxRatio){
+                imgRatio = 480.0 / actualHeight;
+                actualWidth = imgRatio * actualWidth;
+                actualHeight = 480.0;
+            }
+            else{
+                imgRatio = 320.0 / actualWidth;
+                actualHeight = imgRatio * actualHeight;
+                actualWidth = 320.0;
+            }
+        }
+        var newSize = CGSizeMake(actualWidth, actualHeight)
+        UIGraphicsBeginImageContext(newSize)
+        image.drawInRect(CGRectMake(0,0, newSize.width, newSize.height))
+        var newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+    
+    
+    
     /* *******************************************************************************************************
     *	Saves image to a new 'image' directory in the Documents directory.
     ******************************************************************************************************* */
 	func saveImage(image: UIImage?, title: String) -> String
 	{
+        
 		if (image != nil)
 		{
- 
+            
+            var newImage = imageWithImage(image!)
+            
 			let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
 			var path = documentDirectory.stringByAppendingPathComponent("images") // append images to the directory string
             
@@ -122,9 +155,12 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
             }
             
             path = path.stringByAppendingString("/\(title).jpg") // append the image name with .jpg extension
-			let data = UIImageJPEGRepresentation(image, 1) //create data from jpeg
-            NSFileManager.defaultManager().createFileAtPath(path, contents: data, attributes: nil) // write data to file
-            return path
+			let data = UIImageJPEGRepresentation(newImage, 1) //create data from jpeg
+            
+            NSFileManager.defaultManager().createFileAtPath(path, contents: data, attributes: nil) // write data to file...content was data
+            
+            let imagePath = "images/\(title).jpg" // return only the path that is appended to the 'documents' path
+            return imagePath
 		}
 		return ""
 	}
