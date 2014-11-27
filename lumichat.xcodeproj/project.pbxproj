@@ -116,7 +116,6 @@
 		2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
 		2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ../MainViewController.swift; sourceTree = "<group>"; };
-		2BD6A6D71A2509CF00A3CBA3 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		2BD6A6D91A25457000A3CBA3 /* zipzap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = zipzap.xcodeproj; path = zipzap/zipzap.xcodeproj; sourceTree = SOURCE_ROOT; };
 		2BD6A6E91A25534300A3CBA3 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		2BD6A6EA1A25534300A3CBA3 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
@@ -156,7 +155,6 @@
 			isa = PBXGroup;
 			children = (
 				2BD6A6F91A25536B00A3CBA3 /* libz.dylib */,
-				2BD6A6D71A2509CF00A3CBA3 /* libz.1.2.5.dylib */,
 				2BBCFE461A052CD400AE8BA6 /* libsqlite3.0.dylib */,
 				2BBCFDE61A052C1E00AE8BA6 /* lumichat */,
 				2BBCFE001A052C1E00AE8BA6 /* lumichatTests */,
