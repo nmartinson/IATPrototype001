@@ -52,27 +52,6 @@
 			remoteGlobalIDString = 2BBCFDE31A052C1E00AE8BA6;
 			remoteInfo = lumichat;
 		};
-		2BD6A6DF1A25457000A3CBA3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2BD6A6D91A25457000A3CBA3 /* zipzap.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D899CF82162C5EC100112F49;
-			remoteInfo = "zipzap (OS X)";
-		};
-		2BD6A6E11A25457000A3CBA3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2BD6A6D91A25457000A3CBA3 /* zipzap.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D899CFB0162C5EEB00112F49;
-			remoteInfo = "zipzap (iOS)";
-		};
-		2BD6A6E31A25457000A3CBA3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2BD6A6D91A25457000A3CBA3 /* zipzap.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D899CF96162C5EC100112F49;
-			remoteInfo = zipzapTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -116,7 +95,6 @@
 		2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
 		2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ../MainViewController.swift; sourceTree = "<group>"; };
-		2BD6A6D91A25457000A3CBA3 /* zipzap.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = zipzap.xcodeproj; path = zipzap/zipzap.xcodeproj; sourceTree = SOURCE_ROOT; };
 		2BD6A6E91A25534300A3CBA3 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		2BD6A6EA1A25534300A3CBA3 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
 		2BD6A6EB1A25534300A3CBA3 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
@@ -196,7 +174,6 @@
 				2BBCFDF61A052C1E00AE8BA6 /* LaunchScreen.xib */,
 				2BBCFDE71A052C1E00AE8BA6 /* Supporting Files */,
 				2BBCFE0D1A052C4D00AE8BA6 /* lumichat-Bridging-Header.h */,
-				2BD6A6D91A25457000A3CBA3 /* zipzap.xcodeproj */,
 			);
 			path = lumichat;
 			sourceTree = "<group>";
@@ -262,16 +239,6 @@
 				2BBCFE3E1A052CC200AE8BA6 /* Please_Help_Me.wav */,
 			);
 			name = Audio;
-			sourceTree = "<group>";
-		};
-		2BD6A6DA1A25457000A3CBA3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2BD6A6E01A25457000A3CBA3 /* libzipzap.a */,
-				2BD6A6E21A25457000A3CBA3 /* libzipzap.a */,
-				2BD6A6E41A25457000A3CBA3 /* zipzapTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		2BD6A6E71A25534300A3CBA3 /* SSZipArchive */ = {
@@ -369,12 +336,6 @@
 			mainGroup = 2BBCFDDB1A052C1E00AE8BA6;
 			productRefGroup = 2BBCFDE51A052C1E00AE8BA6 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 2BD6A6DA1A25457000A3CBA3 /* Products */;
-					ProjectRef = 2BD6A6D91A25457000A3CBA3 /* zipzap.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				2BBCFDE31A052C1E00AE8BA6 /* lumichat */,
@@ -382,30 +343,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		2BD6A6E01A25457000A3CBA3 /* libzipzap.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libzipzap.a;
-			remoteRef = 2BD6A6DF1A25457000A3CBA3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2BD6A6E21A25457000A3CBA3 /* libzipzap.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libzipzap.a;
-			remoteRef = 2BD6A6E11A25457000A3CBA3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2BD6A6E41A25457000A3CBA3 /* zipzapTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = zipzapTests.xctest;
-			remoteRef = 2BD6A6E31A25457000A3CBA3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		2BBCFDE21A052C1E00AE8BA6 /* Resources */ = {
