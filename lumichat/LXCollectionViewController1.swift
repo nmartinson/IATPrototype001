@@ -42,15 +42,10 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 	var image:UIImage!
 
     
-    override func viewWillAppear(animated: Bool) {
-        println("view will")
-//        collectionview.reloadData()
-
-        scanner.size(layout.collectionViewContentSize())
-        //        var defaults = NSUserDefaults.standardUserDefaults()
-        //        buttonSize = defaults.integerForKey("buttonSize")
-        //        buttonStyle = defaults.integerForKey("buttonStyle")
-        //        setButtonSize()
+    override func viewWillAppear(animated: Bool)
+    {
+        collectionview.reloadData()
+        scanner.reloadData(layout.collectionViewContentSize())
     }
     
 	/************************************************************************************************
@@ -60,6 +55,14 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 	{
 		super.viewDidLoad()
         
+        // Pull in all the data stored in the settings
+        var defaults = NSUserDefaults.standardUserDefaults()
+        buttonSize = defaults.integerForKey("buttonSize")
+        buttonStyle = defaults.integerForKey("buttonStyle")
+        setButtonSize()
+        
+        deck.removeAllObjects()
+        cellArray.removeAllObjects()
 		self.tapRec = UITapGestureRecognizer()
 		tapRec.addTarget( self, action: "tapHandler:")
 		tapRec.numberOfTapsRequired = 1
@@ -70,10 +73,6 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		layout = self.collectionView.collectionViewLayout as LXReorderableCollectionViewFlowLayout
 		layout.minimumInteritemSpacing = CGFloat(15)
 		layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
-		// Pull in all the data stored in the settings
-		var defaults = NSUserDefaults.standardUserDefaults()
-		buttonSize = defaults.integerForKey("buttonSize")
-		setButtonSize()
 		
 		var path = createDBPath()
 		let database = FMDatabase(path: path)
@@ -106,7 +105,6 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		}
         
 		database.close()
-        scanner.size(layout.collectionViewContentSize())
 	}
 	
 	/* ************************************************************************************************
@@ -145,6 +143,28 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 	}
 	
 	
+    func collectionViewReordered()
+    {
+        let path = createDBPath()
+        let database = FMDatabase(path: path)
+        database.open()
+        database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
+        database.executeUpdate("CREATE TABLE \(link)(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
+        
+        var counter = 0
+        for item in cellArray
+        {
+            var title = (item as ButtonCell).buttonLabel.text!
+            var image = (item as ButtonCell).imageString
+            var description = (item as ButtonCell).sentenceString
+            var array = [counter, title, description, image, 1 ]
+            database.executeUpdate("INSERT INTO \(link)(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
+            counter++
+        }
+        database.close()
+    }
+
+    
 	/* ******************************************************************************************************
 	*	Updates the database if the buttons were reordered
 	******************************************************************************************************* */
@@ -203,19 +223,12 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 	************************************************************************************************************* */
     func wordEntered(data: [String: NSObject])
 	{
-		let path = createDBPath()
+        scanner.cellArray.removeAllObjects()
+
+        let path = createDBPath()
 		let database = FMDatabase(path: path)
 		database.open()
         var mutablePath = data["path"] as String
-//        mutablePath = mutablePath + ".jpg"
-        if (mutablePath == "")
-        {
-            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-            let imagePath = documentDirectory.stringByAppendingPathComponent("buttonTest.jpg")
-            mutablePath = imagePath
-//            UIImageJPEGRepresentation(data["image"] as? UIImage, 1).writeToFile(mutablePath, atomically: true)
-        }
-        
         var array = [deck.count, data["title"] as String, data["description"] as String, mutablePath as String, 1]
 		
 		database.executeUpdate("CREATE TABLE IF NOT EXISTS \(link)(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
@@ -224,13 +237,14 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		
 		var button = UIButton.buttonWithType(.System) as UIButton
 		button.setTitle(data["title"] as? String, forState: .Normal)
-        button.setTitle("description", forState: .Highlighted)
+        button.setTitle(data["description"] as? String, forState: .Highlighted)
 		
-		// Change button tiltle
+		// Change button title
 		button.setTitle(mutablePath, forState: .Selected)	// Stores the image string
     
 		deck.addObject(button)
-		collectionView.reloadData()// update the collection view so that the new button shows up
+
+        collectionview.reloadData()
 	}
 	
 	/* *****************************************************************************************************
@@ -264,17 +278,16 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 	******************************************************************************************************* */
 	override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
 	{
-        println("cell for item")
-		var button = self.deck[indexPath.item] as UIButton
+        var button = self.deck[indexPath.item] as UIButton
 		var buttonCell = collectionView.dequeueReusableCellWithReuseIdentifier("PlayingCardCell", forIndexPath: indexPath) as ButtonCell
 		buttonCell.setup(button)
 
 		if( reordered == false)
 		{
 			cellArray.addObject(buttonCell)
-            scanner.addCell(buttonCell)
 		}
-		
+        scanner.addCell(buttonCell)
+
 		switch buttonStyle
 		{
 			case 0:
@@ -318,6 +331,14 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 			var button = self.deck[fromIndexPath.item] as UIButton
 			self.deck.removeObjectAtIndex(fromIndexPath.item)
 			self.deck.insertObject(button, atIndex: toIndexPath.item)
+            
+            var buttonCell = scanner.cellArray[fromIndexPath.item] as ButtonCell
+            scanner.cellArray.removeObjectAtIndex(fromIndexPath.item)
+            scanner.cellArray.insertObject(cell, atIndex: toIndexPath.item)
+            
+            collectionViewReordered()
+            collectionview.reloadData()
+            scanner.reloadData(layout.collectionViewContentSize())
 		}
 	}
 	

@@ -18,7 +18,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	@IBOutlet weak var button: UIButton!	// associates with the button press actions
 	@IBOutlet weak var buttonLabel : UILabel!	// displays the button title
 //	var player : AVAudioPlayer! = nil // used for speaking the audio files
-    var sentenceString:String!
+    var sentenceString:String = ""
 	var imageString = ""
 	var voice = AVSpeechSynthesizer()
 	
@@ -32,7 +32,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     {
 		self.button = UIButton.buttonWithType(.System) as UIButton
 		imageString = btn.titleForState(.Selected)!
-        sentenceString = btn.titleForState(.Highlighted)
+        sentenceString = btn.titleForState(.Highlighted)!
         var title = btn.titleForState( .Normal)!
         
         var image:UIImage? = loadImage(imageString)
@@ -108,10 +108,8 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     ************************************************************************************************ */
 	func loadImage(title: String!) -> UIImage
 	{
-        println(title)
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         let imagePath = documentDirectory.stringByAppendingPathComponent(title)
-        println(imagePath)
         var image = UIImage(contentsOfFile: imagePath)
 
         return image!

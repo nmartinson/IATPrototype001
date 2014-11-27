@@ -85,19 +85,17 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
             data["title"] = buttonTitleField.text as String
             data["description"] = textDescription.text as String
             
-			if( self.capturedImage != nil)
-			{
-				data["image"] = self.capturedImage as UIImage
-                var path = saveImage(self.capturedImage, title: data["title"] as String)
-                data["path"] = path as String
-			}
+            var path = saveImage(self.capturedImage, title: data["title"] as String)
+            data["path"] = path as String
             
             self.availableData?(data: data)
             self.dismissViewControllerAnimated(true, completion: nil)
 		}
 	}
 	
-    
+    /* ************************************************************************************************
+    *	Compress image size
+    ************************************************************************************************ */
     func imageWithImage(image: UIImage) -> UIImage
     {
         var actualHeight = image.size.height;
@@ -126,34 +124,38 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
         return newImage
     }
     
-    
+    /* ************************************************************************************************
+    *	Create a new directory to store the images in
+    ************************************************************************************************ */
+    func createDirectory(directory: String) -> String
+    {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        var path = documentDirectory.stringByAppendingPathComponent(directory) // append images to the directory string
+        
+        if(!NSFileManager.defaultManager().fileExistsAtPath(path))
+        {
+            var error:NSError?
+            if(!NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &error)) // create new images directory
+            {
+                if (error != nil)
+                {
+                    println("Create directory error \(error)")
+                }
+            }
+        }
+        return path
+    }
     
     /* *******************************************************************************************************
     *	Saves image to a new 'image' directory in the Documents directory.
     ******************************************************************************************************* */
 	func saveImage(image: UIImage?, title: String) -> String
 	{
+        var path = createDirectory("images")
         
 		if (image != nil)
 		{
-            
             var newImage = imageWithImage(image!)
-            
-			let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-			var path = documentDirectory.stringByAppendingPathComponent("images") // append images to the directory string
-            
-            if(!NSFileManager.defaultManager().fileExistsAtPath(path))
-            {
-                var error:NSError?
-                if(!NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &error)) // create new images directory
-                {
-                    if (error != nil)
-                    {
-                        println("Create directory error \(error)")
-                    }
-                }
-            }
-            
             path = path.stringByAppendingString("/\(title).jpg") // append the image name with .jpg extension
 			let data = UIImageJPEGRepresentation(newImage, 1) //create data from jpeg
             
@@ -162,7 +164,10 @@ class CreateButtonViewController: UIViewController, UIImagePickerControllerDeleg
             let imagePath = "images/\(title).jpg" // return only the path that is appended to the 'documents' path
             return imagePath
 		}
-		return ""
+        else
+        {
+            return "images/buttonTest.jpg"
+        }
 	}
 	
 	/* *******************************************************************************************************

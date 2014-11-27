@@ -23,9 +23,10 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
     var selectedIndexPath:NSIndexPath!
     var tapRec: UITapGestureRecognizer!
 
-    override func viewWillAppear(animated: Bool) {
-        scanner.size(layout.collectionViewContentSize())
+    override func viewWillAppear(animated: Bool)
+    {
         collectionview.reloadData()
+        scanner.reloadData(layout.collectionViewContentSize())
         var defaults = NSUserDefaults.standardUserDefaults()
         buttonSize = defaults.integerForKey("buttonSize")
         buttonStyle = defaults.integerForKey("buttonStyle")
@@ -34,15 +35,17 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
     
     override func viewDidLoad()
     {
-        println("About to zip")
+        buttons.removeAllObjects()
+        cellArray.removeAllObjects()
+//        println("About to zip")
         var pathForZip = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
         let zipPath:NSString = pathForZip.stringByAppendingString("/images/files.zip")
         let filesPath:NSString = pathForZip.stringByAppendingString("images/buttonTest.jpg")
         var array:NSArray = [filesPath]
-        var err:NSError? = NSError()
-        var newPath = NSURL.fileURLWithPath(zipPath)
-        SSZipArchive.createZipFileAtPath(zipPath, withFilesAtPaths: array)
-        println("zipped")
+//        var err:NSError? = NSError()
+//        var newPath = NSURL.fileURLWithPath(zipPath)
+//        SSZipArchive.createZipFileAtPath(zipPath, withFilesAtPaths: array)
+//        println("zipped")
         
         
         self.tapRec = UITapGestureRecognizer()
@@ -50,11 +53,6 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
         tapRec.numberOfTapsRequired = 1
         tapRec.numberOfTouchesRequired = 1
         self.view.addGestureRecognizer(tapRec)
-        
-        var defaults = NSUserDefaults.standardUserDefaults()
-        buttonSize = defaults.integerForKey("buttonSize")
-
-        setButtonSize()
         
         layout = self.collectionView.collectionViewLayout as LXReorderableCollectionViewFlowLayout
         layout.minimumInteritemSpacing = CGFloat(15)
@@ -138,6 +136,27 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
     }
     
     
+    func collectionViewReordered()
+    {
+        let path = createDBPath()
+        let database = FMDatabase(path: path)
+        database.open()
+        database.executeUpdate("DROP TABLE categories", withArgumentsInArray: nil)
+        database.executeUpdate("CREATE TABLE categories(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
+        
+        var counter = 0
+        for item in cellArray
+        {
+            var title = (item as ButtonCell).buttonLabel.text!
+            var image = (item as ButtonCell).imageString
+            var description = (item as ButtonCell).sentenceString
+            var array = [counter, title, description, image, 1 ]
+            database.executeUpdate("INSERT INTO categories(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
+            counter++
+        }
+        database.close()
+    }
+    
     /* *******************************************************************************************************
     *   Gets called when the collection view is reloaded and the view is being populated. This handles
     *   presenting the selected button style.
@@ -151,8 +170,9 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
         if( reordered == false)
         {
             cellArray.addObject(buttonCell)
-            scanner.addCell(buttonCell)
         }
+        scanner.addCell(buttonCell)
+
 
         switch buttonStyle
         {
@@ -208,6 +228,14 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
             var button = self.buttons[fromIndexPath.item] as UIButton
             self.buttons.removeObjectAtIndex(fromIndexPath.item)
             self.buttons.insertObject(button, atIndex: toIndexPath.item)
+            
+            var buttonCell = scanner.cellArray[fromIndexPath.item] as ButtonCell
+            scanner.cellArray.removeObjectAtIndex(fromIndexPath.item)
+            scanner.cellArray.insertObject(cell, atIndex: toIndexPath.item)
+            
+            collectionViewReordered()
+            collectionview.reloadData()
+            scanner.reloadData(layout.collectionViewContentSize())
         }
     }
     

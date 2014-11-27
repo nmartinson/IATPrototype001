@@ -33,23 +33,23 @@ public class ScanController
         return SharedInstance.instance
     }
     
+    func reloadData(size: CGSize)
+    {
+        initialization()
+        cellArray.removeAllObjects()
+        self.size = size
+        update()
+    }
+    
     func initialization()
     {
-        clearAllButtonSelections()
         timer.invalidate()
+        clearAllButtonSelections()
         index = 0
         startIndex = 0
         endIndex = 0
         secondStageOfSelection = false
         elementScanningCounter = 0
-        cellArray.removeAllObjects()
-    }
-    
-    func size(size: CGSize)
-    {
-        initialization()
-        self.size = size
-        update()
     }
 
     func update()
