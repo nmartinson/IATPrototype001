@@ -1,16 +1,16 @@
 //
-//  MainViewController.swift
+//  CollectionViewBase.swift
 //  lumichat
 //
-//  Created by Nick Martinson on 11/1/14.
+//  Created by Nick Martinson on 11/27/14.
 //  Copyright (c) 2014 Nick Martinson. All rights reserved.
 //
 
 import Foundation
-import UIKit
 
-class MainViewController : UICollectionViewController, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout
+class CollectionViewBase: UICollectionViewController, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout
 {
+    
     var layout:LXReorderableCollectionViewFlowLayout!
     var fromIndexPath: NSIndexPath!
     var reordered = false	// gets set true if a button has changed positions - indicates to update DB
@@ -19,64 +19,8 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
     var cellArray: NSMutableArray = []	// stores ButtonCells
     var scanner = ScanController.sharedInstance
     var buttonSize = 0	// from settings
-    @IBOutlet weak var collectionview: UICollectionView!
     var selectedIndexPath:NSIndexPath!
-    var tapRec: UITapGestureRecognizer!
 
-    override func viewWillAppear(animated: Bool)
-    {
-        collectionview.reloadData()
-        scanner.reloadData(layout.collectionViewContentSize())
-        var defaults = NSUserDefaults.standardUserDefaults()
-        buttonSize = defaults.integerForKey("buttonSize")
-        buttonStyle = defaults.integerForKey("buttonStyle")
-        setButtonSize()
-    }
-    
-    override func viewDidLoad()
-    {
-        buttons.removeAllObjects()
-        cellArray.removeAllObjects()
-        
-        self.tapRec = UITapGestureRecognizer()
-        tapRec.addTarget( self, action: "tapHandler:")
-        tapRec.numberOfTapsRequired = 1
-        tapRec.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(tapRec)
-        
-        layout = self.collectionView.collectionViewLayout as LXReorderableCollectionViewFlowLayout
-        layout.minimumInteritemSpacing = CGFloat(15)
-        layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
-        
-        var path = createDBPath()
-        let database = FMDatabase(path: path)
-        database.open()
-        var results = FMResultSet()
-        
-        // If a DB table exists for the current category, extract all the button information
-        if(database.tableExists("categories"))
-        {
-            results = database.executeQuery("SELECT * FROM categories",withArgumentsInArray: nil)
-            
-            while( results.next() )
-            {
-                var num = results.intForColumn("number")
-                var title = results.stringForColumn("title") as String!
-                var image = results.stringForColumn("image")
-                
-                // If there really is data, configure the button and add it to the array of buttons
-                if(title != nil)
-                {
-                    var button = UIButton.buttonWithType(.System) as UIButton
-                    button.setTitle(title, forState: .Normal)
-                    button.setTitle(image, forState: .Selected)	// Stores the image string
-                    button.setTitle("", forState: .Highlighted)
-                    buttons.addObject(button)
-                }
-            }
-        }
-        database.close()
-    }
     
     /* *****************************************************************************************************
     *	Creates and returns the file path to the database
@@ -87,24 +31,6 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
         let docsPath: String = paths
         let path = docsPath.stringByAppendingPathComponent("UserDatabase.sqlite")
         return path
-    }
-    
-    
-    /* *******************************************************************************************************************
-    *	Gets called automatically when a row in the table gets selected.  It passes the name of the row to the view
-    *	controller that is about to be presented (LXCollectionViewController1), which is used as the name of the DB table
-    *	that stores the buttons associated with that row name.
-    ******************************************************************************************************************* */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
-    {
-        if segue.identifier == "showDetail"
-        {
-            var index = scanner.index
-            var title = buttons[index].titleForState(.Normal)!
-            let detailsViewController = segue.destinationViewController as LXCollectionViewController1
-            detailsViewController.navBar = title
-            detailsViewController.link = title.lowercaseString
-        }
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -160,14 +86,14 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
         var button = self.buttons[indexPath.item] as UIButton
         var buttonCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as ButtonCell
         buttonCell.setup(button)
-
+        
         if( reordered == false)
         {
             cellArray.addObject(buttonCell)
         }
         scanner.addCell(buttonCell)
-
-
+        
+        
         switch buttonStyle
         {
         case 0:
@@ -230,18 +156,6 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
             collectionViewReordered()
             collectionview.reloadData()
             scanner.reloadData(layout.collectionViewContentSize())
-        }
-    }
-    
-    /* ************************************************************************************************
-    *	This is
-    ************************************************************************************************ */
-    func tapHandler(gesture: UITapGestureRecognizer)
-    {
-        scanner.selectionMade(false)
-        if( scanner.secondStageOfSelection == false)
-        {
-            performSegueWithIdentifier("showDetail", sender: self)
         }
     }
 }

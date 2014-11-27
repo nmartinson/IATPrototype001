@@ -107,30 +107,6 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		database.close()
 	}
 	
-	/* ************************************************************************************************
-	*	Sets the button size
-	*	0 = serial scan
-	*	1 = block scan
-	*	2 = row column scan
-	*	3 = column row scan
-	************************************************************************************************* */
-	func setScanMode()
-	{
-		switch scanMode
-		{
-			case 0:
-				timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("serialScan"), userInfo: nil, repeats: true)
-			case 1:
-				timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("blockScan"), userInfo: nil, repeats: true)
-			case 2:
-				timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("rowScan"), userInfo: nil, repeats: true)
-			case 3:
-				timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("columnScan"), userInfo: nil, repeats: true)
-			default:
-				println("Error")
-		}
-	}
-	
 	/* *************************************************************************************************
 	*	Sets the button size
 	*	0 = small button
@@ -142,7 +118,9 @@ class LXCollectionViewController1: UICollectionViewController, LXReorderableColl
 		(self.collectionViewLayout as UICollectionViewFlowLayout).itemSize = Constants.getCellSize(buttonSize)
 	}
 	
-	
+    /* *******************************************************************************************************
+    *	Updates the database when the buttons are reordered
+    ******************************************************************************************************** */
     func collectionViewReordered()
     {
         let path = createDBPath()

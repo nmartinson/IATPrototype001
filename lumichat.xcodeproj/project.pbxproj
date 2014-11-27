@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B061AA11A279E640078DB6B /* Zipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B061AA01A279E640078DB6B /* Zipping.swift */; };
+		2B061AA31A27A5380078DB6B /* CollectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */; };
 		2BBCFDF51A052C1E00AE8BA6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */; };
 		2BBCFDF81A052C1E00AE8BA6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF61A052C1E00AE8BA6 /* LaunchScreen.xib */; };
 		2BBCFE041A052C1E00AE8BA6 /* lumichatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE031A052C1E00AE8BA6 /* lumichatTests.swift */; };
@@ -57,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		2B061AA01A279E640078DB6B /* Zipping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zipping.swift; sourceTree = "<group>"; };
+		2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewBase.swift; sourceTree = "<group>"; };
 		2BBCFDE41A052C1E00AE8BA6 /* lumichat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lumichat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBCFDE81A052C1E00AE8BA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			children = (
 				2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */,
 				2B061AA01A279E640078DB6B /* Zipping.swift */,
+				2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */,
 				2BD6A6E71A25534300A3CBA3 /* SSZipArchive */,
 				2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */,
 				2BBCFE491A052D5A00AE8BA6 /* TableViewController.swift */,
@@ -392,6 +395,7 @@
 				2BBCFE5E1A052D5A00AE8BA6 /* ScannerDrawer.swift in Sources */,
 				2BD6A6F51A25534300A3CBA3 /* mztools.c in Sources */,
 				2B061AA11A279E640078DB6B /* Zipping.swift in Sources */,
+				2B061AA31A27A5380078DB6B /* CollectionViewBase.swift in Sources */,
 				2BBCFE341A052CAB00AE8BA6 /* FMDatabase.m in Sources */,
 				2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */,
 				2BBCFE651A0576F500AE8BA6 /* MainViewController.swift in Sources */,
