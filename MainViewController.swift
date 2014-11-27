@@ -33,19 +33,33 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
         setButtonSize()
     }
     
+    func getDirectory(path: String) -> [String]
+    {
+        var pathForZip = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
+        pathForZip = pathForZip.stringByAppendingPathComponent("images")
+        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(path, error: nil) as [String]
+        
+        for(var i = 0; i < directoryContents.count; i++)
+        {
+            directoryContents[i] = pathForZip.stringByAppendingString("/\(directoryContents[i])")
+        }
+        
+        return directoryContents
+    }
+    
     override func viewDidLoad()
     {
         buttons.removeAllObjects()
         cellArray.removeAllObjects()
-//        println("About to zip")
+        
+        
         var pathForZip = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-        let zipPath:NSString = pathForZip.stringByAppendingString("/images/files.zip")
-        let filesPath:NSString = pathForZip.stringByAppendingString("images/buttonTest.jpg")
-        var array:NSArray = [filesPath]
-//        var err:NSError? = NSError()
-//        var newPath = NSURL.fileURLWithPath(zipPath)
-//        SSZipArchive.createZipFileAtPath(zipPath, withFilesAtPaths: array)
-//        println("zipped")
+        let zipPath:NSString = pathForZip.stringByAppendingString("/files1.zip")    // specifies file to zip to
+        let unZipPath:NSString = pathForZip.stringByAppendingPathComponent("zipped2")   // directory to unzip to
+        var directoryForZip = pathForZip.stringByAppendingPathComponent("images")   // directory to zip up
+        var directoryContents = getDirectory(directoryForZip)   // gets the array of the file paths inside a directory
+        SSZipArchive.createZipFileAtPath(zipPath, withFilesAtPaths: directoryContents)  // zips up files
+        SSZipArchive.unzipFileAtPath(zipPath, toDestination: unZipPath) // unzips zip file to specified file path
         
         
         self.tapRec = UITapGestureRecognizer()
@@ -86,6 +100,29 @@ class MainViewController : UICollectionViewController, LXReorderableCollectionVi
             }
         }
         database.close()
+    }
+    
+    
+    /* ************************************************************************************************
+    *	Create a new directory to store the images in
+    ************************************************************************************************ */
+    func createDirectory(directory: String) -> String
+    {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        var path = documentDirectory.stringByAppendingPathComponent(directory) // append images to the directory string
+        
+        if(!NSFileManager.defaultManager().fileExistsAtPath(path))
+        {
+            var error:NSError?
+            if(!NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &error)) // create new images directory
+            {
+                if (error != nil)
+                {
+                    println("Create directory error \(error)")
+                }
+            }
+        }
+        return path
     }
     
     /* *****************************************************************************************************
