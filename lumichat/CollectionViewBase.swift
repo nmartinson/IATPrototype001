@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CollectionViewBase: UICollectionViewController, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout
 {
@@ -20,7 +21,83 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     var scanner = ScanController.sharedInstance
     var buttonSize = 0	// from settings
     var selectedIndexPath:NSIndexPath!
+    var collectionview:UICollectionView!
+    var tapRec: UITapGestureRecognizer!
+    var link:String!
 
+    // configures the default CollectionView element for manipulating
+    func setup(collectionview: UICollectionView)
+    {
+        self.collectionview = collectionview
+    }
+    
+    // sets the link for accessing the database for each page
+    func setLink(link: String)
+    {
+        self.link = link
+    }
+    
+    // configures the collection view layout
+    func setLayout()
+    {
+        layout = self.collectionView.collectionViewLayout as LXReorderableCollectionViewFlowLayout
+        layout.minimumInteritemSpacing = CGFloat(15)
+        layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
+    }
+    
+    //configures the tap recoginizer
+    func setTapRecognizer()
+    {
+        self.tapRec = UITapGestureRecognizer()
+        tapRec.addTarget( self, action: "tapHandler:")
+        tapRec.numberOfTapsRequired = 1
+        tapRec.numberOfTouchesRequired = 1
+        self.view.addGestureRecognizer(tapRec)
+    }
+    
+    // gets the users preferences for button size and style
+    func configureButtons()
+    {
+        // Pull in all the data stored in the settings
+        var defaults = NSUserDefaults.standardUserDefaults()
+        buttonSize = defaults.integerForKey("buttonSize")
+        buttonStyle = defaults.integerForKey("buttonStyle")
+        setButtonSize()
+    }
+    
+    // pulls buttons from the DB and configures the buttons
+    func getButtonsFromDB()
+    {
+        var path = createDBPath()
+        let database = FMDatabase(path: path)
+        database.open()
+        var results = FMResultSet()
+        
+        // If a DB table exists for the current category, extract all the button information
+        if(database.tableExists(link))
+        {
+            results = database.executeQuery("SELECT * FROM \(link)",withArgumentsInArray: nil)
+            
+            while( results.next() )
+            {
+                var num = results.intForColumn("number")
+                var title = results.stringForColumn("title") as String!
+                var image = results.stringForColumn("image")
+                
+                // If there really is data, configure the button and add it to the array of buttons
+                if(title != nil)
+                {
+                    var button = UIButton.buttonWithType(.System) as UIButton
+                    button.setTitle(title, forState: .Normal)
+                    button.setTitle(image, forState: .Selected)	// Stores the image string
+                    button.setTitle("", forState: .Highlighted)
+                    buttons.addObject(button)
+                }
+            }
+        }
+        database.close()
+    }
+    
     
     /* *****************************************************************************************************
     *	Creates and returns the file path to the database
@@ -61,8 +138,8 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         let path = createDBPath()
         let database = FMDatabase(path: path)
         database.open()
-        database.executeUpdate("DROP TABLE categories", withArgumentsInArray: nil)
-        database.executeUpdate("CREATE TABLE categories(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
+        database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
+        database.executeUpdate("CREATE TABLE \(link)(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
         
         var counter = 0
         for item in cellArray
@@ -71,7 +148,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             var image = (item as ButtonCell).imageString
             var description = (item as ButtonCell).sentenceString
             var array = [counter, title, description, image, 1 ]
-            database.executeUpdate("INSERT INTO categories(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
+            database.executeUpdate("INSERT INTO \(link)(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
             counter++
         }
         database.close()

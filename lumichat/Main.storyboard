@@ -390,20 +390,15 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" id="OMa-1I-DKe">
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tpS-3e-Hfp" customClass="LXReorderableCollectionViewFlowLayout">
                             <size key="itemSize" width="259" height="285"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
-                        <view key="backgroundView" contentMode="scaleToFill" id="lC3-qB-a4G" customClass="ScannerDrawer" customModule="lumichat" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <gestureRecognizers/>
-                        </view>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="PlayingCardCell" id="FWh-W3-QTS" customClass="ButtonCell" customModule="lumichat" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="Cell" id="FWh-W3-QTS" customClass="ButtonCell" customModule="lumichat" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -477,9 +472,9 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="collectionview" destination="OMa-1I-DKe" id="vAN-LD-EeL"/>
                         <outlet property="createButton" destination="B33-KR-ypG" id="1U3-pL-kK0"/>
-                        <outlet property="scannerDrawer" destination="lC3-qB-a4G" id="5sC-an-gB9"/>
+                        <outlet property="mycollectionview" destination="OMa-1I-DKe" id="S8Q-kH-hhL"/>
+                        <outlet property="navBarTitle" destination="0Jh-7M-7Qi" id="jzl-I1-W93"/>
                         <segue destination="goa-2O-Mno" kind="presentation" identifier="toCreate" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="hfV-Ss-mMe"/>
                     </connections>
                 </collectionViewController>
@@ -679,7 +674,7 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="collectionview" destination="QcH-Ed-9AX" id="c4L-vQ-Aqa"/>
+                        <outlet property="mycollectionview" destination="QcH-Ed-9AX" id="7OF-NT-ZH2"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iMc-7u-B5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -706,7 +701,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="fam-ls-WgV"/>
-        <segue reference="c7c-T8-ZLr"/>
+        <segue reference="7ib-8h-G5Y"/>
+        <segue reference="Qvx-oy-Jgf"/>
     </inferredMetricsTieBreakers>
 </document>
