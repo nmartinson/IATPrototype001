@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 class CollectionViewBase: UICollectionViewController, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout
 {
     
@@ -24,6 +25,8 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     var collectionview:UICollectionView!
     var tapRec: UITapGestureRecognizer!
     var link:String!
+    var editMode = false
+    
 
     // configures the default CollectionView element for manipulating
     func setup(collectionview: UICollectionView)
@@ -40,7 +43,8 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     // configures the collection view layout
     func setLayout()
     {
-        layout = self.collectionView.collectionViewLayout as LXReorderableCollectionViewFlowLayout
+        layout = self.collectionview.collectionViewLayout as LXReorderableCollectionViewFlowLayout
+//        layout = self.collectionView.collectionViewLayout as LXReorderableCollectionViewFlowLayout
         layout.minimumInteritemSpacing = CGFloat(15)
         layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
     }
@@ -234,5 +238,15 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             collectionview.reloadData()
             scanner.reloadData(layout.collectionViewContentSize())
         }
+    }
+    
+    /* ***********************************************************************************************************
+    *	Gets called when the user taps the screen. If using srial scan, it calls for the button to pressed, which
+    *   plays the audio. If a different scan mode, it checks if it was the first tap or second tap. First tap changes
+    *   scan mode, second selection, makes the selection.
+    *********************************************************************************************************** */
+    func tapHandler(gesture: UITapGestureRecognizer)
+    {
+        scanner.selectionMade(true)
     }
 }

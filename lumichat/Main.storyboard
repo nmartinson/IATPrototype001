@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="h77-gn-o2c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="h77-gn-o2c">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -244,6 +244,13 @@
                                     <action selector="buttonSizeSegmentChanged:" destination="UnG-nU-UUH" eventType="valueChanged" id="ZZJ-ZK-HJK"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8QZ-e2-5tE">
+                                <rect key="frame" x="31" y="492" width="115" height="30"/>
+                                <state key="normal" title="Export Database"/>
+                                <connections>
+                                    <action selector="exportDatabaseButtonPressed:" destination="UnG-nU-UUH" eventType="touchUpInside" id="t3A-sa-j7O"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -373,6 +380,7 @@
                         <outlet property="borderWidthSlider" destination="3vh-yY-PLT" id="T6r-zh-6t3"/>
                         <outlet property="buttonSizeSegment" destination="dzh-l0-sja" id="lsT-W9-4Xs"/>
                         <outlet property="colorPicker" destination="u4X-LP-KqU" id="CYJ-Cr-3Yx"/>
+                        <outlet property="exportDatabase" destination="8QZ-e2-5tE" id="Jay-Qs-JTe"/>
                         <outlet property="scanModeSegment" destination="38s-zm-eCC" id="osx-kN-Kba"/>
                         <outlet property="scanRate" destination="7hG-HU-MOX" id="XaE-kr-zPT"/>
                         <outlet property="scanRateValue" destination="TaC-UI-icn" id="R7G-W8-Stn"/>
@@ -465,7 +473,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="createButtonPressed:" destination="PQf-Yc-u6v" eventType="touchUpInside" id="ZdG-eb-QRC"/>
+                                    <action selector="actionSheetButtonPressed:" destination="PQf-Yc-u6v" eventType="touchUpInside" id="o29-5k-iFJ"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -476,6 +484,7 @@
                         <outlet property="mycollectionview" destination="OMa-1I-DKe" id="S8Q-kH-hhL"/>
                         <outlet property="navBarTitle" destination="0Jh-7M-7Qi" id="jzl-I1-W93"/>
                         <segue destination="goa-2O-Mno" kind="presentation" identifier="toCreate" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="hfV-Ss-mMe"/>
+                        <segue destination="Y5s-32-vM2" kind="presentation" identifier="toEdit" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="00K-tD-kSu"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n7I-hZ-9ll" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -699,9 +708,111 @@
             </objects>
             <point key="canvasLocation" x="-1247" y="721"/>
         </scene>
+        <!--Edit Button Controller-->
+        <scene sceneID="7sj-HH-5UG">
+            <objects>
+                <viewController id="Y5s-32-vM2" customClass="EditButtonController" customModule="lumichat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DhJ-fm-5Ap"/>
+                        <viewControllerLayoutGuide type="bottom" id="2RK-be-HBP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2BK-GM-jUI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Button Title:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MKb-pI-8JS">
+                                <rect key="frame" x="38" y="68" width="94" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Fy-un-1GW">
+                                <rect key="frame" x="211" y="64" width="190" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4wL-hs-pFL">
+                                <rect key="frame" x="0.0" y="-6" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Edit Button" id="LQp-BR-d6F">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="HpD-z7-4wc">
+                                            <connections>
+                                                <action selector="cancelButton:" destination="Y5s-32-vM2" id="vS6-wN-JbR"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="z68-3A-UEc">
+                                            <connections>
+                                                <action selector="saveButton:" destination="Y5s-32-vM2" id="5Ud-J6-hWT"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBn-ZI-ahw">
+                                <rect key="frame" x="148" y="492" width="303" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Button Image:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpq-XD-Kmr">
+                                <rect key="frame" x="38" y="278" width="109" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Button Audio:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6g-e5-mNO">
+                                <rect key="frame" x="38" y="409" width="106" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5T-uj-xfH">
+                                <rect key="frame" x="211" y="278" width="109" height="30"/>
+                                <state key="normal" title="Take new photo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="takePhotoPressed:" destination="Y5s-32-vM2" eventType="touchUpInside" id="MVD-XB-Tr2"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2J6-4A-Mc3">
+                                <rect key="frame" x="329" y="278" width="106" height="101"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Text to Speak:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAn-Ok-RZF">
+                                <rect key="frame" x="38" y="139" width="110" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PP3-Y3-PUg">
+                                <rect key="frame" x="211" y="139" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="4wL-hs-pFL" secondAttribute="trailing" constant="-16" id="DQR-kv-JfA"/>
+                            <constraint firstItem="4wL-hs-pFL" firstAttribute="leading" secondItem="2BK-GM-jUI" secondAttribute="leadingMargin" constant="-16" id="RcF-qP-40I"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buttonImage" destination="2J6-4A-Mc3" id="JUy-9g-0Bg"/>
+                        <outlet property="buttonTitleField" destination="0Fy-un-1GW" id="le3-55-Gos"/>
+                        <outlet property="errorField" destination="NBn-ZI-ahw" id="vud-og-0hq"/>
+                        <outlet property="pictureButton" destination="2BK-GM-jUI" id="9nY-Zp-3Sx"/>
+                        <outlet property="textDescription" destination="PP3-Y3-PUg" id="uKo-1D-kGX"/>
+                        <segue destination="PQf-Yc-u6v" kind="show" identifier="fromEdit" id="dUX-u7-lmG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="927-wE-ORq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1333" y="925"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="7ib-8h-G5Y"/>
-        <segue reference="Qvx-oy-Jgf"/>
+        <segue reference="dUX-u7-lmG"/>
     </inferredMetricsTieBreakers>
 </document>

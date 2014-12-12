@@ -11,6 +11,10 @@ import Foundation
 import UIKit
 import AVFoundation
 
+protocol ButtonCellControllerDelegate
+{
+    func editButtonWasPressed(request: ButtonCell, didSucceed: Bool)
+}
 
 class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 {
@@ -21,7 +25,8 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     var sentenceString:String = ""
 	var imageString = ""
 	var voice = AVSpeechSynthesizer()
-	
+
+    
 	/* ************************************************************************************************
 	*	Initializes important data about the cell. Sets the image and label.
     *   .Highlighted = description
@@ -52,7 +57,6 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 		self.buttonImageView.alpha = 0.2
 	}
 	
-    
 	/* ************************************************************************************************
 	*	Gets called when the button is release.  Makes image opaque and calls the function to play the 
 	*	audio clip.
@@ -60,7 +64,16 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	@IBAction func buttonPressRelease(sender: AnyObject)
     {
 		self.buttonImageView.alpha = 1
-		playMyFile(buttonLabel.text!)
+        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        println(appDelegate.editMode)
+        if(appDelegate.editMode)
+        {
+            LXCollectionViewController1().buttonTitle = buttonLabel.text as String!
+        }
+        else
+        {
+            playMyFile(buttonLabel.text!)
+        }
 	}
 	
 	/* ************************************************************************************************

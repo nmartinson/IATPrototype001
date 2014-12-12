@@ -13,29 +13,24 @@ class MainViewController : CollectionViewBase
 {
     @IBOutlet var mycollectionview: UICollectionView!
 
-
     override func viewWillAppear(animated: Bool)
     {
+        setup(mycollectionview)
+        setLayout()
+        configureButtons()
         collectionview.reloadData()
         scanner.reloadData(layout.collectionViewContentSize())
-        configureButtons()
     }
     
     override func viewDidLoad()
     {
         buttons.removeAllObjects()
         cellArray.removeAllObjects()
-        
-        setup(mycollectionview)
-        setLayout()
+
         setTapRecognizer()
         setLink("categories")
-        
-
-        
         getButtonsFromDB()
     }
-    
     
     /* *******************************************************************************************************************
     *	Gets called automatically when a row in the table gets selected.  It passes the name of the row to the view
@@ -58,7 +53,7 @@ class MainViewController : CollectionViewBase
     /* ************************************************************************************************
     *	This is
     ************************************************************************************************ */
-    func tapHandler(gesture: UITapGestureRecognizer)
+    override func tapHandler(gesture: UITapGestureRecognizer)
     {
         scanner.selectionMade(false)
         if( scanner.secondStageOfSelection == false)

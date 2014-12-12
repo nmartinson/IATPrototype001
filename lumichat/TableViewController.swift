@@ -52,9 +52,9 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
 	{
 		if segue.identifier == "showDetail"
 		{
-			let indexPath = self.tableView.indexPathForSelectedRow()
+			let indexPath = self.tableView.indexPathForSelectedRow()!
 			let detailsViewController = segue.destinationViewController as LXCollectionViewController1
-			var title = self.tableView.cellForRowAtIndexPath(indexPath!)?.textLabel.text
+			var title = self.tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text
 			detailsViewController.navBar = title!
 //			detailsViewController.navBar = self.tableView.cellForRowAtIndexPath(indexPath).textLabel.text
 			detailsViewController.link = title!.lowercaseString
@@ -86,7 +86,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
 	******************************************************************************************************************* */
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		var cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as UITableViewCell
-		cell.textLabel.text = self.cellName[indexPath.row]
+		cell.textLabel?.text = self.cellName[indexPath.row]
 		
 		return cell
 	}

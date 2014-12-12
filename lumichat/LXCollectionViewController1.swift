@@ -18,9 +18,12 @@ class LXCollectionViewController1: CollectionViewBase
 	var navBar = ""	// stores the title for the navigation bar
 	var pageLink = ""	// stores the name of the row that was selected - used for DB table name
 	var timer = NSTimer()
+    var buttonTitle = ""
+
     
     override func viewWillAppear(animated: Bool)
     {
+        println("appear")
         collectionview.reloadData()
         scanner.reloadData(layout.collectionViewContentSize())
         configureButtons()
@@ -31,16 +34,18 @@ class LXCollectionViewController1: CollectionViewBase
 	*********************************************************************************************** */
 	override func viewDidLoad()
 	{
+        println("didload")
         buttons.removeAllObjects()
         cellArray.removeAllObjects()
-        pageLink = pageLink.stringByReplacingOccurrencesOfString(" ", withString: "_").lowercaseString
-		
+        pageLink = pageLink.stringByReplacingOccurrencesOfString(" ", withString: "_").stringByReplacingOccurrencesOfString("-", withString: "_").lowercaseString
 		navBarTitle.title = navBar
         setup(mycollectionview)
         setLayout()
         setLink(pageLink)
         setTapRecognizer()
         getButtonsFromDB()
+        configureButtons()
+
 	}
 
     
@@ -80,7 +85,8 @@ class LXCollectionViewController1: CollectionViewBase
 		if segue.identifier == "toCreate"
 		{
 			timer.invalidate()	// stop the scanner
-			if let viewController = segue.destinationViewController as? CreateButtonViewController{
+			if let viewController = segue.destinationViewController as? CreateButtonViewController
+            {
 				viewController.availableData = {[weak self]
 					(data) in
 					if let weakSelf = self{
@@ -89,12 +95,23 @@ class LXCollectionViewController1: CollectionViewBase
 				}
 			}
 		}
+        else if segue.identifier == "toEdit"
+        {
+            timer.invalidate()	// stop the scanner
+            if let viewController = segue.destinationViewController as? EditButtonController
+            {
+                viewController.link = buttonTitle
+                viewController.availableData = {[weak self]
+                    (data) in
+                    if let weakSelf = self{
+                        weakSelf.wordEntered(data)
+                    }
+                }
+            }
+        }
+
 	}
-	
-	@IBAction func createButtonPressed(sender: AnyObject)
-	{
-		performSegueWithIdentifier("toCreate", sender: self)
-	}
+
 	
 	/* ************************************************************************************************************
 	*	This function gets called when the user presses the save button when creating a new button. It inserts the
@@ -120,21 +137,53 @@ class LXCollectionViewController1: CollectionViewBase
 		
 		// Change button title
 		button.setTitle(mutablePath, forState: .Selected)	// Stores the image string
-    
 		buttons.addObject(button)
-
         collectionview.reloadData()
 	}
-	
-	
-    /* ***********************************************************************************************************
-    *	Gets called when the user taps the screen. If using srial scan, it calls for the button to pressed, which
-    *   plays the audio. If a different scan mode, it checks if it was the first tap or second tap. First tap changes
-    *   scan mode, second selection, makes the selection.
-    *********************************************************************************************************** */
-	func tapHandler(gesture: UITapGestureRecognizer)
-	{
-        scanner.selectionMade(true)
-	}
+
+    func createButtonPressed()
+    {
+        performSegueWithIdentifier("toCreate", sender: self)
+    }
+    
+    func editButtonPressed()
+    {
+        performSegueWithIdentifier("toEdit", sender: self)
+    }
+    
+    @IBAction func actionSheetButtonPressed(sender: AnyObject)
+    {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+            println("cancel")
+        }
+        alertController.addAction((cancelAction))
+        let createAction = UIAlertAction(title: "Create", style: .Default) { (action) -> Void in
+            self.createButtonPressed()
+        }
+        alertController.addAction(createAction)
+        let deleteAction = UIAlertAction(title: "Edit", style: .Destructive) { (action) -> Void in
+            var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            appDelegate.editMode = !appDelegate.editMode
+            if(appDelegate.editMode)
+            {
+                self.scanner.stopScan()
+                self.navBarTitle.title = self.navBarTitle.title?.stringByAppendingString(" (Edit Mode)")
+            }
+            else
+            {
+                self.navBarTitle.title = self.navBarTitle.title?.stringByReplacingOccurrencesOfString(" (Edit Mode)", withString: "")
+
+            }
+        }
+        alertController.addAction(deleteAction)
+        
+        alertController.popoverPresentationController?.sourceView = sender as UIView
+        self.presentViewController(alertController, animated: true) { () -> Void in
+            println("presented")
+        }
+    }
+    
+
 
 }

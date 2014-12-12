@@ -69,6 +69,12 @@ public class ScanController
         self.cellArray.addObject(cell)
     }
     
+    func stopScan()
+    {
+        clearAllButtonSelections()
+        timer.invalidate()
+    }
+    
     /****************************************************************************************************
     *	Serial Scanning	- Needs work so that the create and back buttons are in the scan
     ************************************************************************************************** */
@@ -132,52 +138,61 @@ public class ScanController
         var numbtns:Int = Int( (size.width-15)/(cellWidth+15) )
         var numbtnsHeight:Int = Int( (size.height-15)/(cellHeight+15) + 0.5)	// add .5 so that it rounds to the nearest integer, not always down
         
-        // Clear the previously selected items
-        clearAllButtonSelections()
-        
-        if( !secondStageOfSelection)
+        // if only one row of buttons, use serial scan
+        if( numbtnsHeight == 1)
         {
-            startIndex = endIndex
-            if( endIndex == cellArray.count)
-            {
-                endIndex = 0
-                startIndex = 0
-            }
-            if(endIndex+numbtns < cellArray.count)
-            {
-                endIndex += numbtns
-            }
-            else
-            {
-                endIndex = cellArray.count
-            }
-            
-            for(var i = startIndex; i < endIndex; i++)
-            {
-                (cellArray[i] as ButtonCell).selected = true
-                (cellArray[i] as ButtonCell).highlighted = true
-                (cellArray[i] as ButtonCell).layer.borderWidth = buttonBorderWidth
-                (cellArray[i] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
-            }
+            scanMode = 0
+            serialScan()
         }
         else
         {
-            index = startIndex + numbtns * elementScanningCounter
-            // if the calculated index is larger than the deck size, set the index equal to the last element in the deck
-            if(index < cellArray.count)
+            // Clear the previously selected items
+            clearAllButtonSelections()
+            
+            if( !secondStageOfSelection)
             {
-                (cellArray[index] as ButtonCell).selected = true
-                (cellArray[index] as ButtonCell).highlighted = true
-                (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
-                (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
+                startIndex = endIndex
+                if( endIndex == cellArray.count)
+                {
+                    endIndex = 0
+                    startIndex = 0
+                }
+                if(endIndex+numbtns < cellArray.count)
+                {
+                    endIndex += numbtns
+                }
+                else
+                {
+                    endIndex = cellArray.count
+                }
+                
+                for(var i = startIndex; i < endIndex; i++)
+                {
+                    (cellArray[i] as ButtonCell).selected = true
+                    (cellArray[i] as ButtonCell).highlighted = true
+                    (cellArray[i] as ButtonCell).layer.borderWidth = buttonBorderWidth
+                    (cellArray[i] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
+                }
             }
-            elementScanningCounter++
-            // If at the last button or at the end of the row, reset the scanning counter to 0
-            // Have to also check if its the last button, because for rows that aren't completely full of buttons
-            // The test for button width fails because numbtnsWidth holds the number of buttons that can fit
-            if(elementScanningCounter == numbtnsHeight)
+            else
             {
-                elementScanningCounter = 0
+                index = startIndex + numbtns * elementScanningCounter
+               
+                // if the calculated index is larger than the deck size or at the max button height, set the index equal to the first element in column
+                if(elementScanningCounter == numbtnsHeight || index >= cellArray.count)
+                {
+                    elementScanningCounter = 0
+                    index = startIndex + numbtns * elementScanningCounter
+                }
+                
+                if(index < cellArray.count)
+                {
+                    (cellArray[index] as ButtonCell).selected = true
+                    (cellArray[index] as ButtonCell).highlighted = true
+                    (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
+                    (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
+                }
+                elementScanningCounter++
             }
         }
     }
@@ -300,18 +315,14 @@ public class ScanController
     func selectionMade(playAudio: Bool)
     {
         timer.invalidate()
-        if(scanMode == 0) // if serial scan, make selection
+        
+        if(AppDelegate().editMode)
         {
-            if( playAudio)
-            {
-                (cellArray[index] as ButtonCell).buttonPressRelease(self)
-            }
-            (cellArray[index] as ButtonCell).selected = false
-            (cellArray[index] as ButtonCell).layer.borderWidth = 0
+            
         }
         else
         {
-            if( secondStageOfSelection)
+            if(scanMode == 0) // if serial scan, make selection
             {
                 if( playAudio)
                 {
@@ -320,28 +331,39 @@ public class ScanController
                 (cellArray[index] as ButtonCell).selected = false
                 (cellArray[index] as ButtonCell).layer.borderWidth = 0
             }
-            secondStageOfSelection = !secondStageOfSelection
-            elementScanningCounter = 0	// set to 0 so it starts scanning with the left button
-            
-            switch scanMode
+            else
             {
-            case 0:
-                scanMode = 0
-            case 1:
-                scanMode = 1
-            case 2:
-                var cellWidth = Constants.getCellSize(buttonSize).width
-                var numbtns:Int = Int( (size.width-15)/(cellWidth+15) )
-                startIndex /= numbtns
-                scanMode = 3	// change to column scan
-            case 3:
-                startIndex -= 1
-                scanMode = 2	// change to row scan
-            default:
-                println("Error")
+                if( secondStageOfSelection)
+                {
+                    if( playAudio)
+                    {
+                        (cellArray[index] as ButtonCell).buttonPressRelease(self)
+                    }
+                    (cellArray[index] as ButtonCell).selected = false
+                    (cellArray[index] as ButtonCell).layer.borderWidth = 0
+                }
+                secondStageOfSelection = !secondStageOfSelection
+                elementScanningCounter = 0	// set to 0 so it starts scanning with the left button
+                
+                switch scanMode
+                {
+                    case 0:
+                        scanMode = 0
+                    case 1:
+                        scanMode = 1
+                    case 2:
+                        var cellWidth = Constants.getCellSize(buttonSize).width
+                        var numbtns:Int = Int( (size.width-15)/(cellWidth+15) )
+                        startIndex /= numbtns
+                        scanMode = 3	// change to column scan
+                    case 3:
+                        startIndex -= 1
+                        scanMode = 2	// change to row scan
+                    default:
+                        println("Error")
+                }
             }
+            setScanMode()   // this resets the timer to start scanning again
         }
-        setScanMode()   // this resets the timer to start scanning again
     }
-    
 }

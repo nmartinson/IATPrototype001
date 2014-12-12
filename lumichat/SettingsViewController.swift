@@ -9,8 +9,9 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
-class SettingsViewController: UIViewController
+class SettingsViewController: UIViewController, MFMailComposeViewControllerDelegate
 {
 	@IBOutlet weak var buttonSizeSegment: UISegmentedControl!	// segment for selecting buton size
 	@IBOutlet weak var borderWidthLabel: UILabel!	// displays border width
@@ -20,6 +21,7 @@ class SettingsViewController: UIViewController
 	@IBOutlet weak var scanModeSegment: UISegmentedControl!	// segment for selecting scan mode
 	@IBOutlet weak var styleSegment: UISegmentedControl!	// segment for selecting button style
 	@IBOutlet weak var colorPicker: UIPickerView!	// scroll for picking color
+    @IBOutlet weak var exportDatabase: UIButton!
 	var colorNames = [ "Black", "Blue", "Red", "Yellow", "Orange", "Green"]	// Displayed in the color picker
 	
 	var imagePreview: UIImageView!
@@ -70,7 +72,7 @@ class SettingsViewController: UIViewController
 //		}
 		
 		
-		var image = UIImage(named: "face.gif")
+		var image = UIImage(named: "buttonTest.jpg")
 		self.imagePreview = UIImageView()
 		
 		self.imagePreview.frame = CGRectMake(300, 700, Constants.getCellSize(buttonSize).width, Constants.getCellSize(buttonSize).height)
@@ -83,6 +85,40 @@ class SettingsViewController: UIViewController
 		imagePreview.layer.borderWidth = CGFloat(borderWidth)
 
 	}
+    
+    @IBAction func exportDatabaseButtonPressed(sender: AnyObject)
+    {
+        let mailCoposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail()
+        {
+            self.presentViewController(mailCoposeViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController
+    {
+        var zip = Zipping()
+        zip.zipDirectory("images", destination: "daterbase.zip")
+        var filePath = zip.getFilePath("daterbase.zip")
+        
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setSubject("User database from Lumichat")
+        
+        // check if file exists
+        if( NSFileManager.defaultManager().fileExistsAtPath(filePath) )
+        {
+            var data = NSData(contentsOfMappedFile: filePath)
+            mailComposerVC.addAttachmentData(data, mimeType: "application/zip", fileName: "file.zip")
+        }
+        
+        return mailComposerVC
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError)
+    {
+        controller.dismissViewControllerAnimated(true, completion:nil)
+    }
 	
 	/* *******************************************************************************************************
 	*	Gets called when the button size is changed

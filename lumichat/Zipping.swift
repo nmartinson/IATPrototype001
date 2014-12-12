@@ -13,10 +13,12 @@ class Zipping
     let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
 
     // zips directory to file
+    // zipDirectory("images", destination: "daterbase.zip")
     func zipDirectory(sourceDirectory: String, destination: String)
     {
+        var desFolder = getFilePath(destination)
         var directoryContents = getDirectory(sourceDirectory)   // gets the array of the file paths inside a directory
-        SSZipArchive.createZipFileAtPath(destination, withFilesAtPaths: directoryContents)  // zips up files
+        var complete = SSZipArchive.createZipFileAtPath(desFolder, withFilesAtPaths: directoryContents)  // zips up files
     }
     
     // unzips file to directory
@@ -28,8 +30,8 @@ class Zipping
     // returns the file paths inside the directory to zip
     func getDirectory(path: String) -> [String]
     {
-        var pathForZip = documentsPath.stringByAppendingPathComponent("images")
-        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(path, error: nil) as [String]
+        var pathForZip = documentsPath.stringByAppendingPathComponent(path)
+        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pathForZip, error: nil) as [String]
         
         for(var i = 0; i < directoryContents.count; i++)
         {
@@ -62,19 +64,12 @@ class Zipping
         return path
     }
     
-    
+    // returns the directory path of the file
+    // example: getFilePath("daterbase.zip")
+    func getFilePath(file: String) -> String
+    {
+        var path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
+        let filePath:NSString = path.stringByAppendingString("/\(file)")
+        return filePath
+    }
 }
-
-
-
-
-
-//var pathForZip = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-//let zipPath:NSString = pathForZip.stringByAppendingString("/files1.zip")    // specifies file to zip to
-//let unZipPath:NSString = pathForZip.stringByAppendingPathComponent("zipped2")   // directory to unzip to
-//var directoryForZip = pathForZip.stringByAppendingPathComponent("images")   // directory to zip up
-//var directoryContents = getDirectory(directoryForZip)   // gets the array of the file paths inside a directory
-//
-//SSZipArchive.createZipFileAtPath(zipPath, withFilesAtPaths: directoryContents)  // zips up files
-//SSZipArchive.unzipFileAtPath(zipPath, toDestination: unZipPath) // unzips zip file to specified file path
-        
