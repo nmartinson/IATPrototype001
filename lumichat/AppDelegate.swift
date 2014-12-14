@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
 	var window: UIWindow?
     var editMode = false
+    var db = DBController.sharedInstance
+
 
     /* *******************************************************************************************************
     *	Saves image to a new 'image' directory in the Documents directory.
@@ -52,14 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	******************************************************************************************************************* */
 	func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool
 	{
-        
 		// Setup stock database
-		let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-		let docsPath: String = paths
-		let path = docsPath.stringByAppendingPathComponent("UserDatabase.sqlite")
-		let database = FMDatabase(path: path)
-		database.open()
-		
+        var database = db.getDB()
+        database.open()
+        
 //		If there three lines are uncommented then the three DB tables will be deleted and then recreated with stock values
 		database.executeUpdate("DROP TABLE categories", withArgumentsInArray: nil)
 		database.executeUpdate("DROP TABLE social", withArgumentsInArray: nil)

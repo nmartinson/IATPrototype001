@@ -26,6 +26,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     var tapRec: UITapGestureRecognizer!
     var link:String!
     var editMode = false
+    var db = DBController.sharedInstance
     
 
     // configures the default CollectionView element for manipulating
@@ -72,8 +73,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     // pulls buttons from the DB and configures the buttons
     func getButtonsFromDB()
     {
-        var path = createDBPath()
-        let database = FMDatabase(path: path)
+        var database = db.getDB()
         database.open()
         var results = FMResultSet()
         
@@ -103,17 +103,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     }
     
     
-    /* *****************************************************************************************************
-    *	Creates and returns the file path to the database
-    ****************************************************************************************************** */
-    func createDBPath() -> String
-    {
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-        let docsPath: String = paths
-        let path = docsPath.stringByAppendingPathComponent("UserDatabase.sqlite")
-        return path
-    }
-    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selectedIndexPath = indexPath
     }
@@ -139,8 +128,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************************** */
     func collectionViewReordered()
     {
-        let path = createDBPath()
-        let database = FMDatabase(path: path)
+        var database = db.getDB()
         database.open()
         database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
         database.executeUpdate("CREATE TABLE \(link)(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)

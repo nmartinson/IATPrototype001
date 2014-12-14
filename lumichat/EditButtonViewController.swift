@@ -9,7 +9,7 @@
 class EditButtonController: ModifyButtonController
 {
     var link:String = ""
-    
+    var db = DBController.sharedInstance
     
     override func viewDidLoad()
     {
@@ -21,8 +21,7 @@ class EditButtonController: ModifyButtonController
     
     func populateFields()
     {
-        var path = createDBPath()
-        let database = FMDatabase(path: path)
+        var database = db.getDB()
         database.open()
         var results = FMResultSet()
         
@@ -40,17 +39,6 @@ class EditButtonController: ModifyButtonController
 //            }
         }
         database.close()
-    }
-
-    /* *****************************************************************************************************
-    *	Creates and returns the file path to the database
-    ****************************************************************************************************** */
-    func createDBPath() -> String
-    {
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-        let docsPath: String = paths
-        let path = docsPath.stringByAppendingPathComponent("UserDatabase.sqlite")
-        return path
     }
     
     /* ************************************************************************************************
