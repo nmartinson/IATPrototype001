@@ -44,30 +44,34 @@ class ModifyButtonController: UIViewController, UIImagePickerControllerDelegate,
     ************************************************************************************************ */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if segue.identifier == "fromCreate"
-        {
-            let LXController = segue.destinationViewController as LXCollectionViewController1
-            data["title"] = buttonTitleField.text as String
-            data["description"] = textDescription.text as String
-            
-            var path = saveImage(self.capturedImage, title: data["title"] as String)
-            data["path"] = path as String
-            
-            self.availableData?(data: data)
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        else if segue.identifier == "fromEdit"
-        {
-            let LXController = segue.destinationViewController as LXCollectionViewController1
-            data["title"] = buttonTitleField.text as String
-            data["description"] = textDescription.text as String
-            
-            var path = saveImage(self.capturedImage, title: data["title"] as String)
-            data["path"] = path as String
-            
-            self.availableData?(data: data)
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
+        let LXController = segue.destinationViewController as LXCollectionViewController1
+        var imageTitle = "\(Constants.getTime())-\(buttonTitleField.text)"
+        data["title"] = buttonTitleField.text as String
+        data["description"] = textDescription.text as String
+        var path = saveImage(self.capturedImage, title: imageTitle)
+        data["path"] = path as String
+        self.availableData?(data: data)
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+//        if segue.identifier == "fromCreate"
+//        {
+//            
+//            
+//            var path = saveImage(self.capturedImage, title: imageTitle)
+//            data["path"] = path as String
+//            
+//            self.availableData?(data: data)
+//            self.dismissViewControllerAnimated(true, completion: nil)
+//        }
+//        else if segue.identifier == "fromEdit"
+//        {
+//            
+//            var path = saveImage(self.capturedImage, title: )
+//            data["path"] = path as String
+//            
+//            self.availableData?(data: data)
+//            self.dismissViewControllerAnimated(true, completion: nil)
+//        }
     }
     
     /* ************************************************************************************************

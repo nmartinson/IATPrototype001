@@ -87,14 +87,15 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
                 var num = results.intForColumn("number")
                 var title = results.stringForColumn("title") as String!
                 var image = results.stringForColumn("image")
+                var description = results.stringForColumn("description")
                 
                 // If there really is data, configure the button and add it to the array of buttons
                 if(title != nil)
                 {
                     var button = UIButton.buttonWithType(.System) as UIButton
-                    button.setTitle(title, forState: .Normal)
+                    button.setTitle(title, forState: .Normal) // stores the title
                     button.setTitle(image, forState: .Selected)	// Stores the image string
-                    button.setTitle("", forState: .Highlighted)
+                    button.setTitle(description, forState: .Highlighted) // stores the description
                     buttons.addObject(button)
                 }
             }

@@ -30,4 +30,15 @@ enum Constants
 	{
 		return cellSize[index]
 	}
+    
+    
+    static func getTime() -> String
+    {
+        let date = NSDate()
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd-HH-mm"
+        let time = formatter.stringFromDate(date)
+        println(time)
+        return time
+    }
 }

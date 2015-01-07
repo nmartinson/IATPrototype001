@@ -38,6 +38,10 @@ class Zipping
             directoryContents[i] = pathForZip.stringByAppendingString("/\(directoryContents[i])")
         }
         
+        //Add the users database to the zip file
+        let databasePath = getFilePath("UserDatabase.sqlite")
+        directoryContents.append(databasePath)
+        
         return directoryContents
     }
     

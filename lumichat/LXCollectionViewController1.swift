@@ -34,7 +34,6 @@ class LXCollectionViewController1: CollectionViewBase
 	*********************************************************************************************** */
 	override func viewDidLoad()
 	{
-        println("didload")
         buttons.removeAllObjects()
         cellArray.removeAllObjects()
         pageLink = pageLink.stringByReplacingOccurrencesOfString(" ", withString: "_").stringByReplacingOccurrencesOfString("-", withString: "_").lowercaseString
@@ -130,8 +129,8 @@ class LXCollectionViewController1: CollectionViewBase
 		database.close()
 		
 		var button = UIButton.buttonWithType(.System) as UIButton
-		button.setTitle(data["title"] as? String, forState: .Normal)
-        button.setTitle(data["description"] as? String, forState: .Highlighted)
+		button.setTitle(data["title"] as? String, forState: .Normal) // stores the button label
+        button.setTitle(data["description"] as? String, forState: .Highlighted) // stores the extra description
 		
 		// Change button title
 		button.setTitle(mutablePath, forState: .Selected)	// Stores the image string

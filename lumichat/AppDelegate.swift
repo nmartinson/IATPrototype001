@@ -59,12 +59,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         database.open()
         
 //		If there three lines are uncommented then the three DB tables will be deleted and then recreated with stock values
-		database.executeUpdate("DROP TABLE categories", withArgumentsInArray: nil)
-		database.executeUpdate("DROP TABLE social", withArgumentsInArray: nil)
-		database.executeUpdate("DROP TABLE expressions", withArgumentsInArray: nil)
-        database.executeUpdate("DROP TABLE pain_scale", withArgumentsInArray: nil)
-        database.executeUpdate("DROP TABLE body_parts", withArgumentsInArray: nil)
-        database.executeUpdate("DROP TABLE yes_no_maybe", withArgumentsInArray: nil)
+//		database.executeUpdate("DROP TABLE categories", withArgumentsInArray: nil)
+//		database.executeUpdate("DROP TABLE social", withArgumentsInArray: nil)
+//		database.executeUpdate("DROP TABLE expressions", withArgumentsInArray: nil)
+//        database.executeUpdate("DROP TABLE pain_scale", withArgumentsInArray: nil)
+//        database.executeUpdate("DROP TABLE body_parts", withArgumentsInArray: nil)
+//        database.executeUpdate("DROP TABLE yes_no_maybe", withArgumentsInArray: nil)
 
 		if(!database.tableExists("categories"))
 		{
@@ -227,6 +227,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool
+    {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
+        var inboxPath = documentsPath.stringByAppendingPathComponent("Inbox")
+        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(inboxPath, error: nil) as [String]
+        
+        println("directory contents \(directoryContents)")
+        return true
+    }
+    
 	func applicationWillResignActive(application: UIApplication!) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
