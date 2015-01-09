@@ -227,14 +227,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 
-    
+    /* ***********************************************************************************************
+    *   Gets called when the user opens a zip file outside of the application
+    *************************************************************************************************/
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool
     {
-        let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-        var inboxPath = documentsPath.stringByAppendingPathComponent("Inbox")
-        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(inboxPath, error: nil) as [String]
+        var storyboard = UIStoryboard(name: "Main", bundle: nil)
+        var initialView = storyboard.instantiateViewControllerWithIdentifier("OpenFileController") as OpenFileViewController
+        initialView.url = url
+        window?.rootViewController?.presentViewController(initialView, animated: true, completion: { () -> Void in })
         
-        println("directory contents \(directoryContents)")
         return true
     }
     
@@ -259,7 +261,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(application: UIApplication!) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
-
-
+    
 }
 

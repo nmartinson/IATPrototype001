@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2B061AA11A279E640078DB6B /* Zipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B061AA01A279E640078DB6B /* Zipping.swift */; };
 		2B061AA31A27A5380078DB6B /* CollectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */; };
+		2B20235E1A5F37A800704F75 /* OpenFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */; };
 		2B4669DB1A2A1645000CBD24 /* ModifyButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */; };
 		2B4669DD1A2A1809000CBD24 /* EditButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */; };
 		2B623AE71A3DCE5400106986 /* DBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B623AE61A3DCE5400106986 /* DBController.swift */; };
@@ -86,6 +87,7 @@
 /* Begin PBXFileReference section */
 		2B061AA01A279E640078DB6B /* Zipping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zipping.swift; sourceTree = "<group>"; };
 		2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewBase.swift; sourceTree = "<group>"; };
+		2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFileViewController.swift; sourceTree = "<group>"; };
 		2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyButtonController.swift; sourceTree = "<group>"; };
 		2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButtonViewController.swift; sourceTree = "<group>"; };
 		2B623AE61A3DCE5400106986 /* DBController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBController.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */,
 				2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */,
 				2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */,
+				2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */,
 				2BBCFE511A052D5A00AE8BA6 /* ScannerDrawer.swift */,
 				2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */,
 				2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */,
@@ -508,6 +511,7 @@
 				2BD6A6F71A25534300A3CBA3 /* zip.c in Sources */,
 				2BBCFE361A052CAB00AE8BA6 /* FMResultSet.m in Sources */,
 				2BBCFE5E1A052D5A00AE8BA6 /* ScannerDrawer.swift in Sources */,
+				2B20235E1A5F37A800704F75 /* OpenFileViewController.swift in Sources */,
 				2BD6A6F51A25534300A3CBA3 /* mztools.c in Sources */,
 				2B061AA11A279E640078DB6B /* Zipping.swift in Sources */,
 				2B4669DB1A2A1645000CBD24 /* ModifyButtonController.swift in Sources */,

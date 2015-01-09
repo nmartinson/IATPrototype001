@@ -60,6 +60,87 @@
             </objects>
             <point key="canvasLocation" x="-767" y="-103"/>
         </scene>
+        <!--Open File View Controller-->
+        <scene sceneID="Gx5-EI-Yks">
+            <objects>
+                <viewController storyboardIdentifier="OpenFileController" modalPresentationStyle="pageSheet" id="ipC-mc-47b" customClass="OpenFileViewController" customModule="lumichat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dpt-XY-6de"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cod-QA-FJh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zx3-i8-RCc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SbL-mK-wkp">
+                                <rect key="frame" x="97" y="20" width="391" height="87"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">How would you like to import this library? Overwrite will replace all the current pages/images/buttons with the what is in the new library. Merging will keep the current library and add the new to the current</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="na1-Bs-2yP">
+                                <rect key="frame" x="277" y="162" width="66" height="30"/>
+                                <state key="normal" title="Overwrite">
+                                    <color key="titleColor" red="0.95920138889999995" green="0.022707580330000001" blue="0.0089223064220000006" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="overwriteButtonPressed:" destination="ipC-mc-47b" eventType="touchUpInside" id="BII-lU-aQD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbi-He-jfO">
+                                <rect key="frame" x="287" y="217" width="44" height="30"/>
+                                <state key="normal" title="Merge">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mergeButtonPressed:" destination="ipC-mc-47b" eventType="touchUpInside" id="QWh-r3-Chx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jJT-vr-p4p">
+                                <rect key="frame" x="287" y="272" width="48" height="30"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonPressed:" destination="ipC-mc-47b" eventType="touchUpInside" id="d9q-Is-g5l"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kbi-He-jfO" firstAttribute="leading" secondItem="jJT-vr-p4p" secondAttribute="leading" id="DpR-oY-SKm"/>
+                            <constraint firstItem="kbi-He-jfO" firstAttribute="top" secondItem="na1-Bs-2yP" secondAttribute="bottom" constant="25" id="Fph-0W-vra"/>
+                            <constraint firstItem="na1-Bs-2yP" firstAttribute="top" secondItem="SbL-mK-wkp" secondAttribute="bottom" constant="55" id="Nc8-vI-EiC"/>
+                            <constraint firstItem="SbL-mK-wkp" firstAttribute="top" secondItem="Zx3-i8-RCc" secondAttribute="top" constant="20" id="PKD-ef-mH3"/>
+                            <constraint firstAttribute="trailing" secondItem="SbL-mK-wkp" secondAttribute="trailing" constant="112" id="VUZ-jg-hcB"/>
+                            <constraint firstItem="na1-Bs-2yP" firstAttribute="leading" secondItem="Zx3-i8-RCc" secondAttribute="leading" constant="277" id="fIq-jV-uYV"/>
+                            <constraint firstItem="kbi-He-jfO" firstAttribute="leading" secondItem="Zx3-i8-RCc" secondAttribute="leading" constant="287" id="fKg-4e-j3m"/>
+                            <constraint firstItem="SbL-mK-wkp" firstAttribute="leading" secondItem="Zx3-i8-RCc" secondAttribute="leading" constant="97" id="kvq-Qg-vgJ"/>
+                            <constraint firstItem="jJT-vr-p4p" firstAttribute="top" secondItem="kbi-He-jfO" secondAttribute="bottom" constant="25" id="mh6-NZ-fAg"/>
+                            <constraint firstItem="SbL-mK-wkp" firstAttribute="bottom" secondItem="Cod-QA-FJh" secondAttribute="top" constant="-493" id="pFk-ZV-t9D"/>
+                        </constraints>
+                    </view>
+                    <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="jJT-vr-p4p" id="4R2-4s-rnf"/>
+                        <outlet property="mergeButton" destination="kbi-He-jfO" id="EKK-aE-TQC"/>
+                        <outlet property="overwriteButton" destination="na1-Bs-2yP" id="1UM-2Q-7iS"/>
+                        <outlet property="textField" destination="SbL-mK-wkp" id="cug-LB-MTg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ry-UQ-OZr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="481" y="-1339"/>
+        </scene>
         <!--Settings-->
         <scene sceneID="lVI-2f-MGy">
             <objects>
@@ -693,7 +774,7 @@
         <!--Navigation Controller-->
         <scene sceneID="3sY-G6-gBr">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="h77-gn-o2c" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Navigation" automaticallyAdjustsScrollViewInsets="NO" id="h77-gn-o2c" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ivs-VN-k81">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
