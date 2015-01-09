@@ -17,7 +17,11 @@ class OpenFileViewController: UIViewController
     @IBOutlet weak var cancelButton: UIButton!
     var url:NSURL?
     let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-
+    
+    
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
     override func viewDidLoad()
     {
         let inboxPath = documentsPath.stringByAppendingPathComponent("Inbox")
@@ -26,6 +30,9 @@ class OpenFileViewController: UIViewController
     }
     
     
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
     @IBAction func overwriteButtonPressed(sender: AnyObject)
     {
         let zip = Zipping()
@@ -47,21 +54,33 @@ class OpenFileViewController: UIViewController
         replaceDatabase() // moves new database into place
         createDirectory("images/user")
         moveImages()
+        dismissViewControllerAnimated(true, completion: { () -> Void in
+            
+        })
     }
     
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
     @IBAction func mergeButtonPressed(sender: AnyObject)
     {
         
     }
     
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
     @IBAction func cancelButtonPressed(sender: AnyObject)
     {
-        dismissViewControllerAnimated(true, completion: { () -> Void in
-            self.deleteFileAtURL(self.url!)
-        })
-
+        self.notifyCompletion { (block) -> Void in
+            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+            })
+        }
     }
     
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
     func moveImages()
     {
         var error:NSError?
@@ -82,6 +101,9 @@ class OpenFileViewController: UIViewController
 
     }
     
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
     func replaceDatabase()
     {
         var error:NSError?
@@ -94,6 +116,9 @@ class OpenFileViewController: UIViewController
         }
     }
     
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
     func deleteFileAtURL(url: NSURL)
     {
         let fileManager = NSFileManager()
@@ -105,6 +130,9 @@ class OpenFileViewController: UIViewController
         }
     }
     
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
     func deleteFile(path: String)
     {
         let filePath = documentsPath.stringByAppendingPathComponent(path)
@@ -152,6 +180,25 @@ class OpenFileViewController: UIViewController
             }
         }
         return path
+    }
+    
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
+    func notifyCompletion(completion: (block: Bool) -> Void)
+    {
+        let alertController = UIAlertController(title: nil, message: "Data import complete!", preferredStyle: .Alert)
+
+        self.presentViewController(alertController, animated: true) { () -> Void in }
+        
+        let delay = 2.0 * Double(NSEC_PER_SEC) // # of seconds to show Alert
+        var time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        
+        dispatch_after(time, dispatch_get_main_queue(), {
+            self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                completion(block: true)
+            })
+        })
     }
     
 }
