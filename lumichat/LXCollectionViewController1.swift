@@ -55,7 +55,7 @@ class LXCollectionViewController1: CollectionViewBase
 	{
 		if( reordered == true)
 		{
-            var database = db.getDB()
+            var database = db.getDB("UserDatabase.sqlite")
             database.open()
 			database.executeUpdate("DROP TABLE \(super.link)", withArgumentsInArray: nil)
 			database.executeUpdate("CREATE TABLE \(super.link)(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
@@ -119,7 +119,7 @@ class LXCollectionViewController1: CollectionViewBase
 	{
         scanner.cellArray.removeAllObjects()
 
-        var database = db.getDB()
+        var database = db.getDB("UserDatabase.sqlite")
         database.open()
         var mutablePath = data["path"] as String
         var array = [buttons.count, data["title"] as String, data["description"] as String, mutablePath as String, 1]

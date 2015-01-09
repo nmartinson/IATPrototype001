@@ -73,10 +73,10 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     // pulls buttons from the DB and configures the buttons
     func getButtonsFromDB()
     {
-        var database = db.getDB()
+        var database = db.getDB("UserDatabase.sqlite")
         database.open()
         var results = FMResultSet()
-        
+
         // If a DB table exists for the current category, extract all the button information
         if(database.tableExists(link))
         {
@@ -129,7 +129,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************************** */
     func collectionViewReordered()
     {
-        var database = db.getDB()
+        var database = db.getDB("UserDatabase.sqlite")
         database.open()
         database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
         database.executeUpdate("CREATE TABLE \(link)(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)

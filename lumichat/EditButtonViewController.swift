@@ -21,7 +21,7 @@ class EditButtonController: ModifyButtonController
     
     func populateFields()
     {
-        var database = db.getDB()
+        var database = db.getDB("UserDatabase.sqlite")
         database.open()
         var results = FMResultSet()
         

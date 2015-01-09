@@ -21,11 +21,11 @@ class DBController
     /* *****************************************************************************************************
     *	Creates and returns the file path to the database
     ****************************************************************************************************** */
-    func getDB() -> FMDatabase
+    func getDB(filePath: String) -> FMDatabase
     {
         let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
         let docsPath: String = paths
-        let path = docsPath.stringByAppendingPathComponent("UserDatabase.sqlite")
+        let path = docsPath.stringByAppendingPathComponent(filePath)
         return FMDatabase(path: path)
     }
 

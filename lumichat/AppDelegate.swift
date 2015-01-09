@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool
 	{
 		// Setup stock database
-        var database = db.getDB()
+        var database = db.getDB("UserDatabase.sqlite")
         database.open()
         
 //		If there three lines are uncommented then the three DB tables will be deleted and then recreated with stock values

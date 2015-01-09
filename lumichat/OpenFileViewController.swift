@@ -17,7 +17,8 @@ class OpenFileViewController: UIViewController
     @IBOutlet weak var cancelButton: UIButton!
     var url:NSURL?
     let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-    
+    let fileManager = NSFileManager()
+
     
     /* ************************************************************************************************
     *
@@ -42,9 +43,8 @@ class OpenFileViewController: UIViewController
         let destinationPath = documentsPath.stringByAppendingPathComponent("unzippedData")
         zip.unZipDirectory(sourcePath, destination: destinationPath)
         
-        let filemgr = NSFileManager()
         var error:NSError?
-        filemgr.contentsOfDirectoryAtPath(destinationPath, error: &error)
+        fileManager.contentsOfDirectoryAtPath(destinationPath, error: &error)
         if error != nil
         {
             println("Unzipping error: \(error)")
@@ -54,9 +54,10 @@ class OpenFileViewController: UIViewController
         replaceDatabase() // moves new database into place
         createDirectory("images/user")
         moveImages()
-        dismissViewControllerAnimated(true, completion: { () -> Void in
-            
-        })
+        notifyCompletion("Library overwritten!") { (block) -> Void in
+            self.dismissViewControllerAnimated(true, completion: { () -> Void in })
+        }
+
     }
     
     /* ************************************************************************************************
@@ -72,9 +73,8 @@ class OpenFileViewController: UIViewController
     ************************************************************************************************ */
     @IBAction func cancelButtonPressed(sender: AnyObject)
     {
-        self.notifyCompletion { (block) -> Void in
-            self.dismissViewControllerAnimated(true, completion: { () -> Void in
-            })
+        self.notifyCompletion("Import canceled!") { (block) -> Void in
+            self.dismissViewControllerAnimated(true, completion: { () -> Void in })
         }
     }
     
@@ -84,7 +84,6 @@ class OpenFileViewController: UIViewController
     func moveImages()
     {
         var error:NSError?
-        let fileManager = NSFileManager()
         let unzippedPath = documentsPath.stringByAppendingPathComponent("unzippedData")
         var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(unzippedPath, error: nil) as [String]
         println(directoryContents)
@@ -107,7 +106,6 @@ class OpenFileViewController: UIViewController
     func replaceDatabase()
     {
         var error:NSError?
-        let fileManager = NSFileManager()
         let tempPath = documentsPath.stringByAppendingPathComponent("unzippedData/UserDatabase.sqlite")
         let destinationPath = documentsPath.stringByAppendingPathComponent("UserDatabase.sqlite")
         if fileManager.moveItemAtPath(tempPath, toPath: destinationPath, error: &error) != true
@@ -121,7 +119,6 @@ class OpenFileViewController: UIViewController
     ************************************************************************************************ */
     func deleteFileAtURL(url: NSURL)
     {
-        let fileManager = NSFileManager()
         var error:NSError?
         fileManager.removeItemAtURL(url, error: &error)
         if error != nil
@@ -136,7 +133,6 @@ class OpenFileViewController: UIViewController
     func deleteFile(path: String)
     {
         let filePath = documentsPath.stringByAppendingPathComponent(path)
-        let fileManager = NSFileManager()
         var error:NSError?
         fileManager.removeItemAtPath(filePath, error: &error)
         if error != nil
@@ -185,9 +181,9 @@ class OpenFileViewController: UIViewController
     /* ************************************************************************************************
     *
     ************************************************************************************************ */
-    func notifyCompletion(completion: (block: Bool) -> Void)
+    func notifyCompletion(message: String, completion: (block: Bool) -> Void)
     {
-        let alertController = UIAlertController(title: nil, message: "Data import complete!", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
 
         self.presentViewController(alertController, animated: true) { () -> Void in }
         
@@ -196,6 +192,8 @@ class OpenFileViewController: UIViewController
         
         dispatch_after(time, dispatch_get_main_queue(), {
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                self.deleteFile("Inbox/file.zip") // removes the zip file that was imported
+                self.deleteFile("unzippedData") // removes the unzipped data directory if it exists
                 completion(block: true)
             })
         })
