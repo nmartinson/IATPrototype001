@@ -12,8 +12,10 @@ class Zipping
 {
     let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
 
+    /* ************************************************************************************************
     // zips directory to file
     // zipDirectory("images", destination: "daterbase.zip")
+    ************************************************************************************************ */
     func zipDirectory(sourceDirectory: String, destination: String)
     {
         var desFolder = getFilePath(destination)
@@ -21,13 +23,17 @@ class Zipping
         var complete = SSZipArchive.createZipFileAtPath(desFolder, withFilesAtPaths: directoryContents)  // zips up files
     }
     
+    /* ************************************************************************************************
     // unzips file to directory
+    ************************************************************************************************ */
     func unZipDirectory(sourceFile: String, destination: String)
     {
         SSZipArchive.unzipFileAtPath(sourceFile, toDestination: destination) // unzips zip file to specified file path
     }
- 
+    
+    /* ************************************************************************************************
     // returns the file paths inside the directory to zip
+    ************************************************************************************************ */
     func getDirectory(path: String) -> [String]
     {
         var pathForZip = documentsPath.stringByAppendingPathComponent(path)

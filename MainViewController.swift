@@ -15,6 +15,7 @@ class MainViewController : CollectionViewBase
 
     override func viewWillAppear(animated: Bool)
     {
+        println("Main will appear")
         setup(mycollectionview)
         setLayout()
         configureButtons()
@@ -24,6 +25,7 @@ class MainViewController : CollectionViewBase
     
     override func viewDidLoad()
     {
+        println("main did load")
         buttons.removeAllObjects()
         cellArray.removeAllObjects()
 

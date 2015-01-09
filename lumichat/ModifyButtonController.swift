@@ -162,7 +162,7 @@ class ModifyButtonController: UIViewController, UIImagePickerControllerDelegate,
     ******************************************************************************************************* */
     func saveImage(image: UIImage?, title: String) -> String
     {
-        var path = createDirectory("images")
+        var path = createDirectory("images/user")
         
         if (image != nil)
         {
@@ -172,12 +172,12 @@ class ModifyButtonController: UIViewController, UIImagePickerControllerDelegate,
             
             NSFileManager.defaultManager().createFileAtPath(path, contents: data, attributes: nil) // write data to file...content was data
             
-            let imagePath = "images/\(title).jpg" // return only the path that is appended to the 'documents' path
+            let imagePath = "images/user/\(title).jpg" // return only the path that is appended to the 'documents' path
             return imagePath
         }
         else
         {
-            return "images/buttonTest.jpg"
+            return "images/stock/buttonTest.jpg"
         }
     }
     

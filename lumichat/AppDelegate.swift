@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             
             let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-            var path = documentDirectory.stringByAppendingPathComponent("images") // append images to the directory string
+            var path = documentDirectory.stringByAppendingPathComponent("images/stock") // append images to the directory string
             
             if(!NSFileManager.defaultManager().fileExistsAtPath(path))
             {
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             path = path.stringByAppendingString("/\(title).jpg") // append the image name with .jpg extension
             let data = UIImageJPEGRepresentation(image, 1) //create data from jpeg
             NSFileManager.defaultManager().createFileAtPath(path, contents: data, attributes: nil) // write data to file
-            let imagePath = "images/\(title).jpg" // return only the path that is appended to the 'documents' path
+            let imagePath = "images/stock/\(title).jpg" // return only the path that is appended to the 'documents' path
             return imagePath
         }
         return ""

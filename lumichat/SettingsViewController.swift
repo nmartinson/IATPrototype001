@@ -86,6 +86,9 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
 
 	}
     
+    /* *******************************************************************************************************
+    *
+    ******************************************************************************************************* */
     @IBAction func exportDatabaseButtonPressed(sender: AnyObject)
     {
         let mailCoposeViewController = configuredMailComposeViewController()
@@ -95,10 +98,13 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         }
     }
     
+    /* *******************************************************************************************************
+    *
+    ******************************************************************************************************* */
     func configuredMailComposeViewController() -> MFMailComposeViewController
     {
         var zip = Zipping()
-        zip.zipDirectory("images", destination: "daterbase.zip")
+        zip.zipDirectory("images/user", destination: "daterbase.zip")
         var filePath = zip.getFilePath("daterbase.zip")
         
         let mailComposerVC = MFMailComposeViewController()
@@ -115,6 +121,9 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         return mailComposerVC
     }
     
+    /* *******************************************************************************************************
+    *
+    ******************************************************************************************************* */
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError)
     {
         controller.dismissViewControllerAnimated(true, completion:nil)
