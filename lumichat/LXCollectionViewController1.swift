@@ -20,6 +20,7 @@ class LXCollectionViewController1: CollectionViewBase
 	var pageLink = ""	// stores the name of the row that was selected - used for DB table name
 	var timer = NSTimer()
     var buttonTitle = ""
+    var db = DBController.sharedInstance
     
     override func viewWillAppear(animated: Bool)
     {
@@ -45,40 +46,40 @@ class LXCollectionViewController1: CollectionViewBase
 
 	}
 
-        func getButtons() //-> (Bool, [Categories]?)
-        {
-            var buttonItem = [Tables]()
-            let fetchRequest = NSFetchRequest(entityName: "Tables")
-            fetchRequest
-            let predicate = NSPredicate(format: "table = %@", link)
-            fetchRequest.predicate = predicate
-            if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Tables] {
-                if fetchResults.count > 0
+    func getButtons() //-> (Bool, [Categories]?)
+    {
+        var buttonItem = [Tables]()
+        let fetchRequest = NSFetchRequest(entityName: "Tables")
+        fetchRequest
+        let predicate = NSPredicate(format: "table = %@", link)
+        fetchRequest.predicate = predicate
+        if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Tables] {
+            if fetchResults.count > 0
+            {
+                for item in fetchResults
                 {
-                    for item in fetchResults
+                    var title = item.title
+                    var image = item.image
+                    var longDescription = item.longDescription
+
+                    // If there really is data, configure the button and add it to the array of buttons
+                    if(title != "")
                     {
-                        var title = item.title
-                        var image = item.image
-                        var longDescription = item.longDescription
-    
-                        // If there really is data, configure the button and add it to the array of buttons
-                        if(title != "")
-                        {
-                            var button = UIButton.buttonWithType(.System) as UIButton
-                            button.setTitle(title, forState: .Normal) // stores the title
-                            button.setTitle(image, forState: .Selected)	// Stores the image string
-                            button.setTitle(longDescription, forState: .Highlighted) // stores the longDescription
-                            buttons.addObject(button)
-                        }
-    
+                        var button = UIButton.buttonWithType(.System) as UIButton
+                        button.setTitle(title, forState: .Normal) // stores the title
+                        button.setTitle(image, forState: .Selected)	// Stores the image string
+                        button.setTitle(longDescription, forState: .Highlighted) // stores the longDescription
+                        buttons.addObject(button)
                     }
-    
-                    buttonItem = fetchResults
-    //                return (true, categoryTable)
+
                 }
+
+                buttonItem = fetchResults
+//                return (true, categoryTable)
             }
-    //        return (false, nil)
         }
+//        return (false, nil)
+    }
 
     
 	/* ******************************************************************************************************
@@ -137,6 +138,7 @@ class LXCollectionViewController1: CollectionViewBase
             if let viewController = segue.destinationViewController as? EditButtonController
             {
                 viewController.link = buttonTitle
+                println("Button title: \(buttonTitle)")
                 viewController.availableData = {[weak self]
                     (data) in
                     if let weakSelf = self{
@@ -149,6 +151,43 @@ class LXCollectionViewController1: CollectionViewBase
 	}
 
 	
+    func fetchTable() -> (Bool, [Tables])
+    {
+        var buttonItem = [Tables]()
+        let fetchRequest = NSFetchRequest(entityName: "Tables")
+        fetchRequest
+        let predicate = NSPredicate(format: "table = %@", link)
+        fetchRequest.predicate = predicate
+        if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Tables] {
+            if fetchResults.count > 0
+            {
+                return (true, buttonItem)
+            }
+        }
+        return (false, buttonItem)
+    }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func createInManagedObjectContextTable(moc: NSManagedObjectContext, title: String, image: String, longDescription: String, entity: String, table: String)
+    {
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName(entity, inManagedObjectContext: moc) as Tables
+        newItem.title = title
+        newItem.image = image
+        newItem.presses = 0
+        newItem.table = table
+        newItem.longDescription = longDescription
+        
+        var error: NSError? = nil
+        if !self.managedObjectContext!.save(&error)
+        {
+            println("Error! \(error), \(error!.userInfo)")
+            abort()
+        }
+    }
+    
+    
 	/* ************************************************************************************************************
 	*	This function gets called when the user presses the save button when creating a new button. It inserts the
 	*	new button data into the database and adds the button to the button array.
@@ -157,21 +196,22 @@ class LXCollectionViewController1: CollectionViewBase
 	{
         scanner.cellArray.removeAllObjects()
 
-        var database = db.getDB("UserDatabase.sqlite")
-        database.open()
-        var mutablePath = data["path"] as String
-        var array = [buttons.count, data["title"] as String, data["longDescription"] as String, mutablePath as String, 1]
+        let title = data["title"] as String
+        let longDescription = data["longDescription"] as String
+        let imagePath = data["path"] as String
 		
-		database.executeUpdate("CREATE TABLE IF NOT EXISTS \(link)(number INT primary key, title TEXT, longDescription TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-		database.executeUpdate("INSERT INTO \(link)(number, title, longDescription, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
-		database.close()
-		
+        let (success, tableItems) = fetchTable()
+        if success
+        {
+            createInManagedObjectContextTable(self.managedObjectContext!, title: title, image: imagePath, longDescription: longDescription, entity: "Tables", table: link)
+        }
+
 		var button = UIButton.buttonWithType(.System) as UIButton
-		button.setTitle(data["title"] as? String, forState: .Normal) // stores the button label
-        button.setTitle(data["longDescription"] as? String, forState: .Highlighted) // stores the extra longDescription
+		button.setTitle(title, forState: .Normal) // stores the button label
+        button.setTitle(longDescription, forState: .Highlighted) // stores the extra longDescription
 		
 		// Change button title
-		button.setTitle(mutablePath, forState: .Selected)	// Stores the image string
+		button.setTitle(imagePath, forState: .Selected)	// Stores the image string
 		buttons.addObject(button)
         collectionview.reloadData()
 	}
@@ -214,9 +254,7 @@ class LXCollectionViewController1: CollectionViewBase
         alertController.addAction(deleteAction)
         
         alertController.popoverPresentationController?.sourceView = sender as UIView
-        self.presentViewController(alertController, animated: true) { () -> Void in
-            println("presented")
-        }
+        self.presentViewController(alertController, animated: true) { () -> Void in }
     }
     
 
