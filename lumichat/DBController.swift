@@ -7,16 +7,32 @@
 //
 
 import Foundation
+import UIKit
 
-class DBController
+let sharedInstance = DBController()
+
+class DBController: NSObject
 {
-    
     public class var sharedInstance: DBController{
         struct SharedInstance {
             static let instance = DBController()
         }
         return SharedInstance.instance
     }
+//    var currentDB: FMDatabase? = nil
+//    var importedDB: FMDatabase? = nil
+//    
+//    class var currentDBInstance: DBController
+//    {
+//        sharedInstance.currentDB = FMDatabase(path: Util.getPath("UserDatabase.sqlite"))
+//        return sharedInstance
+//    }
+//    
+//    class var importedDBInstance: DBController
+//    {
+//        sharedInstance.importedDB = FMDatabase(path: Util.getPath("unzippedData/UserDatabase.sqlite"))
+//        return sharedInstance
+//    }
     
     /* *****************************************************************************************************
     *	Creates and returns the file path to the database

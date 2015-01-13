@@ -29,7 +29,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     
 	/* ************************************************************************************************
 	*	Initializes important data about the cell. Sets the image and label.
-    *   .Highlighted = description
+    *   .Highlighted = longDescription
     *   .Selected = image path
     *   .Normal = button title
 	************************************************************************************************ */

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 
 class CollectionViewBase: UICollectionViewController, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout
@@ -26,9 +27,18 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     var tapRec: UITapGestureRecognizer!
     var link:String!
     var editMode = false
-    var db = DBController.sharedInstance
     
-
+    // Used for Core Data functionality
+    lazy var managedObjectContext : NSManagedObjectContext? = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let managedObjectContext = appDelegate.managedObjectContext {
+            return managedObjectContext
+        }
+        else {
+            return nil
+        }
+        }()
+    
     // configures the default CollectionView element for manipulating
     func setup(collectionview: UICollectionView)
     {
@@ -45,7 +55,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     func setLayout()
     {
         layout = self.collectionview.collectionViewLayout as LXReorderableCollectionViewFlowLayout
-//        layout = self.collectionView.collectionViewLayout as LXReorderableCollectionViewFlowLayout
         layout.minimumInteritemSpacing = CGFloat(15)
         layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
     }
@@ -71,40 +80,10 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     }
     
     // pulls buttons from the DB and configures the buttons
-    func getButtonsFromDB()
+    func getButtonsFromDB(){}
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        var database = db.getDB("UserDatabase.sqlite")
-        database.open()
-        var results = FMResultSet()
-
-        // If a DB table exists for the current category, extract all the button information
-        if(database.tableExists(link))
-        {
-            results = database.executeQuery("SELECT * FROM \(link)",withArgumentsInArray: nil)
-            
-            while( results.next() )
-            {
-                var num = results.intForColumn("number")
-                var title = results.stringForColumn("title") as String!
-                var image = results.stringForColumn("image")
-                var description = results.stringForColumn("description")
-                
-                // If there really is data, configure the button and add it to the array of buttons
-                if(title != nil)
-                {
-                    var button = UIButton.buttonWithType(.System) as UIButton
-                    button.setTitle(title, forState: .Normal) // stores the title
-                    button.setTitle(image, forState: .Selected)	// Stores the image string
-                    button.setTitle(description, forState: .Highlighted) // stores the description
-                    buttons.addObject(button)
-                }
-            }
-        }
-        database.close()
-    }
-    
-    
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selectedIndexPath = indexPath
     }
     
@@ -127,25 +106,25 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     /* *******************************************************************************************************
     *	Updates the database when the buttons are reordered
     ******************************************************************************************************** */
-    func collectionViewReordered()
-    {
-        var database = db.getDB("UserDatabase.sqlite")
-        database.open()
-        database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
-        database.executeUpdate("CREATE TABLE \(link)(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-        
-        var counter = 0
-        for item in cellArray
-        {
-            var title = (item as ButtonCell).buttonLabel.text!
-            var image = (item as ButtonCell).imageString
-            var description = (item as ButtonCell).sentenceString
-            var array = [counter, title, description, image, 1 ]
-            database.executeUpdate("INSERT INTO \(link)(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
-            counter++
-        }
-        database.close()
-    }
+//    func collectionViewReordered()
+//    {
+//        var database = db.getDB("UserDatabase.sqlite")
+//        database.open()
+//        database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
+//        database.executeUpdate("CREATE TABLE \(link)(number INT primary key, title TEXT, longDescription TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
+//        
+//        var counter = 0
+//        for item in cellArray
+//        {
+//            var title = (item as ButtonCell).buttonLabel.text!
+//            var image = (item as ButtonCell).imageString
+//            var longDescription = (item as ButtonCell).sentenceString
+//            var array = [counter, title, longDescription, image, 1 ]
+//            database.executeUpdate("INSERT INTO \(link)(number, title, longDescription, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
+//            counter++
+//        }
+//        database.close()
+//    }
     
     /* *******************************************************************************************************
     *   Gets called when the collection view is reloaded and the view is being populated. This handles
@@ -223,7 +202,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             scanner.cellArray.removeObjectAtIndex(fromIndexPath.item)
             scanner.cellArray.insertObject(cell, atIndex: toIndexPath.item)
             
-            collectionViewReordered()
+//            collectionViewReordered()
             collectionview.reloadData()
             scanner.reloadData(layout.collectionViewContentSize())
         }

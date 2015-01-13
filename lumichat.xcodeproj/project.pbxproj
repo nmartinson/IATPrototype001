@@ -9,7 +9,12 @@
 /* Begin PBXBuildFile section */
 		2B061AA11A279E640078DB6B /* Zipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B061AA01A279E640078DB6B /* Zipping.swift */; };
 		2B061AA31A27A5380078DB6B /* CollectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */; };
-		2B20235E1A5F37A800704F75 /* OpenFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */; };
+		2B1800601A6477DD007BA245 /* UserDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B18005E1A6477DD007BA245 /* UserDatabase.xcdatamodeld */; };
+		2B1800651A647886007BA245 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1800641A647886007BA245 /* Categories.swift */; };
+		2B18006B1A647886007BA245 /* Tables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18006A1A647886007BA245 /* Tables.swift */; };
+		2B1800721A648A2A007BA245 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1800711A648A2A007BA245 /* libsqlite3.dylib */; };
+		2B2023601A64567000704F75 /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20235F1A64567000704F75 /* ModelManager.swift */; };
+		2B2023621A64585C00704F75 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2023611A64585C00704F75 /* Util.swift */; };
 		2B4669DB1A2A1645000CBD24 /* ModifyButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */; };
 		2B4669DD1A2A1809000CBD24 /* EditButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */; };
 		2B623AE71A3DCE5400106986 /* DBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B623AE61A3DCE5400106986 /* DBController.swift */; };
@@ -28,9 +33,7 @@
 		2BBCFE431A052CC200AE8BA6 /* Im_Thirsty.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE3C1A052CC200AE8BA6 /* Im_Thirsty.wav */; };
 		2BBCFE441A052CC200AE8BA6 /* Im_Tired.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE3D1A052CC200AE8BA6 /* Im_Tired.wav */; };
 		2BBCFE451A052CC200AE8BA6 /* Please_Help_Me.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE3E1A052CC200AE8BA6 /* Please_Help_Me.wav */; };
-		2BBCFE471A052CD400AE8BA6 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BBCFE461A052CD400AE8BA6 /* libsqlite3.0.dylib */; };
 		2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */; };
-		2BBCFE561A052D5A00AE8BA6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE491A052D5A00AE8BA6 /* TableViewController.swift */; };
 		2BBCFE581A052D5A00AE8BA6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */; };
 		2BBCFE591A052D5A00AE8BA6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */; };
 		2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */; };
@@ -87,7 +90,13 @@
 /* Begin PBXFileReference section */
 		2B061AA01A279E640078DB6B /* Zipping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zipping.swift; sourceTree = "<group>"; };
 		2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewBase.swift; sourceTree = "<group>"; };
+		2B18005F1A6477DD007BA245 /* UserDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserDatabase.xcdatamodel; sourceTree = "<group>"; };
+		2B1800641A647886007BA245 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		2B18006A1A647886007BA245 /* Tables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tables.swift; sourceTree = "<group>"; };
+		2B1800711A648A2A007BA245 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFileViewController.swift; sourceTree = "<group>"; };
+		2B20235F1A64567000704F75 /* ModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
+		2B2023611A64585C00704F75 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyButtonController.swift; sourceTree = "<group>"; };
 		2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButtonViewController.swift; sourceTree = "<group>"; };
 		2B623AE61A3DCE5400106986 /* DBController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBController.swift; sourceTree = "<group>"; };
@@ -116,9 +125,7 @@
 		2BBCFE3C1A052CC200AE8BA6 /* Im_Thirsty.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Im_Thirsty.wav; sourceTree = "<group>"; };
 		2BBCFE3D1A052CC200AE8BA6 /* Im_Tired.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Im_Tired.wav; sourceTree = "<group>"; };
 		2BBCFE3E1A052CC200AE8BA6 /* Please_Help_Me.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Please_Help_Me.wav; sourceTree = "<group>"; };
-		2BBCFE461A052CD400AE8BA6 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2BBCFE491A052D5A00AE8BA6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4A1A052D5A00AE8BA6 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -174,8 +181,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B1800721A648A2A007BA245 /* libsqlite3.dylib in Frameworks */,
 				2BD6A6FA1A25536B00A3CBA3 /* libz.dylib in Frameworks */,
-				2BBCFE471A052CD400AE8BA6 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,11 +196,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B18006E1A6479BE007BA245 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2B18005E1A6477DD007BA245 /* UserDatabase.xcdatamodeld */,
+				2B18006A1A647886007BA245 /* Tables.swift */,
+				2B1800641A647886007BA245 /* Categories.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		2BBCFDDB1A052C1E00AE8BA6 = {
 			isa = PBXGroup;
 			children = (
+				2B1800711A648A2A007BA245 /* libsqlite3.dylib */,
 				2BD6A6F91A25536B00A3CBA3 /* libz.dylib */,
-				2BBCFE461A052CD400AE8BA6 /* libsqlite3.0.dylib */,
 				2BBCFDE61A052C1E00AE8BA6 /* lumichat */,
 				2BBCFE001A052C1E00AE8BA6 /* lumichatTests */,
 				2BBCFDE51A052C1E00AE8BA6 /* Products */,
@@ -212,11 +229,13 @@
 		2BBCFDE61A052C1E00AE8BA6 /* lumichat */ = {
 			isa = PBXGroup;
 			children = (
+				2B18006E1A6479BE007BA245 /* Models */,
 				2B623AE61A3DCE5400106986 /* DBController.swift */,
+				2B20235F1A64567000704F75 /* ModelManager.swift */,
+				2B2023611A64585C00704F75 /* Util.swift */,
 				2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */,
 				2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */,
 				2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */,
-				2BBCFE491A052D5A00AE8BA6 /* TableViewController.swift */,
 				2BBCFE4A1A052D5A00AE8BA6 /* DetailViewController.swift */,
 				2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */,
 				2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */,
@@ -503,15 +522,15 @@
 			files = (
 				2BD6A6F61A25534300A3CBA3 /* unzip.c in Sources */,
 				2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */,
+				2B18006B1A647886007BA245 /* Tables.swift in Sources */,
 				2B4669DD1A2A1809000CBD24 /* EditButtonViewController.swift in Sources */,
 				2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */,
 				2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */,
-				2BBCFE561A052D5A00AE8BA6 /* TableViewController.swift in Sources */,
 				2BBCFE291A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				2BD6A6F71A25534300A3CBA3 /* zip.c in Sources */,
 				2BBCFE361A052CAB00AE8BA6 /* FMResultSet.m in Sources */,
 				2BBCFE5E1A052D5A00AE8BA6 /* ScannerDrawer.swift in Sources */,
-				2B20235E1A5F37A800704F75 /* OpenFileViewController.swift in Sources */,
+				2B2023621A64585C00704F75 /* Util.swift in Sources */,
 				2BD6A6F51A25534300A3CBA3 /* mztools.c in Sources */,
 				2B061AA11A279E640078DB6B /* Zipping.swift in Sources */,
 				2B4669DB1A2A1645000CBD24 /* ModifyButtonController.swift in Sources */,
@@ -519,13 +538,16 @@
 				2BBCFE341A052CAB00AE8BA6 /* FMDatabase.m in Sources */,
 				2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */,
 				2BBCFE651A0576F500AE8BA6 /* MainViewController.swift in Sources */,
+				2B1800651A647886007BA245 /* Categories.swift in Sources */,
 				2BD6A6F41A25534300A3CBA3 /* ioapi.c in Sources */,
 				2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */,
 				2BBCFE591A052D5A00AE8BA6 /* Constants.swift in Sources */,
 				2BD6A6F81A25534300A3CBA3 /* SSZipArchive.m in Sources */,
+				2B2023601A64567000704F75 /* ModelManager.swift in Sources */,
 				2BBCFE331A052CAB00AE8BA6 /* FMDatabasePool.m in Sources */,
 				2BBCFE351A052CAB00AE8BA6 /* FMDatabaseAdditions.m in Sources */,
 				2BBCFE581A052D5A00AE8BA6 /* SettingsViewController.swift in Sources */,
+				2B1800601A6477DD007BA245 /* UserDatabase.xcdatamodeld in Sources */,
 				2B623AE71A3DCE5400106986 /* DBController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -738,6 +760,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2B18005E1A6477DD007BA245 /* UserDatabase.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2B18005F1A6477DD007BA245 /* UserDatabase.xcdatamodel */,
+			);
+			currentVersion = 2B18005F1A6477DD007BA245 /* UserDatabase.xcdatamodel */;
+			path = UserDatabase.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2BBCFDDC1A052C1E00AE8BA6 /* Project object */;
 }

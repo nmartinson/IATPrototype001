@@ -33,7 +33,7 @@ class EditButtonController: ModifyButtonController
 //            while( results.next() )
 //            {
                 buttonTitleField.text = results.stringForColumn("title") as String!
-                textDescription.text = results.stringForColumn("description") as String!
+                textDescription.text = results.stringForColumn("longDescription") as String!
                 var image = results.stringForColumn("image")
                 buttonImage.image = loadImage(image)
 //            }

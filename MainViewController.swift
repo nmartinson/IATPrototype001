@@ -8,14 +8,14 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class MainViewController : CollectionViewBase
 {
     @IBOutlet var mycollectionview: UICollectionView!
-
+    
     override func viewWillAppear(animated: Bool)
     {
-        println("Main will appear")
         setup(mycollectionview)
         setLayout()
         configureButtons()
@@ -25,12 +25,11 @@ class MainViewController : CollectionViewBase
     
     override func viewDidLoad()
     {
-        println("main did load")
         buttons.removeAllObjects()
         cellArray.removeAllObjects()
 
         setTapRecognizer()
-        setLink("categories")
+        setLink("Categories")
         getButtonsFromDB()
     }
     
@@ -47,10 +46,44 @@ class MainViewController : CollectionViewBase
             var title = buttons[index].titleForState(.Normal)!
             let detailsViewController = segue.destinationViewController as LXCollectionViewController1
             detailsViewController.navBar = title
-            detailsViewController.pageLink = title.lowercaseString
+            detailsViewController.pageLink = title.stringByReplacingOccurrencesOfString(" ", withString: "")
         }
     }
     
+    override func getButtonsFromDB()
+    {
+        getCategories()
+    }
+
+    func getCategories() //-> (Bool, [Categories]?)
+    {
+        var categoryTable = [Categories]()
+        let fetchRequest = NSFetchRequest(entityName: "Categories")
+        if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Categories] {
+            if fetchResults.count > 0
+            {
+                for item in fetchResults
+                {
+                    var title = item.title
+                    var image = item.image
+                    
+                    // If there really is data, configure the button and add it to the array of buttons
+                    if(title != "")
+                    {
+                        var button = UIButton.buttonWithType(.System) as UIButton
+                        button.setTitle(title, forState: .Normal) // stores the title
+                        button.setTitle(image, forState: .Selected)	// Stores the image string
+                        buttons.addObject(button)
+                    }
+                    
+                }
+                
+                categoryTable = fetchResults
+                //                return (true, categoryTable)
+            }
+        }
+        //        return (false, nil)
+    }
     
     /* ************************************************************************************************
     *	This is

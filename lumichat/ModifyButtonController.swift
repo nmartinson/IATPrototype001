@@ -19,7 +19,7 @@ class ModifyButtonController: UIViewController, UIImagePickerControllerDelegate,
     var availableData: ((data:[String:NSObject]) -> () )?	// used for passing data back to previous view controller
     var capturedImage: UIImage!
     @IBOutlet weak var buttonImage: UIImageView!
-    var data = ["title":"", "description":"", "path":"", "image":UIImage()]
+    var data = ["title":"", "longDescription":"", "path":"", "image":UIImage()]
     
     override func viewDidLoad()
     {
@@ -47,7 +47,7 @@ class ModifyButtonController: UIViewController, UIImagePickerControllerDelegate,
         let LXController = segue.destinationViewController as LXCollectionViewController1
         var imageTitle = "\(Constants.getTime())-\(buttonTitleField.text)"
         data["title"] = buttonTitleField.text as String
-        data["description"] = textDescription.text as String
+        data["longDescription"] = textDescription.text as String
         var path = saveImage(self.capturedImage, title: imageTitle)
         data["path"] = path as String
         self.availableData?(data: data)

@@ -8,13 +8,13 @@
 //	it is responsible for the intial DB setup so that there is a default DB for testing with.
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
 	var window: UIWindow?
     var editMode = false
-    var db = DBController.sharedInstance
 
 
     /* *******************************************************************************************************
@@ -54,20 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	******************************************************************************************************************* */
 	func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool
 	{
-		// Setup stock database
-        var database = db.getDB("UserDatabase.sqlite")
-        database.open()
-        
-//		If there three lines are uncommented then the three DB tables will be deleted and then recreated with stock values
-//		database.executeUpdate("DROP TABLE categories", withArgumentsInArray: nil)
-//		database.executeUpdate("DROP TABLE social", withArgumentsInArray: nil)
-//		database.executeUpdate("DROP TABLE expressions", withArgumentsInArray: nil)
-//        database.executeUpdate("DROP TABLE pain_scale", withArgumentsInArray: nil)
-//        database.executeUpdate("DROP TABLE body_parts", withArgumentsInArray: nil)
-//        database.executeUpdate("DROP TABLE yes_no_maybe", withArgumentsInArray: nil)
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
 
-		if(!database.tableExists("categories"))
-		{
+
+        createDirectory("images/user")
+
             var image = UIImage(named: "buttonTest.jpg")
             var buttonTest = saveImage(image, title: "buttonTest")
             image = UIImage(named: "1.jpg")
@@ -120,123 +111,123 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var mouth = saveImage(image, title: "mouth")
             image = UIImage(named: "throat.jpg")
             var throat = saveImage(image, title: "throat")
-
+        
+        let (success, categoriesArray) = getCategories()
+        if !success
+        {
+            createInManagedObjectContextCategories(self.managedObjectContext!, title: "Expressions", image: buttonTest, link: "Expressions", presses: 0)
+            createInManagedObjectContextCategories(self.managedObjectContext!, title: "Social", image: buttonTest, link: "Social", presses: 0)
+            createInManagedObjectContextCategories(self.managedObjectContext!, title: "Body Parts", image: buttonTest, link: "BodyParts", presses: 0)
+            createInManagedObjectContextCategories(self.managedObjectContext!, title: "Pain Scale", image: buttonTest, link: "PainScale", presses: 0)
+            createInManagedObjectContextCategories(self.managedObjectContext!, title: "Yes No Maybe", image: buttonTest, link: "YesNoMaybe", presses: 0)
             
-//            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-//            let imagePath = documentDirectory.stringByAppendingPathComponent("buttonTest.jpg")
-//            let data = UIImageJPEGRepresentation(UIImage(named: "buttonTest.jpg"), 1)
-//            data.writeToFile(imagePath, atomically: true)
-            // categories
-            var link1 = [0, "Expressions", "expressions", buttonTest, 0]
-            var link2 = [1, "Social", "social",  buttonTest, 0]
-            var link3 = [2, "Entertainment", "entertainment", buttonTest, 0]
-            var link4 = [3, "Compliments", "compliments", buttonTest, 0]
-            var link5 = [4, "Pain Scale", "pain_scale", buttonTest, 0]
-            var link6 = [5, "Body Parts", "body_parts", buttonTest, 0]
-            var link7 = [6, "Yes-No-Maybe", "yes_no_maybe", buttonTest, 0]
-//			database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
-            database.executeUpdate("CREATE TABLE IF NOT EXISTS categories(number INT primary key, title TEXT, link TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
-            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link2)
-            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link3)
-            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link4)
-            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link5)
-            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link6)
-            database.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link7)
-
-//   			database.executeUpdate("DROP TABLE entertainment", withArgumentsInArray: nil)
-
-		
-            // expressions
-			link1 = [0, "Im Hungry", "", buttonTest, 0]
-			link2 = [1, "Im Thirsty", "",  buttonTest, 0]
-			link3 = [2, "Im Tired", "", buttonTest, 0]
-			link4 = [3, "Please Help Me", "", buttonTest, 0]
-//			database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
-			database.executeUpdate("CREATE TABLE IF NOT EXISTS expressions(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-			database.executeUpdate("INSERT INTO expressions(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
-			database.executeUpdate("INSERT INTO expressions(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link2)
-			database.executeUpdate("INSERT INTO expressions(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link3)
-			database.executeUpdate("INSERT INTO expressions(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link4)
-
-            // social
-			link1 = [0, "Hello", "", buttonTest, 0]
-			link2 = [1, "Goodbye", "", buttonTest, 0]
-			database.executeUpdate("CREATE TABLE IF NOT EXISTS social(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-			database.executeUpdate("INSERT INTO social(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
-			database.executeUpdate("INSERT INTO social(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link2)
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Head", image: head, longDescription: "My head hurts", entity: "Tables", table: "BodyParts")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Hand", image: hand, longDescription: "My hand hurts", entity: "Tables", table: "BodyParts")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Foot", image: foot, longDescription: "My foot hurts", entity: "Tables", table: "BodyParts")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Arm", image: arm, longDescription: "My arm hurts", entity: "Tables", table: "BodyParts")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Ear", image: ear, longDescription: "My ear hurts", entity: "Tables", table: "BodyParts")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Eye", image: eye, longDescription: "My eye hurts", entity: "Tables", table: "BodyParts")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Mouth", image: mouth, longDescription: "My mouth hurts", entity: "Tables", table: "BodyParts")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Throat", image: throat, longDescription: "My throat hurts", entity: "Tables", table: "BodyParts")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Back", image: back, longDescription: "My back hurts", entity: "Tables", table: "BodyParts")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Leg", image: leg, longDescription: "My leg hurts", entity: "Tables", table: "BodyParts")
             
-            //Body parts
-            link1 = [0, "Head", "My head hurts", head, 0]
-            link2 = [1, "Hand", "My hand hurts",  hand, 0]
-            link3 = [2, "Foot", "My foot hurts", foot, 0]
-            link4 = [3, "Arm", "My arm hurts", arm, 0]
-            link5 = [4, "Ear", "My ear hurts", ear, 0]
-            link6 = [5, "Eye", "My eye hurts", eye, 0]
-            link7 = [6, "Mouth", "My mouth hurts",  mouth, 0]
-            var link8 = [7, "Throat", "My throat hurts", throat, 0]
-            var link9 = [8, "Back", "My back hurts", back, 0]
-            var link10 = [9, "Leg", "My leg hurts", leg, 0]
-            database.executeUpdate("CREATE TABLE IF NOT EXISTS body_parts(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
-            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link2)
-            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link3)
-            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link4)
-            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link5)
-            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link6)
-            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link7)
-            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link8)
-            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link9)
-            database.executeUpdate("INSERT INTO body_parts(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link10)
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Yes", image: yes, longDescription: "", entity: "Tables", table: "YesNoMaybe")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "No", image: no, longDescription: "", entity: "Tables", table: "YesNoMaybe")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Maybe", image: maybe, longDescription: "", entity: "Tables", table: "YesNoMaybe")
             
-            //Pain Scale
-            link1 = [0, "1", "My pain is at level 1", one, 0]
-            link2 = [1, "2", "My pain is at level 2",  two, 0]
-            link3 = [2, "3", "My pain is at level 3", three, 0]
-            link4 = [3, "4", "My pain is at level 4", four, 0]
-            link5 = [4, "5", "My pain is at level 5", five, 0]
-            link6 = [5, "6", "My pain is at level 6", six, 0]
-            link7 = [6, "7", "My pain is at level 7",  seven, 0]
-            link8 = [7, "8", "My pain is at level 8", eight, 0]
-            link9 = [8, "9", "My pain is at level 9", nine, 0]
-            link10 = [9, "10", "My pain is at level 10", ten, 0]
-            database.executeUpdate("CREATE TABLE IF NOT EXISTS pain_scale(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
-            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link2)
-            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link3)
-            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link4)
-            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link5)
-            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link6)
-            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link7)
-            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link8)
-            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link9)
-            database.executeUpdate("INSERT INTO pain_scale(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link10)
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Im Hungry", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Im Thirsty", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Im Tired", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Please Help Me", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions")
             
-            // yes-no-maybe
-            link1 = [0, "Yes", "", yes, 0]
-            link2 = [1, "No", "",  no, 0]
-            link3 = [2, "Maybe", "", maybe, 0]
-            database.executeUpdate("CREATE TABLE IF NOT EXISTS yes_no_maybe(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-            database.executeUpdate("INSERT INTO yes_no_maybe(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link1)
-            database.executeUpdate("INSERT INTO yes_no_maybe(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link2)
-            database.executeUpdate("INSERT INTO yes_no_maybe(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: link3)
-
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Hello", image: buttonTest, longDescription: "", entity: "Tables", table: "Social")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "Goodbye", image: buttonTest, longDescription: "", entity: "Tables", table: "Social")
             
-		}
-		database.close()
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "1", image: one, longDescription: "My pain is at level 1", entity: "Tables", table: "PainScale")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "2", image: two, longDescription: "My pain is at level 2", entity: "Tables", table: "PainScale")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "3", image: three, longDescription: "My pain is at level 3", entity: "Tables", table: "PainScale")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "4", image: four, longDescription: "My pain is at level 4", entity: "Tables", table: "PainScale")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "5", image: five, longDescription: "My pain is at level 5", entity: "Tables", table: "PainScale")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "6", image: six, longDescription: "My pain is at level 6", entity: "Tables", table: "PainScale")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "7", image: seven, longDescription: "My pain is at level 7", entity: "Tables", table: "PainScale")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "8", image: eight, longDescription: "My pain is at level 8", entity: "Tables", table: "PainScale")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "9", image: nine, longDescription: "My pain is at level 9", entity: "Tables", table: "PainScale")
+            createInManagedObjectContextTable(self.managedObjectContext!, title: "10", image: ten, longDescription: "My pain is at level 10", entity: "Tables", table: "PainScale")
+        }
+        
 		return true
 	}
 
+    
+    func getCategories() -> (Bool, [Categories]?)
+    {
+        var categoryTable = [Categories]()
+        let fetchRequest = NSFetchRequest(entityName: "Categories")
+        if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Categories] {
+            if fetchResults.count > 0
+            {
+                categoryTable = fetchResults
+                                return (true, categoryTable)
+            }
+        }
+        return (false, nil)
+    }
+
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func createInManagedObjectContextCategories(moc: NSManagedObjectContext, title: String, image: String, link: String, presses: Int) -> Categories
+    {
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Categories", inManagedObjectContext: moc) as Categories
+        newItem.title = title
+        newItem.link = link
+        newItem.image = image
+        newItem.presses = presses
+        
+        var error: NSError? = nil
+        if !self.managedObjectContext!.save(&error)
+        {
+            println("Error! \(error), \(error!.userInfo)")
+            abort()
+        }
+        
+        return newItem
+    }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func createInManagedObjectContextTable(moc: NSManagedObjectContext, title: String, image: String, longDescription: String, entity: String, table: String)
+    {
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName(entity, inManagedObjectContext: moc) as Tables
+        newItem.title = title
+        newItem.image = image
+        newItem.presses = 0
+        newItem.table = table
+        newItem.longDescription = longDescription
+        
+        var error: NSError? = nil
+        if !self.managedObjectContext!.save(&error)
+        {
+            println("Error! \(error), \(error!.userInfo)")
+            abort()
+        }
+    }
+    
+    
+    
     /* ***********************************************************************************************
     *   Gets called when the user opens a zip file outside of the application
     *************************************************************************************************/
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool
     {
-        var storyboard = UIStoryboard(name: "Main", bundle: nil)
-        var initialView = storyboard.instantiateViewControllerWithIdentifier("OpenFileController") as OpenFileViewController
-        initialView.url = url
-        window?.rootViewController?.presentViewController(initialView, animated: true, completion: { () -> Void in })
-        
+//        var storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        var initialView = storyboard.instantiateViewControllerWithIdentifier("OpenFileController") as OpenFileViewController
+//        initialView.url = url
+//        window?.rootViewController?.presentViewController(initialView, animated: true, completion: { () -> Void in })
+//        
         return true
     }
     
@@ -260,7 +251,93 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationWillTerminate(application: UIApplication!) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        self.saveContext()
 	}
     
+    // MARK: - Core Data stack
+    
+    lazy var applicationDocumentsDirectory: NSURL = {
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.xxxx.ProjectName" in the application's documents Application Support directory.
+        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        return urls[urls.count-1] as NSURL
+        }()
+    
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+        let modelURL = NSBundle.mainBundle().URLForResource("UserDatabase", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        }()
+    
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+        // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
+        // Create the coordinator and store
+        var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("lumichat.sqlite")
+        var error: NSError? = nil
+        var failureReason = "There was an error creating or loading the application's saved data."
+        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+            coordinator = nil
+            // Report any error we got.
+            let dict = NSMutableDictionary()
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSUnderlyingErrorKey] = error
+            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            // Replace this with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog("Unresolved error \(error), \(error!.userInfo)")
+            abort()
+        }
+        
+        return coordinator
+        }()
+    
+    lazy var managedObjectContext: NSManagedObjectContext? = {
+        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
+        let coordinator = self.persistentStoreCoordinator
+        if coordinator == nil {
+            return nil
+        }
+        var managedObjectContext = NSManagedObjectContext()
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+        }()
+    
+    // MARK: - Core Data Saving support
+    
+    func saveContext () {
+        if let moc = self.managedObjectContext {
+            var error: NSError? = nil
+            if moc.hasChanges && !moc.save(&error) {
+                // Replace this implementation with code to handle the error appropriately.
+                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                NSLog("Unresolved error \(error), \(error!.userInfo)")
+                abort()
+            }
+        }
+    }
+    
+    /* ************************************************************************************************
+    *	Create a new directory to store the images in
+    ************************************************************************************************ */
+    func createDirectory(directory: String) -> String
+    {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+
+        var path = documentsPath.stringByAppendingPathComponent(directory) // append images to the directory string
+        
+        if(!NSFileManager.defaultManager().fileExistsAtPath(path))
+        {
+            var error:NSError?
+            if(!NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &error)) // create new images directory
+            {
+                if (error != nil)
+                {
+                    println("Create directory error \(error)")
+                }
+            }
+        }
+        return path
+    }
 }
 

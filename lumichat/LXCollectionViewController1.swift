@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class LXCollectionViewController1: CollectionViewBase
 {
@@ -19,11 +20,9 @@ class LXCollectionViewController1: CollectionViewBase
 	var pageLink = ""	// stores the name of the row that was selected - used for DB table name
 	var timer = NSTimer()
     var buttonTitle = ""
-
     
     override func viewWillAppear(animated: Bool)
     {
-        println("appear")
         collectionview.reloadData()
         scanner.reloadData(layout.collectionViewContentSize())
         configureButtons()
@@ -36,7 +35,6 @@ class LXCollectionViewController1: CollectionViewBase
 	{
         buttons.removeAllObjects()
         cellArray.removeAllObjects()
-        pageLink = pageLink.stringByReplacingOccurrencesOfString(" ", withString: "_").stringByReplacingOccurrencesOfString("-", withString: "_").lowercaseString
 		navBarTitle.title = navBar
         setup(mycollectionview)
         setLayout()
@@ -46,6 +44,41 @@ class LXCollectionViewController1: CollectionViewBase
         configureButtons()
 
 	}
+
+        func getButtons() //-> (Bool, [Categories]?)
+        {
+            var buttonItem = [Tables]()
+            let fetchRequest = NSFetchRequest(entityName: "Tables")
+            fetchRequest
+            let predicate = NSPredicate(format: "table = %@", link)
+            fetchRequest.predicate = predicate
+            if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Tables] {
+                if fetchResults.count > 0
+                {
+                    for item in fetchResults
+                    {
+                        var title = item.title
+                        var image = item.image
+                        var longDescription = item.longDescription
+    
+                        // If there really is data, configure the button and add it to the array of buttons
+                        if(title != "")
+                        {
+                            var button = UIButton.buttonWithType(.System) as UIButton
+                            button.setTitle(title, forState: .Normal) // stores the title
+                            button.setTitle(image, forState: .Selected)	// Stores the image string
+                            button.setTitle(longDescription, forState: .Highlighted) // stores the longDescription
+                            buttons.addObject(button)
+                        }
+    
+                    }
+    
+                    buttonItem = fetchResults
+    //                return (true, categoryTable)
+                }
+            }
+    //        return (false, nil)
+        }
 
     
 	/* ******************************************************************************************************
@@ -58,22 +91,27 @@ class LXCollectionViewController1: CollectionViewBase
             var database = db.getDB("UserDatabase.sqlite")
             database.open()
 			database.executeUpdate("DROP TABLE \(super.link)", withArgumentsInArray: nil)
-			database.executeUpdate("CREATE TABLE \(super.link)(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
+			database.executeUpdate("CREATE TABLE \(super.link)(number INT primary key, title TEXT, longDescription TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
 			
 			var counter = 0
 			for item in cellArray
 			{
 				var title = (item as ButtonCell).buttonLabel.text!
 				var image = (item as ButtonCell).imageString
-                var description = (item as ButtonCell).sentenceString
-				var array = [counter, title, description, image, 1 ]
-				database.executeUpdate("INSERT INTO \(super.link)(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
+                var longDescription = (item as ButtonCell).sentenceString
+				var array = [counter, title, longDescription, image, 1 ]
+				database.executeUpdate("INSERT INTO \(super.link)(number, title, longDescription, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
 				counter++
 			}
 			database.close()
 		}
 	}
 	
+    override func getButtonsFromDB()
+    {
+        getButtons()
+    }
+    
 	/* ************************************************************************************************************
 	*	When the "Create Button" button is pressed, this configures the current ViewController to retrieve the data
 	*	that is entered in the create button form.
@@ -122,15 +160,15 @@ class LXCollectionViewController1: CollectionViewBase
         var database = db.getDB("UserDatabase.sqlite")
         database.open()
         var mutablePath = data["path"] as String
-        var array = [buttons.count, data["title"] as String, data["description"] as String, mutablePath as String, 1]
+        var array = [buttons.count, data["title"] as String, data["longDescription"] as String, mutablePath as String, 1]
 		
-		database.executeUpdate("CREATE TABLE IF NOT EXISTS \(link)(number INT primary key, title TEXT, description TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-		database.executeUpdate("INSERT INTO \(link)(number, title, description, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
+		database.executeUpdate("CREATE TABLE IF NOT EXISTS \(link)(number INT primary key, title TEXT, longDescription TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
+		database.executeUpdate("INSERT INTO \(link)(number, title, longDescription, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
 		database.close()
 		
 		var button = UIButton.buttonWithType(.System) as UIButton
 		button.setTitle(data["title"] as? String, forState: .Normal) // stores the button label
-        button.setTitle(data["description"] as? String, forState: .Highlighted) // stores the extra description
+        button.setTitle(data["longDescription"] as? String, forState: .Highlighted) // stores the extra longDescription
 		
 		// Change button title
 		button.setTitle(mutablePath, forState: .Selected)	// Stores the image string
