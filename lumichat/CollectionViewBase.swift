@@ -27,17 +27,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     var tapRec: UITapGestureRecognizer!
     var link:String!
     var editMode = false
-    
-    // Used for Core Data functionality
-    lazy var managedObjectContext : NSManagedObjectContext? = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        if let managedObjectContext = appDelegate.managedObjectContext {
-            return managedObjectContext
-        }
-        else {
-            return nil
-        }
-        }()
+    let coreDataObject = CoreDataController()
     
     // configures the default CollectionView element for manipulating
     func setup(collectionview: UICollectionView)
@@ -202,7 +192,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             scanner.cellArray.removeObjectAtIndex(fromIndexPath.item)
             scanner.cellArray.insertObject(cell, atIndex: toIndexPath.item)
             
-//            collectionViewReordered()
             collectionview.reloadData()
             scanner.reloadData(layout.collectionViewContentSize())
         }

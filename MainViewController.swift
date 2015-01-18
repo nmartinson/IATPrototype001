@@ -31,6 +31,14 @@ class MainViewController : CollectionViewBase
         setTapRecognizer()
         setLink("Categories")
         getButtonsFromDB()
+        
+        
+//        let (success, items) = coreDataObject.getTables("Social")
+//        if( success)
+//        {
+//            var item = items![0]
+//            coreDataObject.coreDataToJSON(item)
+//        }
     }
     
     /* *******************************************************************************************************************
@@ -47,46 +55,35 @@ class MainViewController : CollectionViewBase
             let detailsViewController = segue.destinationViewController as LXCollectionViewController1
             detailsViewController.navBar = title
             detailsViewController.pageLink = title.stringByReplacingOccurrencesOfString(" ", withString: "")
+            
         }
     }
     
     override func getButtonsFromDB()
     {
-        getCategories()
-    }
-
-    func getCategories() //-> (Bool, [Categories]?)
-    {
-        var categoryTable = [Categories]()
-        let fetchRequest = NSFetchRequest(entityName: "Categories")
-        if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Categories] {
-            if fetchResults.count > 0
+        let (success, categories) = coreDataObject.getCategories()
+        if success
+        {
+            for category in categories!
             {
-                for item in fetchResults
+                var title = category.title
+                var image = category.image
+
+                // If there really is data, configure the button and add it to the array of buttons
+                if(title != "")
                 {
-                    var title = item.title
-                    var image = item.image
-                    
-                    // If there really is data, configure the button and add it to the array of buttons
-                    if(title != "")
-                    {
-                        var button = UIButton.buttonWithType(.System) as UIButton
-                        button.setTitle(title, forState: .Normal) // stores the title
-                        button.setTitle(image, forState: .Selected)	// Stores the image string
-                        buttons.addObject(button)
-                    }
-                    
+                    var button = UIButton.buttonWithType(.System) as UIButton
+                    button.setTitle(title, forState: .Normal) // stores the title
+                    button.setTitle(image, forState: .Selected)	// Stores the image string
+                    buttons.addObject(button)
                 }
-                
-                categoryTable = fetchResults
-                //                return (true, categoryTable)
             }
         }
-        //        return (false, nil)
     }
+
     
     /* ************************************************************************************************
-    *	This is
+    *
     ************************************************************************************************ */
     override func tapHandler(gesture: UITapGestureRecognizer)
     {

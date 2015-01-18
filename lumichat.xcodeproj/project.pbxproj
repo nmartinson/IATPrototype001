@@ -13,7 +13,8 @@
 		2B1800651A647886007BA245 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1800641A647886007BA245 /* Categories.swift */; };
 		2B18006B1A647886007BA245 /* Tables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18006A1A647886007BA245 /* Tables.swift */; };
 		2B1800721A648A2A007BA245 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1800711A648A2A007BA245 /* libsqlite3.dylib */; };
-		2B2023601A64567000704F75 /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20235F1A64567000704F75 /* ModelManager.swift */; };
+		2B1800771A659B8C007BA245 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1800761A659B8C007BA245 /* CoreDataController.swift */; };
+		2B1800781A6C3825007BA245 /* OpenFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */; };
 		2B2023621A64585C00704F75 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2023611A64585C00704F75 /* Util.swift */; };
 		2B4669DB1A2A1645000CBD24 /* ModifyButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */; };
 		2B4669DD1A2A1809000CBD24 /* EditButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */; };
@@ -94,8 +95,8 @@
 		2B1800641A647886007BA245 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		2B18006A1A647886007BA245 /* Tables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tables.swift; sourceTree = "<group>"; };
 		2B1800711A648A2A007BA245 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		2B1800761A659B8C007BA245 /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataController.swift; path = ../CoreDataController.swift; sourceTree = "<group>"; };
 		2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFileViewController.swift; sourceTree = "<group>"; };
-		2B20235F1A64567000704F75 /* ModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
 		2B2023611A64585C00704F75 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyButtonController.swift; sourceTree = "<group>"; };
 		2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButtonViewController.swift; sourceTree = "<group>"; };
@@ -231,7 +232,7 @@
 			children = (
 				2B18006E1A6479BE007BA245 /* Models */,
 				2B623AE61A3DCE5400106986 /* DBController.swift */,
-				2B20235F1A64567000704F75 /* ModelManager.swift */,
+				2B1800761A659B8C007BA245 /* CoreDataController.swift */,
 				2B2023611A64585C00704F75 /* Util.swift */,
 				2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */,
 				2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */,
@@ -520,10 +521,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B1800781A6C3825007BA245 /* OpenFileViewController.swift in Sources */,
 				2BD6A6F61A25534300A3CBA3 /* unzip.c in Sources */,
 				2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */,
 				2B18006B1A647886007BA245 /* Tables.swift in Sources */,
 				2B4669DD1A2A1809000CBD24 /* EditButtonViewController.swift in Sources */,
+				2B1800771A659B8C007BA245 /* CoreDataController.swift in Sources */,
 				2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */,
 				2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */,
 				2BBCFE291A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
@@ -543,7 +546,6 @@
 				2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */,
 				2BBCFE591A052D5A00AE8BA6 /* Constants.swift in Sources */,
 				2BD6A6F81A25534300A3CBA3 /* SSZipArchive.m in Sources */,
-				2B2023601A64567000704F75 /* ModelManager.swift in Sources */,
 				2BBCFE331A052CAB00AE8BA6 /* FMDatabasePool.m in Sources */,
 				2BBCFE351A052CAB00AE8BA6 /* FMDatabaseAdditions.m in Sources */,
 				2BBCFE581A052D5A00AE8BA6 /* SettingsViewController.swift in Sources */,

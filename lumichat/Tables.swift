@@ -17,5 +17,5 @@ class Tables: NSManagedObject {
     @NSManaged var image: String
     @NSManaged var presses: NSNumber
     @NSManaged var table: String
-
+    @NSManaged var index: NSNumber
 }

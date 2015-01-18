@@ -118,6 +118,7 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
             mailComposerVC.addAttachmentData(data, mimeType: "application/zip", fileName: "file.zip")
         }
         
+        
         return mailComposerVC
     }
     
@@ -126,6 +127,7 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
     ******************************************************************************************************* */
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError)
     {
+        Util().deleteFile("daterbase.zip")
         controller.dismissViewControllerAnimated(true, completion:nil)
     }
 	

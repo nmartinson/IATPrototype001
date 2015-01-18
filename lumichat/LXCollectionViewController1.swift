@@ -45,42 +45,6 @@ class LXCollectionViewController1: CollectionViewBase
         configureButtons()
 
 	}
-
-    func getButtons() //-> (Bool, [Categories]?)
-    {
-        var buttonItem = [Tables]()
-        let fetchRequest = NSFetchRequest(entityName: "Tables")
-        fetchRequest
-        let predicate = NSPredicate(format: "table = %@", link)
-        fetchRequest.predicate = predicate
-        if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Tables] {
-            if fetchResults.count > 0
-            {
-                for item in fetchResults
-                {
-                    var title = item.title
-                    var image = item.image
-                    var longDescription = item.longDescription
-
-                    // If there really is data, configure the button and add it to the array of buttons
-                    if(title != "")
-                    {
-                        var button = UIButton.buttonWithType(.System) as UIButton
-                        button.setTitle(title, forState: .Normal) // stores the title
-                        button.setTitle(image, forState: .Selected)	// Stores the image string
-                        button.setTitle(longDescription, forState: .Highlighted) // stores the longDescription
-                        buttons.addObject(button)
-                    }
-
-                }
-
-                buttonItem = fetchResults
-//                return (true, categoryTable)
-            }
-        }
-//        return (false, nil)
-    }
-
     
 	/* ******************************************************************************************************
 	*	Updates the database if the buttons were reordered
@@ -89,28 +53,66 @@ class LXCollectionViewController1: CollectionViewBase
 	{
 		if( reordered == true)
 		{
-            var database = db.getDB("UserDatabase.sqlite")
-            database.open()
-			database.executeUpdate("DROP TABLE \(super.link)", withArgumentsInArray: nil)
-			database.executeUpdate("CREATE TABLE \(super.link)(number INT primary key, title TEXT, longDescription TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-			
-			var counter = 0
-			for item in cellArray
-			{
-				var title = (item as ButtonCell).buttonLabel.text!
-				var image = (item as ButtonCell).imageString
+//            var database = db.getDB("UserDatabase.sqlite")
+//            database.open()
+//			database.executeUpdate("DROP TABLE \(super.link)", withArgumentsInArray: nil)
+//			database.executeUpdate("CREATE TABLE \(super.link)(number INT primary key, title TEXT, longDescription TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
+//			
+//			var counter = 0
+//			for item in cellArray
+//			{
+//				var title = (item as ButtonCell).buttonLabel.text!
+//				var image = (item as ButtonCell).imageString
+//                var longDescription = (item as ButtonCell).sentenceString
+//				var array = [counter, title, longDescription, image, 1 ]
+//				database.executeUpdate("INSERT INTO \(super.link)(number, title, longDescription, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
+//				counter++
+//			}
+//			database.close()
+            
+            
+            coreDataObject.deleteTableFromContext(link)
+            var counter = 0
+            for item in cellArray
+            {
+                var title = (item as ButtonCell).buttonLabel.text!
+//                println("title: \(title)")
+                var image = (item as ButtonCell).imageString
                 var longDescription = (item as ButtonCell).sentenceString
-				var array = [counter, title, longDescription, image, 1 ]
-				database.executeUpdate("INSERT INTO \(super.link)(number, title, longDescription, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
-				counter++
-			}
-			database.close()
+                coreDataObject.createInManagedObjectContextTable(title, image: image, longDescription: longDescription, entity: "Tables", table: link, index: counter)
+                counter++
+            }
+ 
 		}
 	}
-	
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     override func getButtonsFromDB()
     {
-        getButtons()
+        let (success, table) = coreDataObject.getTables(link)
+        if success
+        {
+            for buttonDetails in table!
+            {
+                var title = buttonDetails.title
+                var image = buttonDetails.image
+                var longDescription = buttonDetails.longDescription
+                var index = buttonDetails.index
+//                println("title: \(title)   index: \(index)")
+                
+                // If there really is data, configure the button and add it to the array of buttons
+                if(title != "")
+                {
+                    var button = UIButton.buttonWithType(.System) as UIButton
+                    button.setTitle(title, forState: .Normal) // stores the title
+                    button.setTitle(image, forState: .Selected)	// Stores the image string
+                    button.setTitle(longDescription, forState: .Highlighted) // stores the longDescription
+                    buttons.addObject(button)
+                }
+            }
+        }
     }
     
 	/* ************************************************************************************************************
@@ -150,43 +152,6 @@ class LXCollectionViewController1: CollectionViewBase
 
 	}
 
-	
-    func fetchTable() -> (Bool, [Tables])
-    {
-        var buttonItem = [Tables]()
-        let fetchRequest = NSFetchRequest(entityName: "Tables")
-        fetchRequest
-        let predicate = NSPredicate(format: "table = %@", link)
-        fetchRequest.predicate = predicate
-        if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Tables] {
-            if fetchResults.count > 0
-            {
-                return (true, buttonItem)
-            }
-        }
-        return (false, buttonItem)
-    }
-    
-    /******************************************************************************************
-    *
-    ******************************************************************************************/
-    func createInManagedObjectContextTable(moc: NSManagedObjectContext, title: String, image: String, longDescription: String, entity: String, table: String)
-    {
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName(entity, inManagedObjectContext: moc) as Tables
-        newItem.title = title
-        newItem.image = image
-        newItem.presses = 0
-        newItem.table = table
-        newItem.longDescription = longDescription
-        
-        var error: NSError? = nil
-        if !self.managedObjectContext!.save(&error)
-        {
-            println("Error! \(error), \(error!.userInfo)")
-            abort()
-        }
-    }
-    
     
 	/* ************************************************************************************************************
 	*	This function gets called when the user presses the save button when creating a new button. It inserts the
@@ -200,10 +165,10 @@ class LXCollectionViewController1: CollectionViewBase
         let longDescription = data["longDescription"] as String
         let imagePath = data["path"] as String
 		
-        let (success, tableItems) = fetchTable()
+        let (success, tableItems) = coreDataObject.getTables(link)
         if success
         {
-            createInManagedObjectContextTable(self.managedObjectContext!, title: title, image: imagePath, longDescription: longDescription, entity: "Tables", table: link)
+            coreDataObject.createInManagedObjectContextTable(title, image: imagePath, longDescription: longDescription, entity: "Tables", table: link, index: buttons.count)
         }
 
 		var button = UIButton.buttonWithType(.System) as UIButton
@@ -215,17 +180,26 @@ class LXCollectionViewController1: CollectionViewBase
 		buttons.addObject(button)
         collectionview.reloadData()
 	}
-
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func createButtonPressed()
     {
         performSegueWithIdentifier("toCreate", sender: self)
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func editButtonPressed()
     {
         performSegueWithIdentifier("toEdit", sender: self)
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     @IBAction func actionSheetButtonPressed(sender: AnyObject)
     {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)

@@ -15,7 +15,7 @@ class EditButtonController: ModifyButtonController
     {
         super.viewDidLoad()
         populateFields()
-        println("viewDidLoad")
+        println("viewDidLoad") 
     }
     
     

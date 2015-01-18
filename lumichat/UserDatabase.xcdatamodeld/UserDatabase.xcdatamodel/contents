@@ -9,6 +9,7 @@
     </entity>
     <entity name="Tables" representedClassName="lumichat.Tables" syncable="YES">
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="longDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="presses" optional="YES" attributeType="Integer 16" syncable="YES"/>
@@ -16,7 +17,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Tables" positionX="-54" positionY="-54" width="128" height="133"/>
+        <element name="Tables" positionX="-54" positionY="-54" width="128" height="148"/>
         <element name="Categories" positionX="36" positionY="36" width="128" height="120"/>
     </elements>
 </model>

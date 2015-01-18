@@ -56,7 +56,7 @@ class OpenFileViewController: UIViewController
     {
         openZippedData()
         
-        deleteFile("UserDatabase.sqlite") // delete old database
+        deleteFile("lumichat.sqlite") // delete old database
         replaceDatabase() // moves new database into place
         createDirectory("images/user")
         moveImages()
@@ -72,34 +72,23 @@ class OpenFileViewController: UIViewController
     @IBAction func mergeButtonPressed(sender: AnyObject)
     {
         openZippedData()
+        var coreDataObject = CoreDataController()
         
         // arrays to hold titles 
         var oldDBTitles:[String] = []
         var importDBTitles: [String] = []
         var importTables: [String] = []
-        
-        // open the old and imported DBs
-        db.currentDB?.close()
-        dbImport.importedDB?.close()
-        db.currentDB?.closeOpenResultSets()
-        dbImport.importedDB?.closeOpenResultSets()
-        db.currentDB?.open()
-        dbImport.importedDB?.open()
-        //        var oldDB = db.getDB("UserDatabase.sqlite")
-//        var importDB = db.getDB("unzippedData/UserDatabase.sqlite")
-//        oldDB.open()
-//        importDB.open()
-        
-        
-        //Get all the categories in the old DB
+        var database = db.getDB("lumichat.sqlite")
 
-        var oldDBResults = db.currentDB!.executeQuery("SELECT * FROM categories",withArgumentsInArray: nil)
-        var importDBResults = dbImport.importedDB!.executeQuery("SELECT * FROM categories",withArgumentsInArray: nil)
+        //Get all the categories in the old DB
+        let (success, categories) = coreDataObject.getCategories()
+        var importDBResults = database.executeQuery("SELECT * FROM categories",withArgumentsInArray: nil)
         
-        while( oldDBResults.next() )
+        for category in categories!
         {
-            oldDBTitles.append(oldDBResults.stringForColumn("title") as String!)
+            oldDBTitles.append(category.title)
         }
+        
         while( importDBResults.next() )
         {
             importDBTitles.append(importDBResults.stringForColumn("title") as String!)
@@ -121,7 +110,7 @@ class OpenFileViewController: UIViewController
             {
                 // insert import row into old.....i holds index of categorie that needs inserted
                 var array = []
-                importDBResults = dbImport.importedDB!.executeQuery("SELECT * FROM categories WHERE title=?", withArgumentsInArray: [importDBTitles[i]])
+                importDBResults = database.executeQuery("SELECT * FROM categories WHERE title=?", withArgumentsInArray: [importDBTitles[i]])
             
                 importDBResults.next()
                 var number:Int = Int(importDBResults.intForColumn("number"))
@@ -132,102 +121,87 @@ class OpenFileViewController: UIViewController
                 
                 array = [number, title, link, image, presses]
                 
-                db.currentDB!.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
+//                db.currentDB!.executeUpdate("INSERT INTO categories(number, title, link, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
+                coreDataObject.createInManagedObjectContextCategories(title, image: image, link: link, presses: 0)
             }
             foundMatch = false // reset value for next loop
         }
-
-        db.currentDB?.close()
-        dbImport.importedDB?.close()
-        db.currentDB?.closeOpenResultSets()
-        dbImport.importedDB?.closeOpenResultSets()
-        db.currentDB!.clearCachedStatements()
-        dbImport.importedDB!.clearCachedStatements()
-
         
-        
-        db.currentDB?.open()
-        dbImport.importedDB?.open()
-        //
-        //
-        // Goes through every table and inserts rows if they arent present
-        foundMatch = false
-        for(var i = 0; i < importTables.count; i++)
-        {
-            oldDBTitles.removeAll(keepCapacity: false)
-            importDBTitles.removeAll(keepCapacity: false)
-            db.currentDB?.closeOpenResultSets()
-            dbImport.importedDB?.closeOpenResultSets()
-            dbImport.importedDB!.clearCachedStatements()
-            db.currentDB!.clearCachedStatements()
 
-            if db.currentDB!.tableExists(importTables[i])
-            {
-                oldDBResults = db.currentDB!.executeQuery("SELECT * FROM \(importTables[i])", withArgumentsInArray: nil)
-                db.currentDB!.clearCachedStatements()
-            }
-            if dbImport.importedDB!.tableExists(importTables[i])
-            {
-                importDBResults = dbImport.importedDB!.executeQuery("SELECT * FROM \(importTables[i])", withArgumentsInArray: nil)
-                dbImport.importedDB!.clearCachedStatements()
-            }
-            
-            while( oldDBResults.next() )
-            {
-                oldDBTitles.append(oldDBResults.stringForColumn("title") as String!)
-            }
-            while( importDBResults.next() )
-            {
-                importDBTitles.append(importDBResults.stringForColumn("title") as String!)
-            }
-            db.currentDB!.closeOpenResultSets()
-            dbImport.importedDB?.closeOpenResultSets()
-            
-            // inserts into the category table any categories that are in the import DB but not the old DB
-            foundMatch = false
-            var indexNumber = oldDBTitles.count
-            for(var i = 0; i < importDBTitles.count; i++)
-            {
-                for(var j = 0; j < oldDBTitles.count; j++)
-                {
-                    if( (importDBTitles[i] == oldDBTitles[j]) && importDBTitles[i] != "")
-                    {
-                        foundMatch = true
-                    }
-                }
-                if foundMatch == false
-                {
-                    dbImport.importedDB?.closeOpenResultSets()
-                    // insert import row into old.....i holds index of categorie that needs inserted
-                    var array = []
-
-                    if dbImport.importedDB!.open()
-                    {
-                        importDBResults = dbImport.importedDB!.executeQuery("SELECT title,longDescription,image FROM \(importTables[i]) WHERE title=?", withArgumentsInArray: [importDBTitles[i]])
-                        dbImport.importedDB!.clearCachedStatements()
-                    }
-                    while( importDBResults.next() )
-                    {
-                        indexNumber++
-                        let title = importDBResults.stringForColumn("title")
-                        let longDescription = importDBResults.stringForColumn("longDescription")
-                        let image = importDBResults.stringForColumn("image")
-                        
-                        array = [indexNumber, title, longDescription, image, 0]
-                        
-                        if db.currentDB!.open()
-                        {
-                            db.currentDB!.executeUpdate("INSERT INTO \(importTables[i])(number, title, longDescription, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
-                            db.currentDB!.clearCachedStatements()
-                        }
-                    }
-                    dbImport.importedDB!.closeOpenResultSets()
-                    db.currentDB!.closeOpenResultSets()
-                }
-                foundMatch = false // reset value for next loop
-            }
-            
-        }
+//        
+//        //
+//        // Goes through every table and inserts rows if they arent present
+//        foundMatch = false
+//        for(var i = 0; i < importTables.count; i++)
+//        {
+//            oldDBTitles.removeAll(keepCapacity: false)
+//            importDBTitles.removeAll(keepCapacity: false)
+//
+//            if db.currentDB!.tableExists(importTables[i])
+//            {
+//                oldDBResults = db.currentDB!.executeQuery("SELECT * FROM \(importTables[i])", withArgumentsInArray: nil)
+//                db.currentDB!.clearCachedStatements()
+//            }
+//            if database.tableExists(importTables[i])
+//            {
+//                importDBResults = database.executeQuery("SELECT * FROM \(importTables[i])", withArgumentsInArray: nil)
+//                database.clearCachedStatements()
+//            }
+//            
+//            while( oldDBResults.next() )
+//            {
+//                oldDBTitles.append(oldDBResults.stringForColumn("title") as String!)
+//            }
+//            while( importDBResults.next() )
+//            {
+//                importDBTitles.append(importDBResults.stringForColumn("title") as String!)
+//            }
+//            database.closeOpenResultSets()
+//            
+//            // inserts into the category table any categories that are in the import DB but not the old DB
+//            foundMatch = false
+//            var indexNumber = oldDBTitles.count
+//            for(var i = 0; i < importDBTitles.count; i++)
+//            {
+//                for(var j = 0; j < oldDBTitles.count; j++)
+//                {
+//                    if( (importDBTitles[i] == oldDBTitles[j]) && importDBTitles[i] != "")
+//                    {
+//                        foundMatch = true
+//                    }
+//                }
+//                if foundMatch == false
+//                {
+//                    database.closeOpenResultSets()
+//                    // insert import row into old.....i holds index of categorie that needs inserted
+//                    var array = []
+//
+//                    if database.open()
+//                    {
+//                        importDBResults = database.executeQuery("SELECT title,longDescription,image FROM \(importTables[i]) WHERE title=?", withArgumentsInArray: [importDBTitles[i]])
+//                        database.clearCachedStatements()
+//                    }
+//                    while( importDBResults.next() )
+//                    {
+//                        indexNumber++
+//                        let title = importDBResults.stringForColumn("title")
+//                        let longDescription = importDBResults.stringForColumn("longDescription")
+//                        let image = importDBResults.stringForColumn("image")
+//                        
+//                        array = [indexNumber, title, longDescription, image, 0]
+//                        
+//                        if db.currentDB!.open()
+//                        {
+//                            db.currentDB!.executeUpdate("INSERT INTO \(importTables[i])(number, title, longDescription, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
+//                            db.currentDB!.clearCachedStatements()
+//                        }
+//                    }
+//                    database.closeOpenResultSets()
+//                }
+//                foundMatch = false // reset value for next loop
+//            }
+//            
+//        }
 
         
         
@@ -272,8 +246,8 @@ class OpenFileViewController: UIViewController
     func replaceDatabase()
     {
         var error:NSError?
-        let tempPath = documentsPath.stringByAppendingPathComponent("unzippedData/UserDatabase.sqlite")
-        let destinationPath = documentsPath.stringByAppendingPathComponent("UserDatabase.sqlite")
+        let tempPath = documentsPath.stringByAppendingPathComponent("unzippedData/lumichat.sqlite")
+        let destinationPath = documentsPath.stringByAppendingPathComponent("lumichat.sqlite")
         if fileManager.moveItemAtPath(tempPath, toPath: destinationPath, error: &error) != true
         {
             println("Replace database error: \(error)")

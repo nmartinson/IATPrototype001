@@ -55,4 +55,74 @@ class Util: NSObject {
     }
 
     
+    /* *******************************************************************************************************
+    *	Saves image to a new 'image' directory in the Documents directory.
+    ******************************************************************************************************* */
+    func saveImage(image: UIImage?, title: String) -> String
+    {
+        if (image != nil)
+        {
+            
+            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+            var path = documentDirectory.stringByAppendingPathComponent("images/stock") // append images to the directory string
+            
+            if(!NSFileManager.defaultManager().fileExistsAtPath(path))
+            {
+                var error:NSError?
+                if(!NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &error)) // create new images directory
+                {
+                    if (error != nil)
+                    {
+                        println("Create directory error \(error)")
+                    }
+                }
+            }
+            
+            path = path.stringByAppendingString("/\(title).jpg") // append the image name with .jpg extension
+            let data = UIImageJPEGRepresentation(image, 1) //create data from jpeg
+            NSFileManager.defaultManager().createFileAtPath(path, contents: data, attributes: nil) // write data to file
+            let imagePath = "images/stock/\(title).jpg" // return only the path that is appended to the 'documents' path
+            return imagePath
+        }
+        return ""
+    }
+    
+    /* ************************************************************************************************
+    *	Create a new directory to store the images in
+    ************************************************************************************************ */
+    func createDirectory(directory: String) -> String
+    {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        
+        var path = documentsPath.stringByAppendingPathComponent(directory) // append images to the directory string
+        
+        if(!NSFileManager.defaultManager().fileExistsAtPath(path))
+        {
+            var error:NSError?
+            if(!NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &error)) // create new images directory
+            {
+                if (error != nil)
+                {
+                    println("Create directory error \(error)")
+                }
+            }
+        }
+        return path
+    }
+    
+    
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
+    func deleteFile(path: String)
+    {
+        let filePath = documentsPath.stringByAppendingPathComponent(path)
+        var error:NSError?
+        fileManager.removeItemAtPath(filePath, error: &error)
+        if error != nil
+        {
+            println("Delete file error: \(error)")
+        }
+    }
+    
 }

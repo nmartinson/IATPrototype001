@@ -45,7 +45,7 @@ class Zipping
         }
         
         //Add the users database to the zip file
-        let databasePath = getFilePath("UserDatabase.sqlite")
+        let databasePath = getFilePath("lumichat.sqlite")
         directoryContents.append(databasePath)
         
         return directoryContents
