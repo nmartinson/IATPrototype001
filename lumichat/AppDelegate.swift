@@ -124,6 +124,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             coreDataObject.createInManagedObjectContextTable("10", image: ten, longDescription: "My pain is at level 10", entity: "Tables", table: "PainScale", index: 9)
         }
 
+//        coreDataObject.createInManagedObjectContextCategories("Testing", image: buttonTest, link: "testing", presses: 0)
+
         return true
 	}
 
