@@ -11,8 +11,9 @@ import UIKit
 import CoreData
 
 
-class CollectionViewBase: UICollectionViewController, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout
+class CollectionViewBase: UICollectionViewController, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, ButtonCellControllerDelegate
 {
+    @IBOutlet weak var navBarTitle: UINavigationItem!
     
     var layout:LXReorderableCollectionViewFlowLayout!
     var fromIndexPath: NSIndexPath!
@@ -28,6 +29,21 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     var link:String!
     var editMode = false
     let coreDataObject = CoreDataController()
+    var buttonCell = ButtonCell()
+    
+    func configureEntireView(collectionView: UICollectionView, pageLink: String, title: String)
+    {
+        buttons.removeAllObjects()
+        cellArray.removeAllObjects()
+        setup(collectionView)
+        setLayout()
+        setLink(pageLink)
+        setTapRecognizer()
+        getButtonsFromDB()
+        collectionview.reloadData()
+        scanner.reloadData(layout.collectionViewContentSize())
+        configureButtons()
+    }
     
     // configures the default CollectionView element for manipulating
     func setup(collectionview: UICollectionView)
@@ -125,6 +141,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         var button = self.buttons[indexPath.item] as UIButton
         var buttonCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as ButtonCell
         buttonCell.setup(button)
+        buttonCell.delegate = self
         
         if( reordered == false)
         {
@@ -206,4 +223,9 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     {
         scanner.selectionMade(true)
     }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func editButtonWasPressed(buttonTitle: String, didSucceed: Bool){}
 }

@@ -6,39 +6,39 @@
 //  Copyright (c) 2014 Nick Martinson. All rights reserved.
 //
 
+import CoreData
+
 class EditButtonController: ModifyButtonController
 {
     var link:String = ""
+    var buttonTitle:String = ""
     var db = DBController.sharedInstance
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     override func viewDidLoad()
     {
         super.viewDidLoad()
         populateFields()
-        println("viewDidLoad") 
     }
     
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func populateFields()
     {
-        var database = db.getDB("UserDatabase.sqlite")
-        database.open()
-        var results = FMResultSet()
-        
-        // If a DB table exists for the current category, extract all the button information
-        if(database.tableExists(link))
-        {
-            results = database.executeQuery("SELECT * FROM \(link) WHERE title=\" ",withArgumentsInArray: nil)
-            
-//            while( results.next() )
-//            {
-                buttonTitleField.text = results.stringForColumn("title") as String!
-                textDescription.text = results.stringForColumn("longDescription") as String!
-                var image = results.stringForColumn("image")
-                buttonImage.image = loadImage(image)
-//            }
+        let coreDataObject = CoreDataController()
+        let (success, buttons) = coreDataObject.getButtonWithTitle(buttonTitle)
+        if let button = buttons?[0]{
+            if success
+            {
+                buttonTitleField.text = button.title
+                textDescription.text = button.longDescription
+                buttonImage.image = loadImage(button.image)
+            }
         }
-        database.close()
     }
     
     /* ************************************************************************************************
@@ -53,4 +53,13 @@ class EditButtonController: ModifyButtonController
         return image!
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    @IBAction func deleteButtonPressed(sender: AnyObject)
+    {
+        CoreDataController().deleteButtonWithTitle(buttonTitle)
+        delegate?.callBackFromModalDelete()
+        dismissViewControllerAnimated(true, completion: { () -> Void in })
+    }
 }

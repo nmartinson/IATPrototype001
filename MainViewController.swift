@@ -21,6 +21,8 @@ class MainViewController : CollectionViewBase
         configureButtons()
         collectionview.reloadData()
         scanner.reloadData(layout.collectionViewContentSize())
+        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.editMode = false
     }
     
     override func viewDidLoad()
@@ -31,14 +33,6 @@ class MainViewController : CollectionViewBase
         setTapRecognizer()
         setLink("Categories")
         getButtonsFromDB()
-        
-        
-//        let (success, items) = coreDataObject.getTables("Social")
-//        if( success)
-//        {
-//            var item = items![0]
-//            coreDataObject.coreDataToJSON(item)
-//        }
     }
     
     /* *******************************************************************************************************************

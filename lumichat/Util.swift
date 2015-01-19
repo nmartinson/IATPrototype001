@@ -15,11 +15,18 @@ class Util: NSObject {
     let fileManager = NSFileManager()
     
     
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
     class func getPath(fileName: String) -> String
     {
         return NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0].stringByAppendingPathComponent(fileName)
     }
     
+    
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
     class func copyFile(fileName: NSString)
     {
         var dbPath: String = getPath(fileName)
@@ -38,7 +45,7 @@ class Util: NSObject {
     func moveImages()
     {
         var error:NSError?
-        let unzippedPath = documentsPath.stringByAppendingPathComponent("")
+        let unzippedPath = documentsPath.stringByAppendingPathComponent("unzippedData")
         var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(unzippedPath, error: nil) as [String]
         println(directoryContents)
         
@@ -48,7 +55,7 @@ class Util: NSObject {
             let destinationPath = documentsPath.stringByAppendingPathComponent("images/user/\(directoryContents[i])")
             if fileManager.moveItemAtPath(sourcePath, toPath: destinationPath, error: &error) != true
             {
-                println("Replace database error: \(error)")
+                println("Move image error: \(error)")
             }
         }
         
@@ -110,6 +117,34 @@ class Util: NSObject {
         return path
     }
     
+    /* ************************************************************************************************
+    // returns the file paths inside the directory to zip
+    ************************************************************************************************ */
+    func getDirectory(path: String) -> [String]
+    {
+        var pathForZip = documentsPath.stringByAppendingPathComponent(path)
+        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pathForZip, error: nil) as [String]
+        
+        for(var i = 0; i < directoryContents.count; i++)
+        {
+            directoryContents[i] = pathForZip.stringByAppendingString("/\(directoryContents[i])")
+        }
+        
+        return directoryContents
+    }
+    
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
+    func deleteFileAtURL(url: NSURL)
+    {
+        var error:NSError?
+        fileManager.removeItemAtURL(url, error: &error)
+        if error != nil
+        {
+            println("Delete file error: \(error)")
+        }
+    }
     
     /* ************************************************************************************************
     *

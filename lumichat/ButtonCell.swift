@@ -13,7 +13,7 @@ import AVFoundation
 
 protocol ButtonCellControllerDelegate
 {
-    func editButtonWasPressed(request: ButtonCell, didSucceed: Bool)
+    func editButtonWasPressed(buttonTitle: String, didSucceed: Bool)
 }
 
 class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
@@ -25,6 +25,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     var sentenceString:String = ""
 	var imageString = ""
 	var voice = AVSpeechSynthesizer()
+    var delegate:ButtonCellControllerDelegate?
 
     
 	/* ************************************************************************************************
@@ -63,12 +64,12 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	************************************************************************************************ */
 	@IBAction func buttonPressRelease(sender: AnyObject)
     {
+        
 		self.buttonImageView.alpha = 1
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        println(appDelegate.editMode)
         if(appDelegate.editMode)
         {
-            LXCollectionViewController1().buttonTitle = buttonLabel.text as String!
+            delegate?.editButtonWasPressed(buttonLabel.text!, didSucceed: true)
         }
         else
         {

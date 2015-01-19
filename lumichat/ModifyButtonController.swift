@@ -10,16 +10,24 @@ import Foundation
 import UIKit
 import MobileCoreServices
 
+protocol ModifyButtonDelegate
+{
+    func callBackFromModalSaving(data: [String: NSObject])
+    func callBackFromModalDelete()
+}
+
+
 class ModifyButtonController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
     @IBOutlet weak var textDescription: UITextView!
     @IBOutlet var pictureButton: UIView!
     @IBOutlet weak var errorField: UILabel!		// Where the error message is displayed
     @IBOutlet weak var buttonTitleField: UITextField!	// Textfield that holds the new button title
-    var availableData: ((data:[String:NSObject]) -> () )?	// used for passing data back to previous view controller
     var capturedImage: UIImage!
     @IBOutlet weak var buttonImage: UIImageView!
     var data = ["title":"", "longDescription":"", "path":"", "image":UIImage()]
+    var delegate: ModifyButtonDelegate?
+    
     
     override func viewDidLoad()
     {
@@ -36,42 +44,6 @@ class ModifyButtonController: UIViewController, UIImagePickerControllerDelegate,
     @IBAction func cancelButton(sender: AnyObject)
     {
         self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    /* ************************************************************************************************
-    *	Gets called when a segue is about to take place going back to the collection view
-    *   Passes the new button data back to the LXCollectionViewController
-    ************************************************************************************************ */
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
-    {
-        let LXController = segue.destinationViewController as LXCollectionViewController1
-        var imageTitle = "\(Constants.getTime())-\(buttonTitleField.text)"
-        data["title"] = buttonTitleField.text as String
-        data["longDescription"] = textDescription.text as String
-        var path = saveImage(self.capturedImage, title: imageTitle)
-        data["path"] = path as String
-        self.availableData?(data: data)
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
-//        if segue.identifier == "fromCreate"
-//        {
-//            
-//            
-//            var path = saveImage(self.capturedImage, title: imageTitle)
-//            data["path"] = path as String
-//            
-//            self.availableData?(data: data)
-//            self.dismissViewControllerAnimated(true, completion: nil)
-//        }
-//        else if segue.identifier == "fromEdit"
-//        {
-//            
-//            var path = saveImage(self.capturedImage, title: )
-//            data["path"] = path as String
-//            
-//            self.availableData?(data: data)
-//            self.dismissViewControllerAnimated(true, completion: nil)
-//        }
     }
     
     /* ************************************************************************************************
@@ -188,9 +160,27 @@ class ModifyButtonController: UIViewController, UIImagePickerControllerDelegate,
     ******************************************************************************************************* */
     @IBAction func saveButton(sender: AnyObject)
     {
-        if( buttonTitleField.text != "")
+        var imageTitle = "\(Constants.getTime())-\(buttonTitleField.text)"
+        data["title"] = buttonTitleField.text as String
+        data["longDescription"] = textDescription.text as String
+        
+        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if(appDelegate.editMode)
         {
-            performSegueWithIdentifier("fromCreate", sender: self)
+            if capturedImage != nil
+            {
+                var path = saveImage(self.capturedImage, title: imageTitle)
+                data["path"] = path as String
+            }
+            self.delegate?.callBackFromModalSaving(data)
+            self.dismissViewControllerAnimated(true, completion: { () -> Void in })
+        }
+        else if( buttonTitleField.text != "")
+        {
+            var path = saveImage(self.capturedImage, title: imageTitle)
+            data["path"] = path as String
+            self.delegate?.callBackFromModalSaving(data)
+            self.dismissViewControllerAnimated(true, completion: { () -> Void in })
         }
         else
         {

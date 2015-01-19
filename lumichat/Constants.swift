@@ -38,7 +38,6 @@ enum Constants
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd-HH-mm"
         let time = formatter.stringFromDate(date)
-        println(time)
         return time
     }
 }

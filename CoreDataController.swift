@@ -119,6 +119,52 @@ class CoreDataController:NSObject //NSFetchedResultsController
     /******************************************************************************************
     *
     ******************************************************************************************/
+    func getButtonWithTitle(title: String) -> (Bool, [Tables]?)
+    {
+        var button = [Tables]()
+        let fetchRequest = NSFetchRequest(entityName: "Tables")
+        let predicate = NSPredicate(format: "title == %@", title)
+        fetchRequest.predicate = predicate
+        if let fetchResult = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Tables] {
+            if fetchResult.count > 0
+            {
+                button = fetchResult
+                return (true, button)
+            }
+        }
+        return (false, nil)
+    }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func updateButtonWith(oldTitle: String, newTitle: String, longDescription: String, image: String)
+    {
+        let (success, buttons) = getButtonWithTitle(oldTitle)
+        if let button = buttons?[0]{
+            button.title = newTitle
+            button.longDescription = longDescription
+            if image != ""
+            {
+                button.image = image
+            }
+            saveContext()
+        }
+        
+    }
+    
+    func deleteButtonWithTitle(title: String)
+    {
+        let (success, buttons) = getButtonWithTitle(title)
+        if let button = buttons?[0]{
+            managedObjectContext?.deleteObject(button)
+            saveContext()
+        }
+    }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func createInManagedObjectContextCategories(title: String, image: String, link: String, presses: Int) -> Categories
     {
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("Categories", inManagedObjectContext: self.managedObjectContext!) as Categories
@@ -166,6 +212,9 @@ class CoreDataController:NSObject //NSFetchedResultsController
     
     
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func coreDataToJSON(managaedObject: NSManagedObject)
     {
         var fields:NSMutableDictionary?

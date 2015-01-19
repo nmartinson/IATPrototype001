@@ -315,14 +315,21 @@ public class ScanController
     func selectionMade(playAudio: Bool)
     {
         timer.invalidate()
-        
-        if(AppDelegate().editMode)
+        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+
+        if(scanMode == 0) // if serial scan, make selection
         {
-            
+            if( playAudio)
+            {
+
+                (cellArray[index] as ButtonCell).buttonPressRelease(self)
+            }
+            (cellArray[index] as ButtonCell).selected = false
+            (cellArray[index] as ButtonCell).layer.borderWidth = 0
         }
         else
         {
-            if(scanMode == 0) // if serial scan, make selection
+            if( secondStageOfSelection)
             {
                 if( playAudio)
                 {
@@ -331,39 +338,27 @@ public class ScanController
                 (cellArray[index] as ButtonCell).selected = false
                 (cellArray[index] as ButtonCell).layer.borderWidth = 0
             }
-            else
+            secondStageOfSelection = !secondStageOfSelection
+            elementScanningCounter = 0	// set to 0 so it starts scanning with the left button
+            
+            switch scanMode
             {
-                if( secondStageOfSelection)
-                {
-                    if( playAudio)
-                    {
-                        (cellArray[index] as ButtonCell).buttonPressRelease(self)
-                    }
-                    (cellArray[index] as ButtonCell).selected = false
-                    (cellArray[index] as ButtonCell).layer.borderWidth = 0
-                }
-                secondStageOfSelection = !secondStageOfSelection
-                elementScanningCounter = 0	// set to 0 so it starts scanning with the left button
-                
-                switch scanMode
-                {
-                    case 0:
-                        scanMode = 0
-                    case 1:
-                        scanMode = 1
-                    case 2:
-                        var cellWidth = Constants.getCellSize(buttonSize).width
-                        var numbtns:Int = Int( (size.width-15)/(cellWidth+15) )
-                        startIndex /= numbtns
-                        scanMode = 3	// change to column scan
-                    case 3:
-                        startIndex -= 1
-                        scanMode = 2	// change to row scan
-                    default:
-                        println("Error")
-                }
+                case 0:
+                    scanMode = 0
+                case 1:
+                    scanMode = 1
+                case 2:
+                    var cellWidth = Constants.getCellSize(buttonSize).width
+                    var numbtns:Int = Int( (size.width-15)/(cellWidth+15) )
+                    startIndex /= numbtns
+                    scanMode = 3	// change to column scan
+                case 3:
+                    startIndex -= 1
+                    scanMode = 2	// change to row scan
+                default:
+                    println("Error")
             }
-            setScanMode()   // this resets the timer to start scanning again
         }
+        setScanMode()   // this resets the timer to start scanning again
     }
 }

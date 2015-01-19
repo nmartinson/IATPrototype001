@@ -36,7 +36,7 @@ class OpenFileViewController: UIViewController
     {
         let zip = Zipping()
         
-        createDirectory("unzippedData") // create directory to unzip file to
+        Util().createDirectory("unzippedData") // create directory to unzip file to
         let sourcePath = documentsPath.stringByAppendingPathComponent("Inbox/file.zip")
         let destinationPath = documentsPath.stringByAppendingPathComponent("unzippedData")
         zip.unZipDirectory(sourcePath, destination: destinationPath)
@@ -56,14 +56,13 @@ class OpenFileViewController: UIViewController
     {
         openZippedData()
         
-        deleteFile("lumichat.sqlite") // delete old database
+        Util().deleteFile("lumichat.sqlite") // delete old database
         replaceDatabase() // moves new database into place
-        createDirectory("images/user")
-        moveImages()
+        Util().createDirectory("images/user")
+        Util().moveImages()
         notifyCompletion("Library overwritten!") { (block) -> Void in
             self.dismissViewControllerAnimated(true, completion: { () -> Void in })
         }
-
     }
     
     /* ************************************************************************************************
@@ -108,9 +107,7 @@ class OpenFileViewController: UIViewController
             }
             if foundMatch == false
             {
-                println("found a missing title")
                 // insert import row into old.....i holds index of categorie that needs inserted
-                var array = []
                 importDBResults = database.executeQuery("SELECT * FROM zcategories WHERE ztitle=?", withArgumentsInArray: [importDBTitles[i]])
             
                 importDBResults.next()
@@ -120,8 +117,6 @@ class OpenFileViewController: UIViewController
                 let image = importDBResults.stringForColumn("zimage")
                 let presses:Int = Int(importDBResults.intForColumn("zpresses"))
                 
-                array = [number, title, link, image, presses]
-                
                 coreDataObject.createInManagedObjectContextCategories(title, image: image, link: link, presses: 0)
             }
             foundMatch = false // reset value for next loop
@@ -130,7 +125,6 @@ class OpenFileViewController: UIViewController
         database.clearCachedStatements()
         database.close()
         
-        //
         // Goes through every table and inserts rows if they arent present
         foundMatch = false
         database = db.getDB("unzippedData/lumichat.sqlite")
@@ -159,7 +153,6 @@ class OpenFileViewController: UIViewController
             {
                 importDBTitles.append(importDBResults.stringForColumn("ztitle") as String!)
             }
-
             
             // inserts into the category table any categories that are in the import DB but not the old DB
             foundMatch = false
@@ -176,10 +169,9 @@ class OpenFileViewController: UIViewController
                 if foundMatch == false
                 {
                     // insert import row into old.....i holds index of categorie that needs inserted
-                    var array = []
-
                     if database.open()
                     {
+                        // select properties for the title that is missing in Core Data
                         importDBResults = database.executeQuery("SELECT ztitle,zlongDescription,zimage,ztable FROM ztables WHERE ztitle=?", withArgumentsInArray: [importDBTitles[i]])
                     }
                     while( importDBResults.next() && importDBResults != nil)
@@ -190,8 +182,7 @@ class OpenFileViewController: UIViewController
                         let image = importDBResults.stringForColumn("zimage")
                         let table = importDBResults.stringForColumn("ztable")
                         
-                        array = [indexNumber, title, longDescription, image, 0]
-                        
+                        // insert the new button into Core Data
                         coreDataObject.createInManagedObjectContextTable(title, image: image, longDescription: longDescription, entity: "Tables", table: table, index: indexNumber)
                     }
                 }
@@ -199,8 +190,8 @@ class OpenFileViewController: UIViewController
             }
         }
         database.close()
-        deleteFile("unzippedData/lumichat.sqlite") // delete old database
-        moveImages()
+        Util().deleteFile("unzippedData/lumichat.sqlite") // delete old database
+        Util().moveImages() // move new images into place
         notifyCompletion("Merge Complete!", completion: { (block) -> Void in
             self.dismissViewControllerAnimated(true, completion: { () -> Void in })
         })
@@ -216,28 +207,7 @@ class OpenFileViewController: UIViewController
             self.dismissViewControllerAnimated(true, completion: { () -> Void in })
         }
     }
-    
-    /* ************************************************************************************************
-    *
-    ************************************************************************************************ */
-    func moveImages()
-    {
-        var error:NSError?
-        let unzippedPath = documentsPath.stringByAppendingPathComponent("unzippedData")
-        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(unzippedPath, error: nil) as [String]
-        println(directoryContents)
-        
-        for(var i = 0; i < directoryContents.count; i++)
-        {
-            let sourcePath = documentsPath.stringByAppendingPathComponent("unzippedData/\(directoryContents[i])")
-            let destinationPath = documentsPath.stringByAppendingPathComponent("images/user/\(directoryContents[i])")
-            if fileManager.moveItemAtPath(sourcePath, toPath: destinationPath, error: &error) != true
-            {
-                println("Replace database error: \(error)")
-            }
-        }
 
-    }
     
     /* ************************************************************************************************
     *
@@ -253,69 +223,6 @@ class OpenFileViewController: UIViewController
         }
     }
     
-    /* ************************************************************************************************
-    *
-    ************************************************************************************************ */
-    func deleteFileAtURL(url: NSURL)
-    {
-        var error:NSError?
-        fileManager.removeItemAtURL(url, error: &error)
-        if error != nil
-        {
-            println("Delete file error: \(error)")
-        }
-    }
-    
-    /* ************************************************************************************************
-    *
-    ************************************************************************************************ */
-    func deleteFile(path: String)
-    {
-        let filePath = documentsPath.stringByAppendingPathComponent(path)
-        var error:NSError?
-        fileManager.removeItemAtPath(filePath, error: &error)
-        if error != nil
-        {
-            println("Delete file error: \(error)")
-        }
-    }
-    
-    /* ************************************************************************************************
-    // returns the file paths inside the directory to zip
-    ************************************************************************************************ */
-    func getDirectory(path: String) -> [String]
-    {
-        var pathForZip = documentsPath.stringByAppendingPathComponent(path)
-        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pathForZip, error: nil) as [String]
-        
-        for(var i = 0; i < directoryContents.count; i++)
-        {
-            directoryContents[i] = pathForZip.stringByAppendingString("/\(directoryContents[i])")
-        }
-        
-        return directoryContents
-    }
-    
-    /* ************************************************************************************************
-    *	Create a new directory to store the images in
-    ************************************************************************************************ */
-    func createDirectory(directory: String) -> String
-    {
-        var path = documentsPath.stringByAppendingPathComponent(directory) // append images to the directory string
-        
-        if(!NSFileManager.defaultManager().fileExistsAtPath(path))
-        {
-            var error:NSError?
-            if(!NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &error)) // create new images directory
-            {
-                if (error != nil)
-                {
-                    println("Create directory error \(error)")
-                }
-            }
-        }
-        return path
-    }
     
     /* ************************************************************************************************
     *
@@ -331,8 +238,8 @@ class OpenFileViewController: UIViewController
         
         dispatch_after(time, dispatch_get_main_queue(), {
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                self.deleteFile("Inbox/file.zip") // removes the zip file that was imported
-                self.deleteFile("unzippedData") // removes the unzipped data directory if it exists
+                Util().deleteFile("Inbox/file.zip") // removes the zip file that was imported
+                Util().deleteFile("unzippedData") // removes the unzipped data directory if it exists
                 completion(block: true)
             })
         })

@@ -10,11 +10,10 @@ import Foundation
 import UIKit
 import CoreData
 
-class LXCollectionViewController1: CollectionViewBase
+class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDelegate, ModifyButtonDelegate
 {
 	@IBOutlet weak var createButton: UIButton!
     @IBOutlet var mycollectionview: UICollectionView!
-    @IBOutlet weak var navBarTitle: UINavigationItem!
     
 	var navBar = ""	// stores the title for the navigation bar
 	var pageLink = ""	// stores the name of the row that was selected - used for DB table name
@@ -24,9 +23,10 @@ class LXCollectionViewController1: CollectionViewBase
     
     override func viewWillAppear(animated: Bool)
     {
-        collectionview.reloadData()
-        scanner.reloadData(layout.collectionViewContentSize())
-        configureButtons()
+//        collectionview.reloadData()
+//        scanner.reloadData(layout.collectionViewContentSize())
+//        configureButtons()
+//        buttonCell.delegate = self
     }
     
 	/************************************************************************************************
@@ -34,16 +34,21 @@ class LXCollectionViewController1: CollectionViewBase
 	*********************************************************************************************** */
 	override func viewDidLoad()
 	{
-        buttons.removeAllObjects()
-        cellArray.removeAllObjects()
-		navBarTitle.title = navBar
-        setup(mycollectionview)
-        setLayout()
-        setLink(pageLink)
-        setTapRecognizer()
-        getButtonsFromDB()
-        configureButtons()
-
+        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar)
+        navBarTitle.title = navBar
+//        buttons.removeAllObjects()
+//        cellArray.removeAllObjects()
+//		navBarTitle.title = navBar
+//        setup(mycollectionview)
+//        setLayout()
+//        setLink(pageLink)
+//        setTapRecognizer()
+//        getButtonsFromDB()
+////        configureButtons()
+//        collectionview.reloadData()
+//        scanner.reloadData(layout.collectionViewContentSize())
+//        configureButtons()
+        buttonCell.delegate = self
 	}
     
 	/* ******************************************************************************************************
@@ -100,7 +105,6 @@ class LXCollectionViewController1: CollectionViewBase
                 var image = buttonDetails.image
                 var longDescription = buttonDetails.longDescription
                 var index = buttonDetails.index
-//                println("title: \(title)   index: \(index)")
                 
                 // If there really is data, configure the button and add it to the array of buttons
                 if(title != "")
@@ -126,12 +130,7 @@ class LXCollectionViewController1: CollectionViewBase
 			timer.invalidate()	// stop the scanner
 			if let viewController = segue.destinationViewController as? CreateButtonViewController
             {
-				viewController.availableData = {[weak self]
-					(data) in
-					if let weakSelf = self{
-						weakSelf.wordEntered(data)
-					}
-				}
+                viewController.delegate = self
 			}
 		}
         else if segue.identifier == "toEdit"
@@ -139,14 +138,8 @@ class LXCollectionViewController1: CollectionViewBase
             timer.invalidate()	// stop the scanner
             if let viewController = segue.destinationViewController as? EditButtonController
             {
-                viewController.link = buttonTitle
-                println("Button title: \(buttonTitle)")
-                viewController.availableData = {[weak self]
-                    (data) in
-                    if let weakSelf = self{
-                        weakSelf.wordEntered(data)
-                    }
-                }
+                viewController.buttonTitle = buttonTitle
+                viewController.delegate = self
             }
         }
 
@@ -157,27 +150,35 @@ class LXCollectionViewController1: CollectionViewBase
 	*	This function gets called when the user presses the save button when creating a new button. It inserts the
 	*	new button data into the database and adds the button to the button array.
 	************************************************************************************************************* */
-    func wordEntered(data: [String: NSObject])
+    func editOrModifyButton(data: [String: NSObject])
 	{
         scanner.cellArray.removeAllObjects()
 
         let title = data["title"] as String
         let longDescription = data["longDescription"] as String
         let imagePath = data["path"] as String
-		
-        let (success, tableItems) = coreDataObject.getTables(link)
-        if success
+
+        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if(appDelegate.editMode)
         {
-            coreDataObject.createInManagedObjectContextTable(title, image: imagePath, longDescription: longDescription, entity: "Tables", table: link, index: buttons.count)
+            coreDataObject.updateButtonWith(buttonTitle, newTitle: title, longDescription: longDescription, image: imagePath)
+        }
+        else
+        {
+            let (success, tableItems) = coreDataObject.getTables(link)
+            if success
+            {
+                coreDataObject.createInManagedObjectContextTable(title, image: imagePath, longDescription: longDescription, entity: "Tables", table: link, index: buttons.count)
+                var button = UIButton.buttonWithType(.System) as UIButton
+                button.setTitle(title, forState: .Normal) // stores the button label
+                button.setTitle(longDescription, forState: .Highlighted) // stores the extra longDescription
+                
+                // Change button title
+                button.setTitle(imagePath, forState: .Selected)	// Stores the image string
+                buttons.addObject(button)
+            }
         }
 
-		var button = UIButton.buttonWithType(.System) as UIButton
-		button.setTitle(title, forState: .Normal) // stores the button label
-        button.setTitle(longDescription, forState: .Highlighted) // stores the extra longDescription
-		
-		// Change button title
-		button.setTitle(imagePath, forState: .Selected)	// Stores the image string
-		buttons.addObject(button)
         collectionview.reloadData()
 	}
     
@@ -192,45 +193,62 @@ class LXCollectionViewController1: CollectionViewBase
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func editButtonPressed()
+    @IBAction func actionSheetButtonPressed(sender: AnyObject)
     {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in }
+        alertController.addAction((cancelAction))
+        
+        let createAction = UIAlertAction(title: "Create", style: .Default) { (action) -> Void in
+            self.createButtonPressed()
+        }
+        alertController.addAction(createAction)
+        
+        let editAction = UIAlertAction(title: "Edit", style: .Destructive) { (action) -> Void in
+            var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            appDelegate.editMode = !appDelegate.editMode
+            if(appDelegate.editMode)
+            {
+//                self.scanner.stopScan()
+                println("edit Action editmode")
+                self.navBarTitle.title = self.navBarTitle.title?.stringByAppendingString(" (Edit Mode)")
+            }
+            else
+            {
+                println("edit action not edit")
+                self.navBarTitle.title = self.navBarTitle.title?.stringByReplacingOccurrencesOfString(" (Edit Mode)", withString: "")
+
+            }
+        }
+        alertController.addAction(editAction)
+        
+        alertController.popoverPresentationController?.sourceView = sender as UIView
+        self.presentViewController(alertController, animated: true) { () -> Void in }
+    }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    override func editButtonWasPressed(buttonTitle: String, didSucceed: Bool)
+    {
+        self.buttonTitle = buttonTitle
         performSegueWithIdentifier("toEdit", sender: self)
     }
     
     /******************************************************************************************
     *
     ******************************************************************************************/
-    @IBAction func actionSheetButtonPressed(sender: AnyObject)
+    func callBackFromModalSaving(data: [String : NSObject])
     {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
-            println("cancel")
-        }
-        alertController.addAction((cancelAction))
-        let createAction = UIAlertAction(title: "Create", style: .Default) { (action) -> Void in
-            self.createButtonPressed()
-        }
-        alertController.addAction(createAction)
-        let deleteAction = UIAlertAction(title: "Edit", style: .Destructive) { (action) -> Void in
-            var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-            appDelegate.editMode = !appDelegate.editMode
-            if(appDelegate.editMode)
-            {
-                self.scanner.stopScan()
-                self.navBarTitle.title = self.navBarTitle.title?.stringByAppendingString(" (Edit Mode)")
-            }
-            else
-            {
-                self.navBarTitle.title = self.navBarTitle.title?.stringByReplacingOccurrencesOfString(" (Edit Mode)", withString: "")
-
-            }
-        }
-        alertController.addAction(deleteAction)
-        
-        alertController.popoverPresentationController?.sourceView = sender as UIView
-        self.presentViewController(alertController, animated: true) { () -> Void in }
+        editOrModifyButton(data)
+        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar)
     }
     
-
-
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func callBackFromModalDelete()
+    {
+        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar)
+    }
 }
