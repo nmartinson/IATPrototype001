@@ -49,6 +49,10 @@ class MainViewController : CollectionViewBase
             let detailsViewController = segue.destinationViewController as LXCollectionViewController1
             detailsViewController.navBar = title
             detailsViewController.pageLink = title.stringByReplacingOccurrencesOfString(" ", withString: "")
+        }
+        else if segue.identifier == "toList"
+        {
+            let controller = segue.destinationViewController as ListViewController
             
         }
     }
@@ -84,7 +88,15 @@ class MainViewController : CollectionViewBase
         scanner.selectionMade(false)
         if( scanner.secondStageOfSelection == false)
         {
-            performSegueWithIdentifier("showDetail", sender: self)
+            let title = buttons[scanner.index].titleForState(.Normal)!
+            if title == "Notes"
+            {
+                performSegueWithIdentifier("toList", sender: self)
+            }
+            else
+            {
+                performSegueWithIdentifier("showDetail", sender: self)
+            }
         }
     }
 }

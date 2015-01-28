@@ -189,4 +189,13 @@ class ModifyButtonController: UIViewController, UIImagePickerControllerDelegate,
     }
 
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func textFieldShouldReturn(textField: UITextField!) -> Bool // called when 'return' key pressed. return NO to ignore.
+    {
+        textField.resignFirstResponder()
+        return true;
+    }
+
 }

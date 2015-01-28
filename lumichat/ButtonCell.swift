@@ -28,6 +28,25 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     var delegate:ButtonCellControllerDelegate?
 
     
+    func degreesToRadians(x: Double) -> CGFloat
+    {
+        return CGFloat(M_PI * x / 180.0)
+    }
+    
+    
+    func startShakingButtons() -> CAAnimation
+    {
+        var transform = CATransform3DMakeRotation(0.08, 0, 0, 1)
+        var animation = CABasicAnimation(keyPath: "transform")
+        animation.toValue = NSValue(CATransform3D: transform)
+        animation.autoreverses = true
+        animation.duration = 0.1
+        animation.repeatCount = HUGE
+        return animation
+    }
+    
+    
+    
 	/* ************************************************************************************************
 	*	Initializes important data about the cell. Sets the image and label.
     *   .Highlighted = longDescription
@@ -48,6 +67,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 			self.buttonImageView.image = image
 		}
 		self.buttonLabel.text = btn.titleForState(.Normal)
+
 	}
 
 	/* ************************************************************************************************

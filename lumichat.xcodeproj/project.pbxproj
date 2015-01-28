@@ -19,6 +19,7 @@
 		2B4669DB1A2A1645000CBD24 /* ModifyButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */; };
 		2B4669DD1A2A1809000CBD24 /* EditButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */; };
 		2B623AE71A3DCE5400106986 /* DBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B623AE61A3DCE5400106986 /* DBController.swift */; };
+		2B8D408B1A787E4400CFB382 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8D408A1A787E4400CFB382 /* ListViewController.swift */; };
 		2BBCFDF51A052C1E00AE8BA6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */; };
 		2BBCFDF81A052C1E00AE8BA6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF61A052C1E00AE8BA6 /* LaunchScreen.xib */; };
 		2BBCFE041A052C1E00AE8BA6 /* lumichatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE031A052C1E00AE8BA6 /* lumichatTests.swift */; };
@@ -51,6 +52,7 @@
 		2BD6A6F71A25534300A3CBA3 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6A6F01A25534300A3CBA3 /* zip.c */; };
 		2BD6A6F81A25534300A3CBA3 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6A6F31A25534300A3CBA3 /* SSZipArchive.m */; };
 		2BD6A6FA1A25536B00A3CBA3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD6A6F91A25536B00A3CBA3 /* libz.dylib */; };
+		2BE791D71A79413A00DE0E57 /* Phrases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE791D61A79413A00DE0E57 /* Phrases.swift */; };
 		2BFCEDD21A294A7200ADCC83 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDB91A294A7200ADCC83 /* 1.jpg */; };
 		2BFCEDD31A294A7200ADCC83 /* 10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDBA1A294A7200ADCC83 /* 10.jpg */; };
 		2BFCEDD41A294A7200ADCC83 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDBB1A294A7200ADCC83 /* 2.jpg */; };
@@ -101,6 +103,7 @@
 		2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyButtonController.swift; sourceTree = "<group>"; };
 		2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButtonViewController.swift; sourceTree = "<group>"; };
 		2B623AE61A3DCE5400106986 /* DBController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBController.swift; sourceTree = "<group>"; };
+		2B8D408A1A787E4400CFB382 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		2BBCFDE41A052C1E00AE8BA6 /* lumichat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lumichat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBCFDE81A052C1E00AE8BA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -150,6 +153,7 @@
 		2BD6A6F21A25534300A3CBA3 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
 		2BD6A6F31A25534300A3CBA3 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		2BD6A6F91A25536B00A3CBA3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		2BE791D61A79413A00DE0E57 /* Phrases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phrases.swift; sourceTree = "<group>"; };
 		2BFCEDB91A294A7200ADCC83 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		2BFCEDBA1A294A7200ADCC83 /* 10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.jpg; sourceTree = "<group>"; };
 		2BFCEDBB1A294A7200ADCC83 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 				2B18005E1A6477DD007BA245 /* UserDatabase.xcdatamodeld */,
 				2B18006A1A647886007BA245 /* Tables.swift */,
 				2B1800641A647886007BA245 /* Categories.swift */,
+				2BE791D61A79413A00DE0E57 /* Phrases.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 				2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */,
 				2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */,
 				2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */,
+				2B8D408A1A787E4400CFB382 /* ListViewController.swift */,
 				2BBCFE511A052D5A00AE8BA6 /* ScannerDrawer.swift */,
 				2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */,
 				2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */,
@@ -436,7 +442,7 @@
 				TargetAttributes = {
 					2BBCFDE31A052C1E00AE8BA6 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = QTYS96LR2E;
+						DevelopmentTeam = B782ML49FF;
 					};
 					2BBCFDFC1A052C1E00AE8BA6 = {
 						CreatedOnToolsVersion = 6.1;
@@ -523,6 +529,7 @@
 			files = (
 				2B1800781A6C3825007BA245 /* OpenFileViewController.swift in Sources */,
 				2BD6A6F61A25534300A3CBA3 /* unzip.c in Sources */,
+				2B8D408B1A787E4400CFB382 /* ListViewController.swift in Sources */,
 				2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */,
 				2B18006B1A647886007BA245 /* Tables.swift in Sources */,
 				2B4669DD1A2A1809000CBD24 /* EditButtonViewController.swift in Sources */,
@@ -550,6 +557,7 @@
 				2BBCFE351A052CAB00AE8BA6 /* FMDatabaseAdditions.m in Sources */,
 				2BBCFE581A052D5A00AE8BA6 /* SettingsViewController.swift in Sources */,
 				2B1800601A6477DD007BA245 /* UserDatabase.xcdatamodeld in Sources */,
+				2BE791D71A79413A00DE0E57 /* Phrases.swift in Sources */,
 				2B623AE71A3DCE5400106986 /* DBController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -678,6 +686,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "lumichat/lumichat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -694,6 +703,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "lumichat/lumichat-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

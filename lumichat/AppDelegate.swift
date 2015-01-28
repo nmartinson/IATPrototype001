@@ -79,6 +79,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var mouth = utilObject.saveImage(image, title: "mouth")
         image = UIImage(named: "throat.jpg")
         var throat = utilObject.saveImage(image, title: "throat")
+        image = UIImage(named: "notes")
+        var notes = utilObject.saveImage(image, title: "notes")
         
         let (success, categoriesArray) = coreDataObject.getCategories()
         if !success
@@ -88,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             coreDataObject.createInManagedObjectContextCategories("Body Parts", image: buttonTest, link: "BodyParts", presses: 0)
             coreDataObject.createInManagedObjectContextCategories("Pain Scale", image: buttonTest, link: "PainScale", presses: 0)
             coreDataObject.createInManagedObjectContextCategories("Yes No Maybe", image: buttonTest, link: "YesNoMaybe", presses: 0)
+            coreDataObject.createInManagedObjectContextCategories("Notes", image: notes, link: "Notes", presses: 0)
             
             coreDataObject.createInManagedObjectContextTable("Head", image: head, longDescription: "My head hurts", entity: "Tables", table: "BodyParts", index: 0)
             coreDataObject.createInManagedObjectContextTable("Hand", image: hand, longDescription: "My hand hurts", entity: "Tables", table: "BodyParts", index: 1)
@@ -122,6 +125,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             coreDataObject.createInManagedObjectContextTable("8", image: eight, longDescription: "My pain is at level 8", entity: "Tables", table: "PainScale", index: 7)
             coreDataObject.createInManagedObjectContextTable("9", image: nine, longDescription: "My pain is at level 9", entity: "Tables", table: "PainScale", index: 8)
             coreDataObject.createInManagedObjectContextTable("10", image: ten, longDescription: "My pain is at level 10", entity: "Tables", table: "PainScale", index: 9)
+            
+            
         }
 
 //        coreDataObject.createInManagedObjectContextCategories("Testing", image: buttonTest, link: "testing", presses: 0)

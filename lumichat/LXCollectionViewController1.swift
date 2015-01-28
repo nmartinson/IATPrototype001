@@ -210,14 +210,24 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
             if(appDelegate.editMode)
             {
 //                self.scanner.stopScan()
-                println("edit Action editmode")
+                var cells = self.mycollectionview.visibleCells()
+                for(var i = 0; i < cells.count; i++)
+                {
+                    cells[i].addAnimation(self.startShakingButtons(), forKey: "shake")
+                }
+                
                 self.navBarTitle.title = self.navBarTitle.title?.stringByAppendingString(" (Edit Mode)")
             }
             else
             {
-                println("edit action not edit")
                 self.navBarTitle.title = self.navBarTitle.title?.stringByReplacingOccurrencesOfString(" (Edit Mode)", withString: "")
-
+                
+                var cells = self.mycollectionview.visibleCells()
+                for(var i = 0; i < cells.count; i++)
+                {
+                    self.cellArray[i].view
+                    cells[i].removeAnimationForKey("shake")
+                }
             }
         }
         alertController.addAction(editAction)
@@ -251,4 +261,24 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
     {
         configureEntireView(mycollectionview, pageLink: pageLink, title: navBar)
     }
+    
+    func degreesToRadians(x: Double) -> CGFloat
+    {
+        return CGFloat(M_PI * x / 180.0)
+    }
+    
+    
+    func startShakingButtons() -> CAAnimation
+    {
+        var transform = CATransform3DMakeRotation(0.08, 0, 0, 1)
+        var animation = CABasicAnimation(keyPath: "transform")
+        animation.toValue = NSValue(CATransform3D: transform)
+        animation.autoreverses = true
+        animation.duration = 0.1
+        animation.repeatCount = HUGE
+        return animation
+    }
+    
+    
+    
 }

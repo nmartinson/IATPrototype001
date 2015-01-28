@@ -95,6 +95,25 @@ class CoreDataController:NSObject //NSFetchedResultsController
         return (false, nil)
     }
     
+    func getPhrases() -> NSArray?
+    {
+        var phraseTable:NSMutableArray = []
+        let fetchRequest = NSFetchRequest(entityName: "Phrases")
+        let sortDescriptor = NSSortDescriptor(key: "presses", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Phrases]{
+            if fetchResults.count > 0
+            {
+                for item in fetchResults
+                {
+                    phraseTable.addObject(item.text)
+                }
+                return phraseTable
+            }
+        }
+        return []
+    }
+    
     /******************************************************************************************
     *
     ******************************************************************************************/
@@ -153,6 +172,35 @@ class CoreDataController:NSObject //NSFetchedResultsController
         
     }
     
+    
+    func getPhraseWithText(text: String) -> Phrases
+    {
+        var phrase:Phrases?
+        let fetchRequest = NSFetchRequest(entityName: "Phrases")
+        let predicate = NSPredicate(format: "text == %@", text)
+        fetchRequest.predicate = predicate
+        if let fetchResult = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Phrases] {
+            if fetchResult.count > 0
+            {
+                phrase = fetchResult[0]
+            }
+        }
+        return phrase!
+    }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func incrementPressCountForPhrase(text: String)
+    {
+        var phrase = getPhraseWithText(text)
+        phrase.presses = Int(phrase.presses) + 1
+        saveContext()
+    }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func deleteButtonWithTitle(title: String)
     {
         let (success, buttons) = getButtonWithTitle(title)
@@ -192,6 +240,18 @@ class CoreDataController:NSObject //NSFetchedResultsController
         saveContext()
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func createInManagedObjectContextPhrase(text: String)
+    {
+        let newPhrase = NSEntityDescription.insertNewObjectForEntityForName("Phrases", inManagedObjectContext: self.managedObjectContext!) as Phrases
+        newPhrase.text = text
+        newPhrase.presses = 0
+        saveContext()
+    }
+    
+
     
     /******************************************************************************************
     *
