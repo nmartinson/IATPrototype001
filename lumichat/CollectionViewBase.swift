@@ -14,6 +14,7 @@ import CoreData
 class CollectionViewBase: UICollectionViewController, LXReorderableCollectionViewDataSource, LXReorderableCollectionViewDelegateFlowLayout, ButtonCellControllerDelegate
 {
     @IBOutlet weak var navBarTitle: UINavigationItem!
+    @IBOutlet weak var textBox: UITextField!
     
     var layout:LXReorderableCollectionViewFlowLayout!
     var fromIndexPath: NSIndexPath!
@@ -31,6 +32,18 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     let coreDataObject = CoreDataController()
     var buttonCell = ButtonCell()
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    override func viewWillAppear(animated: Bool)
+    {
+        textBox.inputView = UIView()        // textBox is used to get input from bluetooth
+        textBox.becomeFirstResponder()
+    }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func configureEntireView(collectionView: UICollectionView, pageLink: String, title: String)
     {
         buttons.removeAllObjects()

@@ -7,61 +7,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Home-->
-        <scene sceneID="EbX-sm-2jb">
-            <objects>
-                <viewController id="7HH-Qk-Cqd" customClass="TableViewController" customModule="lumichat" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="JZA-6d-vS8"/>
-                        <viewControllerLayoutGuide type="bottom" id="8JD-eJ-fyr"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bTx-ZG-7GT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="UET-7m-WjC">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="krc-cy-n3F">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="krc-cy-n3F" id="6jS-Gx-onZ">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="PQf-Yc-u6v" kind="push" identifier="showDetail" id="Qvx-oy-Jgf"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="7HH-Qk-Cqd" id="uED-VF-blm"/>
-                                    <outlet property="delegate" destination="7HH-Qk-Cqd" id="KeT-HR-M8n"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="8JD-eJ-fyr" firstAttribute="top" secondItem="UET-7m-WjC" secondAttribute="bottom" id="88H-ab-xWk"/>
-                            <constraint firstItem="UET-7m-WjC" firstAttribute="top" secondItem="JZA-6d-vS8" secondAttribute="bottom" constant="-64" id="IlR-EX-RxF"/>
-                            <constraint firstAttribute="trailing" secondItem="UET-7m-WjC" secondAttribute="trailing" id="LuU-h4-gO7"/>
-                            <constraint firstItem="UET-7m-WjC" firstAttribute="leading" secondItem="bTx-ZG-7GT" secondAttribute="leading" id="ctG-8L-kGK"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Home" id="lqg-l0-36r">
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="Kpx-iZ-v7M">
-                            <connections>
-                                <segue destination="UnG-nU-UUH" kind="show" identifier="settingsSegue" id="7ib-8h-G5Y"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="tableView" destination="UET-7m-WjC" id="AFL-Ui-Vab"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HR3-4v-0Hd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-435" y="-103"/>
-        </scene>
         <!--Open File View Controller-->
         <scene sceneID="Gx5-EI-Yks">
             <objects>
@@ -539,6 +484,16 @@
                     </collectionView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="0Jh-7M-7Qi">
+                        <nil key="title"/>
+                        <textField key="titleView" hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="TD3-Vk-mHY">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="PQf-Yc-u6v" id="rL3-8d-rBt"/>
+                            </connections>
+                        </textField>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="15n-Cw-ECl">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="B33-KR-ypG">
                                 <rect key="frame" x="-23" y="-15" width="133" height="30"/>
@@ -557,6 +512,7 @@
                         <outlet property="createButton" destination="B33-KR-ypG" id="1U3-pL-kK0"/>
                         <outlet property="mycollectionview" destination="OMa-1I-DKe" id="S8Q-kH-hhL"/>
                         <outlet property="navBarTitle" destination="0Jh-7M-7Qi" id="p9F-bc-Po6"/>
+                        <outlet property="textBox" destination="TD3-Vk-mHY" id="GsI-3P-jyU"/>
                         <segue destination="goa-2O-Mno" kind="presentation" identifier="toCreate" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="hfV-Ss-mMe"/>
                         <segue destination="Y5s-32-vM2" kind="presentation" identifier="toEdit" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="00K-tD-kSu"/>
                     </connections>
@@ -716,7 +672,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cIa-Nm-Oo7">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cIa-Nm-Oo7">
                                 <rect key="frame" x="172" y="139" width="190" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -865,6 +821,16 @@
                     </collectionView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="VMx-3E-V12">
+                        <nil key="title"/>
+                        <textField key="titleView" hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Nhz-c8-OTv">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="RLH-3r-Moz" id="Tpt-G3-Y2Q"/>
+                            </connections>
+                        </textField>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="oLG-7Z-WUW">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mhu-Ty-IqB">
                                 <rect key="frame" x="-23" y="-15" width="133" height="30"/>
@@ -882,6 +848,7 @@
                     <connections>
                         <outlet property="mycollectionview" destination="QcH-Ed-9AX" id="7OF-NT-ZH2"/>
                         <outlet property="navBarTitle" destination="VMx-3E-V12" id="m54-dJ-69J"/>
+                        <outlet property="textBox" destination="Nhz-c8-OTv" id="VGk-xa-Nza"/>
                         <segue destination="NG0-Ez-sps" kind="show" identifier="toList" id="ra5-gU-cll"/>
                     </connections>
                 </collectionViewController>
@@ -1060,6 +1027,5 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="fam-ls-WgV"/>
-        <segue reference="c7c-T8-ZLr"/>
     </inferredMetricsTieBreakers>
 </document>

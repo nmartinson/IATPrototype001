@@ -10,30 +10,50 @@ import Foundation
 import UIKit
 import CoreData
 
-class MainViewController : CollectionViewBase
+class MainViewController : CollectionViewBase, UITextFieldDelegate
 {
     @IBOutlet var mycollectionview: UICollectionView!
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     override func viewWillAppear(animated: Bool)
     {
-        setup(mycollectionview)
-        setLayout()
-        configureButtons()
-        collectionview.reloadData()
-        scanner.reloadData(layout.collectionViewContentSize())
+        super.viewWillAppear(true)
+        configureEntireView(mycollectionview, pageLink: "Categories", title: "Home")
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.editMode = false
     }
     
-    override func viewDidLoad()
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
     {
-        buttons.removeAllObjects()
-        cellArray.removeAllObjects()
-
-        setTapRecognizer()
-        setLink("Categories")
-        getButtonsFromDB()
+        if( string == " ")
+        {
+            scanner.selectionMade(false)
+            if( scanner.secondStageOfSelection == false)
+            {
+                let title = buttons[scanner.index].titleForState(.Normal)!
+                if title == "Notes"
+                {
+                    performSegueWithIdentifier("toList", sender: self)
+                }
+                else
+                {
+                    performSegueWithIdentifier("showDetail", sender: self)
+                }
+            }
+        }
+        else if( string == "\n")
+        {
+            println("new line")
+        }
+        
+        return false
     }
+    
     
     /* *******************************************************************************************************************
     *	Gets called automatically when a row in the table gets selected.  It passes the name of the row to the view
@@ -57,6 +77,9 @@ class MainViewController : CollectionViewBase
         }
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     override func getButtonsFromDB()
     {
         let (success, categories) = coreDataObject.getCategories()

@@ -21,12 +21,12 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
     var buttonTitle = ""
     var db = DBController.sharedInstance
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     override func viewWillAppear(animated: Bool)
     {
-//        collectionview.reloadData()
-//        scanner.reloadData(layout.collectionViewContentSize())
-//        configureButtons()
-//        buttonCell.delegate = self
+        super.viewWillAppear(true)
     }
     
 	/************************************************************************************************
@@ -36,18 +36,6 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
 	{
         configureEntireView(mycollectionview, pageLink: pageLink, title: navBar)
         navBarTitle.title = navBar
-//        buttons.removeAllObjects()
-//        cellArray.removeAllObjects()
-//		navBarTitle.title = navBar
-//        setup(mycollectionview)
-//        setLayout()
-//        setLink(pageLink)
-//        setTapRecognizer()
-//        getButtonsFromDB()
-////        configureButtons()
-//        collectionview.reloadData()
-//        scanner.reloadData(layout.collectionViewContentSize())
-//        configureButtons()
         buttonCell.delegate = self
 	}
     
@@ -262,12 +250,17 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
         configureEntireView(mycollectionview, pageLink: pageLink, title: navBar)
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func degreesToRadians(x: Double) -> CGFloat
     {
         return CGFloat(M_PI * x / 180.0)
     }
     
-    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func startShakingButtons() -> CAAnimation
     {
         var transform = CATransform3DMakeRotation(0.08, 0, 0, 1)
@@ -279,6 +272,22 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
         return animation
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+    {
+        if( string == " ")
+        {
+            scanner.selectionMade(true)
+        }
+        else if( string == "\n")
+        {
+            println("new line")
+        }
+        
+        return false
+    }
     
     
 }
