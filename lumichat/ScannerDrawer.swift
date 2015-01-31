@@ -21,8 +21,12 @@ class ScannerDrawer: UIView
 	
 	func setup(buttonSize: Int, index: Int)
 	{
-		self.cellSize.width = Constants.getCellSize(index).width
-		self.cellSize.height = Constants.getCellSize(index).height
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        println("size \(screenWidth)")
+        let screenHeight = UIScreen.mainScreen().bounds.height
+        self.cellSize.width = screenWidth
+//		self.cellSize.width = Constants.getCellSize(index).width
+//		self.cellSize.height = Constants.getCellSize(index).height
 	}
 	
 	/* *******************************************************************

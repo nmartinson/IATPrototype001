@@ -66,8 +66,8 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 		{
 			self.buttonImageView.image = image
 		}
-		self.buttonLabel.text = btn.titleForState(.Normal)
 
+		self.buttonLabel.text = btn.titleForState(.Normal)
 	}
 
 	/* ************************************************************************************************

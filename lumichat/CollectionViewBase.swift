@@ -54,7 +54,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         setTapRecognizer()
         getButtonsFromDB()
         collectionview.reloadData()
-        scanner.reloadData(layout.collectionViewContentSize())
+        scanner.reloadData(layout.collectionViewContentSize(), numButtons: buttons.count)
         configureButtons()
     }
     
@@ -74,7 +74,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     func setLayout()
     {
         layout = self.collectionview.collectionViewLayout as LXReorderableCollectionViewFlowLayout
-        layout.minimumInteritemSpacing = CGFloat(15)
+//        layout.minimumInteritemSpacing = CGFloat(15)
         layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
     }
     
@@ -100,6 +100,17 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     
     // pulls buttons from the DB and configures the buttons
     func getButtonsFromDB(){}
+    
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat
+    {
+        return 2
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat
+    {
+        return 0
+    }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
@@ -162,7 +173,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         }
         scanner.addCell(buttonCell)
         
-        
         switch buttonStyle
         {
         case 0:
@@ -189,7 +199,9 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ************************************************************************************************* */
     func setButtonSize()
     {
-        (self.collectionViewLayout as UICollectionViewFlowLayout).itemSize = Constants.getCellSize(buttonSize)
+        let numberOfButtons = buttons.count
+        
+        (self.collectionViewLayout as UICollectionViewFlowLayout).itemSize = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons)
     }
     
     /* ******************************************************************************************************
@@ -223,7 +235,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             scanner.cellArray.insertObject(cell, atIndex: toIndexPath.item)
             
             collectionview.reloadData()
-            scanner.reloadData(layout.collectionViewContentSize())
+            scanner.reloadData(layout.collectionViewContentSize(), numButtons: buttons.count)
         }
     }
     

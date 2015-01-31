@@ -75,12 +75,12 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
 		var image = UIImage(named: "buttonTest.jpg")
 		self.imagePreview = UIImageView()
 		
-		self.imagePreview.frame = CGRectMake(300, 700, Constants.getCellSize(buttonSize).width, Constants.getCellSize(buttonSize).height)
+        self.imagePreview.frame = CGRectMake(300, 700, Constants.getCellSize(buttonSize, numberOfButtons: 1).width, Constants.getCellSize(buttonSize, numberOfButtons: 1).height)
 		self.imagePreview.image = image
 		self.view.addSubview(imagePreview)
 
 		
-		imagePreview.frame.size = Constants.getCellSize(buttonSize)
+		imagePreview.frame.size = Constants.getCellSize(buttonSize, numberOfButtons: 1)
 		imagePreview.layer.borderColor = Constants.getColor(borderColor)
 		imagePreview.layer.borderWidth = CGFloat(borderWidth)
 
@@ -140,7 +140,7 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
 		var index = buttonSizeSegment.selectedSegmentIndex
 		var defaults = NSUserDefaults.standardUserDefaults()
 		defaults.setInteger(index, forKey: "buttonSize")
-		imagePreview.frame.size = Constants.getCellSize(index)
+		imagePreview.frame.size = Constants.getCellSize(index, numberOfButtons: 1)
 	}
 	
 	/* *******************************************************************************************************

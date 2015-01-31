@@ -10,7 +10,6 @@ import Foundation
 
 public class ScanController
 {
-    
     public var cellArray: NSMutableArray = []	// stores ButtonCells
     var size:CGSize!
     var timer = NSTimer()
@@ -25,6 +24,7 @@ public class ScanController
     var secondStageOfSelection = false
     var endIndex = 0
     var startIndex = 0
+    var numberOfButtons = 0
     
     public class var sharedInstance: ScanController{
         struct SharedInstance {
@@ -33,11 +33,12 @@ public class ScanController
         return SharedInstance.instance
     }
     
-    func reloadData(size: CGSize)
+    func reloadData(size: CGSize, numButtons: Int)
     {
         initialization()
         cellArray.removeAllObjects()
         self.size = size
+        numberOfButtons = numButtons
         update()
     }
     
@@ -133,10 +134,11 @@ public class ScanController
     ***************************************************************************************************** */
     @objc func rowScan()
     {
-        var cellWidth = Constants.getCellSize(buttonSize).width
-        var cellHeight = Constants.getCellSize(buttonSize).height
-        var numbtns:Int = Int( (size.width-15)/(cellWidth+15) )
-        var numbtnsHeight:Int = Int( (size.height-15)/(cellHeight+15) + 0.5)	// add .5 so that it rounds to the nearest integer, not always down
+        var cellWidth = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons).width
+        var cellHeight = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons).height
+        var numbtns:Int = Int( (size.width-20)/(cellWidth) ) // -20 for section insets of 10 on each side of screen
+        var numbtnsHeight:Int = Int( (size.height-2)/(cellHeight+2) + 0.5)	// add .5 so that it rounds to the nearest integer, not always down
+        
         
         // if only one row of buttons, use serial scan
         if( numbtnsHeight == 1)
@@ -203,10 +205,10 @@ public class ScanController
     ********************************************************************************************************** */
     @objc func columnScan()
     {
-        var cellHeight = Constants.getCellSize(buttonSize).height
-        var cellWidth = Constants.getCellSize(buttonSize).width
-        var numbtnsWidth:Int = Int( (size.width-15)/(cellWidth+15) )
-        var numbtnsHeight:Int = Int( (size.height-15)/(cellHeight+15) + 0.5)	// add .5 so that it rounds to the nearest integer, not always down
+        var cellHeight = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons).height
+        var cellWidth = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons).width
+        var numbtnsWidth:Int = Int( (size.width-20)/(cellWidth) )
+        var numbtnsHeight:Int = Int( (size.height-2)/(cellHeight+2) + 0.5)	// add .5 so that it rounds to the nearest integer, not always down
         
         // Clear the selection properties from all buttons
         clearAllButtonSelections()
@@ -348,8 +350,8 @@ public class ScanController
                 case 1:
                     scanMode = 1
                 case 2:
-                    var cellWidth = Constants.getCellSize(buttonSize).width
-                    var numbtns:Int = Int( (size.width-15)/(cellWidth+15) )
+                    var cellWidth = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons).width
+                    var numbtns:Int = Int( (size.width-2)/(cellWidth+2) )
                     startIndex /= numbtns
                     scanMode = 3	// change to column scan
                 case 3:

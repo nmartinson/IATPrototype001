@@ -201,6 +201,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B04BCF61A7C28A300494335 /* ModifyButton */ = {
+			isa = PBXGroup;
+			children = (
+				2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */,
+				2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */,
+				2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */,
+			);
+			name = ModifyButton;
+			sourceTree = "<group>";
+		};
+		2B04BCF71A7C28E500494335 /* CollectionViews */ = {
+			isa = PBXGroup;
+			children = (
+				2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */,
+				2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */,
+				2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */,
+			);
+			name = CollectionViews;
+			sourceTree = "<group>";
+		};
 		2B18006E1A6479BE007BA245 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,26 +256,22 @@
 			isa = PBXGroup;
 			children = (
 				2B18006E1A6479BE007BA245 /* Models */,
+				2B04BCF61A7C28A300494335 /* ModifyButton */,
+				2B04BCF71A7C28E500494335 /* CollectionViews */,
 				2B623AE61A3DCE5400106986 /* DBController.swift */,
 				2B1800761A659B8C007BA245 /* CoreDataController.swift */,
 				2B2023611A64585C00704F75 /* Util.swift */,
-				2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */,
-				2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */,
 				2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */,
 				2BBCFE4A1A052D5A00AE8BA6 /* DetailViewController.swift */,
 				2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */,
 				2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */,
-				2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */,
 				2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */,
 				2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */,
 				2B8D408A1A787E4400CFB382 /* ListViewController.swift */,
-				2BBCFE511A052D5A00AE8BA6 /* ScannerDrawer.swift */,
-				2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */,
-				2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */,
-				2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */,
 				2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */,
 				2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */,
 				2B061AA01A279E640078DB6B /* Zipping.swift */,
+				2BBCFE511A052D5A00AE8BA6 /* ScannerDrawer.swift */,
 				2BFCEDB81A294A7200ADCC83 /* appPhotos */,
 				2BD6A6E71A25534300A3CBA3 /* SSZipArchive */,
 				2BBCFE371A052CB700AE8BA6 /* Audio */,
