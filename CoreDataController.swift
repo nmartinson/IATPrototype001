@@ -123,6 +123,7 @@ class CoreDataController:NSObject //NSFetchedResultsController
         let fetchRequest = NSFetchRequest(entityName: "Tables")
         let predicate = NSPredicate(format: "table == %@", tableName)
         let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.predicate = predicate
         if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Tables] {
             if fetchResults.count > 0
@@ -270,6 +271,22 @@ class CoreDataController:NSObject //NSFetchedResultsController
         }
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func deleteCategoriesFromContext()
+    {
+        let (success, table) = getCategories()
+        var IDs:[NSManagedObjectID]?
+        if success
+        {
+            for item in table!
+            {
+                managedObjectContext?.deleteObject(item)
+            }
+            saveContext()
+        }
+    }
     
     
     /******************************************************************************************

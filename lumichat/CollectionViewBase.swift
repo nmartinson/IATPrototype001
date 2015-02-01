@@ -41,6 +41,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         textBox.becomeFirstResponder()
     }
     
+    
     /******************************************************************************************
     *
     ******************************************************************************************/
@@ -74,7 +75,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     func setLayout()
     {
         layout = self.collectionview.collectionViewLayout as LXReorderableCollectionViewFlowLayout
-//        layout.minimumInteritemSpacing = CGFloat(15)
         layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
     }
     
@@ -102,16 +102,25 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     func getButtonsFromDB(){}
     
     
+    /* *******************************************************************************************************
+    *
+    ******************************************************************************************************** */
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat
     {
         return 2
     }
     
+    /* *******************************************************************************************************
+    *
+    ******************************************************************************************************** */
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat
     {
         return 0
     }
     
+    /* *******************************************************************************************************
+    *
+    ******************************************************************************************************** */
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
         selectedIndexPath = indexPath
@@ -126,37 +135,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     }
     
     /* *******************************************************************************************************
-    *
-    ******************************************************************************************************** */
-    func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat
-    {
-        return 50.0
-    }
-    
-    /* *******************************************************************************************************
-    *	Updates the database when the buttons are reordered
-    ******************************************************************************************************** */
-//    func collectionViewReordered()
-//    {
-//        var database = db.getDB("UserDatabase.sqlite")
-//        database.open()
-//        database.executeUpdate("DROP TABLE \(link)", withArgumentsInArray: nil)
-//        database.executeUpdate("CREATE TABLE \(link)(number INT primary key, title TEXT, longDescription TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-//        
-//        var counter = 0
-//        for item in cellArray
-//        {
-//            var title = (item as ButtonCell).buttonLabel.text!
-//            var image = (item as ButtonCell).imageString
-//            var longDescription = (item as ButtonCell).sentenceString
-//            var array = [counter, title, longDescription, image, 1 ]
-//            database.executeUpdate("INSERT INTO \(link)(number, title, longDescription, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
-//            counter++
-//        }
-//        database.close()
-//    }
-    
-    /* *******************************************************************************************************
     *   Gets called when the collection view is reloaded and the view is being populated. This handles
     *   presenting the selected button style.
     ******************************************************************************************************* */
@@ -167,10 +145,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         buttonCell.setup(button)
         buttonCell.delegate = self
         
-        if( reordered == false)
-        {
-            cellArray.addObject(buttonCell)
-        }
+        cellArray.addObject(buttonCell)
         scanner.addCell(buttonCell)
         
         switch buttonStyle
@@ -222,18 +197,14 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         if( fromIndexPath != toIndexPath)
         {
             reordered = true
-            var cell = cellArray[fromIndexPath.item] as ButtonCell
-            self.cellArray.removeObjectAtIndex(fromIndexPath.item)
-            self.cellArray.insertObject(cell, atIndex: toIndexPath.item)
-            
+
+            scanner.cellArray.removeAllObjects()
+            cellArray.removeAllObjects()
+
             var button = self.buttons[fromIndexPath.item] as UIButton
             self.buttons.removeObjectAtIndex(fromIndexPath.item)
             self.buttons.insertObject(button, atIndex: toIndexPath.item)
-            
-            var buttonCell = scanner.cellArray[fromIndexPath.item] as ButtonCell
-            scanner.cellArray.removeObjectAtIndex(fromIndexPath.item)
-            scanner.cellArray.insertObject(cell, atIndex: toIndexPath.item)
-            
+
             collectionview.reloadData()
             scanner.reloadData(layout.collectionViewContentSize(), numButtons: buttons.count)
         }

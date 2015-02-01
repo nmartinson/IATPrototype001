@@ -46,30 +46,11 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
 	{
 		if( reordered == true)
 		{
-//            var database = db.getDB("UserDatabase.sqlite")
-//            database.open()
-//			database.executeUpdate("DROP TABLE \(super.link)", withArgumentsInArray: nil)
-//			database.executeUpdate("CREATE TABLE \(super.link)(number INT primary key, title TEXT, longDescription TEXT, image TEXT, presses INT)", withArgumentsInArray: nil)
-//			
-//			var counter = 0
-//			for item in cellArray
-//			{
-//				var title = (item as ButtonCell).buttonLabel.text!
-//				var image = (item as ButtonCell).imageString
-//                var longDescription = (item as ButtonCell).sentenceString
-//				var array = [counter, title, longDescription, image, 1 ]
-//				database.executeUpdate("INSERT INTO \(super.link)(number, title, longDescription, image, presses) values(?,?,?,?,?)", withArgumentsInArray: array)
-//				counter++
-//			}
-//			database.close()
-            
-            
             coreDataObject.deleteTableFromContext(link)
             var counter = 0
             for item in cellArray
             {
                 var title = (item as ButtonCell).buttonLabel.text!
-//                println("title: \(title)")
                 var image = (item as ButtonCell).imageString
                 var longDescription = (item as ButtonCell).sentenceString
                 coreDataObject.createInManagedObjectContextTable(title, image: image, longDescription: longDescription, entity: "Tables", table: link, index: counter)

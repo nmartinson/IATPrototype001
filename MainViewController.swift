@@ -25,6 +25,28 @@ class MainViewController : CollectionViewBase, UITextFieldDelegate
         appDelegate.editMode = false
     }
     
+    
+    /* ******************************************************************************************************
+    *	Updates the database if the buttons were reordered
+    ******************************************************************************************************* */
+    override func viewDidDisappear(animated: Bool)
+    {
+        if( reordered == true)
+        {
+            coreDataObject.deleteCategoriesFromContext()
+            var counter = 0
+            for item in cellArray
+            {
+                var title = (item as ButtonCell).buttonLabel.text!
+                var image = (item as ButtonCell).imageString
+                var longDescription = (item as ButtonCell).sentenceString
+                let link = title.stringByReplacingOccurrencesOfString(" ", withString: "")
+                
+                coreDataObject.createInManagedObjectContextCategories(title, image: image, link: link, presses: 0)
+            }
+        }
+    }
+    
     /******************************************************************************************
     *
     ******************************************************************************************/
