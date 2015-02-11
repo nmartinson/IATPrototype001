@@ -8,25 +8,18 @@
 
 import Foundation
 
-public class ScanController
+class ScanController: Scanner
 {
-    public var cellArray: NSMutableArray = []	// stores ButtonCells
+    var cellArray: NSMutableArray = []	// stores ButtonCells
     var size:CGSize!
-    var timer = NSTimer()
-    var timeInterval: Double = 0.0	// used as scan rate - from settings
-    var buttonBorderColor = 0	// from settings
-    var buttonBorderWidth: CGFloat = 10	// from settings
-    var buttonStyle = 0	// from settings
-    var scanMode = 0	// from settings
-    var buttonSize = 0
-    var index = 0
+
+        var index = 0
     var elementScanningCounter = 0
-    var secondStageOfSelection = false
     var endIndex = 0
     var startIndex = 0
     var numberOfButtons = 0
     
-    public class var sharedInstance: ScanController{
+    override public class var sharedInstance: ScanController{
         struct SharedInstance {
             static let instance = ScanController()
         }
@@ -53,17 +46,15 @@ public class ScanController
         elementScanningCounter = 0
     }
 
-    func update()
+    override func update()
     {
-        var defaults = NSUserDefaults.standardUserDefaults()
-        self.timeInterval = defaults.doubleForKey("scanRate")
-        self.buttonStyle = defaults.integerForKey("buttonStyle")
-        self.buttonBorderColor = defaults.integerForKey("buttonBorderColor")
-        self.buttonBorderWidth = CGFloat (defaults.integerForKey("buttonBorderWidth"))
-        self.buttonSize = defaults.integerForKey("buttonSize")
-        self.scanMode = defaults.integerForKey("scanMode")
+        super.update()
+        buttonStyle = defaults.integerForKey("buttonStyle")
+        buttonSize = defaults.integerForKey("buttonSize")
+        scanMode = defaults.integerForKey("scanMode")
         setScanMode()
     }
+
     
     func addCell(cell: ButtonCell)
     {
@@ -290,7 +281,7 @@ public class ScanController
     *	2 = row column scan
     *	3 = column row scan
     ************************************************************************************************* */
-    func setScanMode()
+    override func setScanMode()
     {
         timer.invalidate()
         switch scanMode
@@ -317,7 +308,6 @@ public class ScanController
     func selectionMade(playAudio: Bool)
     {
         timer.invalidate()
-        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
 
         if(scanMode == 0) // if serial scan, make selection
         {

@@ -11,6 +11,9 @@
 		2B061AA31A27A5380078DB6B /* CollectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */; };
 		2B12D4901A8BC304004BFB46 /* Keyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B12D48F1A8BC304004BFB46 /* Keyboard.xib */; };
 		2B12D4971A8BC8A9004BFB46 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D4961A8BC8A9004BFB46 /* Keyboard.swift */; };
+		2B12D49A1A8BFB59004BFB46 /* TableViewScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D4991A8BFB59004BFB46 /* TableViewScanner.swift */; };
+		2B12D49C1A8BFC8C004BFB46 /* KeyboardScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D49B1A8BFC8C004BFB46 /* KeyboardScanner.swift */; };
+		2B12D49F1A8BFD63004BFB46 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D49E1A8BFD63004BFB46 /* Scanner.swift */; };
 		2B1800601A6477DD007BA245 /* UserDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B18005E1A6477DD007BA245 /* UserDatabase.xcdatamodeld */; };
 		2B1800651A647886007BA245 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1800641A647886007BA245 /* Categories.swift */; };
 		2B18006B1A647886007BA245 /* Tables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18006A1A647886007BA245 /* Tables.swift */; };
@@ -43,7 +46,6 @@
 		2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */; };
 		2BBCFE5B1A052D5A00AE8BA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */; };
 		2BBCFE5C1A052D5A00AE8BA6 /* buttonTest.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4F1A052D5A00AE8BA6 /* buttonTest.jpg */; };
-		2BBCFE5E1A052D5A00AE8BA6 /* ScannerDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE511A052D5A00AE8BA6 /* ScannerDrawer.swift */; };
 		2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */; };
 		2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */; };
 		2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */; };
@@ -97,6 +99,9 @@
 		2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewBase.swift; sourceTree = "<group>"; };
 		2B12D48F1A8BC304004BFB46 /* Keyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Keyboard.xib; path = ../Keyboard.xib; sourceTree = "<group>"; };
 		2B12D4961A8BC8A9004BFB46 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = ../Keyboard.swift; sourceTree = "<group>"; };
+		2B12D4991A8BFB59004BFB46 /* TableViewScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewScanner.swift; sourceTree = "<group>"; };
+		2B12D49B1A8BFC8C004BFB46 /* KeyboardScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardScanner.swift; sourceTree = "<group>"; };
+		2B12D49E1A8BFD63004BFB46 /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		2B18005F1A6477DD007BA245 /* UserDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserDatabase.xcdatamodel; sourceTree = "<group>"; };
 		2B1800641A647886007BA245 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		2B18006A1A647886007BA245 /* Tables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tables.swift; sourceTree = "<group>"; };
@@ -140,7 +145,6 @@
 		2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateButtonViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2BBCFE4F1A052D5A00AE8BA6 /* buttonTest.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = buttonTest.jpg; path = ../../../Xcode/lumichat/lumichat/buttonTest.jpg; sourceTree = "<group>"; };
-		2BBCFE511A052D5A00AE8BA6 /* ScannerDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerDrawer.swift; sourceTree = "<group>"; };
 		2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXCollectionViewController1.swift; sourceTree = "<group>"; };
 		2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
 		2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
@@ -234,6 +238,17 @@
 			name = Keyboard;
 			sourceTree = "<group>";
 		};
+		2B12D49D1A8BFC96004BFB46 /* Scanners */ = {
+			isa = PBXGroup;
+			children = (
+				2B12D4991A8BFB59004BFB46 /* TableViewScanner.swift */,
+				2B12D49E1A8BFD63004BFB46 /* Scanner.swift */,
+				2B12D49B1A8BFC8C004BFB46 /* KeyboardScanner.swift */,
+				2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */,
+			);
+			name = Scanners;
+			sourceTree = "<group>";
+		};
 		2B18006E1A6479BE007BA245 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +287,7 @@
 				2B04BCF61A7C28A300494335 /* ModifyButton */,
 				2B04BCF71A7C28E500494335 /* CollectionViews */,
 				2B12D4981A8BF890004BFB46 /* Keyboard */,
+				2B12D49D1A8BFC96004BFB46 /* Scanners */,
 				2B623AE61A3DCE5400106986 /* DBController.swift */,
 				2B1800761A659B8C007BA245 /* CoreDataController.swift */,
 				2B2023611A64585C00704F75 /* Util.swift */,
@@ -282,10 +298,8 @@
 				2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */,
 				2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */,
 				2B8D408A1A787E4400CFB382 /* ListViewController.swift */,
-				2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */,
 				2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */,
 				2B061AA01A279E640078DB6B /* Zipping.swift */,
-				2BBCFE511A052D5A00AE8BA6 /* ScannerDrawer.swift */,
 				2BFCEDB81A294A7200ADCC83 /* appPhotos */,
 				2BD6A6E71A25534300A3CBA3 /* SSZipArchive */,
 				2BBCFE371A052CB700AE8BA6 /* Audio */,
@@ -559,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B1800781A6C3825007BA245 /* OpenFileViewController.swift in Sources */,
+				2B12D49C1A8BFC8C004BFB46 /* KeyboardScanner.swift in Sources */,
 				2BD6A6F61A25534300A3CBA3 /* unzip.c in Sources */,
 				2B8D408B1A787E4400CFB382 /* ListViewController.swift in Sources */,
 				2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */,
@@ -571,7 +586,6 @@
 				2B12D4971A8BC8A9004BFB46 /* Keyboard.swift in Sources */,
 				2BD6A6F71A25534300A3CBA3 /* zip.c in Sources */,
 				2BBCFE361A052CAB00AE8BA6 /* FMResultSet.m in Sources */,
-				2BBCFE5E1A052D5A00AE8BA6 /* ScannerDrawer.swift in Sources */,
 				2B2023621A64585C00704F75 /* Util.swift in Sources */,
 				2BD6A6F51A25534300A3CBA3 /* mztools.c in Sources */,
 				2B061AA11A279E640078DB6B /* Zipping.swift in Sources */,
@@ -590,6 +604,8 @@
 				2BBCFE581A052D5A00AE8BA6 /* SettingsViewController.swift in Sources */,
 				2B1800601A6477DD007BA245 /* UserDatabase.xcdatamodeld in Sources */,
 				2BE791D71A79413A00DE0E57 /* Phrases.swift in Sources */,
+				2B12D49A1A8BFB59004BFB46 /* TableViewScanner.swift in Sources */,
+				2B12D49F1A8BFD63004BFB46 /* Scanner.swift in Sources */,
 				2B623AE71A3DCE5400106986 /* DBController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

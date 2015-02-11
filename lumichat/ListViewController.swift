@@ -13,6 +13,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var data:NSArray?
     @IBOutlet weak var phraseTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    private var tableScanner = TableViewScanner.sharedInstance
+    private var keyboardView:Keyboard?
+    private var keyboardScanner = KeyboardScanner.sharedInstance
+    var tapRec: UITapGestureRecognizer!
+
     
     /******************************************************************************************
     *
@@ -25,9 +30,12 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func textFieldDidBeginEditing(textField: UITextField)
     {
-        let keyboardView = Keyboard()
-        keyboardView.delegate = self
-        view.addSubview(keyboardView)
+        keyboardView = Keyboard()
+        keyboardView!.delegate = self
+        keyboardScanner.initialization(keyboardView!.keyCollection)
+        setTapRecognizer()
+
+        view.addSubview(keyboardView!)
     }
     
     func keyWasPressed(key: String)
@@ -97,6 +105,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     @IBAction func saveButtonPressed(sender: AnyObject)
     {
+        keyboardView?.removeFromSuperview()
+        keyboardView?.userInteractionEnabled = false
+        self.view.removeGestureRecognizer(tapRec)
+        phraseTextField.resignFirstResponder()
         if phraseTextField.text != ""
         {
             CoreDataController().createInManagedObjectContextPhrase(phraseTextField.text)
@@ -108,4 +120,22 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
+    //configures the tap recoginizer
+    func setTapRecognizer()
+    {
+        self.tapRec = UITapGestureRecognizer()
+        tapRec.addTarget( self, action: "tapHandler:")
+        tapRec.numberOfTapsRequired = 1
+        tapRec.numberOfTouchesRequired = 1
+        self.view.addGestureRecognizer(tapRec)
+    }
+    
+    /* ******************************************************************************************
+    *
+    ******************************************************************************************** */
+    func tapHandler(gesture: UITapGestureRecognizer)
+    {
+        keyboardScanner.selectionMade(true)
+    }
+    
 }
