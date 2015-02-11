@@ -63,7 +63,6 @@ class Keyboard:UIView
         let size = CGRectMake(0, height-keyboardHeight+statusHeight, width, keyboardHeight)
         for( var i = 0; i < keyCollection.count; i++)
         {
-            println(keyCollection[i].titleLabel!.text!)
             keyCollection[i].layer.cornerRadius = 5
             keyCollection[i].userInteractionEnabled = true
         }

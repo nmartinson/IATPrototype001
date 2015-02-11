@@ -97,13 +97,15 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     @IBAction func saveButtonPressed(sender: AnyObject)
     {
-        CoreDataController().createInManagedObjectContextPhrase(phraseTextField.text)
-        
-        data = CoreDataController().getPhrases()
-        phraseTextField.text = ""
-        phraseTextField.placeholder = "Type a new phrase..."
-        phraseTextField.resignFirstResponder()
-        tableView.reloadData()
+        if phraseTextField.text != ""
+        {
+            CoreDataController().createInManagedObjectContextPhrase(phraseTextField.text)
+            data = CoreDataController().getPhrases()
+            phraseTextField.text = ""
+            phraseTextField.placeholder = "Type a new phrase..."
+            phraseTextField.resignFirstResponder()
+            tableView.reloadData()
+        }
     }
 
 }

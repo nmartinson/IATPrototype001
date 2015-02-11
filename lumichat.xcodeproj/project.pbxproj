@@ -95,8 +95,8 @@
 /* Begin PBXFileReference section */
 		2B061AA01A279E640078DB6B /* Zipping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zipping.swift; sourceTree = "<group>"; };
 		2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewBase.swift; sourceTree = "<group>"; };
-		2B12D48F1A8BC304004BFB46 /* Keyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Keyboard.xib; sourceTree = "<group>"; };
-		2B12D4961A8BC8A9004BFB46 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		2B12D48F1A8BC304004BFB46 /* Keyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Keyboard.xib; path = ../Keyboard.xib; sourceTree = "<group>"; };
+		2B12D4961A8BC8A9004BFB46 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = ../Keyboard.swift; sourceTree = "<group>"; };
 		2B18005F1A6477DD007BA245 /* UserDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserDatabase.xcdatamodel; sourceTree = "<group>"; };
 		2B1800641A647886007BA245 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		2B18006A1A647886007BA245 /* Tables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tables.swift; sourceTree = "<group>"; };
@@ -225,6 +225,15 @@
 			name = CollectionViews;
 			sourceTree = "<group>";
 		};
+		2B12D4981A8BF890004BFB46 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				2B12D4961A8BC8A9004BFB46 /* Keyboard.swift */,
+				2B12D48F1A8BC304004BFB46 /* Keyboard.xib */,
+			);
+			name = Keyboard;
+			sourceTree = "<group>";
+		};
 		2B18006E1A6479BE007BA245 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,8 +248,6 @@
 		2BBCFDDB1A052C1E00AE8BA6 = {
 			isa = PBXGroup;
 			children = (
-				2B12D4961A8BC8A9004BFB46 /* Keyboard.swift */,
-				2B12D48F1A8BC304004BFB46 /* Keyboard.xib */,
 				2B1800711A648A2A007BA245 /* libsqlite3.dylib */,
 				2BD6A6F91A25536B00A3CBA3 /* libz.dylib */,
 				2BBCFDE61A052C1E00AE8BA6 /* lumichat */,
@@ -264,6 +271,7 @@
 				2B18006E1A6479BE007BA245 /* Models */,
 				2B04BCF61A7C28A300494335 /* ModifyButton */,
 				2B04BCF71A7C28E500494335 /* CollectionViews */,
+				2B12D4981A8BF890004BFB46 /* Keyboard */,
 				2B623AE61A3DCE5400106986 /* DBController.swift */,
 				2B1800761A659B8C007BA245 /* CoreDataController.swift */,
 				2B2023611A64585C00704F75 /* Util.swift */,
