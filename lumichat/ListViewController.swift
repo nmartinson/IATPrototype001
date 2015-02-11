@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, KeyboardDelegate
 {
     var data:NSArray?
     @IBOutlet weak var phraseTextField: UITextField!
@@ -21,6 +21,32 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         self.title = "Notes"
         data = CoreDataController().getPhrases()
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField)
+    {
+        let keyboardView = Keyboard()
+        keyboardView.delegate = self
+        view.addSubview(keyboardView)
+    }
+    
+    func keyWasPressed(key: String)
+    {
+        phraseTextField.text = phraseTextField.text + key
+    }
+    
+    func deleteWasPressed()
+    {
+        let text = phraseTextField.text
+        if text != ""
+        {
+            phraseTextField.text = phraseTextField.text.substringToIndex(text.endIndex.predecessor())
+        }
+    }
+    
+    func spaceWasPressed()
+    {
+        phraseTextField.text = phraseTextField.text + " "
     }
     
     /******************************************************************************************

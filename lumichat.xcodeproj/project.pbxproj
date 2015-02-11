@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2B061AA11A279E640078DB6B /* Zipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B061AA01A279E640078DB6B /* Zipping.swift */; };
 		2B061AA31A27A5380078DB6B /* CollectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */; };
+		2B12D4901A8BC304004BFB46 /* Keyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B12D48F1A8BC304004BFB46 /* Keyboard.xib */; };
+		2B12D4971A8BC8A9004BFB46 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B12D4961A8BC8A9004BFB46 /* Keyboard.swift */; };
 		2B1800601A6477DD007BA245 /* UserDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B18005E1A6477DD007BA245 /* UserDatabase.xcdatamodeld */; };
 		2B1800651A647886007BA245 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1800641A647886007BA245 /* Categories.swift */; };
 		2B18006B1A647886007BA245 /* Tables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B18006A1A647886007BA245 /* Tables.swift */; };
@@ -93,6 +95,8 @@
 /* Begin PBXFileReference section */
 		2B061AA01A279E640078DB6B /* Zipping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Zipping.swift; sourceTree = "<group>"; };
 		2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewBase.swift; sourceTree = "<group>"; };
+		2B12D48F1A8BC304004BFB46 /* Keyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Keyboard.xib; sourceTree = "<group>"; };
+		2B12D4961A8BC8A9004BFB46 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		2B18005F1A6477DD007BA245 /* UserDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserDatabase.xcdatamodel; sourceTree = "<group>"; };
 		2B1800641A647886007BA245 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		2B18006A1A647886007BA245 /* Tables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tables.swift; sourceTree = "<group>"; };
@@ -235,6 +239,8 @@
 		2BBCFDDB1A052C1E00AE8BA6 = {
 			isa = PBXGroup;
 			children = (
+				2B12D4961A8BC8A9004BFB46 /* Keyboard.swift */,
+				2B12D48F1A8BC304004BFB46 /* Keyboard.xib */,
 				2B1800711A648A2A007BA245 /* libsqlite3.dylib */,
 				2BD6A6F91A25536B00A3CBA3 /* libz.dylib */,
 				2BBCFDE61A052C1E00AE8BA6 /* lumichat */,
@@ -515,6 +521,7 @@
 				2BFCEDD61A294A7200ADCC83 /* 4.jpg in Resources */,
 				2BFCEDD91A294A7200ADCC83 /* 7.jpg in Resources */,
 				2BBCFE421A052CC200AE8BA6 /* Im_Hungry.wav in Resources */,
+				2B12D4901A8BC304004BFB46 /* Keyboard.xib in Resources */,
 				2BBCFE431A052CC200AE8BA6 /* Im_Thirsty.wav in Resources */,
 				2BFCEDDF1A294A7200ADCC83 /* eye.jpg in Resources */,
 				2BFCEDEA1A294A7200ADCC83 /* yes.jpg in Resources */,
@@ -553,6 +560,7 @@
 				2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */,
 				2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */,
 				2BBCFE291A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
+				2B12D4971A8BC8A9004BFB46 /* Keyboard.swift in Sources */,
 				2BD6A6F71A25534300A3CBA3 /* zip.c in Sources */,
 				2BBCFE361A052CAB00AE8BA6 /* FMResultSet.m in Sources */,
 				2BBCFE5E1A052D5A00AE8BA6 /* ScannerDrawer.swift in Sources */,
