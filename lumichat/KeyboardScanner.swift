@@ -10,7 +10,7 @@ import Foundation
 
 class KeyboardScanner: Scanner
 {
-    override public class var sharedInstance: KeyboardScanner{
+    public class var sharedInstance: KeyboardScanner{
         struct SharedInstance {
             static let instance = KeyboardScanner()
         }

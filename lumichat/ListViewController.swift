@@ -10,7 +10,8 @@ import Foundation
 
 class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, KeyboardDelegate
 {
-    var data:NSArray?
+    var data:NSMutableArray?
+    @IBOutlet weak var bluetoothTextField: UITextField!
     @IBOutlet weak var phraseTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     private var tableScanner = TableViewScanner.sharedInstance
@@ -26,23 +27,81 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         self.title = "Notes"
         data = CoreDataController().getPhrases()
+        bluetoothTextField.inputView = UIView()        // textBox is used to get input from bluetooth
+        bluetoothTextField.becomeFirstResponder()
     }
     
+    override func viewWillAppear(animated: Bool)
+    {
+//        let visibleCells = tableView.visibleCells()
+//        println(visibleCells.count)
+        tableScanner.initialization([phraseTextField])
+
+    }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func textFieldDidBeginEditing(textField: UITextField)
     {
-        keyboardView = Keyboard()
-        keyboardView!.delegate = self
-        keyboardScanner.initialization(keyboardView!.keyCollection)
-        setTapRecognizer()
-
-        view.addSubview(keyboardView!)
+        // check if the active textfield is the phraseField
+        if textField === phraseTextField
+        {
+            println("KEYBOARD VIEW")
+            tableScanner.timer.invalidate()
+            keyboardView = Keyboard()
+            phraseTextField.resignFirstResponder()
+            keyboardView!.delegate = self
+            keyboardScanner.initialization(keyboardView!.keyCollection)
+            setTapRecognizer()
+            view.addSubview(keyboardView!)
+            bluetoothTextField.becomeFirstResponder()
+        }
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+    {
+        println("textField")
+        println(string)
+        if( string == " ")
+        {
+            tableScanner.selectionMade(false)
+//            if( tableScanner.secondStageOfSelection == false)
+//            {
+//                let title = buttons[tableScanner.index].titleForState(.Normal)!
+//                if title == "Notes"
+//                {
+//                    performSegueWithIdentifier("toList", sender: self)
+//                }
+//                else
+//                {
+//                    performSegueWithIdentifier("showDetail", sender: self)
+//                }
+//            }
+        }
+        else if( string == "\n")
+        {
+            println("new line")
+        }
+        
+        return false
+    }
+    
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func keyWasPressed(key: String)
     {
         phraseTextField.text = phraseTextField.text + key
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func deleteWasPressed()
     {
         let text = phraseTextField.text
@@ -52,6 +111,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func spaceWasPressed()
     {
         phraseTextField.text = phraseTextField.text + " "
@@ -64,6 +126,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         var cell = tableView.dequeueReusableCellWithIdentifier("listCell") as UITableViewCell
         cell.textLabel?.text = data![indexPath.row] as? String
+        tableScanner.addCell(cell)
         return cell
     }
     
@@ -91,6 +154,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         return "Saved phrases"
     }
+    
     /******************************************************************************************
     *
     ******************************************************************************************/
@@ -105,6 +169,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     @IBAction func saveButtonPressed(sender: AnyObject)
     {
+        tableScanner.timer.invalidate()
+
         keyboardView?.removeFromSuperview()
         keyboardView?.userInteractionEnabled = false
         self.view.removeGestureRecognizer(tapRec)
@@ -116,8 +182,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             phraseTextField.text = ""
             phraseTextField.placeholder = "Type a new phrase..."
             phraseTextField.resignFirstResponder()
+            tableScanner.removeAllItemsFromDataSource()
             tableView.reloadData()
         }
+        tableScanner.setScanMode()
     }
 
     //configures the tap recoginizer
@@ -136,6 +204,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tapHandler(gesture: UITapGestureRecognizer)
     {
         keyboardScanner.selectionMade(true)
+//        bluetoothTextField.becomeFirstResponder()
     }
     
 }

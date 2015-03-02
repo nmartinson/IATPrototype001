@@ -854,7 +854,18 @@
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </textAttributes>
                                 <items>
-                                    <navigationItem title="Notes" id="9bX-xS-vzt"/>
+                                    <navigationItem id="9bX-xS-vzt">
+                                        <nil key="title"/>
+                                        <textField key="titleView" hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="fEB-gM-dYU">
+                                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="NG0-Ez-sps" id="dJr-HY-1vc"/>
+                                            </connections>
+                                        </textField>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type a new phrase..." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="BSY-Ap-m5Q">
@@ -924,6 +935,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="bluetoothTextField" destination="fEB-gM-dYU" id="AB8-sA-Z0N"/>
                         <outlet property="phraseTextField" destination="BSY-Ap-m5Q" id="6MF-ID-fjL"/>
                         <outlet property="tableView" destination="qBS-Ow-EN5" id="agh-NW-dDD"/>
                     </connections>

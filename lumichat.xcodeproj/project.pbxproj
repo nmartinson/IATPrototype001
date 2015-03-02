@@ -45,7 +45,6 @@
 		2BBCFE591A052D5A00AE8BA6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */; };
 		2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */; };
 		2BBCFE5B1A052D5A00AE8BA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */; };
-		2BBCFE5C1A052D5A00AE8BA6 /* buttonTest.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4F1A052D5A00AE8BA6 /* buttonTest.jpg */; };
 		2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */; };
 		2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */; };
 		2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */; };
@@ -57,31 +56,6 @@
 		2BD6A6F81A25534300A3CBA3 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6A6F31A25534300A3CBA3 /* SSZipArchive.m */; };
 		2BD6A6FA1A25536B00A3CBA3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD6A6F91A25536B00A3CBA3 /* libz.dylib */; };
 		2BE791D71A79413A00DE0E57 /* Phrases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE791D61A79413A00DE0E57 /* Phrases.swift */; };
-		2BFCEDD21A294A7200ADCC83 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDB91A294A7200ADCC83 /* 1.jpg */; };
-		2BFCEDD31A294A7200ADCC83 /* 10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDBA1A294A7200ADCC83 /* 10.jpg */; };
-		2BFCEDD41A294A7200ADCC83 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDBB1A294A7200ADCC83 /* 2.jpg */; };
-		2BFCEDD51A294A7200ADCC83 /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDBC1A294A7200ADCC83 /* 3.jpg */; };
-		2BFCEDD61A294A7200ADCC83 /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDBD1A294A7200ADCC83 /* 4.jpg */; };
-		2BFCEDD71A294A7200ADCC83 /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDBE1A294A7200ADCC83 /* 5.jpg */; };
-		2BFCEDD81A294A7200ADCC83 /* 6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDBF1A294A7200ADCC83 /* 6.jpg */; };
-		2BFCEDD91A294A7200ADCC83 /* 7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDC01A294A7200ADCC83 /* 7.jpg */; };
-		2BFCEDDA1A294A7200ADCC83 /* 8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDC11A294A7200ADCC83 /* 8.jpg */; };
-		2BFCEDDB1A294A7200ADCC83 /* 9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDC21A294A7200ADCC83 /* 9.jpg */; };
-		2BFCEDDC1A294A7200ADCC83 /* arm.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDC31A294A7200ADCC83 /* arm.jpg */; };
-		2BFCEDDD1A294A7200ADCC83 /* back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDC41A294A7200ADCC83 /* back.jpg */; };
-		2BFCEDDE1A294A7200ADCC83 /* ear.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDC51A294A7200ADCC83 /* ear.jpg */; };
-		2BFCEDDF1A294A7200ADCC83 /* eye.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDC61A294A7200ADCC83 /* eye.jpg */; };
-		2BFCEDE01A294A7200ADCC83 /* foot.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDC71A294A7200ADCC83 /* foot.jpg */; };
-		2BFCEDE11A294A7200ADCC83 /* hand.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDC81A294A7200ADCC83 /* hand.jpg */; };
-		2BFCEDE21A294A7200ADCC83 /* head.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDC91A294A7200ADCC83 /* head.jpg */; };
-		2BFCEDE31A294A7200ADCC83 /* later.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDCA1A294A7200ADCC83 /* later.jpg */; };
-		2BFCEDE41A294A7200ADCC83 /* leg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDCB1A294A7200ADCC83 /* leg.jpg */; };
-		2BFCEDE51A294A7200ADCC83 /* maybe.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDCC1A294A7200ADCC83 /* maybe.jpg */; };
-		2BFCEDE61A294A7200ADCC83 /* mouth.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDCD1A294A7200ADCC83 /* mouth.jpg */; };
-		2BFCEDE71A294A7200ADCC83 /* no.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDCE1A294A7200ADCC83 /* no.jpg */; };
-		2BFCEDE81A294A7200ADCC83 /* oops.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDCF1A294A7200ADCC83 /* oops.jpg */; };
-		2BFCEDE91A294A7200ADCC83 /* throat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDD01A294A7200ADCC83 /* throat.jpg */; };
-		2BFCEDEA1A294A7200ADCC83 /* yes.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCEDD11A294A7200ADCC83 /* yes.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,7 +118,6 @@
 		2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateButtonViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		2BBCFE4F1A052D5A00AE8BA6 /* buttonTest.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = buttonTest.jpg; path = ../../../Xcode/lumichat/lumichat/buttonTest.jpg; sourceTree = "<group>"; };
 		2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXCollectionViewController1.swift; sourceTree = "<group>"; };
 		2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
 		2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
@@ -162,31 +135,6 @@
 		2BD6A6F31A25534300A3CBA3 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		2BD6A6F91A25536B00A3CBA3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2BE791D61A79413A00DE0E57 /* Phrases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phrases.swift; sourceTree = "<group>"; };
-		2BFCEDB91A294A7200ADCC83 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
-		2BFCEDBA1A294A7200ADCC83 /* 10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.jpg; sourceTree = "<group>"; };
-		2BFCEDBB1A294A7200ADCC83 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
-		2BFCEDBC1A294A7200ADCC83 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
-		2BFCEDBD1A294A7200ADCC83 /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
-		2BFCEDBE1A294A7200ADCC83 /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
-		2BFCEDBF1A294A7200ADCC83 /* 6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6.jpg; sourceTree = "<group>"; };
-		2BFCEDC01A294A7200ADCC83 /* 7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.jpg; sourceTree = "<group>"; };
-		2BFCEDC11A294A7200ADCC83 /* 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.jpg; sourceTree = "<group>"; };
-		2BFCEDC21A294A7200ADCC83 /* 9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.jpg; sourceTree = "<group>"; };
-		2BFCEDC31A294A7200ADCC83 /* arm.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = arm.jpg; sourceTree = "<group>"; };
-		2BFCEDC41A294A7200ADCC83 /* back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back.jpg; sourceTree = "<group>"; };
-		2BFCEDC51A294A7200ADCC83 /* ear.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ear.jpg; sourceTree = "<group>"; };
-		2BFCEDC61A294A7200ADCC83 /* eye.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = eye.jpg; sourceTree = "<group>"; };
-		2BFCEDC71A294A7200ADCC83 /* foot.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = foot.jpg; sourceTree = "<group>"; };
-		2BFCEDC81A294A7200ADCC83 /* hand.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hand.jpg; sourceTree = "<group>"; };
-		2BFCEDC91A294A7200ADCC83 /* head.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = head.jpg; sourceTree = "<group>"; };
-		2BFCEDCA1A294A7200ADCC83 /* later.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = later.jpg; sourceTree = "<group>"; };
-		2BFCEDCB1A294A7200ADCC83 /* leg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = leg.jpg; sourceTree = "<group>"; };
-		2BFCEDCC1A294A7200ADCC83 /* maybe.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = maybe.jpg; sourceTree = "<group>"; };
-		2BFCEDCD1A294A7200ADCC83 /* mouth.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mouth.jpg; sourceTree = "<group>"; };
-		2BFCEDCE1A294A7200ADCC83 /* no.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = no.jpg; sourceTree = "<group>"; };
-		2BFCEDCF1A294A7200ADCC83 /* oops.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = oops.jpg; sourceTree = "<group>"; };
-		2BFCEDD01A294A7200ADCC83 /* throat.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = throat.jpg; sourceTree = "<group>"; };
-		2BFCEDD11A294A7200ADCC83 /* yes.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yes.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,7 +248,6 @@
 				2B8D408A1A787E4400CFB382 /* ListViewController.swift */,
 				2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */,
 				2B061AA01A279E640078DB6B /* Zipping.swift */,
-				2BFCEDB81A294A7200ADCC83 /* appPhotos */,
 				2BD6A6E71A25534300A3CBA3 /* SSZipArchive */,
 				2BBCFE371A052CB700AE8BA6 /* Audio */,
 				2BBCFE2A1A052C9D00AE8BA6 /* FMDB */,
@@ -403,40 +350,6 @@
 			path = minizip;
 			sourceTree = "<group>";
 		};
-		2BFCEDB81A294A7200ADCC83 /* appPhotos */ = {
-			isa = PBXGroup;
-			children = (
-				2BBCFE4F1A052D5A00AE8BA6 /* buttonTest.jpg */,
-				2BFCEDB91A294A7200ADCC83 /* 1.jpg */,
-				2BFCEDBA1A294A7200ADCC83 /* 10.jpg */,
-				2BFCEDBB1A294A7200ADCC83 /* 2.jpg */,
-				2BFCEDBC1A294A7200ADCC83 /* 3.jpg */,
-				2BFCEDBD1A294A7200ADCC83 /* 4.jpg */,
-				2BFCEDBE1A294A7200ADCC83 /* 5.jpg */,
-				2BFCEDBF1A294A7200ADCC83 /* 6.jpg */,
-				2BFCEDC01A294A7200ADCC83 /* 7.jpg */,
-				2BFCEDC11A294A7200ADCC83 /* 8.jpg */,
-				2BFCEDC21A294A7200ADCC83 /* 9.jpg */,
-				2BFCEDC31A294A7200ADCC83 /* arm.jpg */,
-				2BFCEDC41A294A7200ADCC83 /* back.jpg */,
-				2BFCEDC51A294A7200ADCC83 /* ear.jpg */,
-				2BFCEDC61A294A7200ADCC83 /* eye.jpg */,
-				2BFCEDC71A294A7200ADCC83 /* foot.jpg */,
-				2BFCEDC81A294A7200ADCC83 /* hand.jpg */,
-				2BFCEDC91A294A7200ADCC83 /* head.jpg */,
-				2BFCEDCA1A294A7200ADCC83 /* later.jpg */,
-				2BFCEDCB1A294A7200ADCC83 /* leg.jpg */,
-				2BFCEDCC1A294A7200ADCC83 /* maybe.jpg */,
-				2BFCEDCD1A294A7200ADCC83 /* mouth.jpg */,
-				2BFCEDCE1A294A7200ADCC83 /* no.jpg */,
-				2BFCEDCF1A294A7200ADCC83 /* oops.jpg */,
-				2BFCEDD01A294A7200ADCC83 /* throat.jpg */,
-				2BFCEDD11A294A7200ADCC83 /* yes.jpg */,
-			);
-			name = appPhotos;
-			path = ../../../Documents/IMIG/appPhotos;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -486,7 +399,7 @@
 				TargetAttributes = {
 					2BBCFDE31A052C1E00AE8BA6 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = B782ML49FF;
+						DevelopmentTeam = QTYS96LR2E;
 					};
 					2BBCFDFC1A052C1E00AE8BA6 = {
 						CreatedOnToolsVersion = 6.1;
@@ -518,41 +431,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BFCEDDA1A294A7200ADCC83 /* 8.jpg in Resources */,
-				2BFCEDD81A294A7200ADCC83 /* 6.jpg in Resources */,
-				2BFCEDE81A294A7200ADCC83 /* oops.jpg in Resources */,
-				2BFCEDD51A294A7200ADCC83 /* 3.jpg in Resources */,
-				2BFCEDD31A294A7200ADCC83 /* 10.jpg in Resources */,
-				2BFCEDDC1A294A7200ADCC83 /* arm.jpg in Resources */,
-				2BFCEDE61A294A7200ADCC83 /* mouth.jpg in Resources */,
 				2BBCFE401A052CC200AE8BA6 /* Hello.wav in Resources */,
-				2BFCEDDE1A294A7200ADCC83 /* ear.jpg in Resources */,
-				2BFCEDE91A294A7200ADCC83 /* throat.jpg in Resources */,
-				2BFCEDD41A294A7200ADCC83 /* 2.jpg in Resources */,
-				2BFCEDE51A294A7200ADCC83 /* maybe.jpg in Resources */,
 				2BBCFE5B1A052D5A00AE8BA6 /* Main.storyboard in Resources */,
-				2BBCFE5C1A052D5A00AE8BA6 /* buttonTest.jpg in Resources */,
-				2BFCEDDD1A294A7200ADCC83 /* back.jpg in Resources */,
-				2BFCEDE01A294A7200ADCC83 /* foot.jpg in Resources */,
 				2BBCFE441A052CC200AE8BA6 /* Im_Tired.wav in Resources */,
-				2BFCEDE31A294A7200ADCC83 /* later.jpg in Resources */,
-				2BFCEDDB1A294A7200ADCC83 /* 9.jpg in Resources */,
-				2BFCEDE71A294A7200ADCC83 /* no.jpg in Resources */,
 				2BBCFE411A052CC200AE8BA6 /* How_Are_You.wav in Resources */,
-				2BFCEDD71A294A7200ADCC83 /* 5.jpg in Resources */,
-				2BFCEDD61A294A7200ADCC83 /* 4.jpg in Resources */,
-				2BFCEDD91A294A7200ADCC83 /* 7.jpg in Resources */,
 				2BBCFE421A052CC200AE8BA6 /* Im_Hungry.wav in Resources */,
 				2B12D4901A8BC304004BFB46 /* Keyboard.xib in Resources */,
 				2BBCFE431A052CC200AE8BA6 /* Im_Thirsty.wav in Resources */,
-				2BFCEDDF1A294A7200ADCC83 /* eye.jpg in Resources */,
-				2BFCEDEA1A294A7200ADCC83 /* yes.jpg in Resources */,
 				2BBCFDF81A052C1E00AE8BA6 /* LaunchScreen.xib in Resources */,
 				2BBCFE451A052CC200AE8BA6 /* Please_Help_Me.wav in Resources */,
-				2BFCEDE41A294A7200ADCC83 /* leg.jpg in Resources */,
-				2BFCEDD21A294A7200ADCC83 /* 1.jpg in Resources */,
-				2BFCEDE11A294A7200ADCC83 /* hand.jpg in Resources */,
-				2BFCEDE21A294A7200ADCC83 /* head.jpg in Resources */,
 				2BBCFE3F1A052CC200AE8BA6 /* Goodbye.wav in Resources */,
 				2BBCFDF51A052C1E00AE8BA6 /* Images.xcassets in Resources */,
 			);

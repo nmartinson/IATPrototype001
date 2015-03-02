@@ -19,12 +19,12 @@ class Scanner
     var buttonSize = 0
     var defaults = NSUserDefaults.standardUserDefaults()
     var secondStageOfSelection = false
-    public class var sharedInstance: Scanner{
-        struct SharedInstance {
-            static let instance = Scanner()
-        }
-        return SharedInstance.instance
-    }
+//    public class var sharedInstance: Scanner{
+//        struct SharedInstance {
+//            static let instance = Scanner()
+//        }
+//        return SharedInstance.instance
+//    }
 
 
 

@@ -95,7 +95,7 @@ class CoreDataController:NSObject //NSFetchedResultsController
         return (false, nil)
     }
     
-    func getPhrases() -> NSArray?
+    func getPhrases() -> NSMutableArray?
     {
         var phraseTable:NSMutableArray = []
         let fetchRequest = NSFetchRequest(entityName: "Phrases")

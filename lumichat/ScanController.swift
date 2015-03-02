@@ -19,7 +19,7 @@ class ScanController: Scanner
     var startIndex = 0
     var numberOfButtons = 0
     
-    override public class var sharedInstance: ScanController{
+    public class var sharedInstance: ScanController{
         struct SharedInstance {
             static let instance = ScanController()
         }

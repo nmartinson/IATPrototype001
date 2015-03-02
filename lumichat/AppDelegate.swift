@@ -82,15 +82,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         image = UIImage(named: "notes")
         var notes = utilObject.saveImage(image, title: "notes")
         
+        image = UIImage(named: "bathroom")
+        var bathroom = utilObject.saveImage(image, title: "bathroom")
+        image = UIImage(named: "comeback")
+        var comeback = utilObject.saveImage(image, title: "comeback")
+        image = UIImage(named: "family")
+        var family = utilObject.saveImage(image, title: "family")
+        image = UIImage(named: "goodbye")
+        var goodbye = utilObject.saveImage(image, title: "goodbye")
+        image = UIImage(named: "holdmyhand")
+        var holdmyhand = utilObject.saveImage(image, title: "holdmyhand")
+        image = UIImage(named: "nurse")
+        var nurse = utilObject.saveImage(image, title: "nurse")
+        image = UIImage(named: "painmeds")
+        var painmeds = utilObject.saveImage(image, title: "painmeds")
+        image = UIImage(named: "rest")
+        var rest = utilObject.saveImage(image, title: "rest")
+        image = UIImage(named: "thanks")
+        var thanks = utilObject.saveImage(image, title: "thanks")
+        
         let (success, categoriesArray) = coreDataObject.getCategories()
         if !success
         {
             coreDataObject.createInManagedObjectContextCategories("Expressions", image: buttonTest, link: "Expressions", presses: 0)
             coreDataObject.createInManagedObjectContextCategories("Social", image: buttonTest, link: "Social", presses: 0)
-            coreDataObject.createInManagedObjectContextCategories("Body Parts", image: buttonTest, link: "BodyParts", presses: 0)
-            coreDataObject.createInManagedObjectContextCategories("Pain Scale", image: buttonTest, link: "PainScale", presses: 0)
-            coreDataObject.createInManagedObjectContextCategories("Yes No Maybe", image: buttonTest, link: "YesNoMaybe", presses: 0)
+            coreDataObject.createInManagedObjectContextCategories("Body Parts", image: head, link: "BodyParts", presses: 0)
+            coreDataObject.createInManagedObjectContextCategories("Pain Scale", image: five, link: "PainScale", presses: 0)
+            coreDataObject.createInManagedObjectContextCategories("Yes No Maybe", image: yes, link: "YesNoMaybe", presses: 0)
             coreDataObject.createInManagedObjectContextCategories("Notes", image: notes, link: "Notes", presses: 0)
+            coreDataObject.createInManagedObjectContextCategories("UIHC", image: nurse, link: "UIHC", presses: 0)
+
             
             coreDataObject.createInManagedObjectContextTable("Head", image: head, longDescription: "My head hurts", entity: "Tables", table: "BodyParts", index: 0)
             coreDataObject.createInManagedObjectContextTable("Hand", image: hand, longDescription: "My hand hurts", entity: "Tables", table: "BodyParts", index: 1)
@@ -106,6 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             coreDataObject.createInManagedObjectContextTable("Yes", image: yes, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 0)
             coreDataObject.createInManagedObjectContextTable("No", image: no, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 1)
             coreDataObject.createInManagedObjectContextTable("Maybe", image: maybe, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 2)
+            coreDataObject.createInManagedObjectContextTable("Later", image: later, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 3)
             
             coreDataObject.createInManagedObjectContextTable("Im Hungry", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions", index: 0)
             coreDataObject.createInManagedObjectContextTable("Im Thirsty", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions", index: 1)
@@ -126,7 +148,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             coreDataObject.createInManagedObjectContextTable("9", image: nine, longDescription: "My pain is at level 9", entity: "Tables", table: "PainScale", index: 8)
             coreDataObject.createInManagedObjectContextTable("10", image: ten, longDescription: "My pain is at level 10", entity: "Tables", table: "PainScale", index: 9)
             
-            
+            coreDataObject.createInManagedObjectContextTable("Bathroom", image: bathroom, longDescription: "I need to go to the bathroom", entity: "Tables", table: "UIHC", index: 0)
+            coreDataObject.createInManagedObjectContextTable("Come back", image: comeback, longDescription: "Please come back", entity: "Tables", table: "UIHC", index: 1)
+            coreDataObject.createInManagedObjectContextTable("Family", image: family, longDescription: "I would like to see my family", entity: "Tables", table: "UIHC", index: 2)
+            coreDataObject.createInManagedObjectContextTable("Goodbye", image: goodbye, longDescription: "Good bye", entity: "Tables", table: "UIHC", index: 3)
+            coreDataObject.createInManagedObjectContextTable("Hold my hand", image: holdmyhand, longDescription: "Please hold m hand", entity: "Tables", table: "UIHC", index: 4)
+            coreDataObject.createInManagedObjectContextTable("Nurse", image: nurse, longDescription: "Please get my nurse", entity: "Tables", table: "UIHC", index: 5)
+            coreDataObject.createInManagedObjectContextTable("Pain Meds", image: painmeds, longDescription: "I need something for pain", entity: "Tables", table: "UIHC", index: 6)
+            coreDataObject.createInManagedObjectContextTable("Rest", image: rest, longDescription: "I need to rest", entity: "Tables", table: "UIHC", index: 7)
+            coreDataObject.createInManagedObjectContextTable("Thanks", image: thanks, longDescription: "Thank you", entity: "Tables", table: "UIHC", index: 8)
         }
 
 //        coreDataObject.createInManagedObjectContextCategories("Testing", image: buttonTest, link: "testing", presses: 0)
