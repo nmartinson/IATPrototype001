@@ -36,6 +36,8 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
 	{
         configureEntireView(mycollectionview, pageLink: pageLink, title: navBar)
         navBarTitle.title = navBar
+        println(navBar)
+
         buttonCell.delegate = self
 	}
     
@@ -121,7 +123,7 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
 	************************************************************************************************************* */
     func editOrModifyButton(data: [String: NSObject])
 	{
-        scanner.cellArray.removeAllObjects()
+        (scanner as ScanController).cellArray.removeAllObjects()
 
         let title = data["title"] as String
         let longDescription = data["longDescription"] as String
@@ -190,13 +192,13 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
             else
             {
                 self.navBarTitle.title = self.navBarTitle.title?.stringByReplacingOccurrencesOfString(" (Edit Mode)", withString: "")
-                
-                var cells = self.mycollectionview.visibleCells()
-                for(var i = 0; i < cells.count; i++)
-                {
-                    self.cellArray[i].view
-                    cells[i].removeAnimationForKey("shake")
-                }
+                self.collectionview.reloadData()
+//                var cells = self.mycollectionview.visibleCells()
+//                for(var i = 0; i < cells.count; i++)
+//                {
+//                    self.cellArray[i].view
+//                    cells[i].removeAnimationForKey("shake")
+//                }
             }
         }
         alertController.addAction(editAction)
@@ -242,16 +244,16 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func startShakingButtons() -> CAAnimation
-    {
-        var transform = CATransform3DMakeRotation(0.08, 0, 0, 1)
-        var animation = CABasicAnimation(keyPath: "transform")
-        animation.toValue = NSValue(CATransform3D: transform)
-        animation.autoreverses = true
-        animation.duration = 0.1
-        animation.repeatCount = HUGE
-        return animation
-    }
+//    func startShakingButtons() -> CAAnimation
+//    {
+//        var transform = CATransform3DMakeRotation(0.08, 0, 0, 1)
+//        var animation = CABasicAnimation(keyPath: "transform")
+//        animation.toValue = NSValue(CATransform3D: transform)
+//        animation.autoreverses = true
+//        animation.duration = 0.1
+//        animation.repeatCount = HUGE
+//        return animation
+//    }
     
     /******************************************************************************************
     *

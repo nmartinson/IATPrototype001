@@ -107,6 +107,9 @@ class ScanController: Scanner
                 (cellArray[next] as ButtonCell).highlighted = true
                 (cellArray[next] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
                 (cellArray[next] as ButtonCell).layer.borderWidth = buttonBorderWidth
+                (cellArray[next] as ButtonCell).layer.cornerRadius = 5
+
+
 //            }
 //            else if( createButton.selected == true && next == 0)
 //            {
@@ -165,6 +168,7 @@ class ScanController: Scanner
                     (cellArray[i] as ButtonCell).highlighted = true
                     (cellArray[i] as ButtonCell).layer.borderWidth = buttonBorderWidth
                     (cellArray[i] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
+                    (cellArray[i] as ButtonCell).layer.cornerRadius = 5
                 }
             }
             else
@@ -221,6 +225,8 @@ class ScanController: Scanner
                     (cellArray[index] as ButtonCell).highlighted = true
                     (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
                     (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
+                    (cellArray[index] as ButtonCell).layer.cornerRadius = 5
+
                 }
             }
             
@@ -305,7 +311,7 @@ class ScanController: Scanner
     *   plays the audio. If a different scan mode, it checks if it was the first tap or second tap. First tap changes
     *   scan mode, second selection, makes the selection.
     *********************************************************************************************************** */
-    func selectionMade(playAudio: Bool)
+    override func selectionMade(playAudio: Bool)
     {
         timer.invalidate()
 

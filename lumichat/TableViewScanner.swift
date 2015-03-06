@@ -19,6 +19,7 @@ class TableViewScanner: Scanner
     }
     
     var currentCell = 0
+    var previousCell = 0
     var dataSource: NSMutableArray = []
     
     /******************************************************************************************
@@ -74,6 +75,8 @@ class TableViewScanner: Scanner
             (dataSource[currentCell] as UITableViewCell).selected = true
         }
         
+        previousCell = currentCell
+        
         if currentCell < dataSource.count - 1
         {
             currentCell++
@@ -100,6 +103,9 @@ class TableViewScanner: Scanner
         }
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func removeAllItemsFromDataSource()
     {
         let range = NSRange(location: 1, length: dataSource.count - 1)
@@ -109,12 +115,12 @@ class TableViewScanner: Scanner
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func selectionMade(playAudio: Bool)
+    override func selectionMade(playAudio: Bool)
     {
         timer.invalidate()
         var selectedObject:AnyObject?
-        println("cell \(currentCell)")
-        if currentCell == 0
+        println("cell \(previousCell)")
+        if previousCell == 0
         {
             selectedObject = dataSource[0] as UITextField
             selectedObject?.becomeFirstResponder()
@@ -122,7 +128,7 @@ class TableViewScanner: Scanner
         }
         else
         {
-            selectedObject = dataSource[currentCell] as UITableViewCell
+            selectedObject = dataSource[previousCell] as UITableViewCell
             println((selectedObject as UITableViewCell).textLabel!.text)
         }
         

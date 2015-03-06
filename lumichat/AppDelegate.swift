@@ -22,6 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	******************************************************************************************************************* */
 	func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool
 	{
+        window?.backgroundColor = UIColor.whiteColor()
+        var navigationAppearance = UINavigationBar.appearance()
+        navigationAppearance.tintColor = UIColor.whiteColor()
+        navigationAppearance.barTintColor = UIColor(red: 0, green: 0, blue: 250, alpha: 1) //UIColor(red: 85, green: 121, blue: 174, alpha: 1) noddle blue
+        navigationAppearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+        
         let utilObject = Util()
         let coreDataObject = CoreDataController()
 

@@ -18,7 +18,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var keyboardView:Keyboard?
     private var keyboardScanner = KeyboardScanner.sharedInstance
     var tapRec: UITapGestureRecognizer!
-
+    private var currentScanner = "Table"
     
     /******************************************************************************************
     *
@@ -33,10 +33,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(animated: Bool)
     {
-//        let visibleCells = tableView.visibleCells()
-//        println(visibleCells.count)
         tableScanner.initialization([phraseTextField])
-
     }
     
     /******************************************************************************************
@@ -47,11 +44,12 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // check if the active textfield is the phraseField
         if textField === phraseTextField
         {
-            println("KEYBOARD VIEW")
             tableScanner.timer.invalidate()
+//            tableScanner.removeAllItemsFromDataSource()
             keyboardView = Keyboard()
             phraseTextField.resignFirstResponder()
             keyboardView!.delegate = self
+            currentScanner = "Keyboard"
             keyboardScanner.initialization(keyboardView!.keyCollection)
             setTapRecognizer()
             view.addSubview(keyboardView!)
@@ -68,7 +66,14 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         println(string)
         if( string == " ")
         {
-            tableScanner.selectionMade(false)
+            if currentScanner == "Table"
+            {
+                tableScanner.selectionMade(false)
+            }
+            else
+            {
+                keyboardScanner.selectionMade(false)
+            }
 //            if( tableScanner.secondStageOfSelection == false)
 //            {
 //                let title = buttons[tableScanner.index].titleForState(.Normal)!
@@ -169,8 +174,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     @IBAction func saveButtonPressed(sender: AnyObject)
     {
+        currentScanner = "Table"
         tableScanner.timer.invalidate()
-
         keyboardView?.removeFromSuperview()
         keyboardView?.userInteractionEnabled = false
         self.view.removeGestureRecognizer(tapRec)

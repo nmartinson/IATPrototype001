@@ -27,7 +27,7 @@ class Scanner
 //    }
 
 
-
+    func selectionMade(playAudio: Bool){}
     
     func update()
     {

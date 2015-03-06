@@ -32,6 +32,8 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     let coreDataObject = CoreDataController()
     var buttonCell = ButtonCell()
     
+    
+    
     /******************************************************************************************
     *
     ******************************************************************************************/
@@ -39,6 +41,8 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     {
         textBox.inputView = UIView()        // textBox is used to get input from bluetooth
         textBox.becomeFirstResponder()
+//        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+
     }
     
     
@@ -47,6 +51,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     func configureEntireView(collectionView: UICollectionView, pageLink: String, title: String)
     {
+        self.navBarTitle.title = title
         buttons.removeAllObjects()
         cellArray.removeAllObjects()
         setup(collectionView)
@@ -101,6 +106,19 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     // pulls buttons from the DB and configures the buttons
     func getButtonsFromDB(){}
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func startShakingButtons() -> CAAnimation
+    {
+        var transform = CATransform3DMakeRotation(0.08, 0, 0, 1)
+        var animation = CABasicAnimation(keyPath: "transform")
+        animation.toValue = NSValue(CATransform3D: transform)
+        animation.autoreverses = true
+        animation.duration = 0.1
+        animation.repeatCount = HUGE
+        return animation
+    }
     
     /* *******************************************************************************************************
     *
@@ -164,6 +182,34 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         }
         
         return buttonCell
+    }
+
+    /* *******************************************************************************************************
+    *	Once the second to last cell is displayed, start  new thread that will execute in 0.2 seconds so
+    *   that the final cell has been displayed and then start shaking them all.
+    ******************************************************************************************************** */
+    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath)
+    {
+        
+        if indexPath.row == buttons.count - 1
+        {
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2*Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
+                var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                println("Configure collection \(appDelegate.editMode)")
+                if(appDelegate.editMode)
+                {
+                    //                self.scanner.stopScan()
+                    var cells = self.collectionview.visibleCells()
+                    for(var i = 0; i < cells.count; i++)
+                    {
+                        cells[i].addAnimation(self.startShakingButtons(), forKey: "shake")
+                    }
+                    
+                    self.navBarTitle.title = self.navBarTitle.title?.stringByAppendingString(" (Edit Mode)")
+                }
+            }
+        }
     }
     
     /* *************************************************************************************************
