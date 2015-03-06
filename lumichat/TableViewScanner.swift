@@ -21,6 +21,8 @@ class TableViewScanner: Scanner
     var currentCell = 0
     var previousCell = 0
     var dataSource: NSMutableArray = []
+    var timer = NSTimer()
+
     
     /******************************************************************************************
     *
@@ -119,24 +121,18 @@ class TableViewScanner: Scanner
     {
         timer.invalidate()
         var selectedObject:AnyObject?
-        println("cell \(previousCell)")
         if previousCell == 0
         {
             selectedObject = dataSource[0] as UITextField
             selectedObject?.becomeFirstResponder()
-            
         }
         else
         {
             selectedObject = dataSource[previousCell] as UITableViewCell
-            println((selectedObject as UITableViewCell).textLabel!.text)
+            setScanMode() // restart time
         }
-        
-        
-        
+
         secondStageOfSelection = !secondStageOfSelection
-        
-        setScanMode()   // this resets the timer to start scanning again
     }
     
 }

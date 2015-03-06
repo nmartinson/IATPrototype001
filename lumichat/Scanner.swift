@@ -10,7 +10,6 @@ import Foundation
 
 class Scanner
 {
-    var timer = NSTimer()
     var timeInterval:Double = 0.0
     var buttonBorderColor = 0	// from settings
     var buttonBorderWidth: CGFloat = 10	// from settings

@@ -26,6 +26,8 @@ class KeyboardScanner: Scanner
     private var currentButton = 0
     private var previousButton = 0
     private var previousRow = 0
+    var timer = NSTimer()
+
     
     /********************************************************************************************************
     *   Configures the arrays of button rows
@@ -52,8 +54,9 @@ class KeyboardScanner: Scanner
         {
             row3.addObject(keyboard[i] as UIButton)
         }
-        row4.addObject(keyboard[27] as UIButton)
-        row4.addObject(keyboard[28] as UIButton)
+        row4.addObject(keyboard[27] as UIButton) // space button
+        row4.addObject(keyboard[28] as UIButton) // delete button
+        row4.addObject(keyboard[29] as UIButton) // save button
         setScanMode()
     }
     

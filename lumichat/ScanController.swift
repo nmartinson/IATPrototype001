@@ -13,11 +13,13 @@ class ScanController: Scanner
     var cellArray: NSMutableArray = []	// stores ButtonCells
     var size:CGSize!
 
-        var index = 0
+    var index = 0
     var elementScanningCounter = 0
     var endIndex = 0
     var startIndex = 0
     var numberOfButtons = 0
+    var timer = NSTimer()
+
     
     public class var sharedInstance: ScanController{
         struct SharedInstance {

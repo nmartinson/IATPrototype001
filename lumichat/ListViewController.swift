@@ -45,7 +45,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if textField === phraseTextField
         {
             tableScanner.timer.invalidate()
-//            tableScanner.removeAllItemsFromDataSource()
             keyboardView = Keyboard()
             phraseTextField.resignFirstResponder()
             keyboardView!.delegate = self
@@ -62,8 +61,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
     {
-        println("textField")
-        println(string)
         if( string == " ")
         {
             if currentScanner == "Table"
@@ -95,6 +92,14 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return false
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func saveWasPressed()
+    {
+        saveButtonPressed(self)
+        
+    }
     
     /******************************************************************************************
     *
@@ -175,10 +180,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func saveButtonPressed(sender: AnyObject)
     {
         currentScanner = "Table"
-        tableScanner.timer.invalidate()
+        keyboardScanner.timer.invalidate()
         keyboardView?.removeFromSuperview()
-        keyboardView?.userInteractionEnabled = false
         self.view.removeGestureRecognizer(tapRec)
+        
         phraseTextField.resignFirstResponder()
         if phraseTextField.text != ""
         {

@@ -14,6 +14,7 @@ protocol KeyboardDelegate
     func keyWasPressed(key: String)
     func deleteWasPressed()
     func spaceWasPressed()
+    func saveWasPressed()
 }
 
 class Keyboard:UIView
@@ -40,6 +41,12 @@ class Keyboard:UIView
     {
         delegate?.deleteWasPressed()
     }
+    
+    @IBAction func saveWasPressed(sender: AnyObject)
+    {
+        delegate?.saveWasPressed()
+    }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
