@@ -49,7 +49,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func configureEntireView(collectionView: UICollectionView, pageLink: String, title: String)
+    func configureEntireView(collectionView: UICollectionView, pageLink: String, title: String, navBarButtons: [UIButton])
     {
         self.navBarTitle.title = title
         buttons.removeAllObjects()

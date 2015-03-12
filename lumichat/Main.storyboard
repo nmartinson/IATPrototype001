@@ -884,7 +884,7 @@
                     <connections>
                         <outlet property="createButton" destination="B33-KR-ypG" id="1U3-pL-kK0"/>
                         <outlet property="mycollectionview" destination="OMa-1I-DKe" id="S8Q-kH-hhL"/>
-                        <outlet property="navBarTitle" destination="0Jh-7M-7Qi" id="sY5-Pk-y7T"/>
+                        <outlet property="navBarTitle" destination="0Jh-7M-7Qi" id="Pre-7X-EkT"/>
                         <outlet property="textBox" destination="95z-Am-jXh" id="l4e-ZY-Po6"/>
                         <segue destination="goa-2O-Mno" kind="presentation" identifier="toCreate" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="hfV-Ss-mMe"/>
                         <segue destination="Y5s-32-vM2" kind="presentation" identifier="toEdit" modalPresentationStyle="pageSheet" modalTransitionStyle="coverVertical" id="00K-tD-kSu"/>
@@ -1250,6 +1250,7 @@
                     <connections>
                         <outlet property="mycollectionview" destination="QcH-Ed-9AX" id="7OF-NT-ZH2"/>
                         <outlet property="navBarTitle" destination="VMx-3E-V12" id="m54-dJ-69J"/>
+                        <outlet property="settings" destination="Mhu-Ty-IqB" id="Yzz-5v-epu"/>
                         <outlet property="textBox" destination="9Ma-YB-NVz" id="ao0-r2-6vT"/>
                         <segue destination="NG0-Ez-sps" kind="show" identifier="toList" id="ra5-gU-cll"/>
                     </connections>
@@ -1428,6 +1429,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dUX-u7-lmG"/>
+        <segue reference="fam-ls-WgV"/>
     </inferredMetricsTieBreakers>
 </document>

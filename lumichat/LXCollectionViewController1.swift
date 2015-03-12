@@ -34,12 +34,28 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
 	*********************************************************************************************** */
 	override func viewDidLoad()
 	{
-        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar)
         navBarTitle.title = navBar
-        println(navBar)
-
+        
+        // Create navbar buttons
+        let button = UIButton.buttonWithType(.System) as UIButton
+        button.frame = CGRectMake(0, 0, 100, 20)
+        button.setTitle("< TESTING", forState: .Normal)
+        button.addTarget(self, action: "handleBack", forControlEvents: .TouchUpInside)
+        button.layer.borderWidth = 3
+        button.layer.borderColor = UIColor.blackColor().CGColor
+        let back = UIBarButtonItem(customView: button)
+        
+        navBarTitle.leftBarButtonItem = back
+        
+        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar, navBarButtons: [button])
         buttonCell.delegate = self
 	}
+    
+    func handleBack()
+    {
+        println("BACK")
+    }
+    
     
 	/* ******************************************************************************************************
 	*	Updates the database if the buttons were reordered
@@ -222,7 +238,7 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
     func callBackFromModalSaving(data: [String : NSObject])
     {
         editOrModifyButton(data)
-        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar)
+        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar, navBarButtons: [])
     }
     
     /******************************************************************************************
@@ -230,7 +246,7 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
     ******************************************************************************************/
     func callBackFromModalDelete()
     {
-        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar)
+        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar, navBarButtons: [])
     }
     
     /******************************************************************************************

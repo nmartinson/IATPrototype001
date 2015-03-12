@@ -14,15 +14,19 @@ class MainViewController : CollectionViewBase, UITextFieldDelegate
 {
     @IBOutlet var mycollectionview: UICollectionView!
     
+    @IBOutlet weak var settings: UIButton!
     /******************************************************************************************
     *
     ******************************************************************************************/
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(true)
-        configureEntireView(mycollectionview, pageLink: "Categories", title: "Home")
+        configureEntireView(mycollectionview, pageLink: "Categories", title: "Home", navBarButtons: [])
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.editMode = false
+        let back = UIBarButtonItem(title: "TESTING", style: .Bordered, target: self, action: nil)
+        settings.layer.borderColor = UIColor.blackColor().CGColor
+        settings.layer.borderWidth = 4
     }
     
     
