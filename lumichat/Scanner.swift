@@ -10,6 +10,7 @@ import Foundation
 
 class Scanner
 {
+    var navBarButtons:[UIButton] = [] // stores buttonsfor nav bar
     var timeInterval:Double = 0.0
     var buttonBorderColor = 0	// from settings
     var buttonBorderWidth: CGFloat = 10	// from settings
@@ -18,15 +19,14 @@ class Scanner
     var buttonSize = 0
     var defaults = NSUserDefaults.standardUserDefaults()
     var secondStageOfSelection = false
-//    public class var sharedInstance: Scanner{
-//        struct SharedInstance {
-//            static let instance = Scanner()
-//        }
-//        return SharedInstance.instance
-//    }
 
 
     func selectionMade(playAudio: Bool){}
+    
+    func setupNavBar(navButtons: [UIButton])
+    {
+        self.navBarButtons = navButtons
+    }
     
     func update()
     {

@@ -113,7 +113,6 @@
 		2BBCFE3D1A052CC200AE8BA6 /* Im_Tired.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Im_Tired.wav; sourceTree = "<group>"; };
 		2BBCFE3E1A052CC200AE8BA6 /* Please_Help_Me.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Please_Help_Me.wav; sourceTree = "<group>"; };
 		2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2BBCFE4A1A052D5A00AE8BA6 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateButtonViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +207,15 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		2BA8B9F21AB373AF00E3B727 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				2B623AE61A3DCE5400106986 /* DBController.swift */,
+				2B1800761A659B8C007BA245 /* CoreDataController.swift */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
 		2BBCFDDB1A052C1E00AE8BA6 = {
 			isa = PBXGroup;
 			children = (
@@ -236,11 +244,9 @@
 				2B04BCF71A7C28E500494335 /* CollectionViews */,
 				2B12D4981A8BF890004BFB46 /* Keyboard */,
 				2B12D49D1A8BFC96004BFB46 /* Scanners */,
-				2B623AE61A3DCE5400106986 /* DBController.swift */,
-				2B1800761A659B8C007BA245 /* CoreDataController.swift */,
+				2BA8B9F21AB373AF00E3B727 /* Database */,
 				2B2023611A64585C00704F75 /* Util.swift */,
 				2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */,
-				2BBCFE4A1A052D5A00AE8BA6 /* DetailViewController.swift */,
 				2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */,
 				2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */,
 				2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */,

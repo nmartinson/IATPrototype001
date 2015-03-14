@@ -11,15 +11,14 @@ import Foundation
 class ScanController: Scanner
 {
     var cellArray: NSMutableArray = []	// stores ButtonCells
-    var size:CGSize!
-
     var index = 0
     var elementScanningCounter = 0
-    var endIndex = 0
-    var startIndex = 0
     var numberOfButtons = 0
     var timer = NSTimer()
-
+    var rows = 0
+    var cols = 0
+    var firstIndexInRow = 0
+    var firstIndexInCol = 0
     
     public class var sharedInstance: ScanController{
         struct SharedInstance {
@@ -32,7 +31,6 @@ class ScanController: Scanner
     {
         initialization()
         cellArray.removeAllObjects()
-        self.size = size
         numberOfButtons = numButtons
         update()
     }
@@ -42,8 +40,8 @@ class ScanController: Scanner
         timer.invalidate()
         clearAllButtonSelections()
         index = 0
-        startIndex = 0
-        endIndex = 0
+        firstIndexInCol = 0
+        firstIndexInRow = 0
         secondStageOfSelection = false
         elementScanningCounter = 0
     }
@@ -57,6 +55,11 @@ class ScanController: Scanner
         setScanMode()
     }
 
+    func setRowsAndCols(rows: Int, cols: Int)
+    {
+        self.rows = rows
+        self.cols = cols
+    }
     
     func addCell(cell: ButtonCell)
     {
@@ -67,6 +70,21 @@ class ScanController: Scanner
     {
         clearAllButtonSelections()
         timer.invalidate()
+    }
+    
+    
+    /****************************************************************************************************
+    *   Scans over the navBar buttons
+    ************************************************************************************************** */
+    func navBarScan()
+    {
+        if !secondStageOfSelection
+        {
+            for item in navBarButtons
+            {
+                (item as UIButton).layer.borderWidth = 5
+            }
+        }
     }
     
     /****************************************************************************************************
@@ -87,8 +105,6 @@ class ScanController: Scanner
                     (item as ButtonCell).highlighted = false
                     if counter + 1 == cellArray.count
                     {
-//                        createButton.selected = true
-//                        createButton.layer.borderColor = Constants.getColor(buttonBorderColor)
                         next = 0
                     }
                     else
@@ -99,9 +115,6 @@ class ScanController: Scanner
                 counter++
                 
             }
-//            index = next
-//            if( createButton.selected == false)
-//            {
 
                 index = next  // set index to currently selected button to be used for playing audio
 
@@ -110,18 +123,6 @@ class ScanController: Scanner
                 (cellArray[next] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
                 (cellArray[next] as ButtonCell).layer.borderWidth = buttonBorderWidth
                 (cellArray[next] as ButtonCell).layer.cornerRadius = 5
-
-
-//            }
-//            else if( createButton.selected == true && next == 0)
-//            {
-//                createButton.selected = false
-//                createButton.layer.borderWidth = 0
-//                (cellArray[next] as ButtonCell).selected = true
-//                (cellArray[next] as ButtonCell).highlighted = true
-//                (cellArray[next] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
-//                (cellArray[next] as ButtonCell).layer.borderWidth = buttonBorderWidth
-//            }
         }
     }
     
@@ -130,69 +131,50 @@ class ScanController: Scanner
     ***************************************************************************************************** */
     @objc func rowScan()
     {
-        var cellWidth = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons).width
-        var cellHeight = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons).height
-        var numbtns:Int = Int( (size.width-20)/(cellWidth) ) // -20 for section insets of 10 on each side of screen
-        var numbtnsHeight:Int = Int( (size.height-2)/(cellHeight+2) + 0.5)	// add .5 so that it rounds to the nearest integer, not always down
-        
-        
-        // if only one row of buttons, use serial scan
-        if( numbtnsHeight == 1)
+        clearAllButtonSelections()
+        if !secondStageOfSelection
         {
-            scanMode = 0
-            serialScan()
-        }
-        else
-        {
-            // Clear the previously selected items
-            clearAllButtonSelections()
-            
-            if( !secondStageOfSelection)
+            if firstIndexInRow >= cellArray.count//rows - 1//currentRow > rows + cols
             {
-                startIndex = endIndex
-                if( endIndex == cellArray.count)
-                {
-                    endIndex = 0
-                    startIndex = 0
-                }
-                if(endIndex+numbtns < cellArray.count)
-                {
-                    endIndex += numbtns
-                }
-                else
-                {
-                    endIndex = cellArray.count
-                }
-                
-                for(var i = startIndex; i < endIndex; i++)
-                {
-                    (cellArray[i] as ButtonCell).selected = true
-                    (cellArray[i] as ButtonCell).highlighted = true
-                    (cellArray[i] as ButtonCell).layer.borderWidth = buttonBorderWidth
-                    (cellArray[i] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
-                    (cellArray[i] as ButtonCell).layer.cornerRadius = 5
-                }
+                firstIndexInRow = 0
             }
-            else
+
+            for(var i = 0; i < cols; i++)
             {
-                index = startIndex + numbtns * elementScanningCounter
-               
-                // if the calculated index is larger than the deck size or at the max button height, set the index equal to the first element in column
-                if(elementScanningCounter == numbtnsHeight || index >= cellArray.count)
-                {
-                    elementScanningCounter = 0
-                    index = startIndex + numbtns * elementScanningCounter
-                }
-                
+                index = i + firstIndexInRow
                 if(index < cellArray.count)
                 {
                     (cellArray[index] as ButtonCell).selected = true
                     (cellArray[index] as ButtonCell).highlighted = true
                     (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
                     (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
+                    (cellArray[index] as ButtonCell).layer.cornerRadius = 5
                 }
-                elementScanningCounter++
             }
+            firstIndexInRow += cols //+= cols
+        }
+        else
+        {
+            // calculate if the column is full
+            // if #btns/col# < #totalrows then the column is not full
+            let btnsInCol = Float(cellArray.count) / Float(firstIndexInCol + 1)
+            
+            if elementScanningCounter == rows || (elementScanningCounter == rows - 1 && Int(btnsInCol) < rows)
+            {
+                elementScanningCounter = 0
+            }
+            
+            index = firstIndexInCol + cols * elementScanningCounter
+            if(index < cellArray.count)
+            {
+                (cellArray[index] as ButtonCell).selected = true
+                (cellArray[index] as ButtonCell).highlighted = true
+                (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
+                (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
+                (cellArray[index] as ButtonCell).layer.cornerRadius = 5
+            }
+            
+            elementScanningCounter++
         }
     }
 
@@ -202,74 +184,65 @@ class ScanController: Scanner
     ********************************************************************************************************** */
     @objc func columnScan()
     {
-        var cellHeight = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons).height
-        var cellWidth = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons).width
-        var numbtnsWidth:Int = Int( (size.width-20)/(cellWidth) )
-        var numbtnsHeight:Int = Int( (size.height-2)/(cellHeight+2) + 0.5)	// add .5 so that it rounds to the nearest integer, not always down
         
         // Clear the selection properties from all buttons
         clearAllButtonSelections()
         
-        // executed if it is the first stage of the scanning process
-        if( !secondStageOfSelection )
+        if !secondStageOfSelection
         {
-            if( startIndex == numbtnsWidth)
+            if firstIndexInCol == cols
             {
-                startIndex = 0
+                firstIndexInCol = 0
             }
             
-            for(var i = 0; i < numbtnsHeight; i++)
+            for(var i = 0; i < rows; i++)
             {
-                index = startIndex + i * numbtnsWidth	//calculates the proper array index for selecting buttons in a column
-                if( index < cellArray.count)
+                index = firstIndexInCol + i * cols
+                if(index < cellArray.count)
                 {
                     (cellArray[index] as ButtonCell).selected = true
                     (cellArray[index] as ButtonCell).highlighted = true
                     (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
                     (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
                     (cellArray[index] as ButtonCell).layer.cornerRadius = 5
-
                 }
             }
-            
-            startIndex += 1
+            firstIndexInCol += 1 //+= cols
         }
-        else	// executed if it is the second stage of the scanning process
+        else
         {
-            index = startIndex * numbtnsWidth + elementScanningCounter // calculates proper array for scanning buttons in a column
-            
-            // if the calculated index is larger than the deck size, set the index equal to the last element in the deck
-            if(index >= cellArray.count)
-            {
-                index = cellArray.count - 1
-            }
-            
-            (cellArray[index] as ButtonCell).selected = true
-            (cellArray[index] as ButtonCell).highlighted = true
-            (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
-            (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
-            
-            elementScanningCounter++
-            // If at the last button or at the end of the row, reset the scanning counter to 0
-            // Have to also check if its the last button, because for rows that aren't completely full of buttons
-            // The test for button width fails because numbtnsWidth holds the number of buttons that can fit
-            
-            var tmp = Double(index + 1)
-            var tmp2 = Double(numbtnsWidth)
-            var row:Int = Int(ceil(tmp/tmp2))
-            
-            if(index != 0 && (index == cellArray.count - 1 || index == row * numbtnsWidth - 1) )//index == numbtnsWidth - 1  )
+            // if the last element was just selected, restart at beginning of row
+            if index >= cellArray.count - 1 || index == firstIndexInRow + cols - 1
             {
                 elementScanningCounter = 0
             }
+            
+            index = firstIndexInRow + elementScanningCounter
+            if(index < cellArray.count)
+            {
+                (cellArray[index] as ButtonCell).selected = true
+                (cellArray[index] as ButtonCell).highlighted = true
+                (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
+                (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
+                (cellArray[index] as ButtonCell).layer.cornerRadius = 5
+            }
+            elementScanningCounter++
         }
     }
+    
+    
     
     /********************************************************************************************************
     *   Deselects all the buttons
     ********************************************************************************************************/
     func clearAllButtonSelections()
     {
+        // clear navbar buttons from being highlighted
+        for item in navBarButtons
+        {
+            (item as UIButton).layer.borderWidth = 0
+        }
+        
         // Clear the selection properties from all buttons
         for item in cellArray
         {
@@ -348,12 +321,10 @@ class ScanController: Scanner
                 case 1:
                     scanMode = 1
                 case 2:
-                    var cellWidth = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons).width
-                    var numbtns:Int = Int( (size.width-2)/(cellWidth+2) )
-                    startIndex /= numbtns
+                    firstIndexInRow = firstIndexInRow - cols
                     scanMode = 3	// change to column scan
                 case 3:
-                    startIndex -= 1
+                    firstIndexInCol = firstIndexInCol - 1
                     scanMode = 2	// change to row scan
                 default:
                     println("Error")

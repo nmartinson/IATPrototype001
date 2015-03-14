@@ -75,12 +75,12 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
 		var image = UIImage(named: "buttonTest.jpg")
 		self.imagePreview = UIImageView()
 		
-        self.imagePreview.frame = CGRectMake(300, 700, Constants.getCellSize(buttonSize, numberOfButtons: 1).width, Constants.getCellSize(buttonSize, numberOfButtons: 1).height)
+        self.imagePreview.frame = CGRectMake(300, 700, 150,150)
 		self.imagePreview.image = image
 		self.view.addSubview(imagePreview)
 
 		
-		imagePreview.frame.size = Constants.getCellSize(buttonSize, numberOfButtons: 1)
+//		imagePreview.frame.size = 
 		imagePreview.layer.borderColor = Constants.getColor(borderColor)
 		imagePreview.layer.borderWidth = CGFloat(borderWidth)
 
@@ -131,17 +131,6 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         controller.dismissViewControllerAnimated(true, completion:nil)
     }
 	
-	/* *******************************************************************************************************
-	*	Gets called when the button size is changed
-	*	Stores an integer index in the settings Data referencing the segment selected.
-	******************************************************************************************************* */
-	@IBAction func buttonSizeSegmentChanged(sender: AnyObject)
-	{
-		var index = buttonSizeSegment.selectedSegmentIndex
-		var defaults = NSUserDefaults.standardUserDefaults()
-		defaults.setInteger(index, forKey: "buttonSize")
-		imagePreview.frame.size = Constants.getCellSize(index, numberOfButtons: 1)
-	}
 	
 	/* *******************************************************************************************************
 	*	Gets called when a different button style is selected.

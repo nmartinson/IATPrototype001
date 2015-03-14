@@ -53,7 +53,7 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
     
     func handleBack()
     {
-        println("BACK")
+        navigationController?.popViewControllerAnimated(true)
     }
     
     
