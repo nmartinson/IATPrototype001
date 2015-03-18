@@ -19,6 +19,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var keyboardScanner = KeyboardScanner.sharedInstance
     var tapRec: UITapGestureRecognizer!
     private var currentScanner = "Table"
+    var backButton:UIButton?
     
     /******************************************************************************************
     *
@@ -29,11 +30,20 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         data = CoreDataController().getPhrases()
         bluetoothTextField.inputView = UIView()        // textBox is used to get input from bluetooth
         bluetoothTextField.becomeFirstResponder()
+        
+        backButton = Util().createNavBarBackButton(self)
+        let back = UIBarButtonItem(customView: backButton!)
+        navigationItem.leftBarButtonItem = back
     }
     
     override func viewWillAppear(animated: Bool)
     {
-        tableScanner.initialization([phraseTextField])
+        tableScanner.initialization([backButton!, phraseTextField])
+    }
+    
+    func handleBack()
+    {
+        navigationController?.popViewControllerAnimated(true)
     }
     
     /******************************************************************************************

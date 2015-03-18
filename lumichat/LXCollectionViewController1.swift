@@ -36,25 +36,15 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
 	{
         navBarTitle.title = navBar
         
-        // Create navbar buttons
-        let button = UIButton.buttonWithType(.System) as UIButton
-        button.frame = CGRectMake(0, 0, 100, 20)
-        button.setTitle("< TESTING", forState: .Normal)
-        button.addTarget(self, action: "handleBack", forControlEvents: .TouchUpInside)
-        button.layer.borderWidth = 3
-        button.layer.borderColor = UIColor.blackColor().CGColor
-        let back = UIBarButtonItem(customView: button)
-        
+        let backButton = Util().createNavBarBackButton(self)
+        let back = UIBarButtonItem(customView: backButton)
         navBarTitle.leftBarButtonItem = back
         
-        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar, navBarButtons: [button])
+        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar, navBarButtons: [backButton, createButton])
         buttonCell.delegate = self
 	}
     
-    func handleBack()
-    {
-        navigationController?.popViewControllerAnimated(true)
-    }
+
     
     
 	/* ******************************************************************************************************
@@ -115,7 +105,7 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
 		if segue.identifier == "toCreate"
 		{
 			timer.invalidate()	// stop the scanner
-			if let viewController = segue.destinationViewController as? CreateButtonViewController
+			if let viewController = segue.destinationViewController as? CreateButtonTableViewController
             {
                 viewController.delegate = self
 			}
@@ -123,7 +113,7 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
         else if segue.identifier == "toEdit"
         {
             timer.invalidate()	// stop the scanner
-            if let viewController = segue.destinationViewController as? EditButtonController
+            if let viewController = segue.destinationViewController as? EditButtonTableViewController
             {
                 viewController.buttonTitle = buttonTitle
                 viewController.delegate = self

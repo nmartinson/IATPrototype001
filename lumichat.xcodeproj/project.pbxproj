@@ -21,9 +21,11 @@
 		2B1800771A659B8C007BA245 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1800761A659B8C007BA245 /* CoreDataController.swift */; };
 		2B1800781A6C3825007BA245 /* OpenFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */; };
 		2B2023621A64585C00704F75 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2023611A64585C00704F75 /* Util.swift */; };
-		2B4669DB1A2A1645000CBD24 /* ModifyButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */; };
-		2B4669DD1A2A1809000CBD24 /* EditButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */; };
 		2B623AE71A3DCE5400106986 /* DBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B623AE61A3DCE5400106986 /* DBController.swift */; };
+		2B81F25F1AB8BCAE005357F4 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81F25E1AB8BCAE005357F4 /* SettingsTableViewController.swift */; };
+		2B81F2611AB8C592005357F4 /* CreateButtonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81F2601AB8C592005357F4 /* CreateButtonTableViewController.swift */; };
+		2B81F2631AB8C5D2005357F4 /* ModifyButtonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81F2621AB8C5D2005357F4 /* ModifyButtonTableViewController.swift */; };
+		2B81F2651AB8C79C005357F4 /* EditButtonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B81F2641AB8C79C005357F4 /* EditButtonTableViewController.swift */; };
 		2B8D408B1A787E4400CFB382 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8D408A1A787E4400CFB382 /* ListViewController.swift */; };
 		2BBCFDF51A052C1E00AE8BA6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */; };
 		2BBCFDF81A052C1E00AE8BA6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFDF61A052C1E00AE8BA6 /* LaunchScreen.xib */; };
@@ -41,9 +43,7 @@
 		2BBCFE441A052CC200AE8BA6 /* Im_Tired.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE3D1A052CC200AE8BA6 /* Im_Tired.wav */; };
 		2BBCFE451A052CC200AE8BA6 /* Please_Help_Me.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE3E1A052CC200AE8BA6 /* Please_Help_Me.wav */; };
 		2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */; };
-		2BBCFE581A052D5A00AE8BA6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */; };
 		2BBCFE591A052D5A00AE8BA6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */; };
-		2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */; };
 		2BBCFE5B1A052D5A00AE8BA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */; };
 		2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */; };
 		2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */; };
@@ -86,6 +86,10 @@
 		2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyButtonController.swift; sourceTree = "<group>"; };
 		2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButtonViewController.swift; sourceTree = "<group>"; };
 		2B623AE61A3DCE5400106986 /* DBController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBController.swift; sourceTree = "<group>"; };
+		2B81F25E1AB8BCAE005357F4 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		2B81F2601AB8C592005357F4 /* CreateButtonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateButtonTableViewController.swift; sourceTree = "<group>"; };
+		2B81F2621AB8C5D2005357F4 /* ModifyButtonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyButtonTableViewController.swift; sourceTree = "<group>"; };
+		2B81F2641AB8C79C005357F4 /* EditButtonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButtonTableViewController.swift; sourceTree = "<group>"; };
 		2B8D408A1A787E4400CFB382 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		2BBCFDE41A052C1E00AE8BA6 /* lumichat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lumichat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBCFDE81A052C1E00AE8BA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,7 +117,6 @@
 		2BBCFE3D1A052CC200AE8BA6 /* Im_Tired.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Im_Tired.wav; sourceTree = "<group>"; };
 		2BBCFE3E1A052CC200AE8BA6 /* Please_Help_Me.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Please_Help_Me.wav; sourceTree = "<group>"; };
 		2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateButtonViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -160,8 +163,11 @@
 			isa = PBXGroup;
 			children = (
 				2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */,
+				2B81F2621AB8C5D2005357F4 /* ModifyButtonTableViewController.swift */,
 				2B4669DA1A2A1645000CBD24 /* ModifyButtonController.swift */,
 				2B4669DC1A2A1809000CBD24 /* EditButtonViewController.swift */,
+				2B81F2641AB8C79C005357F4 /* EditButtonTableViewController.swift */,
+				2B81F2601AB8C592005357F4 /* CreateButtonTableViewController.swift */,
 			);
 			name = ModifyButton;
 			sourceTree = "<group>";
@@ -247,8 +253,8 @@
 				2BA8B9F21AB373AF00E3B727 /* Database */,
 				2B2023611A64585C00704F75 /* Util.swift */,
 				2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */,
-				2BBCFE4B1A052D5A00AE8BA6 /* SettingsViewController.swift */,
 				2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */,
+				2B81F25E1AB8BCAE005357F4 /* SettingsTableViewController.swift */,
 				2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */,
 				2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */,
 				2B8D408A1A787E4400CFB382 /* ListViewController.swift */,
@@ -468,12 +474,12 @@
 				2B1800781A6C3825007BA245 /* OpenFileViewController.swift in Sources */,
 				2B12D49C1A8BFC8C004BFB46 /* KeyboardScanner.swift in Sources */,
 				2BD6A6F61A25534300A3CBA3 /* unzip.c in Sources */,
+				2B81F2611AB8C592005357F4 /* CreateButtonTableViewController.swift in Sources */,
 				2B8D408B1A787E4400CFB382 /* ListViewController.swift in Sources */,
 				2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */,
 				2B18006B1A647886007BA245 /* Tables.swift in Sources */,
-				2B4669DD1A2A1809000CBD24 /* EditButtonViewController.swift in Sources */,
 				2B1800771A659B8C007BA245 /* CoreDataController.swift in Sources */,
-				2BBCFE5A1A052D5A00AE8BA6 /* CreateButtonViewController.swift in Sources */,
+				2B81F25F1AB8BCAE005357F4 /* SettingsTableViewController.swift in Sources */,
 				2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */,
 				2BBCFE291A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				2B12D4971A8BC8A9004BFB46 /* Keyboard.swift in Sources */,
@@ -482,7 +488,6 @@
 				2B2023621A64585C00704F75 /* Util.swift in Sources */,
 				2BD6A6F51A25534300A3CBA3 /* mztools.c in Sources */,
 				2B061AA11A279E640078DB6B /* Zipping.swift in Sources */,
-				2B4669DB1A2A1645000CBD24 /* ModifyButtonController.swift in Sources */,
 				2B061AA31A27A5380078DB6B /* CollectionViewBase.swift in Sources */,
 				2BBCFE341A052CAB00AE8BA6 /* FMDatabase.m in Sources */,
 				2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */,
@@ -494,10 +499,11 @@
 				2BD6A6F81A25534300A3CBA3 /* SSZipArchive.m in Sources */,
 				2BBCFE331A052CAB00AE8BA6 /* FMDatabasePool.m in Sources */,
 				2BBCFE351A052CAB00AE8BA6 /* FMDatabaseAdditions.m in Sources */,
-				2BBCFE581A052D5A00AE8BA6 /* SettingsViewController.swift in Sources */,
 				2B1800601A6477DD007BA245 /* UserDatabase.xcdatamodeld in Sources */,
 				2BE791D71A79413A00DE0E57 /* Phrases.swift in Sources */,
 				2B12D49A1A8BFB59004BFB46 /* TableViewScanner.swift in Sources */,
+				2B81F2631AB8C5D2005357F4 /* ModifyButtonTableViewController.swift in Sources */,
+				2B81F2651AB8C79C005357F4 /* EditButtonTableViewController.swift in Sources */,
 				2B12D49F1A8BFD63004BFB46 /* Scanner.swift in Sources */,
 				2B623AE71A3DCE5400106986 /* DBController.swift in Sources */,
 			);

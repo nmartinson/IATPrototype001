@@ -36,4 +36,5 @@ class Scanner
     }
     
     func setScanMode() {}
+    
 }

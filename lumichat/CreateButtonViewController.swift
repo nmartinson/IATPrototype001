@@ -10,8 +10,5 @@
 
 class CreateButtonViewController: ModifyButtonController
 {
-	
 
-	
-	
 }

@@ -46,6 +46,10 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         textBox.becomeFirstResponder()
     }
     
+    func handleBack()
+    {
+        navigationController?.popViewControllerAnimated(true)
+    }
     
     /******************************************************************************************
     *
@@ -149,14 +153,24 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         var currItem = 0
         for (currItem = 0; currItem < cellArray.count; currItem++)
         {
-            var cell = collectionview.cellForItemAtIndexPath(NSIndexPath(forItem: currItem, inSection: 0))
-            rowSet.addObject(cell!.frame.origin.y)
-            colSet.addObject(cell!.frame.origin.x)
+            var cell = collectionview.cellForItemAtIndexPath(NSIndexPath(forItem: currItem, inSection: 0)) as ButtonCell
+            
+            rowSet.addObject(cell.frame.origin.y)
+            colSet.addObject(cell.frame.origin.x)
         }
-
+        
         scanner.setRowsAndCols(rowSet.count, cols: colSet.count) // Tell the scanner how many rows/cols
     }
     
+    func addArrowIndicator(cell: ButtonCell)
+    {
+        let image = UIImage(named: "ArrowOverlay")
+        let imageView = UIImageView(image: image)
+        let x = cell.bounds.width - 28
+        imageView.frame = CGRectMake(x, 8, 20, 20)
+        cell.addSubview(imageView)
+
+    }
 
     /* *******************************************************************************************************
     *
@@ -201,6 +215,8 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         buttonCell.setup(button)
         buttonCell.delegate = self
         
+        addArrowIndicator(buttonCell)
+
         cellArray.addObject(buttonCell)
         scanner.addCell(buttonCell)
         
@@ -221,6 +237,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         
         return buttonCell
     }
+    
 
     /* *******************************************************************************************************
     *	Once the second to last cell is displayed, start  new thread that will execute in 0.2 seconds so
@@ -228,13 +245,11 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************************** */
     override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath)
     {
-        
         if indexPath.row == buttons.count - 1
         {
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2*Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
                 var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-                println("Configure collection \(appDelegate.editMode)")
                 if(appDelegate.editMode)
                 {
                     //                self.scanner.stopScan()
@@ -259,8 +274,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     func setButtonSize()
     {
         let numberOfButtons = buttons.count
-        
-//        (self.collectionViewLayout as UICollectionViewFlowLayout).itemSize = Constants.getCellSize(buttonSize, numberOfButtons: numberOfButtons)
     }
     
     /* ******************************************************************************************************

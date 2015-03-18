@@ -15,16 +15,23 @@ class MainViewController : CollectionViewBase, UITextFieldDelegate
     @IBOutlet var mycollectionview: UICollectionView!
     
     @IBOutlet weak var settings: UIButton!
+    
+    
+    
+    
+    
+    
     /******************************************************************************************
     *
     ******************************************************************************************/
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(true)
-        configureEntireView(mycollectionview, pageLink: "Categories", title: "Home", navBarButtons: [])
+        
+        configureEntireView(mycollectionview, pageLink: "Categories", title: "Home", navBarButtons: [settings])
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.editMode = false
-        let back = UIBarButtonItem(title: "TESTING", style: .Bordered, target: self, action: nil)
+
         settings.layer.borderColor = UIColor.blackColor().CGColor
         settings.layer.borderWidth = 4
     }
@@ -61,14 +68,17 @@ class MainViewController : CollectionViewBase, UITextFieldDelegate
             scanner.selectionMade(false)
             if( scanner.secondStageOfSelection == false)
             {
-                let title = buttons[scanner.index].titleForState(.Normal)!
-                if title == "Notes"
+                if !scanner.navBarScanning
                 {
-                    performSegueWithIdentifier("toList", sender: self)
-                }
-                else
-                {
-                    performSegueWithIdentifier("showDetail", sender: self)
+                    let title = buttons[scanner.index].titleForState(.Normal)!
+                    if title == "Notes"
+                    {
+                        performSegueWithIdentifier("toList", sender: self)
+                    }
+                    else
+                    {
+                        performSegueWithIdentifier("showDetail", sender: self)
+                    }
                 }
             }
         }
@@ -137,14 +147,17 @@ class MainViewController : CollectionViewBase, UITextFieldDelegate
         scanner.selectionMade(false)
         if( scanner.secondStageOfSelection == false)
         {
-            let title = buttons[scanner.index].titleForState(.Normal)!
-            if title == "Notes"
+            if !scanner.navBarScanning
             {
-                performSegueWithIdentifier("toList", sender: self)
-            }
-            else
-            {
-                performSegueWithIdentifier("showDetail", sender: self)
+                let title = buttons[scanner.index].titleForState(.Normal)!
+                if title == "Notes"
+                {
+                    performSegueWithIdentifier("toList", sender: self)
+                }
+                else
+                {
+                    performSegueWithIdentifier("showDetail", sender: self)
+                }
             }
         }
     }

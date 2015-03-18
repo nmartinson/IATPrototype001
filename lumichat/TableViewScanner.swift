@@ -68,6 +68,11 @@ class TableViewScanner: Scanner
         
         if currentCell == 0
         {
+            (dataSource[currentCell] as UIButton).layer.borderColor = UIColor.blackColor().CGColor
+            (dataSource[currentCell] as UIButton).layer.borderWidth = 2
+        }
+        else if currentCell == 1
+        {
             (dataSource[currentCell] as UITextField).layer.borderColor = UIColor.blackColor().CGColor
             (dataSource[currentCell] as UITextField).layer.borderWidth = 2
         }
@@ -94,14 +99,15 @@ class TableViewScanner: Scanner
     ******************************************************************************************/
     func clearAllCells()
     {
-        (dataSource[0] as UITextField).layer.borderColor = UIColor.blackColor().CGColor
-        (dataSource[0] as UITextField).layer.borderWidth = 0
-        
-        for(var i = 1; i < dataSource.count; i++)
+        for(var i = 0; i < 2; i++)
+        {
+            (dataSource[i]).layer.borderColor = UIColor.blackColor().CGColor
+            (dataSource[i]).layer.borderWidth = 0
+        }
+        for(var i = 2; i < dataSource.count; i++)
         {
             (dataSource[i] as UITableViewCell).highlighted = false
             (dataSource[i] as UITableViewCell).selected = false
-
         }
     }
     
@@ -110,7 +116,7 @@ class TableViewScanner: Scanner
     ******************************************************************************************/
     func removeAllItemsFromDataSource()
     {
-        let range = NSRange(location: 1, length: dataSource.count - 1)
+        let range = NSRange(location: 2, length: dataSource.count - 1)
         dataSource.removeObjectsInRange(range)
     }
     
@@ -123,7 +129,12 @@ class TableViewScanner: Scanner
         var selectedObject:AnyObject?
         if previousCell == 0
         {
-            selectedObject = dataSource[0] as UITextField
+            selectedObject = dataSource[0] as UIButton
+            selectedObject?.sendActionsForControlEvents(.TouchUpInside)
+        }
+        else if previousCell == 1
+        {
+            selectedObject = dataSource[1] as UITextField
             selectedObject?.becomeFirstResponder()
         }
         else

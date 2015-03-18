@@ -288,6 +288,23 @@ class CoreDataController:NSObject //NSFetchedResultsController
         }
     }
     
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func getPageLinks()
+    {
+        let (success, table) = getCategories()
+        var IDs:[NSManagedObjectID]?
+        if success
+        {
+            for item in table!
+            {
+                managedObjectContext?.deleteObject(item)
+            }
+            saveContext()
+        }
+    }
+    
     
     /******************************************************************************************
     *
