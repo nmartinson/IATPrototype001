@@ -118,24 +118,28 @@ class MainViewController : CollectionViewBase, UITextFieldDelegate
     ******************************************************************************************/
     override func getButtonsFromDB()
     {
-        let (success, categories) = coreDataObject.getCategories()
+        let (success, table) = coreDataObject.getTables("Home")
         if success
         {
-            for category in categories!
+            for buttonDetails in table!
             {
-                var title = category.title
-                var image = category.image
-
+                var title = buttonDetails.title
+                var image = buttonDetails.image
+                var longDescription = buttonDetails.longDescription
+                var index = buttonDetails.index
+                
                 // If there really is data, configure the button and add it to the array of buttons
                 if(title != "")
                 {
                     var button = UIButton.buttonWithType(.System) as UIButton
                     button.setTitle(title, forState: .Normal) // stores the title
                     button.setTitle(image, forState: .Selected)	// Stores the image string
+                    button.setTitle(longDescription, forState: .Highlighted) // stores the longDescription
                     buttons.addObject(button)
                 }
             }
         }
+
     }
 
     

@@ -12,26 +12,35 @@ import MobileCoreServices
 
 protocol ModifyButtonDelegate
 {
-    func callBackFromModalSaving(data: [String: NSObject])
+    func callBackFromModalSaving(data: ButtonModel)
     func callBackFromModalDelete()
 }
 
 
 class ModifyButtonTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
+    @IBOutlet weak var pagePicker: UIPickerView!
     @IBOutlet weak var textDescription: UITextView!
     @IBOutlet var pictureButton: UIView!
     @IBOutlet weak var errorField: UILabel!		// Where the error message is displayed
     @IBOutlet weak var buttonTitleField: UITextField!	// Textfield that holds the new button title
     var capturedImage: UIImage!
     @IBOutlet weak var buttonImage: UIImageView!
-    var data = ["title":"", "longDescription":"", "path":"", "image":UIImage()]
+    @IBOutlet weak var pageLinkCell: UITableViewCell!
+    @IBOutlet weak var linkSegment: UISegmentedControl!
+    var hidePageLinkCell = true
+    var pages:[String] = []
     var delegate: ModifyButtonDelegate?
     
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        let (success, pagesArray) = CoreDataController().getPages()
+        if success
+        {
+            pages = pagesArray!
+        }
         textDescription.layer.cornerRadius = 8
         textDescription.layer.borderWidth = 0.4
         textDescription.layer.borderColor = UIColor.lightGrayColor().CGColor
@@ -160,26 +169,36 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
     ******************************************************************************************************* */
     @IBAction func saveButton(sender: AnyObject)
     {
-        var imageTitle = "\(Constants.getTime())-\(buttonTitleField.text)"
-        data["title"] = buttonTitleField.text as String
-        data["longDescription"] = textDescription.text as String
+        // dont link a page
+        var linkedPage = ""
+        if linkSegment.selectedSegmentIndex == 1
+        {
+            let pickerIndex = pagePicker.selectedRowInComponent(0)
+            linkedPage = pages[pickerIndex]
+        }
+        
+        let imageTitle = "\(Constants.getTime())-\(buttonTitleField.text)"
+        let title = buttonTitleField.text as String
+        let longDescription = textDescription.text as String
+        var path = ""
         
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if(appDelegate.editMode)
         {
             if capturedImage != nil
             {
-                var path = saveImage(self.capturedImage, title: imageTitle)
-                data["path"] = path as String
+                path = saveImage(self.capturedImage, title: imageTitle)
             }
-            self.delegate?.callBackFromModalSaving(data)
+            let buttonData = ButtonModel(title: title, imageTitle: imageTitle, longDescription: longDescription, imagePath: path, linkedPage: linkedPage)
+            self.delegate?.callBackFromModalSaving(buttonData)
             self.dismissViewControllerAnimated(true, completion: { () -> Void in })
         }
         else if( buttonTitleField.text != "")
         {
-            var path = saveImage(self.capturedImage, title: imageTitle)
-            data["path"] = path as String
-            self.delegate?.callBackFromModalSaving(data)
+            path = saveImage(self.capturedImage, title: imageTitle)
+            let buttonData = ButtonModel(title: title, imageTitle: imageTitle, longDescription: longDescription, imagePath: path, linkedPage: linkedPage)
+
+            self.delegate?.callBackFromModalSaving(buttonData)
             self.dismissViewControllerAnimated(true, completion: { () -> Void in })
         }
         else
@@ -196,6 +215,55 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
     {
         textField.resignFirstResponder()
         return true;
+    }
+    
+    @IBAction func linkSegmentChanged(sender: UISegmentedControl)
+    {
+        hidePageLinkCell = !hidePageLinkCell
+        tableView.reloadData()
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    {
+        if indexPath == NSIndexPath(forRow: 3, inSection: 0)
+        {
+            return 115
+        }
+        else if indexPath == NSIndexPath(forRow: 5, inSection: 0)
+        {
+            if hidePageLinkCell
+            {
+                pageLinkCell.hidden = true
+                return 214
+            }
+            pageLinkCell.hidden = false
+            return 214
+        }
+        return 44
+    }
+    
+    
+    /* *******************************************************************************************************
+    *	Gets called automatically
+    *	Returns number of rows in the picker view
+    ******************************************************************************************************* */
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    {
+        return pages.count
+    }
+    
+    
+    /* *******************************************************************************************************
+    *	Gets called automatically
+    *	Returns the string that should be displayed in the picker view at a specific row
+    ******************************************************************************************************* */
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String
+    {
+        return pages[row]
+    }
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
     }
     
 }

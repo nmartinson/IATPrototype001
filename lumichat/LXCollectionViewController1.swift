@@ -61,7 +61,7 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
                 var title = (item as ButtonCell).buttonLabel.text!
                 var image = (item as ButtonCell).imageString
                 var longDescription = (item as ButtonCell).sentenceString
-                coreDataObject.createInManagedObjectContextTable(title, image: image, longDescription: longDescription, entity: "Tables", table: link, index: counter)
+                coreDataObject.createInManagedObjectContextTable(title, image: image, longDescription: longDescription, table: link, index: counter, linkedPage: "")
                 counter++
             }
  
@@ -127,25 +127,26 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
 	*	This function gets called when the user presses the save button when creating a new button. It inserts the
 	*	new button data into the database and adds the button to the button array.
 	************************************************************************************************************* */
-    func editOrModifyButton(data: [String: NSObject])
+    func editOrModifyButton(data: ButtonModel)
 	{
         (scanner as ScanController).cellArray.removeAllObjects()
 
-        let title = data["title"] as String
-        let longDescription = data["longDescription"] as String
-        let imagePath = data["path"] as String
+        let title = data.title
+        let longDescription = data.longDescription
+        let imagePath = data.imagePath
+        let linkedPage = data.linkedPage!
 
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if(appDelegate.editMode)
         {
-            coreDataObject.updateButtonWith(buttonTitle, newTitle: title, longDescription: longDescription, image: imagePath)
+            coreDataObject.updateButtonWith(buttonTitle, newTitle: title, longDescription: longDescription, image: imagePath, linkedPage: linkedPage)
         }
         else
         {
             let (success, tableItems) = coreDataObject.getTables(link)
             if success
             {
-                coreDataObject.createInManagedObjectContextTable(title, image: imagePath, longDescription: longDescription, entity: "Tables", table: link, index: buttons.count)
+                coreDataObject.createInManagedObjectContextTable(title, image: imagePath, longDescription: longDescription, table: link, index: buttons.count, linkedPage: linkedPage)
                 var button = UIButton.buttonWithType(.System) as UIButton
                 button.setTitle(title, forState: .Normal) // stores the button label
                 button.setTitle(longDescription, forState: .Highlighted) // stores the extra longDescription
@@ -225,7 +226,7 @@ class LXCollectionViewController1: CollectionViewBase, ButtonCellControllerDeleg
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func callBackFromModalSaving(data: [String : NSObject])
+    func callBackFromModalSaving(data: ButtonModel)
     {
         editOrModifyButton(data)
         configureEntireView(mycollectionview, pageLink: pageLink, title: navBar, navBarButtons: [])

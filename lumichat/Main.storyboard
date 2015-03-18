@@ -961,6 +961,7 @@
                         <outlet property="errorField" destination="0mP-vO-kVA" id="tof-XU-Kco"/>
                         <outlet property="linkSegment" destination="wNl-Zh-4bW" id="x5O-Qa-yeD"/>
                         <outlet property="pageLinkCell" destination="rE1-0h-B5y" id="yR5-ZH-5XF"/>
+                        <outlet property="pagePicker" destination="6cP-Kl-2Xb" id="C63-Rp-HmJ"/>
                         <outlet property="textDescription" destination="mvC-BN-hm4" id="4AL-qo-aaX"/>
                         <segue destination="PQf-Yc-u6v" kind="show" identifier="fromCreate" id="9EN-PB-8X4"/>
                     </connections>
@@ -1345,8 +1346,8 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NpS-OJ-oET">
-                                                    <rect key="frame" x="140" y="10" width="452" height="33"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NpS-OJ-oET">
+                                                    <rect key="frame" x="140" y="5" width="452" height="33"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1356,10 +1357,11 @@
                                                 </textView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="NpS-OJ-oET" secondAttribute="bottom" constant="-2" id="4dN-0H-uz3"/>
                                                 <constraint firstItem="l3P-kM-2ww" firstAttribute="top" secondItem="IlA-Na-jFR" secondAttribute="topMargin" constant="3" id="B6D-dg-e8s"/>
                                                 <constraint firstItem="l3P-kM-2ww" firstAttribute="leading" secondItem="IlA-Na-jFR" secondAttribute="leadingMargin" id="NGk-Ts-stO"/>
                                                 <constraint firstItem="NpS-OJ-oET" firstAttribute="trailing" secondItem="IlA-Na-jFR" secondAttribute="trailingMargin" id="YDa-wU-CHO"/>
-                                                <constraint firstItem="NpS-OJ-oET" firstAttribute="top" secondItem="IlA-Na-jFR" secondAttribute="topMargin" constant="2" id="eD1-0t-g1j"/>
+                                                <constraint firstItem="NpS-OJ-oET" firstAttribute="top" secondItem="IlA-Na-jFR" secondAttribute="topMargin" constant="-3" id="eD1-0t-g1j"/>
                                                 <constraint firstItem="NpS-OJ-oET" firstAttribute="leading" secondItem="l3P-kM-2ww" secondAttribute="trailing" constant="24" id="mBr-qC-yiC"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1400,6 +1402,79 @@
                                                 <constraint firstItem="jqA-Gw-p02" firstAttribute="leading" secondItem="hbO-qk-gze" secondAttribute="trailing" constant="19" id="sK9-6j-ma8"/>
                                                 <constraint firstItem="jqA-Gw-p02" firstAttribute="top" secondItem="h6c-VZ-KcK" secondAttribute="topMargin" id="xSL-bg-Cz1"/>
                                             </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jaw-eQ-kqV">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jaw-eQ-kqV" id="4oy-Br-4Dc">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link button to a page?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGJ-o2-rgQ">
+                                                    <rect key="frame" x="8" y="11" width="174" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kPh-Hx-hTv">
+                                                    <rect key="frame" x="469" y="8" width="123" height="29"/>
+                                                    <segments>
+                                                        <segment title="No"/>
+                                                        <segment title="Yes"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="linkSegmentChanged:" destination="AOf-0C-9CM" eventType="valueChanged" id="PMn-58-HGh"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="EGJ-o2-rgQ" firstAttribute="top" secondItem="4oy-Br-4Dc" secondAttribute="topMargin" constant="3" id="WsF-nU-Wgx"/>
+                                                <constraint firstItem="kPh-Hx-hTv" firstAttribute="trailing" secondItem="4oy-Br-4Dc" secondAttribute="trailingMargin" id="Zmn-2r-mc9"/>
+                                                <constraint firstItem="kPh-Hx-hTv" firstAttribute="top" secondItem="4oy-Br-4Dc" secondAttribute="topMargin" id="iYe-T7-5xS"/>
+                                                <constraint firstItem="EGJ-o2-rgQ" firstAttribute="leading" secondItem="4oy-Br-4Dc" secondAttribute="leadingMargin" id="zmu-dP-O0n"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="196" id="gI2-VG-Lsq">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gI2-VG-Lsq" id="gBf-Rl-iqC">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link to which page?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhO-n9-Kev">
+                                                    <rect key="frame" x="8" y="8" width="154.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kSD-KO-ELU">
+                                                    <rect key="frame" x="8" y="31" width="584" height="162"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="AOf-0C-9CM" id="Jcl-RW-MMq"/>
+                                                        <outlet property="delegate" destination="AOf-0C-9CM" id="xfW-j6-rlr"/>
+                                                    </connections>
+                                                </pickerView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="kSD-KO-ELU" secondAttribute="centerY" constant="0.5" id="0RH-2n-9zL"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="kSD-KO-ELU" secondAttribute="bottom" constant="-5" id="3TH-SM-uh2"/>
+                                                <constraint firstItem="kSD-KO-ELU" firstAttribute="trailing" secondItem="gBf-Rl-iqC" secondAttribute="trailingMargin" id="JC2-ZD-VS8"/>
+                                                <constraint firstItem="bhO-n9-Kev" firstAttribute="top" secondItem="gBf-Rl-iqC" secondAttribute="topMargin" id="NCe-JO-fbQ"/>
+                                                <constraint firstItem="kSD-KO-ELU" firstAttribute="leading" secondItem="gBf-Rl-iqC" secondAttribute="leadingMargin" id="OPa-Vi-NgR"/>
+                                                <constraint firstAttribute="centerX" secondItem="kSD-KO-ELU" secondAttribute="centerX" constant="-47" id="OfY-0w-xEs"/>
+                                                <constraint firstItem="kSD-KO-ELU" firstAttribute="top" secondItem="bhO-n9-Kev" secondAttribute="bottom" constant="2.5" id="cwq-MG-AWh"/>
+                                                <constraint firstItem="bhO-n9-Kev" firstAttribute="leading" secondItem="gBf-Rl-iqC" secondAttribute="leadingMargin" id="fa3-OH-XXh"/>
+                                                <constraint firstItem="kSD-KO-ELU" firstAttribute="leading" secondItem="bhO-n9-Kev" secondAttribute="trailing" constant="23.5" id="iDx-yl-6ks"/>
+                                                <constraint firstItem="bhO-n9-Kev" firstAttribute="top" secondItem="gBf-Rl-iqC" secondAttribute="topMargin" id="zaI-Ez-koD"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="NCe-JO-fbQ"/>
+                                                    <exclude reference="OfY-0w-xEs"/>
+                                                    <exclude reference="iDx-yl-6ks"/>
+                                                    <exclude reference="0RH-2n-9zL"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GeU-ED-CdP">
@@ -1460,6 +1535,9 @@
                         <outlet property="buttonImage" destination="jqA-Gw-p02" id="83U-Qy-AgA"/>
                         <outlet property="buttonTitleField" destination="Ash-gX-1Yq" id="ZDd-GO-aav"/>
                         <outlet property="errorField" destination="ycy-SI-Yil" id="eZf-io-nQO"/>
+                        <outlet property="linkSegment" destination="kPh-Hx-hTv" id="2C1-Tl-pUR"/>
+                        <outlet property="pageLinkCell" destination="gI2-VG-Lsq" id="7cr-yO-5dF"/>
+                        <outlet property="pagePicker" destination="kSD-KO-ELU" id="V5T-8t-RPF"/>
                         <outlet property="textDescription" destination="NpS-OJ-oET" id="zHG-OP-gRV"/>
                         <segue destination="PQf-Yc-u6v" kind="show" identifier="fromEdit" id="ifd-OF-don"/>
                     </connections>

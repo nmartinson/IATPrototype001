@@ -158,12 +158,13 @@ class CoreDataController:NSObject //NSFetchedResultsController
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func updateButtonWith(oldTitle: String, newTitle: String, longDescription: String, image: String)
+    func updateButtonWith(oldTitle: String, newTitle: String, longDescription: String, image: String, linkedPage: String)
     {
         let (success, buttons) = getButtonWithTitle(oldTitle)
         if let button = buttons?[0]{
             button.title = newTitle
             button.longDescription = longDescription
+            button.linkedPage = linkedPage
             if image != ""
             {
                 button.image = image
@@ -229,15 +230,16 @@ class CoreDataController:NSObject //NSFetchedResultsController
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func createInManagedObjectContextTable(title: String, image: String, longDescription: String, entity: String, table: String, index: Int)
+    func createInManagedObjectContextTable(title: String, image: String, longDescription: String, table: String, index: Int, linkedPage: String)
     {
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName(entity, inManagedObjectContext: self.managedObjectContext!) as Tables
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Tables", inManagedObjectContext: self.managedObjectContext!) as Tables
         newItem.title = title
         newItem.image = image
         newItem.presses = 0
         newItem.table = table
         newItem.longDescription = longDescription
         newItem.index = index
+        newItem.linkedPage = linkedPage
         saveContext()
     }
     
@@ -287,22 +289,38 @@ class CoreDataController:NSObject //NSFetchedResultsController
             saveContext()
         }
     }
+
+    
+    
+    
+    /* ************************************************************************************************
+    *   Returns an array of strings that are the page titles
+    ************************************************************************************************ */
+    func getPages() -> (Bool, [String]?)
+    {
+        var pagesTable = [String]()
+        let fetchRequest = NSFetchRequest(entityName: "Pages")
+        if let fetchResults = managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Pages] {
+            if fetchResults.count > 0
+            {
+                for page in fetchResults
+                {
+                    pagesTable.append(page.title)
+                }
+                return (true, pagesTable)
+            }
+        }
+        return (false, nil)
+    }
     
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func getPageLinks()
+    func createInManagedObjectContextPage(title: String)
     {
-        let (success, table) = getCategories()
-        var IDs:[NSManagedObjectID]?
-        if success
-        {
-            for item in table!
-            {
-                managedObjectContext?.deleteObject(item)
-            }
-            saveContext()
-        }
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Pages", inManagedObjectContext: self.managedObjectContext!) as Pages
+        newItem.title = title
+        saveContext()
     }
     
     

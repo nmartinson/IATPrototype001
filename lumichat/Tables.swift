@@ -18,4 +18,5 @@ class Tables: NSManagedObject {
     @NSManaged var presses: NSNumber
     @NSManaged var table: String
     @NSManaged var index: NSNumber
+    @NSManaged var linkedPage: String
 }

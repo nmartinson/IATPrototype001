@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1510" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Categories" representedClassName="lumichat.Categories" syncable="YES">
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="presses" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Pages" representedClassName="lumichat.Pages" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Phrases" representedClassName="lumichat.Phrases" syncable="YES">
@@ -14,6 +17,7 @@
     <entity name="Tables" representedClassName="lumichat.Tables" syncable="YES">
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="linkedPage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="presses" optional="YES" attributeType="Integer 16" syncable="YES"/>
@@ -22,7 +26,8 @@
     </entity>
     <elements>
         <element name="Categories" positionX="36" positionY="36" width="128" height="120"/>
-        <element name="Tables" positionX="-54" positionY="-54" width="128" height="148"/>
         <element name="Phrases" positionX="-9" positionY="27" width="128" height="73"/>
+        <element name="Tables" positionX="-54" positionY="-54" width="128" height="163"/>
+        <element name="Pages" positionX="-9" positionY="27" width="128" height="58"/>
     </elements>
 </model>

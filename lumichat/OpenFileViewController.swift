@@ -183,7 +183,7 @@ class OpenFileViewController: UIViewController
                         let table = importDBResults.stringForColumn("ztable")
                         
                         // insert the new button into Core Data
-                        coreDataObject.createInManagedObjectContextTable(title, image: image, longDescription: longDescription, entity: "Tables", table: table, index: indexNumber)
+                        coreDataObject.createInManagedObjectContextTable(title, image: image, longDescription: longDescription, table: table, index: indexNumber, linkedPage: "")
                     }
                 }
                 foundMatch = false // reset value for next loop

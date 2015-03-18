@@ -107,64 +107,92 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var rest = utilObject.saveImage(image, title: "rest")
         image = UIImage(named: "thanks")
         var thanks = utilObject.saveImage(image, title: "thanks")
-        
-        let (success, categoriesArray) = coreDataObject.getCategories()
+
+        let (success, pagesArray) = coreDataObject.getPages()
         if !success
         {
-            coreDataObject.createInManagedObjectContextCategories("Expressions", image: buttonTest, link: "Expressions", presses: 0)
-            coreDataObject.createInManagedObjectContextCategories("Social", image: buttonTest, link: "Social", presses: 0)
-            coreDataObject.createInManagedObjectContextCategories("Body Parts", image: head, link: "BodyParts", presses: 0)
-            coreDataObject.createInManagedObjectContextCategories("Pain Scale", image: five, link: "PainScale", presses: 0)
-            coreDataObject.createInManagedObjectContextCategories("Yes No Maybe", image: yes, link: "YesNoMaybe", presses: 0)
-            coreDataObject.createInManagedObjectContextCategories("Notes", image: notes, link: "Notes", presses: 0)
-            coreDataObject.createInManagedObjectContextCategories("UIHC", image: nurse, link: "UIHC", presses: 0)
-
+            coreDataObject.createInManagedObjectContextPage("Home")
+            coreDataObject.createInManagedObjectContextPage("BodyParts")
+            coreDataObject.createInManagedObjectContextPage("PainScale")
+        
+            coreDataObject.createInManagedObjectContextTable("Body Parts", image: head, longDescription: "", table: "Home", index: 0, linkedPage: "BodyParts")
+            coreDataObject.createInManagedObjectContextTable("Pain Scale", image: five, longDescription: "", table: "Home", index: 1, linkedPage: "PainScale")
             
-            coreDataObject.createInManagedObjectContextTable("Head", image: head, longDescription: "My head hurts", entity: "Tables", table: "BodyParts", index: 0)
-            coreDataObject.createInManagedObjectContextTable("Hand", image: hand, longDescription: "My hand hurts", entity: "Tables", table: "BodyParts", index: 1)
-            coreDataObject.createInManagedObjectContextTable("Foot", image: foot, longDescription: "My foot hurts", entity: "Tables", table: "BodyParts", index: 2)
-            coreDataObject.createInManagedObjectContextTable("Arm", image: arm, longDescription: "My arm hurts", entity: "Tables", table: "BodyParts", index: 3)
-            coreDataObject.createInManagedObjectContextTable("Ear", image: ear, longDescription: "My ear hurts", entity: "Tables", table: "BodyParts", index: 4)
-            coreDataObject.createInManagedObjectContextTable("Eye", image: eye, longDescription: "My eye hurts", entity: "Tables", table: "BodyParts", index: 5)
-            coreDataObject.createInManagedObjectContextTable("Mouth", image: mouth, longDescription: "My mouth hurts", entity: "Tables", table: "BodyParts", index: 6)
-            coreDataObject.createInManagedObjectContextTable("Throat", image: throat, longDescription: "My throat hurts", entity: "Tables", table: "BodyParts", index: 7)
-            coreDataObject.createInManagedObjectContextTable("Back", image: back, longDescription: "My back hurts", entity: "Tables", table: "BodyParts", index: 8)
-            coreDataObject.createInManagedObjectContextTable("Leg", image: leg, longDescription: "My leg hurts", entity: "Tables", table: "BodyParts", index: 9)
-            
-            coreDataObject.createInManagedObjectContextTable("Yes", image: yes, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 0)
-            coreDataObject.createInManagedObjectContextTable("No", image: no, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 1)
-            coreDataObject.createInManagedObjectContextTable("Maybe", image: maybe, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 2)
-            coreDataObject.createInManagedObjectContextTable("Later", image: later, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 3)
-            
-            coreDataObject.createInManagedObjectContextTable("Im Hungry", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions", index: 0)
-            coreDataObject.createInManagedObjectContextTable("Im Thirsty", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions", index: 1)
-            coreDataObject.createInManagedObjectContextTable("Im Tired", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions", index: 2)
-            coreDataObject.createInManagedObjectContextTable("Please Help Me", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions", index: 3)
-            
-            coreDataObject.createInManagedObjectContextTable("Hello", image: buttonTest, longDescription: "", entity: "Tables", table: "Social", index: 0)
-            coreDataObject.createInManagedObjectContextTable("Goodbye", image: buttonTest, longDescription: "", entity: "Tables", table: "Social", index: 1)
-            
-            coreDataObject.createInManagedObjectContextTable("1", image: one, longDescription: "My pain is at level 1", entity: "Tables", table: "PainScale", index: 0)
-            coreDataObject.createInManagedObjectContextTable("2", image: two, longDescription: "My pain is at level 2", entity: "Tables", table: "PainScale", index: 1)
-            coreDataObject.createInManagedObjectContextTable("3", image: three, longDescription: "My pain is at level 3", entity: "Tables", table: "PainScale", index: 2)
-            coreDataObject.createInManagedObjectContextTable("4", image: four, longDescription: "My pain is at level 4", entity: "Tables", table: "PainScale", index: 3)
-            coreDataObject.createInManagedObjectContextTable("5", image: five, longDescription: "My pain is at level 5", entity: "Tables", table: "PainScale", index: 4)
-            coreDataObject.createInManagedObjectContextTable("6", image: six, longDescription: "My pain is at level 6", entity: "Tables", table: "PainScale", index: 5)
-            coreDataObject.createInManagedObjectContextTable("7", image: seven, longDescription: "My pain is at level 7", entity: "Tables", table: "PainScale", index: 6)
-            coreDataObject.createInManagedObjectContextTable("8", image: eight, longDescription: "My pain is at level 8", entity: "Tables", table: "PainScale", index: 7)
-            coreDataObject.createInManagedObjectContextTable("9", image: nine, longDescription: "My pain is at level 9", entity: "Tables", table: "PainScale", index: 8)
-            coreDataObject.createInManagedObjectContextTable("10", image: ten, longDescription: "My pain is at level 10", entity: "Tables", table: "PainScale", index: 9)
-            
-            coreDataObject.createInManagedObjectContextTable("Bathroom", image: bathroom, longDescription: "I need to go to the bathroom", entity: "Tables", table: "UIHC", index: 0)
-            coreDataObject.createInManagedObjectContextTable("Come back", image: comeback, longDescription: "Please come back", entity: "Tables", table: "UIHC", index: 1)
-            coreDataObject.createInManagedObjectContextTable("Family", image: family, longDescription: "I would like to see my family", entity: "Tables", table: "UIHC", index: 2)
-            coreDataObject.createInManagedObjectContextTable("Goodbye", image: goodbye, longDescription: "Good bye", entity: "Tables", table: "UIHC", index: 3)
-            coreDataObject.createInManagedObjectContextTable("Hold my hand", image: holdmyhand, longDescription: "Please hold m hand", entity: "Tables", table: "UIHC", index: 4)
-            coreDataObject.createInManagedObjectContextTable("Nurse", image: nurse, longDescription: "Please get my nurse", entity: "Tables", table: "UIHC", index: 5)
-            coreDataObject.createInManagedObjectContextTable("Pain Meds", image: painmeds, longDescription: "I need something for pain", entity: "Tables", table: "UIHC", index: 6)
-            coreDataObject.createInManagedObjectContextTable("Rest", image: rest, longDescription: "I need to rest", entity: "Tables", table: "UIHC", index: 7)
-            coreDataObject.createInManagedObjectContextTable("Thanks", image: thanks, longDescription: "Thank you", entity: "Tables", table: "UIHC", index: 8)
+            coreDataObject.createInManagedObjectContextTable("Head", image: head, longDescription: "My head hurts", table: "BodyParts", index: 0, linkedPage: "")
+            coreDataObject.createInManagedObjectContextTable("1", image: one, longDescription: "My pain is at level 1", table: "PainScale", index: 0, linkedPage: "")
         }
+//        println(pagesArray![0])
+        
+            
+//            coreDataObject.createInManagedObjectContextTable("Head", image: head, longDescription: "My head hurts", entity: "Tables", table: "BodyParts", index: 0, linkedPage: "")
+//            coreDataObject.createInManagedObjectContextTable("Hand", image: hand, longDescription: "My hand hurts", entity: "Tables", table: "BodyParts", index: 1)
+//            coreDataObject.createInManagedObjectContextTable("Foot", image: foot, longDescription: "My foot hurts", entity: "Tables", table: "BodyParts", index: 2)
+//            coreDataObject.createInManagedObjectContextTable("Arm", image: arm, longDescription: "My arm hurts", entity: "Tables", table: "BodyParts", index: 3)
+//            coreDataObject.createInManagedObjectContextTable("Ear", image: ear, longDescription: "My ear hurts", entity: "Tables", table: "BodyParts", index: 4)
+//            coreDataObject.createInManagedObjectContextTable("Eye", image: eye, longDescription: "My eye hurts", entity: "Tables", table: "BodyParts", index: 5)
+//            coreDataObject.createInManagedObjectContextTable("Mouth", image: mouth, longDescription: "My mouth hurts", entity: "Tables", table: "BodyParts", index: 6)
+//            coreDataObject.createInManagedObjectContextTable("Throat", image: throat, longDescription: "My throat hurts", entity: "Tables", table: "BodyParts", index: 7)
+//            coreDataObject.createInManagedObjectContextTable("Back", image: back, longDescription: "My back hurts", entity: "Tables", table: "BodyParts", index: 8)
+//            coreDataObject.createInManagedObjectContextTable("Leg", image: leg, longDescription: "My leg hurts", entity: "Tables", table: "BodyParts", index: 9)
+//
+//            
+//            
+//            
+//            
+//            coreDataObject.createInManagedObjectContextCategories("Expressions", image: buttonTest, link: "Expressions", presses: 0)
+//            coreDataObject.createInManagedObjectContextCategories("Social", image: buttonTest, link: "Social", presses: 0)
+//            coreDataObject.createInManagedObjectContextCategories("Body Parts", image: head, link: "BodyParts", presses: 0)
+//            coreDataObject.createInManagedObjectContextCategories("Pain Scale", image: five, link: "PainScale", presses: 0)
+//            coreDataObject.createInManagedObjectContextCategories("Yes No Maybe", image: yes, link: "YesNoMaybe", presses: 0)
+//            coreDataObject.createInManagedObjectContextCategories("Notes", image: notes, link: "Notes", presses: 0)
+//            coreDataObject.createInManagedObjectContextCategories("UIHC", image: nurse, link: "UIHC", presses: 0)
+//
+//            
+//            coreDataObject.createInManagedObjectContextTable("Head", image: head, longDescription: "My head hurts", entity: "Tables", table: "BodyParts", index: 0)
+//            coreDataObject.createInManagedObjectContextTable("Hand", image: hand, longDescription: "My hand hurts", entity: "Tables", table: "BodyParts", index: 1)
+//            coreDataObject.createInManagedObjectContextTable("Foot", image: foot, longDescription: "My foot hurts", entity: "Tables", table: "BodyParts", index: 2)
+//            coreDataObject.createInManagedObjectContextTable("Arm", image: arm, longDescription: "My arm hurts", entity: "Tables", table: "BodyParts", index: 3)
+//            coreDataObject.createInManagedObjectContextTable("Ear", image: ear, longDescription: "My ear hurts", entity: "Tables", table: "BodyParts", index: 4)
+//            coreDataObject.createInManagedObjectContextTable("Eye", image: eye, longDescription: "My eye hurts", entity: "Tables", table: "BodyParts", index: 5)
+//            coreDataObject.createInManagedObjectContextTable("Mouth", image: mouth, longDescription: "My mouth hurts", entity: "Tables", table: "BodyParts", index: 6)
+//            coreDataObject.createInManagedObjectContextTable("Throat", image: throat, longDescription: "My throat hurts", entity: "Tables", table: "BodyParts", index: 7)
+//            coreDataObject.createInManagedObjectContextTable("Back", image: back, longDescription: "My back hurts", entity: "Tables", table: "BodyParts", index: 8)
+//            coreDataObject.createInManagedObjectContextTable("Leg", image: leg, longDescription: "My leg hurts", entity: "Tables", table: "BodyParts", index: 9)
+//            
+//            coreDataObject.createInManagedObjectContextTable("Yes", image: yes, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 0)
+//            coreDataObject.createInManagedObjectContextTable("No", image: no, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 1)
+//            coreDataObject.createInManagedObjectContextTable("Maybe", image: maybe, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 2)
+//            coreDataObject.createInManagedObjectContextTable("Later", image: later, longDescription: "", entity: "Tables", table: "YesNoMaybe", index: 3)
+//            
+//            coreDataObject.createInManagedObjectContextTable("Im Hungry", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions", index: 0)
+//            coreDataObject.createInManagedObjectContextTable("Im Thirsty", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions", index: 1)
+//            coreDataObject.createInManagedObjectContextTable("Im Tired", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions", index: 2)
+//            coreDataObject.createInManagedObjectContextTable("Please Help Me", image: buttonTest, longDescription: "", entity: "Tables", table: "Expressions", index: 3)
+//            
+//            coreDataObject.createInManagedObjectContextTable("Hello", image: buttonTest, longDescription: "", entity: "Tables", table: "Social", index: 0)
+//            coreDataObject.createInManagedObjectContextTable("Goodbye", image: buttonTest, longDescription: "", entity: "Tables", table: "Social", index: 1)
+//            
+//            coreDataObject.createInManagedObjectContextTable("1", image: one, longDescription: "My pain is at level 1", entity: "Tables", table: "PainScale", index: 0)
+//            coreDataObject.createInManagedObjectContextTable("2", image: two, longDescription: "My pain is at level 2", entity: "Tables", table: "PainScale", index: 1)
+//            coreDataObject.createInManagedObjectContextTable("3", image: three, longDescription: "My pain is at level 3", entity: "Tables", table: "PainScale", index: 2)
+//            coreDataObject.createInManagedObjectContextTable("4", image: four, longDescription: "My pain is at level 4", entity: "Tables", table: "PainScale", index: 3)
+//            coreDataObject.createInManagedObjectContextTable("5", image: five, longDescription: "My pain is at level 5", entity: "Tables", table: "PainScale", index: 4)
+//            coreDataObject.createInManagedObjectContextTable("6", image: six, longDescription: "My pain is at level 6", entity: "Tables", table: "PainScale", index: 5)
+//            coreDataObject.createInManagedObjectContextTable("7", image: seven, longDescription: "My pain is at level 7", entity: "Tables", table: "PainScale", index: 6)
+//            coreDataObject.createInManagedObjectContextTable("8", image: eight, longDescription: "My pain is at level 8", entity: "Tables", table: "PainScale", index: 7)
+//            coreDataObject.createInManagedObjectContextTable("9", image: nine, longDescription: "My pain is at level 9", entity: "Tables", table: "PainScale", index: 8)
+//            coreDataObject.createInManagedObjectContextTable("10", image: ten, longDescription: "My pain is at level 10", entity: "Tables", table: "PainScale", index: 9)
+//            
+//            coreDataObject.createInManagedObjectContextTable("Bathroom", image: bathroom, longDescription: "I need to go to the bathroom", entity: "Tables", table: "UIHC", index: 0)
+//            coreDataObject.createInManagedObjectContextTable("Come back", image: comeback, longDescription: "Please come back", entity: "Tables", table: "UIHC", index: 1)
+//            coreDataObject.createInManagedObjectContextTable("Family", image: family, longDescription: "I would like to see my family", entity: "Tables", table: "UIHC", index: 2)
+//            coreDataObject.createInManagedObjectContextTable("Goodbye", image: goodbye, longDescription: "Good bye", entity: "Tables", table: "UIHC", index: 3)
+//            coreDataObject.createInManagedObjectContextTable("Hold my hand", image: holdmyhand, longDescription: "Please hold m hand", entity: "Tables", table: "UIHC", index: 4)
+//            coreDataObject.createInManagedObjectContextTable("Nurse", image: nurse, longDescription: "Please get my nurse", entity: "Tables", table: "UIHC", index: 5)
+//            coreDataObject.createInManagedObjectContextTable("Pain Meds", image: painmeds, longDescription: "I need something for pain", entity: "Tables", table: "UIHC", index: 6)
+//            coreDataObject.createInManagedObjectContextTable("Rest", image: rest, longDescription: "I need to rest", entity: "Tables", table: "UIHC", index: 7)
+//            coreDataObject.createInManagedObjectContextTable("Thanks", image: thanks, longDescription: "Thank you", entity: "Tables", table: "UIHC", index: 8)
+//        }
 
 //        coreDataObject.createInManagedObjectContextCategories("Testing", image: buttonTest, link: "testing", presses: 0)
 
