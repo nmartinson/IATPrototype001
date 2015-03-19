@@ -121,7 +121,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             coreDataObject.createInManagedObjectContextTable("Head", image: head, longDescription: "My head hurts", table: "BodyParts", index: 0, linkedPage: "")
             coreDataObject.createInManagedObjectContextTable("1", image: one, longDescription: "My pain is at level 1", table: "PainScale", index: 0, linkedPage: "")
         }
-//        println(pagesArray![0])
         
             
 //            coreDataObject.createInManagedObjectContextTable("Head", image: head, longDescription: "My head hurts", entity: "Tables", table: "BodyParts", index: 0, linkedPage: "")

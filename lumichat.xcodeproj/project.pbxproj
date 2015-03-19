@@ -47,7 +47,6 @@
 		2BBCFE551A052D5A00AE8BA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */; };
 		2BBCFE591A052D5A00AE8BA6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */; };
 		2BBCFE5B1A052D5A00AE8BA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */; };
-		2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */; };
 		2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */; };
 		2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */; };
 		2BBCFE651A0576F500AE8BA6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */; };
@@ -123,7 +122,6 @@
 		2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateButtonViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXCollectionViewController1.swift; sourceTree = "<group>"; };
 		2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
 		2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ../MainViewController.swift; sourceTree = "<group>"; };
@@ -178,7 +176,6 @@
 			children = (
 				2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */,
 				2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */,
-				2BBCFE521A052D5A00AE8BA6 /* LXCollectionViewController1.swift */,
 			);
 			name = CollectionViews;
 			sourceTree = "<group>";
@@ -484,7 +481,6 @@
 				2B18006B1A647886007BA245 /* Tables.swift in Sources */,
 				2B1800771A659B8C007BA245 /* CoreDataController.swift in Sources */,
 				2B81F25F1AB8BCAE005357F4 /* SettingsTableViewController.swift in Sources */,
-				2BBCFE5F1A052D5A00AE8BA6 /* LXCollectionViewController1.swift in Sources */,
 				2BBCFE291A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				2B12D4971A8BC8A9004BFB46 /* Keyboard.swift in Sources */,
 				2BD6A6F71A25534300A3CBA3 /* zip.c in Sources */,

@@ -22,10 +22,9 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	@IBOutlet weak var button: UIButton!	// associates with the button press actions
 	@IBOutlet weak var buttonLabel : UILabel!	// displays the button title
 //	var player : AVAudioPlayer! = nil // used for speaking the audio files
-    var sentenceString:String = ""
-	var imageString = ""
 	var voice = AVSpeechSynthesizer()
     var delegate:ButtonCellControllerDelegate?
+    var buttonObject:ButtonModel?
 
     
     func degreesToRadians(x: Double) -> CGFloat
@@ -46,29 +45,25 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     }
     
     
-    
-	/* ************************************************************************************************
-	*	Initializes important data about the cell. Sets the image and label.
-    *   .Highlighted = longDescription
-    *   .Selected = image path
-    *   .Normal = button title
-	************************************************************************************************ */
-	func setup(btn: UIButton)
+    /* ************************************************************************************************
+    *	Initializes important data about the cell. Sets the image and label.
+    ************************************************************************************************ */
+    func setup(button: ButtonModel)
     {
-		self.button = UIButton.buttonWithType(.System) as UIButton
-		imageString = btn.titleForState(.Selected)!
-        sentenceString = btn.titleForState(.Highlighted)!
-        var title = btn.titleForState( .Normal)!
+        self.buttonObject = button
+        self.button = UIButton.buttonWithType(.System) as UIButton
+        var title = button.title
         
-        var image:UIImage? = loadImage(imageString)
-		
-		if( image != nil)
-		{
-			self.buttonImageView.image = image
-		}
+        var image:UIImage? = loadImage(buttonObject!.imageTitle)
+        
+        if( image != nil)
+        {
+            self.buttonImageView.image = image
+        }
+        
+        self.buttonLabel.text = button.title
+    }
 
-		self.buttonLabel.text = btn.titleForState(.Normal)
-	}
 
 	/* ************************************************************************************************
 	*	Gets called when the button is pressed down. Makes the image slightly transparent
@@ -84,7 +79,6 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	************************************************************************************************ */
 	@IBAction func buttonPressRelease(sender: AnyObject)
     {
-        
 		self.buttonImageView.alpha = 1
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if(appDelegate.editMode)
@@ -114,9 +108,9 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	func playMyFile(title: String)
 	{
         var utterance:AVSpeechUtterance!
-        if( sentenceString != "")
+        if( buttonObject!.longDescription != "")
         {
-            utterance = AVSpeechUtterance(string: sentenceString)
+            utterance = AVSpeechUtterance(string: buttonObject!.longDescription)
         }
         else
         {
