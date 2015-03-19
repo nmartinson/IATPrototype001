@@ -49,7 +49,6 @@
 		2BBCFE5B1A052D5A00AE8BA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */; };
 		2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */; };
 		2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */; };
-		2BBCFE651A0576F500AE8BA6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */; };
 		2BD6A6F41A25534300A3CBA3 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6A6EA1A25534300A3CBA3 /* ioapi.c */; };
 		2BD6A6F51A25534300A3CBA3 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6A6EC1A25534300A3CBA3 /* mztools.c */; };
 		2BD6A6F61A25534300A3CBA3 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6A6EE1A25534300A3CBA3 /* unzip.c */; };
@@ -120,11 +119,9 @@
 		2BBCFE3E1A052CC200AE8BA6 /* Please_Help_Me.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Please_Help_Me.wav; sourceTree = "<group>"; };
 		2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateButtonViewController.swift; sourceTree = "<group>"; };
 		2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2BBCFE531A052D5A00AE8BA6 /* ScanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanController.swift; sourceTree = "<group>"; };
 		2BBCFE541A052D5A00AE8BA6 /* ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
-		2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ../MainViewController.swift; sourceTree = "<group>"; };
 		2BD6A6E91A25534300A3CBA3 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		2BD6A6EA1A25534300A3CBA3 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
 		2BD6A6EB1A25534300A3CBA3 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
@@ -163,7 +160,6 @@
 		2B04BCF61A7C28A300494335 /* ModifyButton */ = {
 			isa = PBXGroup;
 			children = (
-				2BBCFE4D1A052D5A00AE8BA6 /* CreateButtonViewController.swift */,
 				2B81F2621AB8C5D2005357F4 /* ModifyButtonTableViewController.swift */,
 				2B81F2641AB8C79C005357F4 /* EditButtonTableViewController.swift */,
 				2B81F2601AB8C592005357F4 /* CreateButtonTableViewController.swift */,
@@ -174,7 +170,6 @@
 		2B04BCF71A7C28E500494335 /* CollectionViews */ = {
 			isa = PBXGroup;
 			children = (
-				2BBCFE641A0576F500AE8BA6 /* MainViewController.swift */,
 				2B061AA21A27A5380078DB6B /* CollectionViewBase.swift */,
 			);
 			name = CollectionViews;
@@ -492,7 +487,6 @@
 				2BBCFE341A052CAB00AE8BA6 /* FMDatabase.m in Sources */,
 				2BBCFE611A052D5A00AE8BA6 /* ButtonCell.swift in Sources */,
 				2B61BE6E1ABA102700479310 /* ButtonModel.swift in Sources */,
-				2BBCFE651A0576F500AE8BA6 /* MainViewController.swift in Sources */,
 				2B1800651A647886007BA245 /* Categories.swift in Sources */,
 				2BD6A6F41A25534300A3CBA3 /* ioapi.c in Sources */,
 				2BBCFE601A052D5A00AE8BA6 /* ScanController.swift in Sources */,

@@ -39,7 +39,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     
     
     var navBar = ""	// stores the title for the navigation bar
-    var pageLink = ""	// stores the name of the row that was selected - used for DB table name
     var timer = NSTimer()
     var buttonTitle = ""
 
@@ -103,7 +102,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     func callBackFromModalSaving(data: ButtonModel)
     {
         editOrModifyButton(data)
-        configureEntireView(collectionview, pageLink: pageLink, title: navBar, navBarButtons: [])
+        configureEntireView(collectionview, pageLink: link, title: navBar, navBarButtons: [menuButton])
     }
     
     /******************************************************************************************
@@ -111,7 +110,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     func callBackFromModalDelete()
     {
-        configureEntireView(collectionview, pageLink: pageLink, title: navBar, navBarButtons: [])
+        configureEntireView(collectionview, pageLink: link, title: navBar, navBarButtons: [menuButton])
     }
     
     /******************************************************************************************
@@ -511,30 +510,20 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     *********************************************************************************************************** */
     func tapHandler(gesture: UITapGestureRecognizer)
     {
-        scanner.selectionMade(false)
-        if( scanner.secondStageOfSelection == false)
+        let nextPageLink = scanner.selectionMade(false)
+
+        if nextPageLink != ""
         {
-            if !scanner.navBarScanning
+            if nextPageLink == "Notes"
             {
-                let title = (buttons[scanner.index] as ButtonModel).title
-                if title == "Notes"
-                {
-                    performSegueWithIdentifier("toList", sender: self)
-                }
-                else
-                {
-                    let pageLink = (buttons[scanner.index] as ButtonModel).linkedPage!
-                    if pageLink != ""
-                    {
-                        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
-                        vc.link = pageLink
-                        navigationController?.pushViewController(vc, animated: true)
-                    }
-                    else
-                    {
-                        println("speak word")
-                    }
-                }
+                performSegueWithIdentifier("toList", sender: self)
+            }
+            else
+            {
+                scanner.selectionMade(false)
+                let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
+                vc.link = nextPageLink
+                navigationController?.pushViewController(vc, animated: true)
             }
         }
     }
@@ -545,14 +534,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ************************************************************************************************************* */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
     {
-//        if segue.identifier == "showDetail"
-//        {
-//            var index = scanner.index
-//            var title = (buttons[index] as ButtonModel).title
-//            let detailsViewController = segue.destinationViewController as LXCollectionViewController1
-//            detailsViewController.navBar = title
-//            detailsViewController.pageLink = title.stringByReplacingOccurrencesOfString(" ", withString: "")
-//        }
         if segue.identifier == "toList"
         {
             let controller = segue.destinationViewController as ListViewController
@@ -596,7 +577,38 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
 //    }
     
 
-    
+    /******************************************************************************************
+    * from MainCollectionView
+    ******************************************************************************************/
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+    {
+        if( string == " ")
+        {
+            let nextPageLink = scanner.selectionMade(false)
+            
+            if nextPageLink != ""
+            {
+                if nextPageLink == "Notes"
+                {
+                    performSegueWithIdentifier("toList", sender: self)
+                }
+                else
+                {
+                    scanner.selectionMade(false)
+                    let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
+                    vc.link = nextPageLink
+                    navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+        else if( string == "\n")
+        {
+            println("new line")
+        }
+        
+        return false
+    }
+
     
     
     

@@ -123,7 +123,7 @@ class TableViewScanner: Scanner
     /******************************************************************************************
     *
     ******************************************************************************************/
-    override func selectionMade(playAudio: Bool)
+    override func selectionMade(playAudio: Bool) -> String
     {
         timer.invalidate()
         var selectedObject:AnyObject?
@@ -144,6 +144,7 @@ class TableViewScanner: Scanner
         }
 
         secondStageOfSelection = !secondStageOfSelection
+        return ""
     }
     
 }

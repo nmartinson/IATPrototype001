@@ -193,19 +193,17 @@ class ScanController: Scanner
                 firstIndexInRow += cols //+= cols
             }
         }
-        else
+        else // scan across row
         {
-            // calculate if the column is full
-            // if #btns/col# < #totalrows then the column is not full
-            let btnsInCol = Float(cellArray.count) / Float(firstIndexInCol + 1)
-            
-            if elementScanningCounter == rows || (elementScanningCounter == rows - 1 && Int(btnsInCol) < rows)
+            // if the last element was just selected, restart at beginning of row
+            if index >= cellArray.count - 1 || index == firstIndexInRow + cols - 1
             {
                 elementScanningCounter = 0
             }
             
-            index = firstIndexInCol + cols * elementScanningCounter
-            if(index < cellArray.count)
+            index = firstIndexInRow + elementScanningCounter
+            
+            if(index < cellArray.count && index >= 0)
             {
                 (cellArray[index] as ButtonCell).selected = true
                 (cellArray[index] as ButtonCell).highlighted = true
@@ -213,7 +211,6 @@ class ScanController: Scanner
                 (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
                 (cellArray[index] as ButtonCell).layer.cornerRadius = 5
             }
-            
             elementScanningCounter++
         }
     }
@@ -248,16 +245,18 @@ class ScanController: Scanner
             }
             firstIndexInCol += 1 //+= cols
         }
-        else
+        else // scan down column
         {
-            // if the last element was just selected, restart at beginning of row
-            if index >= cellArray.count - 1 || index == firstIndexInRow + cols - 1
+            // calculate if the column is full
+            // if #btns/col# < #totalrows then the column is not full
+            let btnsInCol = Float(cellArray.count) / Float(firstIndexInCol + 1)
+            
+            if elementScanningCounter == rows || (elementScanningCounter == rows - 1 && Int(btnsInCol) < rows)
             {
                 elementScanningCounter = 0
             }
-
-            index = firstIndexInRow + elementScanningCounter
-
+            
+            index = firstIndexInCol + cols * elementScanningCounter
             if(index < cellArray.count)
             {
                 (cellArray[index] as ButtonCell).selected = true
@@ -266,6 +265,7 @@ class ScanController: Scanner
                 (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
                 (cellArray[index] as ButtonCell).layer.cornerRadius = 5
             }
+            
             elementScanningCounter++
         }
 
@@ -328,9 +328,11 @@ class ScanController: Scanner
     *	Gets called when the user taps the screen. If using srial scan, it calls for the button to pressed, which
     *   plays the audio. If a different scan mode, it checks if it was the first tap or second tap. First tap changes
     *   scan mode, second selection, makes the selection.
+    *   Output: string that specifies which page to link to next. If string == "", don't link, play the sound
     *********************************************************************************************************** */
-    override func selectionMade(playAudio: Bool)
+    override func selectionMade(playAudio: Bool) -> String
     {
+        var returnString = ""
         timer.invalidate()
         
         // Just make sure the index isn't out of bounds. There is an issue where it is too large when a double selection
@@ -342,9 +344,13 @@ class ScanController: Scanner
         
         if(scanMode == 0) // if serial scan, make selection
         {
-            if( playAudio)
+            if( (cellArray[index] as ButtonCell).buttonObject!.linkedPage! == "") //no link, play sound
             {
                 (cellArray[index] as ButtonCell).buttonPressRelease(self)
+            }
+            else
+            {
+                returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
             }
             (cellArray[index] as ButtonCell).selected = false
             (cellArray[index] as ButtonCell).layer.borderWidth = 0
@@ -355,11 +361,9 @@ class ScanController: Scanner
             if !secondStageOfSelection
             {
                 timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("navBarScan"), userInfo: nil, repeats: true)
-                secondStageOfSelection = !secondStageOfSelection
             }
             else
             {
-                secondStageOfSelection = !secondStageOfSelection
                 navBarButtons[index - 1].sendActionsForControlEvents(.TouchUpInside)
                 setScanMode()
             }
@@ -368,9 +372,13 @@ class ScanController: Scanner
         {
             if( secondStageOfSelection)
             {
-                if( playAudio)
+                if( (cellArray[index] as ButtonCell).buttonObject!.linkedPage! == "") //no link, play sound
                 {
                     (cellArray[index] as ButtonCell).buttonPressRelease(self)
+                }
+                else
+                {
+                    returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
                 }
                 (cellArray[index] as ButtonCell).selected = false
                 (cellArray[index] as ButtonCell).layer.borderWidth = 0
@@ -378,23 +386,30 @@ class ScanController: Scanner
             secondStageOfSelection = !secondStageOfSelection
             elementScanningCounter = 0	// set to 0 so it starts scanning with the left button
             
-            switch scanMode
+            if secondStageOfSelection
             {
-                case 0:
-                    scanMode = 0
-                case 1:
-                    scanMode = 1
-                case 2:
-                    firstIndexInRow = firstIndexInRow - cols
-                    scanMode = 3	// change to column scan
-                case 3:
-                    firstIndexInCol = firstIndexInCol - 1
-                    scanMode = 2	// change to row scan
-                default:
-                    println("Error")
+                switch scanMode
+                {
+                    case 0:
+                        scanMode = 0
+                    case 1:
+                        scanMode = 1
+                    case 2:
+                        firstIndexInRow = firstIndexInRow - cols
+                    case 3:
+                        firstIndexInCol = firstIndexInCol - 1
+                    default:
+                        println("Error")
+                }
+            }
+            else
+            {
+                firstIndexInRow = 0
+                firstIndexInCol = 0
             }
             setScanMode()   // this resets the timer to start scanning again
-
         }
+        
+        return returnString
     }
 }

@@ -21,7 +21,7 @@ class Scanner
     var secondStageOfSelection = false
 
 
-    func selectionMade(playAudio: Bool){}
+    func selectionMade(playAudio: Bool) -> String {return ""}
     
     func setupNavBar(navButtons: [UIButton])
     {
