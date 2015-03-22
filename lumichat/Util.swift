@@ -14,15 +14,18 @@ class Util: NSObject {
     let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
     let fileManager = NSFileManager()
     
-    func createNavBarBackButton(target: UIViewController) -> UIButton
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
+    func createNavBarBackButton(target: UIViewController, string: String) -> UIButton
     {
         // Create navbar buttons
         let backButton = UIButton.buttonWithType(.System) as UIButton
-        backButton.frame = CGRectMake(0, 0, 80, 30)
-        backButton.setTitle(" < Home", forState: .Normal)
+        backButton.frame = CGRectMake(0, 0, 100, 30)
+        backButton.setTitle(" < \(string)", forState: .Normal)
         backButton.addTarget(target, action: "handleBack", forControlEvents: .TouchUpInside)
         backButton.layer.borderWidth = 3
-        backButton.layer.borderColor = UIColor.blackColor().CGColor
+        backButton.layer.borderColor = UIColor.whiteColor().CGColor
         backButton.contentHorizontalAlignment = .Left
 
         return backButton

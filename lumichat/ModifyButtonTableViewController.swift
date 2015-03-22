@@ -189,14 +189,14 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
             {
                 path = saveImage(self.capturedImage, title: imageTitle)
             }
-            let buttonData = ButtonModel(title: title, imageTitle: imageTitle, longDescription: longDescription, imagePath: path, linkedPage: linkedPage)
+            let buttonData = ButtonModel(title: title, longDescription: longDescription, imagePath: path, linkedPage: linkedPage)
             self.delegate?.callBackFromModalSaving(buttonData)
             self.dismissViewControllerAnimated(true, completion: { () -> Void in })
         }
         else if( buttonTitleField.text != "")
         {
             path = saveImage(self.capturedImage, title: imageTitle)
-            let buttonData = ButtonModel(title: title, imageTitle: imageTitle, longDescription: longDescription, imagePath: path, linkedPage: linkedPage)
+            let buttonData = ButtonModel(title: title, longDescription: longDescription, imagePath: path, linkedPage: linkedPage)
 
             self.delegate?.callBackFromModalSaving(buttonData)
             self.dismissViewControllerAnimated(true, completion: { () -> Void in })

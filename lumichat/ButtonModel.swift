@@ -9,28 +9,32 @@
 import Foundation
 import UIKit
 
+
+/******************************************************************************************
+*   title:  The title of the button that is displayed
+*   longDescription:    The longer sentence that can be associated with the button (optional)
+*   imagePath:  The file path of where the image is saved
+*   linkedPage: The name of the page that the button links to (optional)
+******************************************************************************************/
 class ButtonModel:NSObject
 {
-    var imageTitle:String
     var title:String
     var longDescription:String
     var imagePath:String
     var linkedPage:String?
     
     
-    init(title: String, imageTitle: String, longDescription: String, imagePath: String)
+    init(title: String, longDescription: String, imagePath: String)
     {
         self.title = title
         self.imagePath = imagePath
-        self.imageTitle = imageTitle
         self.longDescription = longDescription
     }
     
-    init(title: String, imageTitle: String, longDescription: String, imagePath: String, linkedPage: String)
+    init(title: String, longDescription: String, imagePath: String, linkedPage: String)
     {
         self.title = title
         self.imagePath = imagePath
-        self.imageTitle = imageTitle
         self.longDescription = longDescription
         self.linkedPage = linkedPage
     }

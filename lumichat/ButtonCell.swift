@@ -25,14 +25,10 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	var voice = AVSpeechSynthesizer()
     var delegate:ButtonCellControllerDelegate?
     var buttonObject:ButtonModel?
-
     
-    func degreesToRadians(x: Double) -> CGFloat
-    {
-        return CGFloat(M_PI * x / 180.0)
-    }
-    
-    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func startShakingButtons() -> CAAnimation
     {
         var transform = CATransform3DMakeRotation(0.08, 0, 0, 1)
@@ -54,7 +50,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
         self.button = UIButton.buttonWithType(.System) as UIButton
         var title = button.title
         
-        var image:UIImage? = loadImage(buttonObject!.imageTitle)
+        var image:UIImage? = loadImage(buttonObject!.imagePath)
         
         if( image != nil)
         {

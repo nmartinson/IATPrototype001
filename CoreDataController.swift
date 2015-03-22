@@ -135,7 +135,6 @@ class CoreDataController:NSObject //NSFetchedResultsController
         return (false, nil)
     }
     
-    
     /******************************************************************************************
     *
     ******************************************************************************************/
@@ -171,10 +170,11 @@ class CoreDataController:NSObject //NSFetchedResultsController
             }
             saveContext()
         }
-        
     }
     
-    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func getPhraseWithText(text: String) -> Phrases
     {
         var phrase:Phrases?
@@ -213,22 +213,14 @@ class CoreDataController:NSObject //NSFetchedResultsController
     }
     
     /******************************************************************************************
-    *
-    ******************************************************************************************/
-    func createInManagedObjectContextCategories(title: String, image: String, link: String, presses: Int) -> Categories
-    {
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Categories", inManagedObjectContext: self.managedObjectContext!) as Categories
-        newItem.title = title
-        newItem.link = link
-        newItem.image = image
-        newItem.presses = presses
-        saveContext()
-        
-        return newItem
-    }
-    
-    /******************************************************************************************
-    *
+    *   Creates a new button in the database
+    *   title:  The title of the button that is displayed
+    *   longDescription:    The longer sentence that can be associated with the button (optional)
+    *   image:  The file path of where the image is saved
+    *   linkedPage: The name of the page that the button links to (optional)
+    *   index: the index position of the button on the page
+    *   presses: The number of times the button has been pressed
+    *   table: The page that the image is to be displayed on
     ******************************************************************************************/
     func createInManagedObjectContextTable(title: String, image: String, longDescription: String, table: String, index: Int, linkedPage: String)
     {
@@ -244,6 +236,17 @@ class CoreDataController:NSObject //NSFetchedResultsController
     }
     
     /******************************************************************************************
+    *   Creates a new page in the Pages 'table'
+    *   title: The title of the page to be created
+    ******************************************************************************************/
+    func createInManagedObjectContextPage(title: String)
+    {
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Pages", inManagedObjectContext: self.managedObjectContext!) as Pages
+        newItem.title = title
+        saveContext()
+    }
+    
+    /******************************************************************************************
     *
     ******************************************************************************************/
     func createInManagedObjectContextPhrase(text: String)
@@ -255,7 +258,6 @@ class CoreDataController:NSObject //NSFetchedResultsController
     }
     
 
-    
     /******************************************************************************************
     *
     ******************************************************************************************/
@@ -291,8 +293,6 @@ class CoreDataController:NSObject //NSFetchedResultsController
     }
 
     
-    
-    
     /* ************************************************************************************************
     *   Returns an array of strings that are the page titles
     ************************************************************************************************ */
@@ -313,15 +313,7 @@ class CoreDataController:NSObject //NSFetchedResultsController
         return (false, nil)
     }
     
-    /******************************************************************************************
-    *
-    ******************************************************************************************/
-    func createInManagedObjectContextPage(title: String)
-    {
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Pages", inManagedObjectContext: self.managedObjectContext!) as Pages
-        newItem.title = title
-        saveContext()
-    }
+
     
     
     /******************************************************************************************

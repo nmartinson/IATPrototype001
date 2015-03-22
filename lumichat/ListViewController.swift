@@ -31,7 +31,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         bluetoothTextField.inputView = UIView()        // textBox is used to get input from bluetooth
         bluetoothTextField.becomeFirstResponder()
         
-        backButton = Util().createNavBarBackButton(self)
+        backButton = Util().createNavBarBackButton(self, string: "Back")
         let back = UIBarButtonItem(customView: backButton!)
         navigationItem.leftBarButtonItem = back
     }

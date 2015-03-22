@@ -117,7 +117,7 @@ class OpenFileViewController: UIViewController
                 let image = importDBResults.stringForColumn("zimage")
                 let presses:Int = Int(importDBResults.intForColumn("zpresses"))
                 
-                coreDataObject.createInManagedObjectContextCategories(title, image: image, link: link, presses: 0)
+//                coreDataObject.createInManagedObjectContextCategories(title, image: image, link: link, presses: 0)
             }
             foundMatch = false // reset value for next loop
         }

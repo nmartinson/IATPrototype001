@@ -30,6 +30,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     var collectionview:UICollectionView!
     var tapRec: UITapGestureRecognizer!
     var link:String = "Home"
+    var previousPage = ""
     var editMode = false
     let coreDataObject = CoreDataController()
     var buttonCell = ButtonCell()
@@ -43,6 +44,10 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     var buttonTitle = ""
 
     
+    /* ************************************************************************************************
+    *   Creates the actionsheet that is presented when the Menu button is pressed.
+    *   Menu options: Create Button, Edit Button, Settings
+    ************************************************************************************************ */
     @IBAction func menuButtonPressed(sender: UIButton)
     {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
@@ -82,7 +87,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         alertController.addAction(editAction)
         alertController.addAction(settingsAction)
         alertController.popoverPresentationController?.sourceView = sender as UIView
-        self.presentViewController(alertController, animated: true) { () -> Void in }
+        self.presentViewController(alertController, animated: true, completion: nil)
 
     }
     
@@ -113,13 +118,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         configureEntireView(collectionview, pageLink: link, title: navBar, navBarButtons: [menuButton])
     }
     
-    /******************************************************************************************
-    *
-    ******************************************************************************************/
-    func degreesToRadians(x: Double) -> CGFloat
-    {
-        return CGFloat(M_PI * x / 180.0)
-    }
     
     /* ************************************************************************************************************
     *	This function gets called when the user presses the save button when creating a new button. It inserts the
@@ -134,24 +132,30 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         let imagePath = data.imagePath
         let linkedPage = data.linkedPage!
         
+        // check if currently in edit mode, if so we need to update the button
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if(appDelegate.editMode)
         {
             coreDataObject.updateButtonWith(buttonTitle, newTitle: title, longDescription: longDescription, image: imagePath, linkedPage: linkedPage)
         }
-        else
+        else // otherwise we are creating a button
         {
             let (success, tableItems) = coreDataObject.getTables(link)
             if success
             {
                 coreDataObject.createInManagedObjectContextTable(title, image: imagePath, longDescription: longDescription, table: link, index: buttons.count, linkedPage: linkedPage)
-                var button = UIButton.buttonWithType(.System) as UIButton
-                button.setTitle(title, forState: .Normal) // stores the button label
-                button.setTitle(longDescription, forState: .Highlighted) // stores the extra longDescription
                 
-                // Change button title
-                button.setTitle(imagePath, forState: .Selected)	// Stores the image string
-                buttons.addObject(button)
+                var buttonObject = ButtonModel(title: title, longDescription: longDescription, imagePath: imagePath, linkedPage: linkedPage)
+                buttons.addObject(buttonObject)
+                
+                
+//                var button = UIButton.buttonWithType(.System) as UIButton
+//                button.setTitle(title, forState: .Normal) // stores the button label
+//                button.setTitle(longDescription, forState: .Highlighted) // stores the extra longDescription
+//                
+//                // Change button title
+//                button.setTitle(imagePath, forState: .Selected)	// Stores the image string
+//                buttons.addObject(button)
             }
         }
         
@@ -159,7 +163,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     }
     
     /******************************************************************************************
-    *
+    *   Show the create button view
     ******************************************************************************************/
     func createButtonPressed()
     {
@@ -178,7 +182,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             for item in cellArray
             {
                 let title = (item as ButtonCell).buttonLabel.text!
-                let image = (item as ButtonCell).buttonObject!.imageTitle
+                let image = (item as ButtonCell).buttonObject!.imagePath
                 let longDescription = (item as ButtonCell).buttonObject!.longDescription
                 let link = title.stringByReplacingOccurrencesOfString(" ", withString: "")
                 
@@ -193,30 +197,28 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     override func viewWillAppear(animated: Bool)
     {
-        configureEntireView(myCollectionView, pageLink: link, title: "Home", navBarButtons: [menuButton])
-
-        menuButton.layer.borderColor = UIColor.blackColor().CGColor
+        if previousPage != ""
+        {
+            let backButton = Util().createNavBarBackButton(self, string: previousPage)
+            let back = UIBarButtonItem(customView: backButton)
+            navBarTitle.leftBarButtonItem = back
+            configureEntireView(myCollectionView, pageLink: link, title: "Home", navBarButtons: [backButton,menuButton])
+        }
+        else
+        {
+            configureEntireView(myCollectionView, pageLink: link, title: "Home", navBarButtons: [menuButton])
+        }
+        menuButton.layer.borderColor = UIColor.whiteColor().CGColor
         menuButton.layer.borderWidth = 4
         textBox.inputView = UIView()        // textBox is used to get input from bluetooth
         textBox.becomeFirstResponder()
         buttonCell.delegate = self
     }
     
-    /************************************************************************************************
-    *	From LXcollectionView
-    *********************************************************************************************** */
-    //    override func viewDidLoad()
-    //    {
-    //        //        navBarTitle.title = navBar
-    //
-    //        let backButton = Util().createNavBarBackButton(self)
-    //        let back = UIBarButtonItem(customView: backButton)
-    //        navBarTitle.leftBarButtonItem = back
-    //
-    //        //        configureEntireView(mycollectionview, pageLink: pageLink, title: navBar, navBarButtons: [backButton, createButton])
-    //        //        buttonCell.delegate = self
-    //    }
-    
+    /******************************************************************************************
+    *   This gets called when the back button in the navigation bar is activated. It goes back
+    *   one view in the navigation stack
+    ******************************************************************************************/
     func handleBack()
     {
         navigationController?.popViewControllerAnimated(true)
@@ -230,27 +232,15 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         self.navBarTitle.title = title
         buttons.removeAllObjects()
         cellArray.removeAllObjects()
-        setup(collectionView)
+        self.collectionview = collectionView //setup(collectionView)
         setLayout()
-        setLink(pageLink)
+        self.link = pageLink //setLink(pageLink)
         setTapRecognizer()
         getButtonsFromDB()
         collectionview.reloadData()
         scanner.reloadData(layout.collectionViewContentSize(), numButtons: buttons.count)
         scanner.setupNavBar(navBarButtons)
         configureButtons()
-    }
-    
-    // configures the default CollectionView element for manipulating
-    func setup(collectionview: UICollectionView)
-    {
-        self.collectionview = collectionview
-    }
-    
-    // sets the link for accessing the database for each page
-    func setLink(link: String)
-    {
-        self.link = link
     }
     
     // configures the collection view layout
@@ -290,16 +280,16 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         {
             for buttonDetails in table!
             {
-                var title = buttonDetails.title
-                var image = buttonDetails.image
-                var longDescription = buttonDetails.longDescription
-                var index = buttonDetails.index
-                var linkedPage = buttonDetails.linkedPage
+                let title = buttonDetails.title
+                let image = buttonDetails.image
+                let longDescription = buttonDetails.longDescription
+                let index = buttonDetails.index
+                let linkedPage = buttonDetails.linkedPage
                 
                 // If there really is data, configure the button and add it to the array of buttons
                 if(title != "")
                 {
-                    var buttonObject = ButtonModel(title: title, imageTitle: image, longDescription: longDescription, imagePath: "", linkedPage: linkedPage)
+                    var buttonObject = ButtonModel(title: title, longDescription: longDescription, imagePath: image, linkedPage: linkedPage)
                     buttons.addObject(buttonObject)
                 }
             }
@@ -363,7 +353,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         let x = cell.bounds.width - 28
         imageView.frame = CGRectMake(x, 8, 20, 20)
         cell.addSubview(imageView)
-
     }
 
     /* *******************************************************************************************************
@@ -523,6 +512,8 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
                 scanner.selectionMade(false)
                 let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
                 vc.link = nextPageLink
+                vc.previousPage = link
+
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -557,25 +548,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             }
         }
     }
-    
-    
-    /******************************************************************************************
-    * From LXCollectionView
-    ******************************************************************************************/
-//    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
-//    {
-//        if( string == " ")
-//        {
-//            scanner.selectionMade(true)
-//        }
-//        else if( string == "\n")
-//        {
-//            println("new line")
-//        }
-//        
-//        return false
-//    }
-    
 
     /******************************************************************************************
     * from MainCollectionView
@@ -597,6 +569,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
                     scanner.selectionMade(false)
                     let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
                     vc.link = nextPageLink
+                    vc.previousPage = link
                     navigationController?.pushViewController(vc, animated: true)
                 }
             }

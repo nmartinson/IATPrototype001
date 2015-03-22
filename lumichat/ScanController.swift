@@ -115,7 +115,6 @@ class ScanController: Scanner
                     index = 0
                 }
                 
-                navBarButtons[index].layer.borderColor = UIColor.blackColor().CGColor
                 navBarButtons[index].layer.borderWidth = 5
                 index++
             }
