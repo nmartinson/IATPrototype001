@@ -147,15 +147,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
                 
                 var buttonObject = ButtonModel(title: title, longDescription: longDescription, imagePath: imagePath, linkedPage: linkedPage)
                 buttons.addObject(buttonObject)
-                
-                
-//                var button = UIButton.buttonWithType(.System) as UIButton
-//                button.setTitle(title, forState: .Normal) // stores the button label
-//                button.setTitle(longDescription, forState: .Highlighted) // stores the extra longDescription
-//                
-//                // Change button title
-//                button.setTitle(imagePath, forState: .Selected)	// Stores the image string
-//                buttons.addObject(button)
             }
         }
         
@@ -243,14 +234,18 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         configureButtons()
     }
     
-    // configures the collection view layout
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func setLayout()
     {
         layout = self.collectionview.collectionViewLayout as LXReorderableCollectionViewFlowLayout
 //        layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5)
     }
     
-    //configures the tap recoginizer
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
     func setTapRecognizer()
     {
         self.tapRec = UITapGestureRecognizer()
@@ -260,7 +255,9 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         self.view.addGestureRecognizer(tapRec)
     }
     
-    // gets the users preferences for button size and style
+    /******************************************************************************************
+    *   gets the users preferences for button size and style
+    ******************************************************************************************/
     func configureButtons()
     {
         // Pull in all the data stored in the settings
