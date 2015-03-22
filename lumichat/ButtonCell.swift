@@ -19,6 +19,7 @@ protocol ButtonCellControllerDelegate
 class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 {
 	@IBOutlet weak var buttonImageView: UIImageView!	// displays the button image
+    @IBOutlet weak var pageLinkImageView: UIImageView!
 	@IBOutlet weak var button: UIButton!	// associates with the button press actions
 	@IBOutlet weak var buttonLabel : UILabel!	// displays the button title
 //	var player : AVAudioPlayer! = nil // used for speaking the audio files

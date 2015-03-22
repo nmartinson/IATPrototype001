@@ -88,7 +88,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         alertController.addAction(settingsAction)
         alertController.popoverPresentationController?.sourceView = sender as UIView
         self.presentViewController(alertController, animated: true, completion: nil)
-
     }
     
     /******************************************************************************************
@@ -328,13 +327,14 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         
         (self.collectionViewLayout as UICollectionViewFlowLayout).itemSize = CGSizeMake(dim, dim)
         
-        
         rowSet.removeAllObjects()
         colSet.removeAllObjects()
         var currItem = 0
         for (currItem = 0; currItem < cellArray.count; currItem++)
         {
             var cell = collectionview.cellForItemAtIndexPath(NSIndexPath(forItem: currItem, inSection: 0)) as ButtonCell
+            // set the proper frame size for the arrow link image. 8 is the margin distance for x and y
+            cell.pageLinkImageView.frame = CGRectMake(cell.frame.width - 8 - dim/5, 8, dim/5, dim/5)
             
             rowSet.addObject(cell.frame.origin.y)
             colSet.addObject(cell.frame.origin.x)
@@ -343,14 +343,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         scanner.setRowsAndCols(rowSet.count, cols: colSet.count) // Tell the scanner how many rows/cols
     }
     
-    func addArrowIndicator(cell: ButtonCell)
-    {
-        let image = UIImage(named: "ArrowOverlay")
-        let imageView = UIImageView(image: image)
-        let x = cell.bounds.width - 28
-        imageView.frame = CGRectMake(x, 8, 20, 20)
-        cell.addSubview(imageView)
-    }
 
     /* *******************************************************************************************************
     *
@@ -394,9 +386,15 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         var buttonCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as ButtonCell
         buttonCell.setup(buttonObject)
         buttonCell.delegate = self
+        
+        // if the button links to a page, show the arrow link image
         if buttonObject.linkedPage != ""
         {
-            addArrowIndicator(buttonCell)
+            buttonCell.pageLinkImageView.hidden = false
+        }
+        else
+        {
+            buttonCell.pageLinkImageView.hidden = true
         }
 
         cellArray.addObject(buttonCell)
