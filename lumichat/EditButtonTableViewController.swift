@@ -37,6 +37,15 @@ class EditButtonTableViewController: ModifyButtonTableViewController
                 buttonTitleField.text = button.title
                 textDescription.text = button.longDescription
                 buttonImage.image = loadImage(button.image)
+                
+                // if the button has a page link, set up that in the view
+                if let index = find(pages, button.linkedPage)
+                {
+                    pagePicker.selectRow(index, inComponent: 0, animated: true) // select the proper page
+                    linkSegment.selectedSegmentIndex = 1 // change link segment to 'Yes'
+                    hidePageLinkCell = false // make it so that the page picker is displayed
+                }
+                
             }
         }
     }

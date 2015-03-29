@@ -14,6 +14,22 @@ class Util: NSObject {
     let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
     let fileManager = NSFileManager()
     
+    
+    /* ************************************************************************************************
+    *
+    ************************************************************************************************ */
+    func createDoneEditingButton(target: UIViewController) -> UIButton
+    {
+        // Create navbar buttons
+        let backButton = UIButton.buttonWithType(.System) as UIButton
+        backButton.frame = CGRectMake(0, 0, 100, 30)
+        backButton.setTitle("Done Editing", forState: .Normal)
+        backButton.addTarget(target, action: "doneEditing", forControlEvents: .TouchUpInside)
+        backButton.contentHorizontalAlignment = .Left
+        
+        return backButton
+    }
+    
     /* ************************************************************************************************
     *
     ************************************************************************************************ */

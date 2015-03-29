@@ -37,7 +37,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     var size = 0
     var rowSet = NSMutableSet()
     var colSet = NSMutableSet()
-    
+    var currentlyDragging = false
     
     var navBar = ""	// stores the title for the navigation bar
     var timer = NSTimer()
@@ -59,17 +59,19 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             action in
             self.performSegueWithIdentifier("settingsSegue", sender: self)
         }
-        let createAction = UIAlertAction(title: "Create", style: .Default) { (action) -> Void in
+        let createAction = UIAlertAction(title: "Create button", style: .Default) { (action) -> Void in
             self.createButtonPressed()
         }
         alertController.addAction(createAction)
         
-        let editAction = UIAlertAction(title: "Edit", style: .Destructive) { (action) -> Void in
+        let editAction = UIAlertAction(title: "Edit button", style: .Destructive) { (action) -> Void in
             var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
             appDelegate.editMode = !appDelegate.editMode
             if(appDelegate.editMode)
             {
-                //                self.scanner.stopScan()
+                let doneButton = Util().createDoneEditingButton(self)
+                self.navBarTitle.leftBarButtonItem = UIBarButtonItem(customView: doneButton)
+                self.scanner.stopScan()
                 var cells = self.collectionview.visibleCells()
                 for(var i = 0; i < cells.count; i++)
                 {
@@ -88,6 +90,31 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         alertController.addAction(settingsAction)
         alertController.popoverPresentationController?.sourceView = sender as UIView
         self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    /******************************************************************************************
+    *
+    ******************************************************************************************/
+    func doneEditing()
+    {
+        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.editMode = false
+        navBarTitle.leftBarButtonItem = nil
+        if(!appDelegate.editMode)
+        {
+            if previousPage != ""
+            {
+                let backButton = Util().createNavBarBackButton(self, string: previousPage)
+                let back = UIBarButtonItem(customView: backButton)
+                navBarTitle.leftBarButtonItem = back
+                configureEntireView(myCollectionView, pageLink: link, title: "Home", navBarButtons: [backButton])
+            }
+            else
+            {
+                configureEntireView(myCollectionView, pageLink: link, title: "Home", navBarButtons: [])
+            }
+        }
+
     }
     
     /******************************************************************************************
@@ -182,24 +209,28 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         }
     }
     
+    
     /******************************************************************************************
     *
     ******************************************************************************************/
     override func viewWillAppear(animated: Bool)
     {
-        if previousPage != ""
+        // check if currently in edit mode, if so we need to update the button
+        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if(!appDelegate.editMode)
         {
-            let backButton = Util().createNavBarBackButton(self, string: previousPage)
-            let back = UIBarButtonItem(customView: backButton)
-            navBarTitle.leftBarButtonItem = back
-            configureEntireView(myCollectionView, pageLink: link, title: "Home", navBarButtons: [backButton,menuButton])
+            if previousPage != ""
+            {
+                let backButton = Util().createNavBarBackButton(self, string: previousPage)
+                let back = UIBarButtonItem(customView: backButton)
+                navBarTitle.leftBarButtonItem = back
+                configureEntireView(myCollectionView, pageLink: link, title: "Home", navBarButtons: [backButton])
+            }
+            else
+            {
+                configureEntireView(myCollectionView, pageLink: link, title: "Home", navBarButtons: [])
+            }
         }
-        else
-        {
-            configureEntireView(myCollectionView, pageLink: link, title: "Home", navBarButtons: [menuButton])
-        }
-        menuButton.layer.borderColor = UIColor.whiteColor().CGColor
-        menuButton.layer.borderWidth = 4
         textBox.inputView = UIView()        // textBox is used to get input from bluetooth
         textBox.becomeFirstResponder()
         buttonCell.delegate = self
@@ -312,35 +343,39 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     override func viewDidLayoutSubviews()
     {
-        var cellMaxSide = 0
-        var rows:Float = 9999
-        var cols:Float = 9999
-        
-        do{
-            cols = floorf(Float(collectionview.bounds.width + 35)/(Float(cellMaxSide + 1) + 35))
-            rows = floorf(Float(collectionview.bounds.height + 35)/(Float(cellMaxSide + 1) + 35))
-            ++cellMaxSide
-        }while( Int(cols * rows) >= cellArray.count + 1)
-        
-        var dim = CGFloat(cellMaxSide)
-        size = cellMaxSide
-        
-        (self.collectionViewLayout as UICollectionViewFlowLayout).itemSize = CGSizeMake(dim, dim)
-        
-        rowSet.removeAllObjects()
-        colSet.removeAllObjects()
-        var currItem = 0
-        for (currItem = 0; currItem < cellArray.count; currItem++)
+        println("did layout")
+        if !currentlyDragging
         {
-            var cell = collectionview.cellForItemAtIndexPath(NSIndexPath(forItem: currItem, inSection: 0)) as ButtonCell
-            // set the proper frame size for the arrow link image. 8 is the margin distance for x and y
-            cell.pageLinkImageView.frame = CGRectMake(cell.frame.width - 8 - dim/5, 8, dim/5, dim/5)
+            var cellMaxSide = 0
+            var rows:Float = 9999
+            var cols:Float = 9999
             
-            rowSet.addObject(cell.frame.origin.y)
-            colSet.addObject(cell.frame.origin.x)
+            do{
+                cols = floorf(Float(collectionview.bounds.width + 35)/(Float(cellMaxSide + 1) + 35))
+                rows = floorf(Float(collectionview.bounds.height + 35)/(Float(cellMaxSide + 1) + 35))
+                ++cellMaxSide
+            }while( Int(cols * rows) >= cellArray.count + 1)
+            
+            var dim = CGFloat(cellMaxSide)
+            size = cellMaxSide
+            
+            (self.collectionViewLayout as UICollectionViewFlowLayout).itemSize = CGSizeMake(dim, dim)
+            
+            rowSet.removeAllObjects()
+            colSet.removeAllObjects()
+            var currItem = 0
+            for (currItem = 0; currItem < cellArray.count; currItem++)
+            {
+                var cell = collectionview.cellForItemAtIndexPath(NSIndexPath(forItem: currItem, inSection: 0)) as ButtonCell
+                // set the proper frame size for the arrow link image. 8 is the margin distance for x and y
+                cell.pageLinkImageView.frame = CGRectMake(cell.frame.width - 8 - dim/5, 8, dim/5, dim/5)
+                
+                rowSet.addObject(cell.frame.origin.y)
+                colSet.addObject(cell.frame.origin.x)
+            }
+            
+            scanner.setRowsAndCols(rowSet.count, cols: colSet.count) // Tell the scanner how many rows/cols
         }
-        
-        scanner.setRowsAndCols(rowSet.count, cols: colSet.count) // Tell the scanner how many rows/cols
     }
     
 
@@ -368,6 +403,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         selectedIndexPath = indexPath
     }
     
+
     /* *******************************************************************************************************
     *	Returns the number of items in each section of the collection view... We are only using one section.
     ******************************************************************************************************** */
@@ -462,7 +498,9 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ****************************************************************************************************** */
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, didBeginDraggingItemAtIndexPath indexPath: NSIndexPath!)
     {
+        println("drag")
         fromIndexPath = indexPath
+        currentlyDragging = true
     }
     
     /* ***********************************************************************************************************
@@ -471,6 +509,8 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     *********************************************************************************************************** */
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, didEndDraggingItemAtIndexPath toIndexPath: NSIndexPath!)
     {
+        println("done draging")
+        currentlyDragging = false
         if( fromIndexPath != toIndexPath)
         {
             reordered = true
@@ -523,7 +563,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         if segue.identifier == "toList"
         {
             let controller = segue.destinationViewController as ListViewController
-            
+            controller.previousPage = link
         }
         else if segue.identifier == "toCreate"
         {

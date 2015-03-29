@@ -22,11 +22,13 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
     @IBOutlet weak var pagePicker: UIPickerView!
     @IBOutlet weak var textDescription: UITextView!
     @IBOutlet var pictureButton: UIView!
+    @IBOutlet weak var createNewPageField: UITextField!
     @IBOutlet weak var errorField: UILabel!		// Where the error message is displayed
     @IBOutlet weak var buttonTitleField: UITextField!	// Textfield that holds the new button title
     var capturedImage: UIImage!
     @IBOutlet weak var buttonImage: UIImageView!
     @IBOutlet weak var pageLinkCell: UITableViewCell!
+    @IBOutlet weak var createPageCell: UITableViewCell!
     @IBOutlet weak var linkSegment: UISegmentedControl!
     var hidePageLinkCell = true
     var pages:[String] = []
@@ -217,12 +219,19 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
         return true;
     }
     
+    /******************************************************************************************
+    *   Gets called when the
+    ******************************************************************************************/
     @IBAction func linkSegmentChanged(sender: UISegmentedControl)
     {
         hidePageLinkCell = !hidePageLinkCell
         tableView.reloadData()
     }
     
+    /******************************************************************************************
+    *   This sets the height of the cells
+    *   hidePageCell: boolean that determines whether to show the create page/select page views
+    ******************************************************************************************/
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     {
         if indexPath == NSIndexPath(forRow: 3, inSection: 0)
@@ -233,6 +242,17 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
         {
             if hidePageLinkCell
             {
+                createPageCell.hidden = true
+            }
+            else
+            {
+                createPageCell.hidden = false
+            }
+        }
+        else if indexPath == NSIndexPath(forRow: 6, inSection: 0)
+        {
+            if hidePageLinkCell
+            {
                 pageLinkCell.hidden = true
                 return 214
             }
@@ -240,6 +260,29 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
             return 214
         }
         return 44
+    }
+    
+    
+    /******************************************************************************************
+    *   Gets called when the create new page button is pressed
+    *   Checks that the input isn't null, then create a new page and reload the page picker 
+    *   view to show the new page.
+    ******************************************************************************************/
+    @IBAction func createNewPageButtonPressed(sender: UIButton)
+    {
+        let newPage = createNewPageField.text
+        if newPage != "" || newPage != " "
+        {
+            let pageStr = newPage.stringByReplacingOccurrencesOfString(" ", withString: "")
+            CoreDataController().createInManagedObjectContextPage(pageStr)
+            let (success, pagesArray) = CoreDataController().getPages()
+            if success
+            {
+                pages = pagesArray!
+            }
+            pagePicker.reloadAllComponents()
+            createNewPageField.text = ""
+        }
     }
     
     

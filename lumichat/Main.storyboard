@@ -115,7 +115,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tZY-z4-y4n">
+                                                <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="tZY-z4-y4n">
                                                     <rect key="frame" x="123" y="11" width="337" height="31"/>
                                                     <connections>
                                                         <action selector="scanRateSliderChanged:" destination="SW8-Mk-ZzF" eventType="valueChanged" id="fLM-DB-3ds"/>
@@ -627,6 +627,47 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="7cZ-Sd-48M">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7cZ-Sd-48M" id="bhj-9Z-zUV">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new page:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbH-0q-GAX">
+                                                    <rect key="frame" x="8" y="11" width="135.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4hZ-BB-bTt">
+                                                    <rect key="frame" x="196" y="7" width="330" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="M6P-Lk-czE" id="yqn-z8-MWq"/>
+                                                    </connections>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyo-fi-Zjj">
+                                                    <rect key="frame" x="534" y="8" width="58" height="30"/>
+                                                    <state key="normal" title="Create">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="createNewPageButtonPressed:" destination="M6P-Lk-czE" eventType="touchUpInside" id="dcf-nS-bYk"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="GbH-0q-GAX" firstAttribute="top" secondItem="bhj-9Z-zUV" secondAttribute="topMargin" constant="3" id="3Em-WK-TvD"/>
+                                                <constraint firstItem="GbH-0q-GAX" firstAttribute="leading" secondItem="bhj-9Z-zUV" secondAttribute="leadingMargin" id="AUQ-Sa-xHf"/>
+                                                <constraint firstItem="eyo-fi-Zjj" firstAttribute="leading" secondItem="4hZ-BB-bTt" secondAttribute="trailing" constant="8" id="aYB-LJ-swe"/>
+                                                <constraint firstItem="eyo-fi-Zjj" firstAttribute="trailing" secondItem="bhj-9Z-zUV" secondAttribute="trailingMargin" id="kXz-KM-THm"/>
+                                                <constraint firstItem="eyo-fi-Zjj" firstAttribute="top" secondItem="bhj-9Z-zUV" secondAttribute="topMargin" id="m1M-Rq-GZh"/>
+                                                <constraint firstItem="4hZ-BB-bTt" firstAttribute="leading" secondItem="GbH-0q-GAX" secondAttribute="trailing" constant="52.5" id="ooo-Hd-wIa"/>
+                                                <constraint firstItem="4hZ-BB-bTt" firstAttribute="top" secondItem="bhj-9Z-zUV" secondAttribute="topMargin" constant="-1" id="qHL-UW-EIs"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="196" id="rE1-0h-B5y">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -702,6 +743,8 @@
                     <connections>
                         <outlet property="buttonImage" destination="0Tt-A2-ajc" id="QSb-Jh-8Os"/>
                         <outlet property="buttonTitleField" destination="gtf-q3-qIj" id="Y5N-6H-ZMm"/>
+                        <outlet property="createNewPageField" destination="4hZ-BB-bTt" id="ioi-51-Ir3"/>
+                        <outlet property="createPageCell" destination="7cZ-Sd-48M" id="Zpc-bt-Qdv"/>
                         <outlet property="errorField" destination="0mP-vO-kVA" id="tof-XU-Kco"/>
                         <outlet property="linkSegment" destination="wNl-Zh-4bW" id="x5O-Qa-yeD"/>
                         <outlet property="pageLinkCell" destination="rE1-0h-B5y" id="yR5-ZH-5XF"/>
@@ -1084,6 +1127,47 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Qip-ff-5EL">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qip-ff-5EL" id="bgj-7z-LAi">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new page:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfn-Hm-fMd">
+                                                    <rect key="frame" x="8" y="11" width="135.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qMI-of-fwK">
+                                                    <rect key="frame" x="196" y="7" width="330" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="AOf-0C-9CM" id="IjL-0S-gFW"/>
+                                                    </connections>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R2w-Ek-ykO">
+                                                    <rect key="frame" x="534" y="8" width="58" height="30"/>
+                                                    <state key="normal" title="Create">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="createNewPageButtonPressed:" destination="AOf-0C-9CM" eventType="touchUpInside" id="3pr-Qi-k94"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="R2w-Ek-ykO" firstAttribute="trailing" secondItem="bgj-7z-LAi" secondAttribute="trailingMargin" id="7R5-e3-fli"/>
+                                                <constraint firstItem="qMI-of-fwK" firstAttribute="leading" secondItem="nfn-Hm-fMd" secondAttribute="trailing" constant="52.5" id="FQh-8f-fKg"/>
+                                                <constraint firstItem="nfn-Hm-fMd" firstAttribute="leading" secondItem="bgj-7z-LAi" secondAttribute="leadingMargin" id="FrE-W4-Wi3"/>
+                                                <constraint firstItem="R2w-Ek-ykO" firstAttribute="leading" secondItem="qMI-of-fwK" secondAttribute="trailing" constant="8" id="QCe-Bs-D7W"/>
+                                                <constraint firstItem="R2w-Ek-ykO" firstAttribute="top" secondItem="bgj-7z-LAi" secondAttribute="topMargin" id="Yso-es-JOY"/>
+                                                <constraint firstItem="qMI-of-fwK" firstAttribute="top" secondItem="bgj-7z-LAi" secondAttribute="topMargin" constant="-1" id="cJL-Oq-I8u"/>
+                                                <constraint firstItem="nfn-Hm-fMd" firstAttribute="top" secondItem="bgj-7z-LAi" secondAttribute="topMargin" constant="3" id="cJh-nG-f9Z"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="196" id="gI2-VG-Lsq">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1182,6 +1266,8 @@
                     <connections>
                         <outlet property="buttonImage" destination="jqA-Gw-p02" id="83U-Qy-AgA"/>
                         <outlet property="buttonTitleField" destination="Ash-gX-1Yq" id="ZDd-GO-aav"/>
+                        <outlet property="createNewPageField" destination="qMI-of-fwK" id="2Ja-T0-s0Q"/>
+                        <outlet property="createPageCell" destination="Qip-ff-5EL" id="c3J-HL-v8h"/>
                         <outlet property="errorField" destination="ycy-SI-Yil" id="eZf-io-nQO"/>
                         <outlet property="linkSegment" destination="kPh-Hx-hTv" id="2C1-Tl-pUR"/>
                         <outlet property="pageLinkCell" destination="gI2-VG-Lsq" id="7cr-yO-5dF"/>
@@ -1199,6 +1285,6 @@
         <image name="ArrowOverlay" width="70" height="70"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vhJ-Au-lYb"/>
+        <segue reference="k86-P7-uKh"/>
     </inferredMetricsTieBreakers>
 </document>

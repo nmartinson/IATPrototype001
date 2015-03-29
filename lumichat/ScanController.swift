@@ -126,35 +126,25 @@ class ScanController: Scanner
     ************************************************************************************************** */
     @objc func serialScan()
     {
-        if( cellArray.count > 0)
+        clearAllButtonSelections()
+        navBarScanning = false
+        
+        if cellArray.count > 0
         {
-            var next = 0
-            var counter = 0
-            for item in cellArray
+            if index >= cellArray.count
             {
-                if( (item as ButtonCell).selected == true )
+                index = 0
+                if navBarButtons.count > 0
                 {
-                    (item as ButtonCell).selected = false
-                    (item as ButtonCell).layer.borderWidth = 0
-                    (item as ButtonCell).highlighted = false
-                    if counter + 1 == cellArray.count
-                    {
-                        next = 0
-                    }
-                    else
-                    {
-                        next = counter + 1
-                    }
+                    navBarScan()
+                    navBarScanning = true
                 }
-                counter++
             }
-            index = next  // set index to currently selected button to be used for playing audio
-
-            (cellArray[next] as ButtonCell).selected = true
-            (cellArray[next] as ButtonCell).highlighted = true
-            (cellArray[next] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
-            (cellArray[next] as ButtonCell).layer.borderWidth = buttonBorderWidth
-            (cellArray[next] as ButtonCell).layer.cornerRadius = 5
+            if !navBarScanning
+            {
+                highlightButton(index)
+                index++
+            }
         }
     }
     
@@ -168,11 +158,15 @@ class ScanController: Scanner
         clearAllButtonSelections()
         if !secondStageOfSelection
         {
-            if firstIndexInRow >= cellArray.count//rows - 1//currentRow > rows + cols
+            if firstIndexInRow >= cellArray.count
             {
                 firstIndexInRow = 0
-                navBarScan()
-                navBarScanning = true
+                // only if there is a back button on the bar should we call navScanning
+                if navBarButtons.count > 0
+                {
+                    navBarScan()
+                    navBarScanning = true
+                }
             }
 
             if !navBarScanning
@@ -182,11 +176,7 @@ class ScanController: Scanner
                     index = i + firstIndexInRow
                     if(index < cellArray.count)
                     {
-                        (cellArray[index] as ButtonCell).selected = true
-                        (cellArray[index] as ButtonCell).highlighted = true
-                        (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
-                        (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
-                        (cellArray[index] as ButtonCell).layer.cornerRadius = 5
+                        highlightButton(index)
                     }
                 }
                 firstIndexInRow += cols //+= cols
@@ -204,11 +194,7 @@ class ScanController: Scanner
             
             if(index < cellArray.count && index >= 0)
             {
-                (cellArray[index] as ButtonCell).selected = true
-                (cellArray[index] as ButtonCell).highlighted = true
-                (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
-                (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
-                (cellArray[index] as ButtonCell).layer.cornerRadius = 5
+                highlightButton(index)
             }
             elementScanningCounter++
         }
@@ -222,27 +208,32 @@ class ScanController: Scanner
     {
         // Clear the selection properties from all buttons
         clearAllButtonSelections()
+        navBarScanning = false
         
         if !secondStageOfSelection
         {
             if firstIndexInCol == cols
             {
                 firstIndexInCol = 0
-            }
-            
-            for(var i = 0; i < rows; i++)
-            {
-                index = firstIndexInCol + i * cols
-                if(index < cellArray.count)
+                if navBarButtons.count > 0
                 {
-                    (cellArray[index] as ButtonCell).selected = true
-                    (cellArray[index] as ButtonCell).highlighted = true
-                    (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
-                    (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
-                    (cellArray[index] as ButtonCell).layer.cornerRadius = 5
+                    navBarScan()
+                    navBarScanning = true
                 }
             }
-            firstIndexInCol += 1 //+= cols
+            
+            if !navBarScanning
+            {
+                for(var i = 0; i < rows; i++)
+                {
+                    index = firstIndexInCol + i * cols
+                    if(index < cellArray.count)
+                    {
+                        highlightButton(index)
+                    }
+                }
+                firstIndexInCol += 1 //+= cols
+            }
         }
         else // scan down column
         {
@@ -258,11 +249,7 @@ class ScanController: Scanner
             index = firstIndexInCol + cols * elementScanningCounter
             if(index < cellArray.count)
             {
-                (cellArray[index] as ButtonCell).selected = true
-                (cellArray[index] as ButtonCell).highlighted = true
-                (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
-                (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
-                (cellArray[index] as ButtonCell).layer.cornerRadius = 5
+                highlightButton(index)
             }
             
             elementScanningCounter++
@@ -270,7 +257,18 @@ class ScanController: Scanner
 
     }
     
-    
+    /********************************************************************************************************
+    *   Draws border order the specified button
+    *   index: The button position in the cellArray
+    ********************************************************************************************************/
+    func highlightButton(index: Int)
+    {
+        (cellArray[index] as ButtonCell).selected = true
+        (cellArray[index] as ButtonCell).highlighted = true
+        (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
+        (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
+        (cellArray[index] as ButtonCell).layer.cornerRadius = 5
+    }
     
     /********************************************************************************************************
     *   Deselects all the buttons
@@ -341,7 +339,14 @@ class ScanController: Scanner
             index = cellArray.count - 1
         }
         
-        if(scanMode == 0) // if serial scan, make selection
+        // if scanning nav bar, immediately make the selection
+        if(navBarScanning)
+        {
+            navBarButtons[0].sendActionsForControlEvents(.TouchUpInside)
+            setScanMode()
+            secondStageOfSelection = !secondStageOfSelection
+        }
+        else if(scanMode == 0) // if serial scan, make selection
         {
             if( (cellArray[index] as ButtonCell).buttonObject!.linkedPage! == "") //no link, play sound
             {
@@ -354,18 +359,6 @@ class ScanController: Scanner
             (cellArray[index] as ButtonCell).selected = false
             (cellArray[index] as ButtonCell).layer.borderWidth = 0
             setScanMode()   // this resets the timer to start scanning again
-        }
-        else if(navBarScanning)
-        {
-            if !secondStageOfSelection
-            {
-                timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("navBarScan"), userInfo: nil, repeats: true)
-            }
-            else
-            {
-                navBarButtons[index - 1].sendActionsForControlEvents(.TouchUpInside)
-                setScanMode()
-            }
         }
         else
         {

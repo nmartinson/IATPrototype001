@@ -20,6 +20,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var tapRec: UITapGestureRecognizer!
     private var currentScanner = "Table"
     var backButton:UIButton?
+    var previousPage = ""
     
     /******************************************************************************************
     *
@@ -27,13 +28,13 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad()
     {
         self.title = "Notes"
+        backButton = Util().createNavBarBackButton(self, string: previousPage)
+        let back = UIBarButtonItem(customView: backButton!)
+        navigationItem.leftBarButtonItem = back
+
         data = CoreDataController().getPhrases()
         bluetoothTextField.inputView = UIView()        // textBox is used to get input from bluetooth
         bluetoothTextField.becomeFirstResponder()
-        
-        backButton = Util().createNavBarBackButton(self, string: "Back")
-        let back = UIBarButtonItem(customView: backButton!)
-        navigationItem.leftBarButtonItem = back
     }
     
     override func viewWillAppear(animated: Bool)
@@ -108,7 +109,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func saveWasPressed()
     {
         saveButtonPressed(self)
-        
     }
     
     /******************************************************************************************
@@ -202,7 +202,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             phraseTextField.text = ""
             phraseTextField.placeholder = "Type a new phrase..."
             phraseTextField.resignFirstResponder()
-            tableScanner.removeAllItemsFromDataSource()
+            tableScanner.initialization([backButton!,phraseTextField]) // reiniitialize the scanner
             tableView.reloadData()
         }
         tableScanner.setScanMode()

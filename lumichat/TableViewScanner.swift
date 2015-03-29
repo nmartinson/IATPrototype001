@@ -40,15 +40,7 @@ class TableViewScanner: Scanner
     override func setScanMode()
     {
         timer.invalidate()
-//        switch scanMode
-//        {
-//        case 0:
-            timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("serialScan"), userInfo: nil, repeats: true)
-//        case 1:
-//            timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("blockScan"), userInfo: nil, repeats: true)
-//        default:
-//            println("Error")
-//        }
+        timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: Selector("serialScan"), userInfo: nil, repeats: true)
     }
     
     /******************************************************************************************
@@ -116,6 +108,7 @@ class TableViewScanner: Scanner
     ******************************************************************************************/
     func removeAllItemsFromDataSource()
     {
+        println(dataSource.count)
         let range = NSRange(location: 2, length: dataSource.count - 1)
         dataSource.removeObjectsInRange(range)
     }
