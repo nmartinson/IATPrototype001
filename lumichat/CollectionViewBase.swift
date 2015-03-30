@@ -128,6 +128,24 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     }
     
     /******************************************************************************************
+    *   Gets called when a user physically presses a button on the screen
+    ******************************************************************************************/
+    func manuallyPressedButton(performSegue: Bool, toPage: String)
+    {
+        if toPage == "Notes"
+        {
+            performSegueWithIdentifier("toList", sender: self)
+        }
+        else
+        {
+            let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
+            vc.link = toPage
+            vc.previousPage = link
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    /******************************************************************************************
     *
     ******************************************************************************************/
     func callBackFromModalSaving(data: ButtonModel)
@@ -270,7 +288,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     func setLayout()
     {
         layout = self.collectionview.collectionViewLayout as LXReorderableCollectionViewFlowLayout
-//        layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5)
+        layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5)
     }
     
     /******************************************************************************************
@@ -343,7 +361,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     override func viewDidLayoutSubviews()
     {
-        println("did layout")
+//        println("did layout")
         if !currentlyDragging
         {
             var cellMaxSide = 0
@@ -534,6 +552,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     *********************************************************************************************************** */
     func tapHandler(gesture: UITapGestureRecognizer)
     {
+        println("Tap")
         let nextPageLink = scanner.selectionMade(false)
 
         if nextPageLink != ""

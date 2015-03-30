@@ -14,6 +14,7 @@ import AVFoundation
 protocol ButtonCellControllerDelegate
 {
     func editButtonWasPressed(buttonTitle: String, didSucceed: Bool)
+    func manuallyPressedButton(performSegue: Bool, toPage: String)
 }
 
 class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
@@ -71,12 +72,33 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	}
 	
 	/* ************************************************************************************************
-	*	Gets called when the button is release.  Makes image opaque and calls the function to play the 
+	*	Gets called when the button is released.  Makes image opaque and calls the function to play the
 	*	audio clip.
 	************************************************************************************************ */
 	@IBAction func buttonPressRelease(sender: AnyObject)
     {
-		self.buttonImageView.alpha = 1
+        println("Button pressed")
+        self.buttonImageView.alpha = 1
+        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if(appDelegate.editMode)
+        {
+            delegate?.editButtonWasPressed(buttonLabel.text!, didSucceed: true)
+        }
+        else if buttonObject!.linkedPage! == ""
+        {
+            playMyFile(buttonLabel.text!)
+        }
+        else
+        {
+            delegate?.manuallyPressedButton(true, toPage: buttonObject!.linkedPage!)
+        }
+
+	}
+    
+    
+    @IBAction func buttonPressCalledViaCode(sender: AnyObject)
+    {
+        self.buttonImageView.alpha = 1
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if(appDelegate.editMode)
         {
@@ -86,7 +108,9 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
         {
             playMyFile(buttonLabel.text!)
         }
-	}
+    }
+    
+    
 	
 	/* ************************************************************************************************
 	*	Gets called when the press is cancel: when the press turns out to be for dragging the button or

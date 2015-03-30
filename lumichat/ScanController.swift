@@ -329,6 +329,7 @@ class ScanController: Scanner
     *********************************************************************************************************** */
     override func selectionMade(playAudio: Bool) -> String
     {
+        println("Selection made")
         var returnString = ""
         timer.invalidate()
         
@@ -350,7 +351,7 @@ class ScanController: Scanner
         {
             if( (cellArray[index] as ButtonCell).buttonObject!.linkedPage! == "") //no link, play sound
             {
-                (cellArray[index] as ButtonCell).buttonPressRelease(self)
+                (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
             }
             else
             {
@@ -366,7 +367,7 @@ class ScanController: Scanner
             {
                 if( (cellArray[index] as ButtonCell).buttonObject!.linkedPage! == "") //no link, play sound
                 {
-                    (cellArray[index] as ButtonCell).buttonPressRelease(self)
+                    (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
                 }
                 else
                 {
