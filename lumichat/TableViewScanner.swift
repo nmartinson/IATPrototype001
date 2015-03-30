@@ -133,6 +133,7 @@ class TableViewScanner: Scanner
         else
         {
             selectedObject = dataSource[previousCell] as UITableViewCell
+            Util().speak( (selectedObject as UITableViewCell).textLabel!.text! )
             setScanMode() // restart time
         }
 

@@ -349,14 +349,8 @@ class ScanController: Scanner
         }
         else if(scanMode == 0) // if serial scan, make selection
         {
-            if( (cellArray[index] as ButtonCell).buttonObject!.linkedPage! == "") //no link, play sound
-            {
-                (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
-            }
-            else
-            {
-                returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
-            }
+            (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
+            returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
             (cellArray[index] as ButtonCell).selected = false
             (cellArray[index] as ButtonCell).layer.borderWidth = 0
             setScanMode()   // this resets the timer to start scanning again
@@ -365,14 +359,8 @@ class ScanController: Scanner
         {
             if( secondStageOfSelection)
             {
-                if( (cellArray[index] as ButtonCell).buttonObject!.linkedPage! == "") //no link, play sound
-                {
-                    (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
-                }
-                else
-                {
-                    returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
-                }
+                (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
+                returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
                 (cellArray[index] as ButtonCell).selected = false
                 (cellArray[index] as ButtonCell).layer.borderWidth = 0
             }

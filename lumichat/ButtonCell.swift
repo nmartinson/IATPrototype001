@@ -86,10 +86,12 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
         }
         else if buttonObject!.linkedPage! == ""
         {
-            playMyFile(buttonLabel.text!)
+            playMyFile()
         }
         else
         {
+            playMyFile()
+            // tell the collectionview class that the button was pressed physically
             delegate?.manuallyPressedButton(true, toPage: buttonObject!.linkedPage!)
         }
 
@@ -106,7 +108,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
         }
         else
         {
-            playMyFile(buttonLabel.text!)
+            playMyFile()
         }
     }
     
@@ -126,20 +128,22 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
 	*	Current the audio is attached to the button name and thats how it finds the file, eventually
 	*	it will be TTS or a user recorded file that will have a spefic name.
 	************************************************************************************************ */
-	func playMyFile(title: String)
+	func playMyFile()
 	{
         var utterance:AVSpeechUtterance!
         if( buttonObject!.longDescription != "")
         {
-            utterance = AVSpeechUtterance(string: buttonObject!.longDescription)
+            Util().speak(buttonObject!.longDescription)
+//            utterance = AVSpeechUtterance(string: buttonObject!.longDescription)
         }
         else
         {
-            utterance = AVSpeechUtterance(string: buttonLabel.text)
+            Util().speak(buttonLabel.text!)
+//            utterance = AVSpeechUtterance(string: buttonLabel.text)
         }
         
-		utterance.rate = AVSpeechUtteranceMinimumSpeechRate
-		voice.speakUtterance(utterance)
+//		utterance.rate = AVSpeechUtteranceMinimumSpeechRate
+//		voice.speakUtterance(utterance)
 //		var formattedTitle = title.stringByReplacingOccurrencesOfString(" ", withString: "_")
 //		let path = NSBundle.mainBundle().pathForResource("\(formattedTitle)", ofType:"wav")
 //		let fileURL = NSURL(fileURLWithPath: path!)

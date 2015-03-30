@@ -8,12 +8,21 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class Util: NSObject {
 
     let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
     let fileManager = NSFileManager()
+    let voice = AVSpeechSynthesizer()
     
+    
+    func speak(text: String)
+    {
+        var utterance = AVSpeechUtterance(string: text)
+        utterance.rate = AVSpeechUtteranceMinimumSpeechRate
+        voice.speakUtterance(utterance)
+    }
     
     /* ************************************************************************************************
     *

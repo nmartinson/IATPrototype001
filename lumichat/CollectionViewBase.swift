@@ -140,6 +140,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         {
             let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
             vc.link = toPage
+            
             vc.previousPage = link
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -563,7 +564,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             }
             else
             {
-                scanner.selectionMade(false)
+                scanner.selectionMade(true)
                 let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
                 vc.link = nextPageLink
                 vc.previousPage = link
@@ -620,7 +621,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
                 }
                 else
                 {
-                    scanner.selectionMade(false)
+                    scanner.selectionMade(true)
                     let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
                     vc.link = nextPageLink
                     vc.previousPage = link
