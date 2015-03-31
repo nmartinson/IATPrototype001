@@ -114,6 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // set default scan rate and border width
             NSUserDefaults.standardUserDefaults().setInteger(3, forKey: "buttonBorderWidth")
             NSUserDefaults.standardUserDefaults().setFloat(0.5, forKey: "scanRate")
+            NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "numberOfSwitches")
 
             coreDataObject.createInManagedObjectContextPage("Home")
             coreDataObject.createInManagedObjectContextPage("BodyParts")

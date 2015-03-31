@@ -20,6 +20,8 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     @IBOutlet weak var borderWidthSlider: UISlider!
     @IBOutlet weak var colorPicker: UIPickerView!
     @IBOutlet weak var exportDatabaseButton: UIButton!
+    @IBOutlet weak var numberOfSwitchesSegment: UISegmentedControl!
+    var defaults = NSUserDefaults.standardUserDefaults()
     var colorNames = [ "Black", "Blue", "Red", "Yellow", "Orange", "Green"]	// Displayed in the color picker
 
     
@@ -31,38 +33,29 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        		var defaults = NSUserDefaults.standardUserDefaults()
         
-          		var scanValue: AnyObject! = defaults.objectForKey("scanRate")
-        		if(scanValue != nil)
-        		{
-        			self.scanRateValue.text = "\(scanValue.stringValue) seconds"
-        			self.scanRateSlider.value = scanValue.floatValue
-        		}
-        		var style = defaults.integerForKey("buttonStyle")
-        			self.styleSegment.selectedSegmentIndex = style
-        		var borderColor = defaults.integerForKey("buttonBorderColor")
-        			self.colorPicker.selectRow(borderColor, inComponent: 0, animated: true)
-        		var borderWidth = defaults.integerForKey("buttonBorderWidth")
-        			self.borderWidthSlider.value = Float(borderWidth)
-        			self.borderWidthLabel.text = "\(borderWidth) pixels"
+        let scanValue: AnyObject! = defaults.objectForKey("scanRate")
+        if(scanValue != nil)
+        {
+            self.scanRateValue.text = "\(scanValue.stringValue) seconds"
+            self.scanRateSlider.value = scanValue.floatValue
+        }
+
+        let style = defaults.integerForKey("buttonStyle")
+        self.styleSegment.selectedSegmentIndex = style
+
+        let borderColor = defaults.integerForKey("buttonBorderColor")
+        self.colorPicker.selectRow(borderColor, inComponent: 0, animated: true)
+
+        let borderWidth = defaults.integerForKey("buttonBorderWidth")
+        self.borderWidthSlider.value = Float(borderWidth)
+        self.borderWidthLabel.text = "\(borderWidth) pixels"
+
+        let scanMode = defaults.integerForKey("scanMode")
+        self.scanModeSegment.selectedSegmentIndex = scanMode
         
-        		var scanMode = defaults.integerForKey("scanMode")
-        			self.scanModeSegment.selectedSegmentIndex = scanMode
-        
-        
-//        		var image = UIImage(named: "buttonTest.jpg")
-//        		self.imagePreview = UIImageView()
-//        
-//                self.imagePreview.frame = CGRectMake(300, 700, 150,150)
-//        		self.imagePreview.image = image
-//        		self.view.addSubview(imagePreview)
-        
-        
-        //		imagePreview.frame.size =
-//        		imagePreview.layer.borderColor = Constants.getColor(borderColor)
-//        		imagePreview.layer.borderWidth = CGFloat(borderWidth)
-        
+        let numberOfSwitches = defaults.integerForKey("numberOfSwitches")
+        self.numberOfSwitchesSegment.selectedSegmentIndex = numberOfSwitches
     }
     
     
@@ -119,7 +112,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     @IBAction func styleModeChanged(sender: AnyObject)
     {
         var index = styleSegment.selectedSegmentIndex
-        var defaults = NSUserDefaults.standardUserDefaults()
         defaults.setInteger(index, forKey: "buttonStyle")
     }
     
@@ -133,7 +125,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
         self.scanRateValue.text = "\(value) seconds"
         
         // store slider value in the defaults list
-        var defaults = NSUserDefaults.standardUserDefaults()
         defaults.setFloat(value.floatValue, forKey: "scanRate")
     }
     
@@ -145,7 +136,7 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     {
         var value: Int = Int(borderWidthSlider.value)
         self.borderWidthLabel.text = "\(value) pixels"
-        NSUserDefaults.standardUserDefaults().setInteger(value, forKey: "buttonBorderWidth")
+        defaults.setInteger(value, forKey: "buttonBorderWidth")
 //        imagePreview.layer.borderWidth = CGFloat(value)
     }
     
@@ -156,7 +147,6 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
     @IBAction func scanModeChanged(sender: AnyObject)
     {
         var index = scanModeSegment.selectedSegmentIndex
-        var defaults = NSUserDefaults.standardUserDefaults()
         defaults.setInteger(index, forKey: "scanMode")
     }
     
@@ -196,4 +186,11 @@ class SettingsTableViewController: UITableViewController, MFMailComposeViewContr
 //        NSUserDefaults.standardUserDefaults().setInteger( row, forKey: "buttonBorderColor")
 //        imagePreview.layer.borderColor = Constants.getColor(row)
     }
+    
+    @IBAction func numberOfSwitchesChanged(sender: UISegmentedControl)
+    {
+        let index = sender.selectedSegmentIndex
+        defaults.setInteger(index, forKey: "numberOfSwitches")
+    }
+    
 }

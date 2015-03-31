@@ -76,11 +76,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         {
             if currentScanner == "Table"
             {
-                tableScanner.selectionMade(false)
+                tableScanner.selectionMade(false, inputKey: nil)
             }
             else
             {
-                keyboardScanner.selectionMade(false)
+                keyboardScanner.selectionMade(false, inputKey: nil)
             }
 //            if( tableScanner.secondStageOfSelection == false)
 //            {
@@ -223,7 +223,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************** */
     func tapHandler(gesture: UITapGestureRecognizer)
     {
-        keyboardScanner.selectionMade(true)
+        keyboardScanner.selectionMade(true, inputKey: nil)
 //        bluetoothTextField.becomeFirstResponder()
     }
     

@@ -98,6 +98,46 @@
                         <sections>
                             <tableViewSection headerTitle="Settings" id="lP4-pV-hyx">
                                 <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="PHW-PU-m50">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PHW-PU-m50" id="Ql3-b7-wLZ">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Single or dual switch:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xux-dN-Uc6">
+                                                    <rect key="frame" x="8" y="11" width="165" height="20.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="165" id="Zpn-Nf-Gyz"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4vX-tL-ZuT">
+                                                    <rect key="frame" x="487" y="8" width="105" height="29"/>
+                                                    <segments>
+                                                        <segment title="Single"/>
+                                                        <segment title="Dual"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="numberOfSwitchesChanged:" destination="SW8-Mk-ZzF" eventType="valueChanged" id="rZH-lv-mb6"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="4vX-tL-ZuT" firstAttribute="trailing" secondItem="Ql3-b7-wLZ" secondAttribute="trailingMargin" id="BDC-0O-d5S"/>
+                                                <constraint firstItem="xux-dN-Uc6" firstAttribute="top" secondItem="Ql3-b7-wLZ" secondAttribute="topMargin" constant="3" id="If7-CH-56s"/>
+                                                <constraint firstAttribute="centerY" secondItem="xux-dN-Uc6" secondAttribute="centerY" constant="0.5" id="TOd-tf-Aou"/>
+                                                <constraint firstItem="xux-dN-Uc6" firstAttribute="leading" secondItem="Ql3-b7-wLZ" secondAttribute="leadingMargin" id="e6r-bZ-TMh"/>
+                                                <constraint firstAttribute="centerY" secondItem="4vX-tL-ZuT" secondAttribute="centerY" id="qmb-vD-Ysc"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="If7-CH-56s"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="d9k-CX-IQh">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d9k-CX-IQh" id="jVg-Eg-AKs">
@@ -316,6 +356,7 @@
                         <outlet property="borderWidthSlider" destination="uE8-yN-PeI" id="cM9-58-jRD"/>
                         <outlet property="colorPicker" destination="ZGo-fW-kZM" id="E0n-qI-d09"/>
                         <outlet property="exportDatabaseButton" destination="phZ-iz-coR" id="VRM-pb-Hie"/>
+                        <outlet property="numberOfSwitchesSegment" destination="4vX-tL-ZuT" id="8Ne-NX-LR5"/>
                         <outlet property="scanModeSegment" destination="fo8-sY-ILs" id="Ybe-pA-AGd"/>
                         <outlet property="scanRateSlider" destination="tZY-z4-y4n" id="Vj4-Hq-ikd"/>
                         <outlet property="scanRateValue" destination="AGi-Oo-co6" id="rFQ-Oa-tfw"/>

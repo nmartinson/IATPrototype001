@@ -116,7 +116,7 @@ class TableViewScanner: Scanner
     /******************************************************************************************
     *
     ******************************************************************************************/
-    override func selectionMade(playAudio: Bool) -> String
+    override func selectionMade(playAudio: Bool, inputKey: String?) -> String
     {
         timer.invalidate()
         var selectedObject:AnyObject?

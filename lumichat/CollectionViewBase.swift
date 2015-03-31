@@ -554,7 +554,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     func tapHandler(gesture: UITapGestureRecognizer)
     {
         println("Tap")
-        let nextPageLink = scanner.selectionMade(false)
+        let nextPageLink = scanner.selectionMade(false, inputKey: nil)
 
         if nextPageLink != ""
         {
@@ -564,7 +564,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             }
             else
             {
-                scanner.selectionMade(true)
+                scanner.selectionMade(true, inputKey:  nil)
                 let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
                 vc.link = nextPageLink
                 vc.previousPage = link
@@ -609,29 +609,59 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
     {
-        if( string == " ")
+        let switchMode = NSUserDefaults.standardUserDefaults().integerForKey("numberOfSwitches")
+        
+        if switchMode == SWITCHMODE.SINGLE.rawValue
         {
-            let nextPageLink = scanner.selectionMade(false)
-            
-            if nextPageLink != ""
+            if( string == " ")
             {
-                if nextPageLink == "Notes"
+                let nextPageLink = scanner.selectionMade(false, inputKey: nil)
+                
+                if nextPageLink != ""
                 {
-                    performSegueWithIdentifier("toList", sender: self)
-                }
-                else
-                {
-                    scanner.selectionMade(true)
-                    let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
-                    vc.link = nextPageLink
-                    vc.previousPage = link
-                    navigationController?.pushViewController(vc, animated: true)
+                    if nextPageLink == "Notes"
+                    {
+                        performSegueWithIdentifier("toList", sender: self)
+                    }
+                    else
+                    {
+                        scanner.selectionMade(true, inputKey: nil)
+                        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
+                        vc.link = nextPageLink
+                        vc.previousPage = link
+                        navigationController?.pushViewController(vc, animated: true)
+                    }
                 }
             }
         }
-        else if( string == "\n")
+        else if( switchMode == SWITCHMODE.DOUBLE.rawValue)
         {
-            println("new line")
+            if( string == " ")
+            {
+                let nextPageLink = scanner.selectionMade(false, inputKey: "space")
+
+            }
+            else if string == "\n"
+            {
+                let nextPageLink = scanner.selectionMade(false, inputKey: "enter")
+
+                if nextPageLink != ""
+                {
+                    if nextPageLink == "Notes"
+                    {
+                        performSegueWithIdentifier("toList", sender: self)
+                    }
+                    else
+                    {
+                        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
+                        vc.link = nextPageLink
+                        vc.previousPage = link
+                        navigationController?.pushViewController(vc, animated: true)
+                    }
+                }
+            }
+
+            
         }
         
         return false

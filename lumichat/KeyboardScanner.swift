@@ -179,7 +179,7 @@ class KeyboardScanner: Scanner
     *   plays the audio. If a different scan mode, it checks if it was the first tap or second tap. First tap changes
     *   scan mode, second selection, makes the selection.
     *********************************************************************************************************** */
-    override func selectionMade(playAudio: Bool) -> String
+    override func selectionMade(playAudio: Bool, inputKey: String?) -> String
     {
         timer.invalidate()
         if( secondStageOfSelection)

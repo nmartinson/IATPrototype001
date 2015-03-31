@@ -34,6 +34,7 @@ class ScanController: Scanner
     ******************************************************************************************/
     func reloadData(size: CGSize, numButtons: Int)
     {
+        switchmode = NSUserDefaults.standardUserDefaults().integerForKey("numberOfSwitches")
         initialization()
         cellArray.removeAllObjects()
         numberOfButtons = numButtons
@@ -52,6 +53,7 @@ class ScanController: Scanner
         firstIndexInRow = 0
         secondStageOfSelection = false
         elementScanningCounter = 0
+        navBarScanning = false
     }
 
     /******************************************************************************************
@@ -63,7 +65,14 @@ class ScanController: Scanner
         buttonStyle = defaults.integerForKey("buttonStyle")
         buttonSize = defaults.integerForKey("buttonSize")
         scanMode = defaults.integerForKey("scanMode")
-        setScanMode()
+        if switchmode == SWITCHMODE.SINGLE.rawValue
+        {
+            setScanMode()
+        }
+        else
+        {
+            
+        }
     }
 
     /******************************************************************************************
@@ -240,7 +249,6 @@ class ScanController: Scanner
             // calculate if the column is full
             // if #btns/col# < #totalrows then the column is not full
             let btnsInCol = Float(cellArray.count) / Float(firstIndexInCol + 1)
-            
             if elementScanningCounter == rows || (elementScanningCounter == rows - 1 && Int(btnsInCol) < rows)
             {
                 elementScanningCounter = 0
@@ -327,70 +335,159 @@ class ScanController: Scanner
     *   scan mode, second selection, makes the selection.
     *   Output: string that specifies which page to link to next. If string == "", don't link, play the sound
     *********************************************************************************************************** */
-    override func selectionMade(playAudio: Bool) -> String
+    override func selectionMade(playAudio: Bool, inputKey: String?) -> String
     {
-        println("Selection made")
         var returnString = ""
         timer.invalidate()
         
-        // Just make sure the index isn't out of bounds. There is an issue where it is too large when a double selection
-        // is made quickly in the last row if it isnt full
-        if index >= cellArray.count
+        switch(switchmode)
         {
-            index = cellArray.count - 1
-        }
-        
-        // if scanning nav bar, immediately make the selection
-        if(navBarScanning)
-        {
-            navBarButtons[0].sendActionsForControlEvents(.TouchUpInside)
-            setScanMode()
-            secondStageOfSelection = !secondStageOfSelection
-        }
-        else if(scanMode == 0) // if serial scan, make selection
-        {
-            (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
-            returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
-            (cellArray[index] as ButtonCell).selected = false
-            (cellArray[index] as ButtonCell).layer.borderWidth = 0
-            setScanMode()   // this resets the timer to start scanning again
-        }
-        else
-        {
-            if( secondStageOfSelection)
-            {
-                (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
-                returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
-                (cellArray[index] as ButtonCell).selected = false
-                (cellArray[index] as ButtonCell).layer.borderWidth = 0
-            }
-            secondStageOfSelection = !secondStageOfSelection
-            elementScanningCounter = 0	// set to 0 so it starts scanning with the left button
-            
-            if secondStageOfSelection
-            {
-                switch scanMode
+            case SWITCHMODE.SINGLE.rawValue:
+                // Just make sure the index isn't out of bounds. There is an issue where it is too large when a double selection
+                // is made quickly in the last row if it isnt full
+                if index >= cellArray.count
                 {
-                    case 0:
-                        scanMode = 0
-                    case 1:
-                        scanMode = 1
-                    case 2:
-                        firstIndexInRow = firstIndexInRow - cols
-                    case 3:
-                        firstIndexInCol = firstIndexInCol - 1
-                    default:
-                        println("Error")
+                    index = cellArray.count - 1
                 }
-            }
-            else
-            {
-                firstIndexInRow = 0
-                firstIndexInCol = 0
-            }
-            setScanMode()   // this resets the timer to start scanning again
+                // if scanning nav bar, immediately make the selection
+                if(navBarScanning)
+                {
+                    navBarButtons[0].sendActionsForControlEvents(.TouchUpInside)
+                    setScanMode()
+                    secondStageOfSelection = !secondStageOfSelection
+                }
+                else if(scanMode == 0) // if serial scan, make selection
+                {
+                    (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
+                    returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
+                    (cellArray[index] as ButtonCell).selected = false
+                    (cellArray[index] as ButtonCell).layer.borderWidth = 0
+                    setScanMode()  // this resets the timer to start scanning again
+                }
+                else
+                {
+                    if( secondStageOfSelection)
+                    {
+                        (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
+                        returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
+                        (cellArray[index] as ButtonCell).selected = false
+                        (cellArray[index] as ButtonCell).layer.borderWidth = 0
+                    }
+                    secondStageOfSelection = !secondStageOfSelection
+                    elementScanningCounter = 0	// set to 0 so it starts scanning with the left button
+                    
+                    if secondStageOfSelection
+                    {
+                        switch scanMode
+                        {
+                        case 0:
+                            scanMode = 0
+                        case 1:
+                            scanMode = 1
+                        case 2:
+                            firstIndexInRow = firstIndexInRow - cols
+                        case 3:
+                            firstIndexInCol = firstIndexInCol - 1
+                        default:
+                            println("Error")
+                        }
+                    }
+                    else
+                    {
+                        firstIndexInRow = 0
+                        firstIndexInCol = 0
+                    }
+
+                    setScanMode() // this resets the timer to start scanning again
+                }
+            case SWITCHMODE.DOUBLE.rawValue:
+                if(navBarScanning)
+                {
+                    if inputKey! == "enter" // secondStageOfSelection
+                    {
+                        navBarButtons[0].sendActionsForControlEvents(.TouchUpInside)
+                    }
+                    
+                }
+                else if(scanMode == 0) // if serial scan, make selection
+                {
+                    if inputKey! == "enter"
+                    {
+                        (cellArray[index - 1] as ButtonCell).buttonPressCalledViaCode(self)
+                        returnString = (cellArray[index - 1] as ButtonCell).buttonObject!.linkedPage!
+                        (cellArray[index - 1] as ButtonCell).selected = false
+                        (cellArray[index - 1] as ButtonCell).layer.borderWidth = 0
+                        initialization()
+                    }
+                    else
+                    {
+                        serialScan()
+                    }
+                }
+                else
+                {
+                    if inputKey! == "space"
+                    {
+                        callScanMethod()
+                    }
+                    else if inputKey! == "enter" && !secondStageOfSelection
+                    {
+                        secondStageOfSelection = !secondStageOfSelection
+                        switchScanMethod()//switch to different scan type
+                    }
+                    else if inputKey! == "enter" && secondStageOfSelection
+                    {
+                        (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
+                        returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
+                        (cellArray[index] as ButtonCell).selected = false
+                        (cellArray[index] as ButtonCell).layer.borderWidth = 0
+                        initialization()
+                    }
+                }
+            default:
+                println("Error")
         }
         
         return returnString
     }
+    
+    
+    func switchScanMethod()
+    {
+        switch scanMode
+        {
+        case 0:
+            serialScan()
+        case 1:
+            println("block")
+        case 2:
+            firstIndexInRow = firstIndexInRow - cols
+            rowScan()
+        case 3:
+            firstIndexInCol = firstIndexInCol - 1
+            columnScan()
+        default:
+            println("Error")
+        }
+    }
+    
+    func callScanMethod()
+    {
+        switch scanMode
+        {
+            case 0:
+                serialScan()
+            case 1:
+                println("block")
+            case 2:
+                rowScan()
+            case 3:
+                columnScan()
+            default:
+                println("Error")
+        }
+    }
+    
+    
+    
 }

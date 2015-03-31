@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum SWITCHMODE: Int{
+    case SINGLE = 0
+    case DOUBLE = 1
+}
+
 class Scanner
 {
     var navBarButtons:[UIButton] = [] // stores buttonsfor nav bar
@@ -19,9 +24,12 @@ class Scanner
     var buttonSize = 0
     var defaults = NSUserDefaults.standardUserDefaults()
     var secondStageOfSelection = false
+    var switchmode = 1
+    var scanModeString = "serialScan"
+    
 
 
-    func selectionMade(playAudio: Bool) -> String {return ""}
+    func selectionMade(playAudio: Bool,inputKey: String?) -> String {return ""}
     
     func setupNavBar(navButtons: [UIButton])
     {
