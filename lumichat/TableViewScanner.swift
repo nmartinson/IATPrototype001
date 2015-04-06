@@ -116,7 +116,6 @@ class TableViewScanner: Scanner
     ******************************************************************************************/
     func removeAllItemsFromDataSource()
     {
-        println(dataSource.count)
         let range = NSRange(location: 2, length: dataSource.count - 1)
         dataSource.removeObjectsInRange(range)
     }
@@ -165,7 +164,6 @@ class TableViewScanner: Scanner
                 }
                 else // if serial scan, make selection
                 {
-                    println("second stage \(inputKey)")
                     if inputKey! == "enter"
                     {
                         if previousCell == 1

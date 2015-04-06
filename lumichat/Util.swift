@@ -50,7 +50,7 @@ class Util: NSObject {
         backButton.setTitle(" < \(string)", forState: .Normal)
         backButton.addTarget(target, action: "handleBack", forControlEvents: .TouchUpInside)
         backButton.layer.borderWidth = 3
-        backButton.layer.borderColor = UIColor.whiteColor().CGColor
+        backButton.layer.borderColor = UIColor.blackColor().CGColor
         backButton.contentHorizontalAlignment = .Left
 
         return backButton

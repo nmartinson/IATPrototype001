@@ -163,7 +163,6 @@ class ScanController: Scanner
     @objc func rowScan()
     {
         navBarScanning = false
-
         clearAllButtonSelections()
         if !secondStageOfSelection
         {
@@ -401,12 +400,16 @@ class ScanController: Scanner
                     setScanMode() // this resets the timer to start scanning again
                 }
             case SWITCHMODE.DOUBLE.rawValue:
-                println("scan")
                 if(navBarScanning)
                 {
                     if inputKey! == "enter" // secondStageOfSelection
                     {
                         navBarButtons[0].sendActionsForControlEvents(.TouchUpInside)
+                    }
+                    else if inputKey! == "space"    // get out of navbar
+                    {
+                        navBarScanning = false
+                        callScanMethod()
                     }
                     
                 }
