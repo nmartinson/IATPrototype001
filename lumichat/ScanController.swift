@@ -338,7 +338,6 @@ class ScanController: Scanner
     {
         var returnString = ""
         timer.invalidate()
-        
         switch(switchmode)
         {
             case SWITCHMODE.SINGLE.rawValue:

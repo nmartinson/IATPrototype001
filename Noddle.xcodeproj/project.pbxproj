@@ -361,9 +361,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2BBCFDE31A052C1E00AE8BA6 /* lumichat */ = {
+		2BBCFDE31A052C1E00AE8BA6 /* Noddle Talk */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2BBCFE071A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "lumichat" */;
+			buildConfigurationList = 2BBCFE071A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "Noddle Talk" */;
 			buildPhases = (
 				2BBCFDE01A052C1E00AE8BA6 /* Sources */,
 				2BBCFDE11A052C1E00AE8BA6 /* Frameworks */,
@@ -373,14 +373,14 @@
 			);
 			dependencies = (
 			);
-			name = lumichat;
+			name = "Noddle Talk";
 			productName = lumichat;
 			productReference = 2BBCFDE41A052C1E00AE8BA6 /* lumichat.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2BBCFDFC1A052C1E00AE8BA6 /* lumichatTests */ = {
+		2BBCFDFC1A052C1E00AE8BA6 /* NoddleTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2BBCFE0A1A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "lumichatTests" */;
+			buildConfigurationList = 2BBCFE0A1A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "NoddleTests" */;
 			buildPhases = (
 				2BBCFDF91A052C1E00AE8BA6 /* Sources */,
 				2BBCFDFA1A052C1E00AE8BA6 /* Frameworks */,
@@ -391,7 +391,7 @@
 			dependencies = (
 				2BBCFDFF1A052C1E00AE8BA6 /* PBXTargetDependency */,
 			);
-			name = lumichatTests;
+			name = NoddleTests;
 			productName = lumichatTests;
 			productReference = 2BBCFDFD1A052C1E00AE8BA6 /* lumichatTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -415,7 +415,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2BBCFDDF1A052C1E00AE8BA6 /* Build configuration list for PBXProject "lumichat" */;
+			buildConfigurationList = 2BBCFDDF1A052C1E00AE8BA6 /* Build configuration list for PBXProject "Noddle" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -428,8 +428,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2BBCFDE31A052C1E00AE8BA6 /* lumichat */,
-				2BBCFDFC1A052C1E00AE8BA6 /* lumichatTests */,
+				2BBCFDE31A052C1E00AE8BA6 /* Noddle Talk */,
+				2BBCFDFC1A052C1E00AE8BA6 /* NoddleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -518,7 +518,7 @@
 /* Begin PBXTargetDependency section */
 		2BBCFDFF1A052C1E00AE8BA6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2BBCFDE31A052C1E00AE8BA6 /* lumichat */;
+			target = 2BBCFDE31A052C1E00AE8BA6 /* Noddle Talk */;
 			targetProxy = 2BBCFDFE1A052C1E00AE8BA6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -687,7 +687,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2BBCFDDF1A052C1E00AE8BA6 /* Build configuration list for PBXProject "lumichat" */ = {
+		2BBCFDDF1A052C1E00AE8BA6 /* Build configuration list for PBXProject "Noddle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2BBCFE051A052C1E00AE8BA6 /* Debug */,
@@ -696,7 +696,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2BBCFE071A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "lumichat" */ = {
+		2BBCFE071A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "Noddle Talk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2BBCFE081A052C1E00AE8BA6 /* Debug */,
@@ -705,7 +705,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2BBCFE0A1A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "lumichatTests" */ = {
+		2BBCFE0A1A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "NoddleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2BBCFE0B1A052C1E00AE8BA6 /* Debug */,

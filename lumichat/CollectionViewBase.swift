@@ -42,6 +42,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     var navBar = ""	// stores the title for the navigation bar
     var timer = NSTimer()
     var buttonTitle = ""
+    private var foregroundNotification: NSObjectProtocol!
 
     
     /* ************************************************************************************************
@@ -232,12 +233,34 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         }
     }
     
+    deinit
+    {
+        println("Deinit")
+        NSNotificationCenter.defaultCenter().removeObserver(foregroundNotification)
+    }
     
     /******************************************************************************************
     *
     ******************************************************************************************/
     override func viewWillAppear(animated: Bool)
     {
+        // Sets up a notification that tells when this view is opened again after being in the background
+        foregroundNotification = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue())
+        {
+            [unowned self] notification in
+            self.textBox.resignFirstResponder() // deactivate the textfield
+            var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            if appDelegate.editMode
+            {
+                var cells = self.collectionview.visibleCells()
+                for(var i = 0; i < cells.count; i++)
+                {
+                    cells[i].addAnimation(self.startShakingButtons(), forKey: "shake")
+                }
+            }
+            self.textBox.becomeFirstResponder() // make the textfield active again
+        }
+        
         // check if currently in edit mode, if so we need to update the button
         var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if(!appDelegate.editMode)
@@ -254,6 +277,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
                 configureEntireView(myCollectionView, pageLink: link, title: "Home", navBarButtons: [])
             }
         }
+
         textBox.inputView = UIView()        // textBox is used to get input from bluetooth
         textBox.becomeFirstResponder()
         buttonCell.delegate = self
@@ -613,6 +637,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
     {
+        println("text change")
         let switchMode = NSUserDefaults.standardUserDefaults().integerForKey("numberOfSwitches")
         
         if switchMode == SWITCHMODE.SINGLE.rawValue
