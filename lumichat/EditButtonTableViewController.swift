@@ -21,6 +21,7 @@ class EditButtonTableViewController: ModifyButtonTableViewController
     {
         super.viewDidLoad()
         populateFields()
+        
     }
     
     

@@ -29,9 +29,17 @@ class TableViewScanner: Scanner
     ******************************************************************************************/
     func initialization(data: NSMutableArray)
     {
+        switchmode = NSUserDefaults.standardUserDefaults().integerForKey("numberOfSwitches")
         dataSource = data
         update()
-        setScanMode()
+        if switchmode == SWITCHMODE.SINGLE.rawValue
+        {
+            setScanMode()
+        }
+        else
+        {
+            
+        }
     }
     
     /******************************************************************************************
@@ -118,26 +126,69 @@ class TableViewScanner: Scanner
     ******************************************************************************************/
     override func selectionMade(playAudio: Bool, inputKey: String?) -> String
     {
-        timer.invalidate()
         var selectedObject:AnyObject?
-        if previousCell == 0
-        {
-            selectedObject = dataSource[0] as UIButton
-            selectedObject?.sendActionsForControlEvents(.TouchUpInside)
-        }
-        else if previousCell == 1
-        {
-            selectedObject = dataSource[1] as UITextField
-            selectedObject?.becomeFirstResponder()
-        }
-        else
-        {
-            selectedObject = dataSource[previousCell] as UITableViewCell
-            Util().speak( (selectedObject as UITableViewCell).textLabel!.text! )
-            setScanMode() // restart time
-        }
 
-        secondStageOfSelection = !secondStageOfSelection
+        switch(switchmode)
+        {
+            case SWITCHMODE.SINGLE.rawValue:
+                timer.invalidate()
+                if previousCell == 0
+                {
+                    selectedObject = dataSource[0] as UIButton
+                    selectedObject?.sendActionsForControlEvents(.TouchUpInside)
+                }
+                else if previousCell == 1
+                {
+                    selectedObject = dataSource[1] as UITextField
+                    selectedObject?.becomeFirstResponder()
+                }
+                else
+                {
+                    selectedObject = dataSource[previousCell] as UITableViewCell
+                    Util().speak( (selectedObject as UITableViewCell).textLabel!.text! )
+                    setScanMode() // restart time
+                }
+                secondStageOfSelection = !secondStageOfSelection
+                return ""
+            case SWITCHMODE.DOUBLE.rawValue:
+                if(previousCell == 0) // navBar button
+                {
+                    if inputKey! == "enter" // secondStageOfSelection
+                    {
+                        selectedObject = dataSource[0] as UIButton
+                        selectedObject?.sendActionsForControlEvents(.TouchUpInside)
+                    }
+                    else if inputKey! == "space"
+                    {
+                        serialScan()
+                    }
+                }
+                else // if serial scan, make selection
+                {
+                    println("second stage \(inputKey)")
+                    if inputKey! == "enter"
+                    {
+                        if previousCell == 1
+                        {
+                            selectedObject = dataSource[1] as UITextField
+                            selectedObject?.becomeFirstResponder()
+                        }
+                        else
+                        {
+                            selectedObject = dataSource[previousCell] as UITableViewCell
+                            Util().speak( (selectedObject as UITableViewCell).textLabel!.text! )
+                        }
+                    }
+                    else
+                    {
+                        serialScan()
+                    }
+                }
+
+            default:
+                println("error")
+        }
+        
         return ""
     }
     

@@ -190,6 +190,17 @@ class CoreDataController:NSObject //NSFetchedResultsController
         return phrase!
     }
     
+    
+    /******************************************************************************************
+    *   Deletes a phrase with the given text
+    ******************************************************************************************/
+    func deletePhraseWithTitle(text: String)
+    {
+        let phrase = getPhraseWithText(text)
+        managedObjectContext?.deleteObject(phrase)
+        saveContext()
+    }
+    
     /******************************************************************************************
     *
     ******************************************************************************************/

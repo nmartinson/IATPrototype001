@@ -72,32 +72,29 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
     {
+        
         if( string == " ")
         {
             if currentScanner == "Table"
             {
-                tableScanner.selectionMade(false, inputKey: nil)
+                tableScanner.selectionMade(false, inputKey: "space")
             }
             else
             {
                 keyboardScanner.selectionMade(false, inputKey: nil)
             }
-//            if( tableScanner.secondStageOfSelection == false)
-//            {
-//                let title = buttons[tableScanner.index].titleForState(.Normal)!
-//                if title == "Notes"
-//                {
-//                    performSegueWithIdentifier("toList", sender: self)
-//                }
-//                else
-//                {
-//                    performSegueWithIdentifier("showDetail", sender: self)
-//                }
-//            }
         }
         else if( string == "\n")
         {
-            println("new line")
+            println("enter")
+            if currentScanner == "Table"
+            {
+                tableScanner.selectionMade(false, inputKey: "enter")
+            }
+            else
+            {
+                keyboardScanner.selectionMade(false, inputKey: nil)
+            }
         }
         
         return false
@@ -155,8 +152,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
         let phrase = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text
         CoreDataController().incrementPressCountForPhrase(phrase!)
+        Util().speak( cell!.textLabel!.text! )
+
     }
     
     /******************************************************************************************
@@ -176,12 +176,29 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     /******************************************************************************************
-    *
+    *   Configure the edit and delete button for the tableviewcells
     ******************************************************************************************/
-    func textFieldShouldReturn(textField: UITextField!) -> Bool // called when 'return' key pressed. return NO to ignore.
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]?
     {
-        textField.resignFirstResponder()
-        return true;
+        var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
+            
+            tableView.editing = false
+            CoreDataController().deletePhraseWithTitle(self.data![indexPath.row] as String) // remove from database
+            self.data?.removeObjectAtIndex(indexPath.row) // remove from datasource
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic) // update view
+        }
+        
+        var editAction = UITableViewRowAction(style: .Default, title: "Edit") { (action, indexPath) -> Void in
+            tableView.editing = false
+        }
+        editAction.backgroundColor = UIColor.greenColor()
+        
+        return [deleteAction, editAction]
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    {
+        return true
     }
     
     /******************************************************************************************
@@ -205,7 +222,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             tableScanner.initialization([backButton!,phraseTextField]) // reiniitialize the scanner
             tableView.reloadData()
         }
-        tableScanner.setScanMode()
+//        tableScanner.setScanMode()
     }
 
     //configures the tap recoginizer

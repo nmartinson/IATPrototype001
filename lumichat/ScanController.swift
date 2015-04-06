@@ -401,6 +401,7 @@ class ScanController: Scanner
                     setScanMode() // this resets the timer to start scanning again
                 }
             case SWITCHMODE.DOUBLE.rawValue:
+                println("scan")
                 if(navBarScanning)
                 {
                     if inputKey! == "enter" // secondStageOfSelection
@@ -451,7 +452,9 @@ class ScanController: Scanner
         return returnString
     }
     
-    
+    /********************************************************************************************************
+    *
+    ********************************************************************************************************/
     func switchScanMethod()
     {
         switch scanMode
@@ -471,6 +474,9 @@ class ScanController: Scanner
         }
     }
     
+    /********************************************************************************************************
+    *
+    ********************************************************************************************************/
     func callScanMethod()
     {
         switch scanMode

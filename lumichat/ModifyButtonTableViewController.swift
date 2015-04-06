@@ -38,6 +38,7 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
         let (success, pagesArray) = CoreDataController().getPages()
         if success
         {
@@ -216,7 +217,7 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
     func textFieldShouldReturn(textField: UITextField!) -> Bool // called when 'return' key pressed. return NO to ignore.
     {
         textField.resignFirstResponder()
-        return true;
+        return true
     }
     
     /******************************************************************************************

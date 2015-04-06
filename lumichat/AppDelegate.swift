@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	{
         window?.backgroundColor = UIColor.whiteColor()
         var navigationAppearance = UINavigationBar.appearance()
-        navigationAppearance.tintColor = UIColor.whiteColor()
-        navigationAppearance.barTintColor = UIColor(red: 0, green: 0, blue: 250, alpha: 1) //UIColor(red: 85, green: 121, blue: 174, alpha: 1) noddle blue
-        navigationAppearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+//        navigationAppearance.tintColor = UIColor.blueColor() // set navbar text blue
+        navigationAppearance.barTintColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1) // set navbar white
+//        navigationAppearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blueColor()]
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
         
         let utilObject = Util()
         let coreDataObject = CoreDataController()

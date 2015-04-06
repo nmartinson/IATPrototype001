@@ -54,16 +54,19 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in }
         alertController.addAction((cancelAction))
         
+        // create settings button
         let settingsAction = UIAlertAction(title: "Settings", style: .Default)
         {
             action in
             self.performSegueWithIdentifier("settingsSegue", sender: self)
         }
+        //create create button
         let createAction = UIAlertAction(title: "Create button", style: .Default) { (action) -> Void in
             self.createButtonPressed()
         }
         alertController.addAction(createAction)
         
+        // create edit button
         let editAction = UIAlertAction(title: "Edit button", style: .Destructive) { (action) -> Void in
             var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
             appDelegate.editMode = !appDelegate.editMode
@@ -78,12 +81,13 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
                     cells[i].addAnimation(self.startShakingButtons(), forKey: "shake")
                 }
                 
-                self.navBarTitle.title = self.navBarTitle.title?.stringByAppendingString(" (Edit Mode)")
+//                self.navBarTitle.title = self.navBarTitle.title?.stringByAppendingString(" (Edit Mode)")
             }
             else
             {
-                self.navBarTitle.title = self.navBarTitle.title?.stringByReplacingOccurrencesOfString(" (Edit Mode)", withString: "")
-                self.collectionview.reloadData()
+//                self.navBarTitle.title = self.navBarTitle.title?.stringByReplacingOccurrencesOfString(" (Edit Mode)", withString: "")
+                self.doneEditing()
+//                self.collectionview.reloadData()
             }
         }
         alertController.addAction(editAction)
