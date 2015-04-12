@@ -10,7 +10,7 @@ import Foundation
 
 class Zipping
 {
-    let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
+    let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
 
     /* ************************************************************************************************
     // zips directory to file
@@ -37,7 +37,7 @@ class Zipping
     func getDirectory(path: String) -> [String]
     {
         var pathForZip = documentsPath.stringByAppendingPathComponent(path)
-        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pathForZip, error: nil) as [String]
+        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pathForZip, error: nil) as! [String]
         
         for(var i = 0; i < directoryContents.count; i++)
         {
@@ -57,7 +57,7 @@ class Zipping
     ************************************************************************************************ */
     func createDirectory(directory: String) -> String
     {
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         var path = documentDirectory.stringByAppendingPathComponent(directory) // append images to the directory string
         
         if(!NSFileManager.defaultManager().fileExistsAtPath(path))
@@ -78,8 +78,8 @@ class Zipping
     // example: getFilePath("daterbase.zip")
     func getFilePath(file: String) -> String
     {
-        var path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
-        let filePath:NSString = path.stringByAppendingString("/\(file)")
+        var path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
+        let filePath:String = path.stringByAppendingString("/\(file)")
         return filePath
     }
     

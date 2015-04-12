@@ -15,7 +15,7 @@ class CoreDataController:NSObject //NSFetchedResultsController
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.xxxx.ProjectName" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as NSURL
+        return urls[urls.count-1] as! NSURL
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -36,14 +36,14 @@ class CoreDataController:NSObject //NSFetchedResultsController
         var options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true, NSSQLitePragmasOption: ["journal_mode": "DELETE"]]
 
         
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options, error: &error) == nil {
+        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options as [NSObject : AnyObject], error: &error) == nil {
             coordinator = nil
             // Report any error we got.
             let dict = NSMutableDictionary()
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict as [NSObject : AnyObject])
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
@@ -235,7 +235,7 @@ class CoreDataController:NSObject //NSFetchedResultsController
     ******************************************************************************************/
     func createInManagedObjectContextTable(title: String, image: String, longDescription: String, table: String, index: Int, linkedPage: String)
     {
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Tables", inManagedObjectContext: self.managedObjectContext!) as Tables
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Tables", inManagedObjectContext: self.managedObjectContext!) as! Tables
         newItem.title = title
         newItem.image = image
         newItem.presses = 0
@@ -252,7 +252,7 @@ class CoreDataController:NSObject //NSFetchedResultsController
     ******************************************************************************************/
     func createInManagedObjectContextPage(title: String)
     {
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Pages", inManagedObjectContext: self.managedObjectContext!) as Pages
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Pages", inManagedObjectContext: self.managedObjectContext!) as! Pages
         newItem.title = title
         saveContext()
     }
@@ -262,7 +262,7 @@ class CoreDataController:NSObject //NSFetchedResultsController
     ******************************************************************************************/
     func createInManagedObjectContextPhrase(text: String)
     {
-        let newPhrase = NSEntityDescription.insertNewObjectForEntityForName("Phrases", inManagedObjectContext: self.managedObjectContext!) as Phrases
+        let newPhrase = NSEntityDescription.insertNewObjectForEntityForName("Phrases", inManagedObjectContext: self.managedObjectContext!) as! Phrases
         newPhrase.text = text
         newPhrase.presses = 0
         saveContext()

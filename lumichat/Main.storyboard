@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="h77-gn-o2c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="h77-gn-o2c">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -9,7 +9,7 @@
         <!--Open File View Controller-->
         <scene sceneID="Gx5-EI-Yks">
             <objects>
-                <viewController storyboardIdentifier="OpenFileController" modalPresentationStyle="pageSheet" id="ipC-mc-47b" customClass="OpenFileViewController" customModule="lumichat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OpenFileController" modalPresentationStyle="pageSheet" id="ipC-mc-47b" customClass="OpenFileViewController" customModule="Noddle_Talk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Dpt-XY-6de"/>
                         <viewControllerLayoutGuide type="bottom" id="Cod-QA-FJh"/>
@@ -90,7 +90,7 @@
         <!--Settings Table View Controller-->
         <scene sceneID="5EA-rL-wJp">
             <objects>
-                <tableViewController id="SW8-Mk-ZzF" customClass="SettingsTableViewController" customModule="lumichat" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="SW8-Mk-ZzF" customClass="SettingsTableViewController" customModule="Noddle_Talk" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TbT-xE-fhE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -105,7 +105,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Single or dual switch:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xux-dN-Uc6">
-                                                    <rect key="frame" x="8" y="11" width="165" height="20.5"/>
+                                                    <rect key="frame" x="8" y="11" width="165" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="165" id="Zpn-Nf-Gyz"/>
                                                     </constraints>
@@ -370,7 +370,7 @@
         <!--List View Controller-->
         <scene sceneID="WkD-da-McG">
             <objects>
-                <viewController id="NG0-Ez-sps" customClass="ListViewController" customModule="lumichat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="NG0-Ez-sps" customClass="ListViewController" customModule="Noddle_Talk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dxp-rP-zT1"/>
                         <viewControllerLayoutGuide type="bottom" id="Fa1-XR-CiQ"/>
@@ -478,7 +478,7 @@
         <!--Create Button Table View Controller-->
         <scene sceneID="hwf-fu-QQY">
             <objects>
-                <tableViewController id="M6P-Lk-czE" customClass="CreateButtonTableViewController" customModule="lumichat" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="M6P-Lk-czE" customClass="CreateButtonTableViewController" customModule="Noddle_Talk" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="izQ-Fz-u5k">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -675,7 +675,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new page:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbH-0q-GAX">
-                                                    <rect key="frame" x="8" y="11" width="135.5" height="20.5"/>
+                                                    <rect key="frame" x="8" y="11" width="136" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -716,7 +716,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link to which page?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gdy-Az-lPd">
-                                                    <rect key="frame" x="8" y="8" width="154.5" height="20.5"/>
+                                                    <rect key="frame" x="8" y="8" width="155" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -801,7 +801,7 @@
         <!--Collection View Base-->
         <scene sceneID="bPn-T2-Cyw">
             <objects>
-                <collectionViewController storyboardIdentifier="MainViewController" id="RLH-3r-Moz" customClass="CollectionViewBase" customModule="lumichat" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="MainViewController" id="RLH-3r-Moz" customClass="CollectionViewBase" customModule="Noddle_Talk" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" id="QcH-Ed-9AX">
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -813,7 +813,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="Cell" id="3uK-JG-fId" customClass="ButtonCell" customModule="lumichat" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="Cell" id="3uK-JG-fId" customClass="ButtonCell" customModule="Noddle_Talk" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -985,7 +985,7 @@
         <!--Edit Button Table View Controller-->
         <scene sceneID="lqY-NA-xNn">
             <objects>
-                <tableViewController id="AOf-0C-9CM" customClass="EditButtonTableViewController" customModule="lumichat" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="AOf-0C-9CM" customClass="EditButtonTableViewController" customModule="Noddle_Talk" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="AvF-Vg-0TM">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1176,7 +1176,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new page:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfn-Hm-fMd">
-                                                    <rect key="frame" x="8" y="11" width="135.5" height="20.5"/>
+                                                    <rect key="frame" x="8" y="11" width="136" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1217,7 +1217,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link to which page?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhO-n9-Kev">
-                                                    <rect key="frame" x="8" y="8" width="154.5" height="20.5"/>
+                                                    <rect key="frame" x="8" y="8" width="155" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>

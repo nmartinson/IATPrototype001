@@ -16,7 +16,7 @@ class OpenFileViewController: UIViewController
     @IBOutlet weak var mergeButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     var url:NSURL?
-    let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
+    let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
     let fileManager = NSFileManager()
     var db = DBController.sharedInstance
 
@@ -28,7 +28,7 @@ class OpenFileViewController: UIViewController
     override func viewDidLoad()
     {
         let inboxPath = documentsPath.stringByAppendingPathComponent("Inbox")
-        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(inboxPath, error: nil) as [String]
+        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(inboxPath, error: nil) as! [String]
         println("directory contents \(directoryContents)")
     }
     

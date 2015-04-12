@@ -12,7 +12,7 @@ import AVFoundation
 
 class Util: NSObject {
 
-    let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
+    let documentsPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
     let fileManager = NSFileManager()
     let voice = AVSpeechSynthesizer()
     
@@ -30,7 +30,7 @@ class Util: NSObject {
     func createDoneEditingButton(target: UIViewController) -> UIButton
     {
         // Create navbar buttons
-        let backButton = UIButton.buttonWithType(.System) as UIButton
+        let backButton = UIButton.buttonWithType(.System) as! UIButton
         backButton.frame = CGRectMake(0, 0, 100, 30)
         backButton.setTitle("Done Editing", forState: .Normal)
         backButton.addTarget(target, action: "doneEditing", forControlEvents: .TouchUpInside)
@@ -45,7 +45,7 @@ class Util: NSObject {
     func createNavBarBackButton(target: UIViewController, string: String) -> UIButton
     {
         // Create navbar buttons
-        let backButton = UIButton.buttonWithType(.System) as UIButton
+        let backButton = UIButton.buttonWithType(.System) as! UIButton
         backButton.frame = CGRectMake(0, 0, 100, 30)
         backButton.setTitle(" < \(string)", forState: .Normal)
         backButton.addTarget(target, action: "handleBack", forControlEvents: .TouchUpInside)
@@ -68,7 +68,7 @@ class Util: NSObject {
     /* ************************************************************************************************
     *
     ************************************************************************************************ */
-    class func copyFile(fileName: NSString)
+    class func copyFile(fileName: String)
     {
         var dbPath: String = getPath(fileName)
         var fileManager = NSFileManager.defaultManager()
@@ -87,7 +87,7 @@ class Util: NSObject {
     {
         var error:NSError?
         let unzippedPath = documentsPath.stringByAppendingPathComponent("unzippedData")
-        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(unzippedPath, error: nil) as [String]
+        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(unzippedPath, error: nil) as! [String]
         println(directoryContents)
         
         for(var i = 0; i < directoryContents.count; i++)
@@ -111,7 +111,7 @@ class Util: NSObject {
         if (image != nil)
         {
             
-            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
             var path = documentDirectory.stringByAppendingPathComponent("images/stock") // append images to the directory string
             
             if(!NSFileManager.defaultManager().fileExistsAtPath(path))
@@ -140,7 +140,7 @@ class Util: NSObject {
     ************************************************************************************************ */
     func createDirectory(directory: String) -> String
     {
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         
         var path = documentsPath.stringByAppendingPathComponent(directory) // append images to the directory string
         
@@ -164,7 +164,7 @@ class Util: NSObject {
     func getDirectory(path: String) -> [String]
     {
         var pathForZip = documentsPath.stringByAppendingPathComponent(path)
-        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pathForZip, error: nil) as [String]
+        var directoryContents:[String] = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pathForZip, error: nil) as! [String]
         
         for(var i = 0; i < directoryContents.count; i++)
         {

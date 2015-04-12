@@ -56,7 +56,7 @@ class EditButtonTableViewController: ModifyButtonTableViewController
     ************************************************************************************************ */
     func loadImage(title: String!) -> UIImage
     {
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         let imagePath = documentDirectory.stringByAppendingPathComponent(title)
         var image = UIImage(contentsOfFile: imagePath)
         

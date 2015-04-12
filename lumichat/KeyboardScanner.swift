@@ -81,9 +81,9 @@ class KeyboardScanner: Scanner
 
         for(var i = 0; i < row.count; i++)
         {
-            (row[i] as UIButton).highlighted = true
-            (row[i] as UIButton).layer.borderColor = Constants.getColor(buttonBorderColor)
-            (row[i] as UIButton).layer.borderWidth = 3
+            (row[i] as! UIButton).highlighted = true
+            (row[i] as! UIButton).layer.borderColor = Constants.getColor(buttonBorderColor)
+            (row[i] as! UIButton).layer.borderWidth = 3
         }
         
         if currentRow < 3
@@ -105,9 +105,9 @@ class KeyboardScanner: Scanner
         clearAllButtonSelections()
         let row = getKeyRow()
         previousButton = currentButton
-        (row[currentButton] as UIButton).highlighted = true
-        (row[currentButton] as UIButton).layer.borderColor = Constants.getColor(buttonBorderColor)
-        (row[currentButton] as UIButton).layer.borderWidth = 3
+        (row[currentButton] as! UIButton).highlighted = true
+        (row[currentButton] as! UIButton).layer.borderColor = Constants.getColor(buttonBorderColor)
+        (row[currentButton] as! UIButton).layer.borderWidth = 3
 
         if currentButton < row.count - 1
         {
@@ -127,27 +127,27 @@ class KeyboardScanner: Scanner
         // Clear the selection properties from all buttons
         for(var i = 0; i < row1.count; i++)
         {
-            (row1[i] as UIButton).selected = false
-            (row1[i] as UIButton).layer.borderWidth = 0
-            (row1[i] as UIButton).highlighted = false
+            (row1[i] as! UIButton).selected = false
+            (row1[i] as! UIButton).layer.borderWidth = 0
+            (row1[i] as! UIButton).highlighted = false
         }
         for(var i = 0; i < row2.count; i++)
         {
-            (row2[i] as UIButton).selected = false
-            (row2[i] as UIButton).layer.borderWidth = 0
-            (row2[i] as UIButton).highlighted = false
+            (row2[i] as! UIButton).selected = false
+            (row2[i] as! UIButton).layer.borderWidth = 0
+            (row2[i] as! UIButton).highlighted = false
         }
         for(var i = 0; i < row3.count; i++)
         {
-            (row3[i] as UIButton).selected = false
-            (row3[i] as UIButton).layer.borderWidth = 0
-            (row3[i] as UIButton).highlighted = false
+            (row3[i] as! UIButton).selected = false
+            (row3[i] as! UIButton).layer.borderWidth = 0
+            (row3[i] as! UIButton).highlighted = false
         }
         for(var i = 0; i < row4.count; i++)
         {
-            (row4[i] as UIButton).selected = false
-            (row4[i] as UIButton).layer.borderWidth = 0
-            (row4[i] as UIButton).highlighted = false
+            (row4[i] as! UIButton).selected = false
+            (row4[i] as! UIButton).layer.borderWidth = 0
+            (row4[i] as! UIButton).highlighted = false
         }
     }
 
@@ -185,7 +185,7 @@ class KeyboardScanner: Scanner
         if( secondStageOfSelection)
         {
             let row = getKeyRow()
-            let button = row[previousButton] as UIButton // get pressed button
+            let button = row[previousButton] as! UIButton // get pressed button
             button.sendActionsForControlEvents(UIControlEvents.TouchUpInside) // tell the button it was pressed
         }
         secondStageOfSelection = !secondStageOfSelection

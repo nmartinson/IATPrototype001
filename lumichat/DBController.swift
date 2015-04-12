@@ -39,7 +39,7 @@ class DBController: NSObject
     ****************************************************************************************************** */
     func getDB(filePath: String) -> FMDatabase
     {
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
+        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
         let docsPath: String = paths
         let path = docsPath.stringByAppendingPathComponent(filePath)
         return FMDatabase(path: path)

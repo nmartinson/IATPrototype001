@@ -141,7 +141,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier("listCell") as UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("listCell") as! UITableViewCell
         cell.textLabel?.text = data![indexPath.row] as? String
         tableScanner.addCell(cell)
         return cell
@@ -183,7 +183,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
             
             tableView.editing = false
-            CoreDataController().deletePhraseWithTitle(self.data![indexPath.row] as String) // remove from database
+            CoreDataController().deletePhraseWithTitle(self.data![indexPath.row] as! String) // remove from database
             self.data?.removeObjectAtIndex(indexPath.row) // remove from datasource
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic) // update view
         }

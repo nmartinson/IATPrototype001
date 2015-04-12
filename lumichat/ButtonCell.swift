@@ -49,7 +49,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     func setup(button: ButtonModel)
     {
         self.buttonObject = button
-        self.button = UIButton.buttonWithType(.System) as UIButton
+        self.button = UIButton.buttonWithType(.System) as! UIButton
         var title = button.title
         
         var image:UIImage? = loadImage(buttonObject!.imagePath)
@@ -79,7 +79,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     {
         println("Button pressed")
         self.buttonImageView.alpha = 1
-        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if(appDelegate.editMode)
         {
             delegate?.editButtonWasPressed(buttonLabel.text!, didSucceed: true)
@@ -101,7 +101,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     @IBAction func buttonPressCalledViaCode(sender: AnyObject)
     {
         self.buttonImageView.alpha = 1
-        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if(appDelegate.editMode)
         {
             delegate?.editButtonWasPressed(buttonLabel.text!, didSucceed: true)
@@ -161,7 +161,7 @@ class ButtonCell: UICollectionViewCell, AVAudioPlayerDelegate
     ************************************************************************************************ */
 	func loadImage(title: String!) -> UIImage
 	{
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         let imagePath = documentDirectory.stringByAppendingPathComponent(title)
         var image = UIImage(contentsOfFile: imagePath)
 

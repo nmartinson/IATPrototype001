@@ -56,13 +56,11 @@ class Keyboard:UIView
         super.init(coder: aDecoder)
     }
     
-    
-    override init()
+    init()
     {
-        super.init()
-        let keyboardView = NSBundle.mainBundle().loadNibNamed("Keyboard", owner: self, options: nil).first as UIView
+        super.init(frame: CGRectMake(0, 0, 0, 0))
 
-
+        let keyboardView = NSBundle.mainBundle().loadNibNamed("Keyboard", owner: self, options: nil).first as! UIView
         let height = UIScreen.mainScreen().applicationFrame.height
         let width = UIScreen.mainScreen().applicationFrame.width
         let statusHeight = UIApplication.sharedApplication().statusBarFrame.size.height

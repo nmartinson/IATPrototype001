@@ -270,11 +270,11 @@ class ScanController: Scanner
     ********************************************************************************************************/
     func highlightButton(index: Int)
     {
-        (cellArray[index] as ButtonCell).selected = true
-        (cellArray[index] as ButtonCell).highlighted = true
-        (cellArray[index] as ButtonCell).layer.borderWidth = buttonBorderWidth
-        (cellArray[index] as ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
-        (cellArray[index] as ButtonCell).layer.cornerRadius = 5
+        (cellArray[index] as! ButtonCell).selected = true
+        (cellArray[index] as! ButtonCell).highlighted = true
+        (cellArray[index] as! ButtonCell).layer.borderWidth = buttonBorderWidth
+        (cellArray[index] as! ButtonCell).layer.borderColor = Constants.getColor(buttonBorderColor)
+        (cellArray[index] as! ButtonCell).layer.cornerRadius = 5
     }
     
     /********************************************************************************************************
@@ -291,11 +291,11 @@ class ScanController: Scanner
         // Clear the selection properties from all buttons
         for item in cellArray
         {
-            if( (item as ButtonCell).selected == true )
+            if( (item as! ButtonCell).selected == true )
             {
-                (item as ButtonCell).selected = false
-                (item as ButtonCell).layer.borderWidth = 0
-                (item as ButtonCell).highlighted = false
+                (item as! ButtonCell).selected = false
+                (item as! ButtonCell).layer.borderWidth = 0
+                (item as! ButtonCell).highlighted = false
             }
         }
     }
@@ -356,20 +356,20 @@ class ScanController: Scanner
                 }
                 else if(scanMode == 0) // if serial scan, make selection
                 {
-                    (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
-                    returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
-                    (cellArray[index] as ButtonCell).selected = false
-                    (cellArray[index] as ButtonCell).layer.borderWidth = 0
+                    (cellArray[index] as! ButtonCell).buttonPressCalledViaCode(self)
+                    returnString = (cellArray[index] as! ButtonCell).buttonObject!.linkedPage!
+                    (cellArray[index] as! ButtonCell).selected = false
+                    (cellArray[index] as! ButtonCell).layer.borderWidth = 0
                     setScanMode()  // this resets the timer to start scanning again
                 }
                 else
                 {
                     if( secondStageOfSelection)
                     {
-                        (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
-                        returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
-                        (cellArray[index] as ButtonCell).selected = false
-                        (cellArray[index] as ButtonCell).layer.borderWidth = 0
+                        (cellArray[index] as! ButtonCell).buttonPressCalledViaCode(self)
+                        returnString = (cellArray[index] as! ButtonCell).buttonObject!.linkedPage!
+                        (cellArray[index] as! ButtonCell).selected = false
+                        (cellArray[index] as! ButtonCell).layer.borderWidth = 0
                     }
                     secondStageOfSelection = !secondStageOfSelection
                     elementScanningCounter = 0	// set to 0 so it starts scanning with the left button
@@ -416,10 +416,10 @@ class ScanController: Scanner
                 {
                     if inputKey! == "enter"
                     {
-                        (cellArray[index - 1] as ButtonCell).buttonPressCalledViaCode(self)
-                        returnString = (cellArray[index - 1] as ButtonCell).buttonObject!.linkedPage!
-                        (cellArray[index - 1] as ButtonCell).selected = false
-                        (cellArray[index - 1] as ButtonCell).layer.borderWidth = 0
+                        (cellArray[index - 1] as! ButtonCell).buttonPressCalledViaCode(self)
+                        returnString = (cellArray[index - 1] as! ButtonCell).buttonObject!.linkedPage!
+                        (cellArray[index - 1] as! ButtonCell).selected = false
+                        (cellArray[index - 1] as! ButtonCell).layer.borderWidth = 0
                         initialization()
                     }
                     else
@@ -440,10 +440,10 @@ class ScanController: Scanner
                     }
                     else if inputKey! == "enter" && secondStageOfSelection
                     {
-                        (cellArray[index] as ButtonCell).buttonPressCalledViaCode(self)
-                        returnString = (cellArray[index] as ButtonCell).buttonObject!.linkedPage!
-                        (cellArray[index] as ButtonCell).selected = false
-                        (cellArray[index] as ButtonCell).layer.borderWidth = 0
+                        (cellArray[index] as! ButtonCell).buttonPressCalledViaCode(self)
+                        returnString = (cellArray[index] as! ButtonCell).buttonObject!.linkedPage!
+                        (cellArray[index] as! ButtonCell).selected = false
+                        (cellArray[index] as! ButtonCell).layer.borderWidth = 0
                         initialization()
                     }
                 }

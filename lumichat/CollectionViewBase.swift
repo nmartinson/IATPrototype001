@@ -69,7 +69,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         
         // create edit button
         let editAction = UIAlertAction(title: "Edit button", style: .Destructive) { (action) -> Void in
-            var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             appDelegate.editMode = !appDelegate.editMode
             if(appDelegate.editMode)
             {
@@ -102,7 +102,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     func doneEditing()
     {
-        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.editMode = false
         navBarTitle.leftBarButtonItem = nil
         if(!appDelegate.editMode)
@@ -143,7 +143,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         }
         else
         {
-            let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
+            let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! CollectionViewBase
             vc.link = toPage
             
             vc.previousPage = link
@@ -183,7 +183,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         let linkedPage = data.linkedPage!
         
         // check if currently in edit mode, if so we need to update the button
-        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if(appDelegate.editMode)
         {
             coreDataObject.updateButtonWith(buttonTitle, newTitle: title, longDescription: longDescription, image: imagePath, linkedPage: linkedPage)
@@ -222,9 +222,9 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             var counter = 0
             for item in cellArray
             {
-                let title = (item as ButtonCell).buttonLabel.text!
-                let image = (item as ButtonCell).buttonObject!.imagePath
-                let longDescription = (item as ButtonCell).buttonObject!.longDescription
+                let title = (item as! ButtonCell).buttonLabel.text!
+                let image = (item as! ButtonCell).buttonObject!.imagePath
+                let longDescription = (item as! ButtonCell).buttonObject!.longDescription
                 let link = title.stringByReplacingOccurrencesOfString(" ", withString: "")
                 
                 coreDataObject.createInManagedObjectContextTable(title, image: image, longDescription: longDescription, table: link, index: counter, linkedPage: "")
@@ -249,7 +249,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         {
             [unowned self] notification in
             self.textBox.resignFirstResponder() // deactivate the textfield
-            var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             if appDelegate.editMode
             {
                 var cells = self.collectionview.visibleCells()
@@ -262,7 +262,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         }
         
         // check if currently in edit mode, if so we need to update the button
-        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if(!appDelegate.editMode)
         {
             if previousPage != ""
@@ -316,7 +316,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     func setLayout()
     {
-        layout = self.collectionview.collectionViewLayout as LXReorderableCollectionViewFlowLayout
+        layout = self.collectionview.collectionViewLayout as! LXReorderableCollectionViewFlowLayout
         layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5)
     }
     
@@ -406,14 +406,14 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             var dim = CGFloat(cellMaxSide)
             size = cellMaxSide
             
-            (self.collectionViewLayout as UICollectionViewFlowLayout).itemSize = CGSizeMake(dim, dim)
+            (self.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = CGSizeMake(dim, dim)
             
             rowSet.removeAllObjects()
             colSet.removeAllObjects()
             var currItem = 0
             for (currItem = 0; currItem < cellArray.count; currItem++)
             {
-                var cell = collectionview.cellForItemAtIndexPath(NSIndexPath(forItem: currItem, inSection: 0)) as ButtonCell
+                var cell = collectionview.cellForItemAtIndexPath(NSIndexPath(forItem: currItem, inSection: 0)) as! ButtonCell
                 // set the proper frame size for the arrow link image. 8 is the margin distance for x and y
                 cell.pageLinkImageView.frame = CGRectMake(cell.frame.width - 8 - dim/5, 8, dim/5, dim/5)
                 
@@ -465,8 +465,8 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************************* */
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
-        let buttonObject = self.buttons[indexPath.item] as ButtonModel
-        var buttonCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as ButtonCell
+        let buttonObject = self.buttons[indexPath.item] as! ButtonModel
+        var buttonCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! ButtonCell
         buttonCell.setup(buttonObject)
         buttonCell.delegate = self
         
@@ -512,7 +512,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         {
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2*Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
-                var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 if(appDelegate.editMode)
                 {
                     //                self.scanner.stopScan()
@@ -565,7 +565,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             scanner.cellArray.removeAllObjects()
             cellArray.removeAllObjects()
 
-            var button = self.buttons[fromIndexPath.item] as UIButton
+            var button = self.buttons[fromIndexPath.item] as! UIButton
             self.buttons.removeObjectAtIndex(fromIndexPath.item)
             self.buttons.insertObject(button, atIndex: toIndexPath.item)
 
@@ -593,7 +593,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             else
             {
                 scanner.selectionMade(true, inputKey:  nil)
-                let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
+                let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! CollectionViewBase
                 vc.link = nextPageLink
                 vc.previousPage = link
 
@@ -610,7 +610,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     {
         if segue.identifier == "toList"
         {
-            let controller = segue.destinationViewController as ListViewController
+            let controller = segue.destinationViewController as! ListViewController
             controller.previousPage = link
         }
         else if segue.identifier == "toCreate"
@@ -655,7 +655,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
                     else
                     {
                         scanner.selectionMade(true, inputKey: nil)
-                        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
+                        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! CollectionViewBase
                         vc.link = nextPageLink
                         vc.previousPage = link
                         navigationController?.pushViewController(vc, animated: true)
@@ -682,7 +682,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
                     }
                     else
                     {
-                        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as CollectionViewBase
+                        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! CollectionViewBase
                         vc.link = nextPageLink
                         vc.previousPage = link
                         navigationController?.pushViewController(vc, animated: true)

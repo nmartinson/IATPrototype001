@@ -80,7 +80,7 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
     /* ************************************************************************************************
     *
     ************************************************************************************************ */
-    func imagePickerController(picker: UIImagePickerController!,didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!)
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!)
     {
         //  let selectedImage : UIImage = image
         self.capturedImage = image
@@ -124,7 +124,7 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
     ************************************************************************************************ */
     func createDirectory(directory: String) -> String
     {
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         var path = documentDirectory.stringByAppendingPathComponent(directory) // append images to the directory string
         
         if(!NSFileManager.defaultManager().fileExistsAtPath(path))
@@ -185,7 +185,7 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
         let longDescription = textDescription.text as String
         var path = ""
         
-        var appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if(appDelegate.editMode)
         {
             if capturedImage != nil

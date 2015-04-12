@@ -30,6 +30,7 @@ class TableViewScanner: Scanner
     func initialization(data: NSMutableArray)
     {
         switchmode = NSUserDefaults.standardUserDefaults().integerForKey("numberOfSwitches")
+        println(switchmode)
         dataSource = data
         update()
         if switchmode == SWITCHMODE.SINGLE.rawValue
@@ -68,18 +69,18 @@ class TableViewScanner: Scanner
         
         if currentCell == 0
         {
-            (dataSource[currentCell] as UIButton).layer.borderColor = UIColor.blackColor().CGColor
-            (dataSource[currentCell] as UIButton).layer.borderWidth = 2
+            (dataSource[currentCell] as! UIButton).layer.borderColor = UIColor.blackColor().CGColor
+            (dataSource[currentCell] as! UIButton).layer.borderWidth = 2
         }
         else if currentCell == 1
         {
-            (dataSource[currentCell] as UITextField).layer.borderColor = UIColor.blackColor().CGColor
-            (dataSource[currentCell] as UITextField).layer.borderWidth = 2
+            (dataSource[currentCell] as! UITextField).layer.borderColor = UIColor.blackColor().CGColor
+            (dataSource[currentCell] as! UITextField).layer.borderWidth = 2
         }
         else
         {
-            (dataSource[currentCell] as UITableViewCell).highlighted = true
-            (dataSource[currentCell] as UITableViewCell).selected = true
+            (dataSource[currentCell] as! UITableViewCell).highlighted = true
+            (dataSource[currentCell] as! UITableViewCell).selected = true
         }
         
         previousCell = currentCell
@@ -106,8 +107,8 @@ class TableViewScanner: Scanner
         }
         for(var i = 2; i < dataSource.count; i++)
         {
-            (dataSource[i] as UITableViewCell).highlighted = false
-            (dataSource[i] as UITableViewCell).selected = false
+            (dataSource[i] as! UITableViewCell).highlighted = false
+            (dataSource[i] as! UITableViewCell).selected = false
         }
     }
     
@@ -133,18 +134,18 @@ class TableViewScanner: Scanner
                 timer.invalidate()
                 if previousCell == 0
                 {
-                    selectedObject = dataSource[0] as UIButton
+                    selectedObject = dataSource[0] as! UIButton
                     selectedObject?.sendActionsForControlEvents(.TouchUpInside)
                 }
                 else if previousCell == 1
                 {
-                    selectedObject = dataSource[1] as UITextField
+                    selectedObject = dataSource[1] as! UITextField
                     selectedObject?.becomeFirstResponder()
                 }
                 else
                 {
-                    selectedObject = dataSource[previousCell] as UITableViewCell
-                    Util().speak( (selectedObject as UITableViewCell).textLabel!.text! )
+                    selectedObject = dataSource[previousCell] as! UITableViewCell
+                    Util().speak( (selectedObject as! UITableViewCell).textLabel!.text! )
                     setScanMode() // restart time
                 }
                 secondStageOfSelection = !secondStageOfSelection
@@ -154,7 +155,7 @@ class TableViewScanner: Scanner
                 {
                     if inputKey! == "enter" // secondStageOfSelection
                     {
-                        selectedObject = dataSource[0] as UIButton
+                        selectedObject = dataSource[0] as! UIButton
                         selectedObject?.sendActionsForControlEvents(.TouchUpInside)
                     }
                     else if inputKey! == "space"
@@ -168,13 +169,13 @@ class TableViewScanner: Scanner
                     {
                         if previousCell == 1
                         {
-                            selectedObject = dataSource[1] as UITextField
+                            selectedObject = dataSource[1] as! UITextField
                             selectedObject?.becomeFirstResponder()
                         }
                         else
                         {
-                            selectedObject = dataSource[previousCell] as UITableViewCell
-                            Util().speak( (selectedObject as UITableViewCell).textLabel!.text! )
+                            selectedObject = dataSource[previousCell] as! UITableViewCell
+                            Util().speak( (selectedObject as! UITableViewCell).textLabel!.text! )
                         }
                     }
                     else

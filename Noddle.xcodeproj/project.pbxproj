@@ -92,11 +92,11 @@
 		2B81F2621AB8C5D2005357F4 /* ModifyButtonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyButtonTableViewController.swift; sourceTree = "<group>"; };
 		2B81F2641AB8C79C005357F4 /* EditButtonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButtonTableViewController.swift; sourceTree = "<group>"; };
 		2B8D408A1A787E4400CFB382 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		2BBCFDE41A052C1E00AE8BA6 /* lumichat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lumichat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BBCFDE41A052C1E00AE8BA6 /* Noddle Talk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Noddle Talk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBCFDE81A052C1E00AE8BA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2BBCFDF71A052C1E00AE8BA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		2BBCFDFD1A052C1E00AE8BA6 /* lumichatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lumichatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BBCFDFD1A052C1E00AE8BA6 /* NoddleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoddleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBCFE021A052C1E00AE8BA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BBCFE031A052C1E00AE8BA6 /* lumichatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lumichatTests.swift; sourceTree = "<group>"; };
 		2BBCFE0D1A052C4D00AE8BA6 /* lumichat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lumichat-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -231,8 +231,8 @@
 		2BBCFDE51A052C1E00AE8BA6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2BBCFDE41A052C1E00AE8BA6 /* lumichat.app */,
-				2BBCFDFD1A052C1E00AE8BA6 /* lumichatTests.xctest */,
+				2BBCFDE41A052C1E00AE8BA6 /* Noddle Talk.app */,
+				2BBCFDFD1A052C1E00AE8BA6 /* NoddleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -361,9 +361,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2BBCFDE31A052C1E00AE8BA6 /* Noddle Talk */ = {
+		2BBCFDE31A052C1E00AE8BA6 /* Noddle-Talk */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2BBCFE071A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "Noddle Talk" */;
+			buildConfigurationList = 2BBCFE071A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "Noddle-Talk" */;
 			buildPhases = (
 				2BBCFDE01A052C1E00AE8BA6 /* Sources */,
 				2BBCFDE11A052C1E00AE8BA6 /* Frameworks */,
@@ -373,9 +373,9 @@
 			);
 			dependencies = (
 			);
-			name = "Noddle Talk";
+			name = "Noddle-Talk";
 			productName = lumichat;
-			productReference = 2BBCFDE41A052C1E00AE8BA6 /* lumichat.app */;
+			productReference = 2BBCFDE41A052C1E00AE8BA6 /* Noddle Talk.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2BBCFDFC1A052C1E00AE8BA6 /* NoddleTests */ = {
@@ -393,7 +393,7 @@
 			);
 			name = NoddleTests;
 			productName = lumichatTests;
-			productReference = 2BBCFDFD1A052C1E00AE8BA6 /* lumichatTests.xctest */;
+			productReference = 2BBCFDFD1A052C1E00AE8BA6 /* NoddleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -407,7 +407,7 @@
 				TargetAttributes = {
 					2BBCFDE31A052C1E00AE8BA6 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = QTYS96LR2E;
+						DevelopmentTeam = B782ML49FF;
 					};
 					2BBCFDFC1A052C1E00AE8BA6 = {
 						CreatedOnToolsVersion = 6.1;
@@ -428,7 +428,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2BBCFDE31A052C1E00AE8BA6 /* Noddle Talk */,
+				2BBCFDE31A052C1E00AE8BA6 /* Noddle-Talk */,
 				2BBCFDFC1A052C1E00AE8BA6 /* NoddleTests */,
 			);
 		};
@@ -518,7 +518,7 @@
 /* Begin PBXTargetDependency section */
 		2BBCFDFF1A052C1E00AE8BA6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2BBCFDE31A052C1E00AE8BA6 /* Noddle Talk */;
+			target = 2BBCFDE31A052C1E00AE8BA6 /* Noddle-Talk */;
 			targetProxy = 2BBCFDFE1A052C1E00AE8BA6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -665,7 +665,7 @@
 				INFOPLIST_FILE = lumichatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lumichat.app/lumichat";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Noddle Talk.app/Noddle Talk";
 			};
 			name = Debug;
 		};
@@ -680,7 +680,7 @@
 				INFOPLIST_FILE = lumichatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/lumichat.app/lumichat";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Noddle Talk.app/Noddle Talk";
 			};
 			name = Release;
 		};
@@ -696,7 +696,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2BBCFE071A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "Noddle Talk" */ = {
+		2BBCFE071A052C1E00AE8BA6 /* Build configuration list for PBXNativeTarget "Noddle-Talk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2BBCFE081A052C1E00AE8BA6 /* Debug */,
