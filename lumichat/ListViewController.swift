@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, KeyboardDelegate
+class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, KeyboardDelegate, TableViewEditDelegate
 {
     var data:NSMutableArray?
     @IBOutlet weak var bluetoothTextField: UITextField!
@@ -45,12 +45,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         data = CoreDataController().getPhrases()
         bluetoothTextField.inputView = UIView()        // textBox is used to get input from bluetooth
         bluetoothTextField.becomeFirstResponder()
-//        tableView.editing = true
     }
     
     override func viewWillAppear(animated: Bool)
     {
-        tableScanner.initialization([backButton!, phraseTextField])
+        tableScanner.initialization([backButton!, editButton!, phraseTextField])
     }
     
     func handleBack()
@@ -186,35 +185,22 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return "Saved phrases"
     }
     
-    /******************************************************************************************
-    *   Configure the edit and delete button for the tableviewcells
-    ******************************************************************************************/
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]?
+    func tableViewEditViewcancelPressed()
     {
-        var deleteAction = UITableViewRowAction(style: .Default, title: "Delete") { (action, indexPath) -> Void in
-            
-            tableView.editing = false
-            CoreDataController().deletePhraseWithTitle(self.data![indexPath.row] as! String) // remove from database
-            self.data?.removeObjectAtIndex(indexPath.row) // remove from datasource
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic) // update view
-        }
         
-        var editAction = UITableViewRowAction(style: .Default, title: "Edit") { (action, indexPath) -> Void in
-            tableView.editing = false
-        }
-        editAction.backgroundColor = UIColor.greenColor()
-        
-        return [deleteAction]//, editAction]
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    func tableViewEditViewdeletePressed(indexPath: NSIndexPath)
     {
-        return true
+        CoreDataController().deletePhraseWithTitle(self.data![indexPath.row] as! String) // remove from database
+        self.data?.removeObjectAtIndex(indexPath.row) // remove from datasource
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic) // update view
     }
     
-//    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-//        return tableView.editing ? UITableViewCellEditingStyle.None: UITableViewCellEditingStyle.Delete
-//    }
+    func tableViewEditViewEditPressed(indexPath: NSIndexPath)
+    {
+        
+    }
     
     /******************************************************************************************
     *
@@ -237,19 +223,35 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             tableScanner.initialization([backButton!,phraseTextField]) // reiniitialize the scanner
             tableView.reloadData()
         }
-//        tableScanner.setScanMode()
     }
     
-    @IBAction func editButtonPress(sender: AnyObject)
-    {
-        println("edit")
-        tableView.editing = true
-    }
     
     func editButtonPressed()
     {
-        println("edit")
-        tableView.editing = true
+        if editButton?.titleForState(.Normal) == "Edit"
+        {
+            editButton?.setTitle("Done Editing", forState: .Normal)
+            editButton?.frame = CGRectMake(0, 0, 100, 30)
+            let visibleCells = tableView.visibleCells() as! [UITableViewCell]
+            let indexPaths = tableView.indexPathsForVisibleRows() as! [NSIndexPath]
+            for(var i = 0; i < indexPaths.count; i++)
+            {
+                let cell = tableView.cellForRowAtIndexPath(indexPaths[i])
+                let cellEdit = TableViewCellEditView(frame: CGRectMake(0, 0, 375, 44), indexPath: indexPaths[i])
+                cellEdit.delegate = self
+                cell!.addSubview(cellEdit)
+            }
+        }
+        else
+        {
+            editButton?.setTitle("Edit", forState: .Normal)
+            editButton?.frame = CGRectMake(0, 0, 80, 30)
+            let visibleCells = tableView.visibleCells() as! [UITableViewCell]
+            for(var i = 0; i < visibleCells.count; i++)
+            {
+                let editView = visibleCells[i].subviews.last?.removeFromSuperview()
+            }
+        }
     }
 
     //configures the tap recoginizer
@@ -268,7 +270,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tapHandler(gesture: UITapGestureRecognizer)
     {
         keyboardScanner.selectionMade(true, inputKey: nil)
-//        bluetoothTextField.becomeFirstResponder()
     }
     
 }

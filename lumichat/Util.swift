@@ -32,7 +32,7 @@ class Util: NSObject {
     {
         // Create navbar buttons
         let editButton = UIButton.buttonWithType(.System) as! UIButton
-        editButton.frame = CGRectMake(0, 0, 100, 30)
+        editButton.frame = CGRectMake(0, 0, 80, 30)
         editButton.setTitle("Edit", forState: .Normal)
         editButton.addTarget(target, action: "editButtonPressed", forControlEvents: .TouchUpInside)
         editButton.contentHorizontalAlignment = .Right

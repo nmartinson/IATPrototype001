@@ -56,6 +56,8 @@
 		2BD6A6F81A25534300A3CBA3 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BD6A6F31A25534300A3CBA3 /* SSZipArchive.m */; };
 		2BD6A6FA1A25536B00A3CBA3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD6A6F91A25536B00A3CBA3 /* libz.dylib */; };
 		2BE791D71A79413A00DE0E57 /* Phrases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE791D61A79413A00DE0E57 /* Phrases.swift */; };
+		2BEE5CB41ADC21E0008A6A27 /* TableViewCellEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BEE5CB31ADC21E0008A6A27 /* TableViewCellEditView.xib */; };
+		2BEE5CB61ADC236B008A6A27 /* TableViewCellEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE5CB51ADC236B008A6A27 /* TableViewCellEditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +137,8 @@
 		2BD6A6F31A25534300A3CBA3 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		2BD6A6F91A25536B00A3CBA3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2BE791D61A79413A00DE0E57 /* Phrases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phrases.swift; sourceTree = "<group>"; };
+		2BEE5CB31ADC21E0008A6A27 /* TableViewCellEditView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCellEditView.xib; sourceTree = "<group>"; };
+		2BEE5CB51ADC236B008A6A27 /* TableViewCellEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellEditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +254,8 @@
 				2BBCFE481A052D5A00AE8BA6 /* AppDelegate.swift */,
 				2B35E6321AB9F41700A2B1BB /* AppDelegateOld.swift */,
 				2BBCFE4C1A052D5A00AE8BA6 /* Constants.swift */,
+				2BEE5CB31ADC21E0008A6A27 /* TableViewCellEditView.xib */,
+				2BEE5CB51ADC236B008A6A27 /* TableViewCellEditView.swift */,
 				2B81F25E1AB8BCAE005357F4 /* SettingsTableViewController.swift */,
 				2B20235D1A5F37A800704F75 /* OpenFileViewController.swift */,
 				2BBCFE4E1A052D5A00AE8BA6 /* Main.storyboard */,
@@ -445,6 +451,7 @@
 				2BBCFE411A052CC200AE8BA6 /* How_Are_You.wav in Resources */,
 				2BBCFE421A052CC200AE8BA6 /* Im_Hungry.wav in Resources */,
 				2B12D4901A8BC304004BFB46 /* Keyboard.xib in Resources */,
+				2BEE5CB41ADC21E0008A6A27 /* TableViewCellEditView.xib in Resources */,
 				2BBCFE431A052CC200AE8BA6 /* Im_Thirsty.wav in Resources */,
 				2BBCFDF81A052C1E00AE8BA6 /* LaunchScreen.xib in Resources */,
 				2BBCFE451A052CC200AE8BA6 /* Please_Help_Me.wav in Resources */,
@@ -477,6 +484,7 @@
 				2B1800771A659B8C007BA245 /* CoreDataController.swift in Sources */,
 				2B81F25F1AB8BCAE005357F4 /* SettingsTableViewController.swift in Sources */,
 				2BBCFE291A052C9100AE8BA6 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
+				2BEE5CB61ADC236B008A6A27 /* TableViewCellEditView.swift in Sources */,
 				2B12D4971A8BC8A9004BFB46 /* Keyboard.swift in Sources */,
 				2BD6A6F71A25534300A3CBA3 /* zip.c in Sources */,
 				2BBCFE361A052CAB00AE8BA6 /* FMResultSet.m in Sources */,

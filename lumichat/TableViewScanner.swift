@@ -73,6 +73,11 @@ class TableViewScanner: Scanner
         }
         else if currentCell == 1
         {
+            (dataSource[currentCell] as! UIButton).layer.borderColor = UIColor.blackColor().CGColor
+            (dataSource[currentCell] as! UIButton).layer.borderWidth = 2
+        }
+        else if currentCell == 2
+        {
             (dataSource[currentCell] as! UITextField).layer.borderColor = UIColor.blackColor().CGColor
             (dataSource[currentCell] as! UITextField).layer.borderWidth = 2
         }
@@ -99,12 +104,12 @@ class TableViewScanner: Scanner
     ******************************************************************************************/
     func clearAllCells()
     {
-        for(var i = 0; i < 2; i++)
+        for(var i = 0; i < 3; i++)
         {
             (dataSource[i]).layer.borderColor = UIColor.blackColor().CGColor
             (dataSource[i]).layer.borderWidth = 0
         }
-        for(var i = 2; i < dataSource.count; i++)
+        for(var i = 3; i < dataSource.count; i++)
         {
             (dataSource[i] as! UITableViewCell).highlighted = false
             (dataSource[i] as! UITableViewCell).selected = false
@@ -116,7 +121,7 @@ class TableViewScanner: Scanner
     ******************************************************************************************/
     func removeAllItemsFromDataSource()
     {
-        let range = NSRange(location: 2, length: dataSource.count - 1)
+        let range = NSRange(location: 3, length: dataSource.count - 1)
         dataSource.removeObjectsInRange(range)
     }
     
@@ -131,14 +136,14 @@ class TableViewScanner: Scanner
         {
             case SWITCHMODE.SINGLE.rawValue:
                 timer.invalidate()
-                if previousCell == 0
+                if previousCell == 0 || previousCell == 1
                 {
-                    selectedObject = dataSource[0] as! UIButton
+                    selectedObject = dataSource[previousCell] as! UIButton
                     selectedObject?.sendActionsForControlEvents(.TouchUpInside)
                 }
-                else if previousCell == 1
+                else if previousCell == 2
                 {
-                    selectedObject = dataSource[1] as! UITextField
+                    selectedObject = dataSource[2] as! UITextField
                     selectedObject?.becomeFirstResponder()
                 }
                 else
@@ -150,11 +155,11 @@ class TableViewScanner: Scanner
                 secondStageOfSelection = !secondStageOfSelection
                 return ""
             case SWITCHMODE.DOUBLE.rawValue:
-                if(previousCell == 0) // navBar button
+                if(previousCell == 0 || previousCell == 1) // navBar button
                 {
                     if inputKey! == "enter" // secondStageOfSelection
                     {
-                        selectedObject = dataSource[0] as! UIButton
+                        selectedObject = dataSource[previousCell] as! UIButton
                         selectedObject?.sendActionsForControlEvents(.TouchUpInside)
                     }
                     else if inputKey! == "space"
@@ -166,9 +171,9 @@ class TableViewScanner: Scanner
                 {
                     if inputKey! == "enter"
                     {
-                        if previousCell == 1
+                        if previousCell == 2
                         {
-                            selectedObject = dataSource[1] as! UITextField
+                            selectedObject = dataSource[2] as! UITextField
                             selectedObject?.becomeFirstResponder()
                         }
                         else
