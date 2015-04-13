@@ -34,6 +34,8 @@ class KeyboardScanner: Scanner
     ********************************************************************************************************/
     func initialization(keyboard: [UIButton])
     {
+        switchmode = NSUserDefaults.standardUserDefaults().integerForKey("numberOfSwitches")
+
         row1.removeAllObjects()
         row2.removeAllObjects()
         row3.removeAllObjects()
@@ -57,7 +59,14 @@ class KeyboardScanner: Scanner
         row4.addObject(keyboard[27] as UIButton) // space button
         row4.addObject(keyboard[28] as UIButton) // delete button
         row4.addObject(keyboard[29] as UIButton) // save button
-        setScanMode()
+        if switchmode == SWITCHMODE.SINGLE.rawValue
+        {
+            setScanMode()
+        }
+        else
+        {
+            
+        }
     }
     
     /********************************************************************************************************
@@ -181,15 +190,77 @@ class KeyboardScanner: Scanner
     *********************************************************************************************************** */
     override func selectionMade(playAudio: Bool, inputKey: String?) -> String
     {
-        timer.invalidate()
-        if( secondStageOfSelection)
+        switch(switchmode)
         {
-            let row = getKeyRow()
-            let button = row[previousButton] as! UIButton // get pressed button
-            button.sendActionsForControlEvents(UIControlEvents.TouchUpInside) // tell the button it was pressed
+            case SWITCHMODE.SINGLE.rawValue:
+                if( secondStageOfSelection)
+                {
+                    let row = getKeyRow()
+                    let button = row[previousButton] as! UIButton // get pressed button
+                    button.sendActionsForControlEvents(UIControlEvents.TouchUpInside) // tell the button it was pressed
+                }
+                secondStageOfSelection = !secondStageOfSelection
+                // switch from row to col scanning, vice versa
+                switchScanMethod()
+                setScanMode()   // this resets the timer to start scanning again
+                currentButton = 0 // restart at 1st button in row
+            case SWITCHMODE.DOUBLE.rawValue:
+                if inputKey! == "enter" && !secondStageOfSelection
+                {
+                    secondStageOfSelection = !secondStageOfSelection
+                    switchScanMethod()
+                    callScanMethod()
+                }
+                else if inputKey! == "enter" && secondStageOfSelection// secondStageOfSelection
+                {
+                    let row = getKeyRow()
+                    let button = row[previousButton] as! UIButton // get pressed button
+                    button.sendActionsForControlEvents(.TouchUpInside) // tell the button it was pressed
+                    secondStageOfSelection = !secondStageOfSelection
+                    currentButton = 0 // restart at 1st button in row
+                    switch scanningMode
+                    {
+                        case "rowScan":
+                            scanningMode = "columnScan"
+                        case "columnScan":
+                            scanningMode = "rowScan"
+                        default:
+                            println("Error")
+                    }
+                    callScanMethod()
+                }
+                else if inputKey! == "space"
+                {
+                    callScanMethod()
+                }
+            default:
+                println("error")
         }
-        secondStageOfSelection = !secondStageOfSelection
         
+        return ""
+    }
+    
+    /********************************************************************************************************
+    *   Calls the appropriate scan method
+    ********************************************************************************************************/
+    func callScanMethod()
+    {
+        switch scanningMode
+        {
+            case "rowScan":
+                rowScan()
+            case "columnScan":
+                columnScan()
+            default:
+                println("Error")
+        }
+    }
+    
+    /********************************************************************************************************
+    *   Switches from one row to col scanning and vice versa.
+    ********************************************************************************************************/
+    func switchScanMethod()
+    {
         switch scanningMode
         {
             case "rowScan":
@@ -200,14 +271,6 @@ class KeyboardScanner: Scanner
             default:
                 println("Error")
         }
-        setScanMode()   // this resets the timer to start scanning again
-        currentButton = 0 // restart at 1st button in row
-        return ""
     }
-    
-
-    
-    
-    
 
 }

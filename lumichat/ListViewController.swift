@@ -20,7 +20,13 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var tapRec: UITapGestureRecognizer!
     private var currentScanner = "Table"
     var backButton:UIButton?
+    var editButton:UIButton?
     var previousPage = ""
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(true)
+        tableScanner.timer.invalidate()
+    }
     
     /******************************************************************************************
     *
@@ -31,10 +37,15 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         backButton = Util().createNavBarBackButton(self, string: previousPage)
         let back = UIBarButtonItem(customView: backButton!)
         navigationItem.leftBarButtonItem = back
+        
+        editButton = Util().createEditButton(self)
+        let edit = UIBarButtonItem(customView: editButton!)
+        navigationItem.rightBarButtonItem = edit
 
         data = CoreDataController().getPhrases()
         bluetoothTextField.inputView = UIView()        // textBox is used to get input from bluetooth
         bluetoothTextField.becomeFirstResponder()
+//        tableView.editing = true
     }
     
     override func viewWillAppear(animated: Bool)
@@ -81,7 +92,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             else
             {
-                keyboardScanner.selectionMade(false, inputKey: nil)
+                keyboardScanner.selectionMade(false, inputKey: "space")
             }
         }
         else if( string == "\n")
@@ -93,7 +104,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             else
             {
-                keyboardScanner.selectionMade(false, inputKey: nil)
+                keyboardScanner.selectionMade(false, inputKey: "enter")
             }
         }
         
@@ -193,13 +204,17 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         editAction.backgroundColor = UIColor.greenColor()
         
-        return [deleteAction, editAction]
+        return [deleteAction]//, editAction]
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
     {
         return true
     }
+    
+//    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+//        return tableView.editing ? UITableViewCellEditingStyle.None: UITableViewCellEditingStyle.Delete
+//    }
     
     /******************************************************************************************
     *
@@ -223,6 +238,18 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             tableView.reloadData()
         }
 //        tableScanner.setScanMode()
+    }
+    
+    @IBAction func editButtonPress(sender: AnyObject)
+    {
+        println("edit")
+        tableView.editing = true
+    }
+    
+    func editButtonPressed()
+    {
+        println("edit")
+        tableView.editing = true
     }
 
     //configures the tap recoginizer

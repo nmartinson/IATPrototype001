@@ -92,7 +92,7 @@
 		2B81F2621AB8C5D2005357F4 /* ModifyButtonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyButtonTableViewController.swift; sourceTree = "<group>"; };
 		2B81F2641AB8C79C005357F4 /* EditButtonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditButtonTableViewController.swift; sourceTree = "<group>"; };
 		2B8D408A1A787E4400CFB382 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		2BBCFDE41A052C1E00AE8BA6 /* Noddle Talk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Noddle Talk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BBCFDE41A052C1E00AE8BA6 /* Noddle-Talk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Noddle-Talk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBCFDE81A052C1E00AE8BA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BBCFDF41A052C1E00AE8BA6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2BBCFDF71A052C1E00AE8BA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 		2BBCFDE51A052C1E00AE8BA6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2BBCFDE41A052C1E00AE8BA6 /* Noddle Talk.app */,
+				2BBCFDE41A052C1E00AE8BA6 /* Noddle-Talk.app */,
 				2BBCFDFD1A052C1E00AE8BA6 /* NoddleTests.xctest */,
 			);
 			name = Products;
@@ -375,7 +375,7 @@
 			);
 			name = "Noddle-Talk";
 			productName = lumichat;
-			productReference = 2BBCFDE41A052C1E00AE8BA6 /* Noddle Talk.app */;
+			productReference = 2BBCFDE41A052C1E00AE8BA6 /* Noddle-Talk.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2BBCFDFC1A052C1E00AE8BA6 /* NoddleTests */ = {
@@ -623,7 +623,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"HEADER_SEARCH_PATHS[arch=*]" = ../zipzap;
 				INFOPLIST_FILE = lumichat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -641,7 +641,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = lumichat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -665,7 +665,7 @@
 				INFOPLIST_FILE = lumichatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Noddle Talk.app/Noddle Talk";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Noddle-Talk.app/Noddle-Talk";
 			};
 			name = Debug;
 		};
@@ -680,7 +680,7 @@
 				INFOPLIST_FILE = lumichatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Noddle Talk.app/Noddle Talk";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Noddle-Talk.app/Noddle-Talk";
 			};
 			name = Release;
 		};

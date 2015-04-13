@@ -30,7 +30,6 @@ class TableViewScanner: Scanner
     func initialization(data: NSMutableArray)
     {
         switchmode = NSUserDefaults.standardUserDefaults().integerForKey("numberOfSwitches")
-        println(switchmode)
         dataSource = data
         update()
         if switchmode == SWITCHMODE.SINGLE.rawValue
