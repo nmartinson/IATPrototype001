@@ -220,7 +220,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             phraseTextField.text = ""
             phraseTextField.placeholder = "Type a new phrase..."
             phraseTextField.resignFirstResponder()
-            tableScanner.initialization([backButton!,phraseTextField]) // reiniitialize the scanner
+            tableScanner.initialization([backButton!, editButton!,phraseTextField]) // reiniitialize the scanner
             tableView.reloadData()
         }
     }
