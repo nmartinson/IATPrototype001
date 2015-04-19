@@ -17,7 +17,7 @@ protocol ModifyButtonDelegate
 }
 
 
-class ModifyButtonTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+class ModifyButtonTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
 {
     @IBOutlet weak var pagePicker: UIPickerView!
     @IBOutlet weak var textDescription: UITextView!
@@ -308,6 +308,11 @@ class ModifyButtonTableViewController: UITableViewController, UIImagePickerContr
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
+    }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        println("should BEgine")
+        return true
     }
     
 }

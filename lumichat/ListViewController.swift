@@ -151,11 +151,24 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier("listCell") as! UITableViewCell
-        cell.textLabel?.text = data![indexPath.row] as? String
-        tableScanner.addCell(cell)
-        return cell
+        var cell:TableViewCellEditView?
+        if cell == nil
+        {
+            tableView.registerNib(UINib(nibName: "TableViewCellEditView", bundle: nil), forCellReuseIdentifier: "phraseCell")
+            cell = tableView.dequeueReusableCellWithIdentifier("phraseCell") as? TableViewCellEditView
+            cell?.delegate = self
+        }
+        
+        tableScanner.addCell(cell!)
+        return cell!
     }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        (cell as! TableViewCellEditView).phraseLabel.text = data![indexPath.row] as? String
+        (cell as! TableViewCellEditView).indexPath = indexPath
+    }
+    
     
     /******************************************************************************************
     *
@@ -166,8 +179,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let phrase = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text
         CoreDataController().incrementPressCountForPhrase(phrase!)
         Util().speak( cell!.textLabel!.text! )
-
     }
+
     
     /******************************************************************************************
     *
@@ -185,22 +198,22 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return "Saved phrases"
     }
     
+    
+    /******************************************************************************************
+    * TABLE VIEW CELL EDIT VIEW DELEGATE METHODS
+    ******************************************************************************************/
     func tableViewEditViewcancelPressed()
     {
-        
+        println("Cancel")
     }
     
     func tableViewEditViewdeletePressed(indexPath: NSIndexPath)
-    {
+    {        
         CoreDataController().deletePhraseWithTitle(self.data![indexPath.row] as! String) // remove from database
         self.data?.removeObjectAtIndex(indexPath.row) // remove from datasource
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic) // update view
     }
-    
-    func tableViewEditViewEditPressed(indexPath: NSIndexPath)
-    {
-        
-    }
+
     
     /******************************************************************************************
     *
@@ -228,28 +241,28 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func editButtonPressed()
     {
+        
         if editButton?.titleForState(.Normal) == "Edit"
         {
+            
             editButton?.setTitle("Done Editing", forState: .Normal)
             editButton?.frame = CGRectMake(0, 0, 100, 30)
-            let visibleCells = tableView.visibleCells() as! [UITableViewCell]
+            let visibleCells = tableView.visibleCells() as! [TableViewCellEditView]
             let indexPaths = tableView.indexPathsForVisibleRows() as! [NSIndexPath]
-            for(var i = 0; i < indexPaths.count; i++)
+            for(var i = 0; i < visibleCells.count; i++)
             {
-                let cell = tableView.cellForRowAtIndexPath(indexPaths[i])
-                let cellEdit = TableViewCellEditView(frame: CGRectMake(0, 0, 375, 44), indexPath: indexPaths[i])
-                cellEdit.delegate = self
-                cell!.addSubview(cellEdit)
+                visibleCells[i].setEditing()
             }
         }
         else
         {
             editButton?.setTitle("Edit", forState: .Normal)
             editButton?.frame = CGRectMake(0, 0, 80, 30)
-            let visibleCells = tableView.visibleCells() as! [UITableViewCell]
+            let visibleCells = tableView.visibleCells() as! [TableViewCellEditView]
+            
             for(var i = 0; i < visibleCells.count; i++)
             {
-                let editView = visibleCells[i].subviews.last?.removeFromSuperview()
+                visibleCells[i].doneEditing()
             }
         }
     }

@@ -664,7 +664,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
             }
         }
         else if( switchMode == SWITCHMODE.DOUBLE.rawValue)
-        {
+        {            
             if( string == " ")
             {
                 let nextPageLink = scanner.selectionMade(false, inputKey: "space")
