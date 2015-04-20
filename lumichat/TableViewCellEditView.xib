@@ -67,6 +67,7 @@
                 <outlet property="cancelButton" destination="MCi-2V-IFY" id="jVO-JX-WDp"/>
                 <outlet property="deleteButton" destination="ZR6-Aj-7V8" id="bek-YP-v61"/>
                 <outlet property="phraseLabel" destination="hKt-35-Mxi" id="9Vb-Wk-6Oy"/>
+                <outlet property="phraseTrailingConstraint" destination="kRd-NI-20F" id="OzX-5s-NGz"/>
             </connections>
             <point key="canvasLocation" x="221.5" y="300"/>
         </tableViewCell>

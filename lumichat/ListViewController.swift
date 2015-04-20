@@ -8,10 +8,11 @@
 
 import Foundation
 
-class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, KeyboardDelegate, TableViewEditDelegate
+class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, KeyboardDelegate, TableViewEditDelegate
 {
     var data:NSMutableArray?
     @IBOutlet weak var bluetoothTextField: UITextField!
+    @IBOutlet weak var phraseTextView: UITextView!
     @IBOutlet weak var phraseTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     private var tableScanner = TableViewScanner.sharedInstance
@@ -45,11 +46,16 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         data = CoreDataController().getPhrases()
         bluetoothTextField.inputView = UIView()        // textBox is used to get input from bluetooth
         bluetoothTextField.becomeFirstResponder()
+        
+        phraseTextView.layer.cornerRadius = 8
+        phraseTextView.layer.borderWidth = 0.4
+        phraseTextView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        phraseTextView.scrollEnabled = false
     }
     
     override func viewWillAppear(animated: Bool)
     {
-        tableScanner.initialization([backButton!, editButton!, phraseTextField])
+        tableScanner.initialization([backButton!, editButton!, phraseTextView])
     }
     
     func handleBack()
@@ -60,22 +66,22 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func textFieldDidBeginEditing(textField: UITextField)
+    func textViewDidBeginEditing(textView: UITextView)
     {
         // check if the active textfield is the phraseField
-        if textField === phraseTextField
+        if textView === phraseTextView
         {
             tableScanner.timer.invalidate()
             keyboardView = Keyboard()
-            phraseTextField.resignFirstResponder()
+            phraseTextView.resignFirstResponder()
             keyboardView!.delegate = self
             currentScanner = "Keyboard"
             keyboardScanner.initialization(keyboardView!.keyCollection)
-//            setTapRecognizer()
             view.addSubview(keyboardView!)
             bluetoothTextField.becomeFirstResponder()
         }
     }
+    
     
     /******************************************************************************************
     *
@@ -123,7 +129,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     func keyWasPressed(key: String)
     {
-        phraseTextField.text = phraseTextField.text + key
+        phraseTextView.text = phraseTextView.text + key
+//        phraseTextView
     }
     
     /******************************************************************************************
@@ -131,10 +138,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     func deleteWasPressed()
     {
-        let text = phraseTextField.text
+        let text = phraseTextView.text
         if text != ""
         {
-            phraseTextField.text = phraseTextField.text.substringToIndex(text.endIndex.predecessor())
+            phraseTextView.text = phraseTextView.text.substringToIndex(text.endIndex.predecessor())
         }
     }
     
@@ -143,7 +150,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     func spaceWasPressed()
     {
-        phraseTextField.text = phraseTextField.text + " "
+        phraseTextView.text = phraseTextView.text + " "
     }
     
     /******************************************************************************************
@@ -213,11 +220,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableViewEditViewdeletePressed(indexPath: NSIndexPath)
     {
-        println("DELETE DELEGATE")
         CoreDataController().deletePhraseWithTitle(self.data![indexPath.row] as! String) // remove from database
         self.data?.removeObjectAtIndex(indexPath.row) // remove from datasource
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic) // update view
-        tableScanner.reloadSource([backButton!, editButton!,phraseTextField]) // reiniitialize the scanner
+        tableScanner.reloadSource([backButton!, editButton!,phraseTextView]) // reiniitialize the scanner
         tableView.reloadData()
     }
 
@@ -230,17 +236,15 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         currentScanner = "Table"
         keyboardScanner.timer.invalidate()
         keyboardView?.removeFromSuperview()
-//        self.view.removeGestureRecognizer(tapRec)
         
-        phraseTextField.resignFirstResponder()
-        if phraseTextField.text != ""
+        phraseTextView.resignFirstResponder()
+        if phraseTextView.text != ""
         {
-            CoreDataController().createInManagedObjectContextPhrase(phraseTextField.text)
+            CoreDataController().createInManagedObjectContextPhrase(phraseTextView.text)
             data = CoreDataController().getPhrases()
-            phraseTextField.text = ""
-            phraseTextField.placeholder = "Type a new phrase..."
-            phraseTextField.resignFirstResponder()
-            tableScanner.reloadSource([backButton!, editButton!,phraseTextField]) // reiniitialize the scanner
+            phraseTextView.text = ""
+            phraseTextView.resignFirstResponder()
+            tableScanner.reloadSource([backButton!, editButton!,phraseTextView]) // reiniitialize the scanner
             tableView.reloadData()
         }
     }
@@ -273,23 +277,5 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     }
-
-    //configures the tap recoginizer
-//    func setTapRecognizer()
-//    {
-//        self.tapRec = UITapGestureRecognizer()
-//        tapRec.addTarget( self, action: "tapHandler:")
-//        tapRec.numberOfTapsRequired = 1
-//        tapRec.numberOfTouchesRequired = 1
-//        self.view.addGestureRecognizer(tapRec)
-//    }
-    
-    /* ******************************************************************************************
-    *
-    ******************************************************************************************** */
-//    func tapHandler(gesture: UITapGestureRecognizer)
-//    {
-//        keyboardScanner.selectionMade(true, inputKey: nil)
-//    }
     
 }

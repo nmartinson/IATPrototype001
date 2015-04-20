@@ -17,29 +17,12 @@ protocol TableViewEditDelegate
 
 class TableViewCellEditView: UITableViewCell
 {
+    @IBOutlet weak var phraseTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var phraseLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     var delegate:TableViewEditDelegate?
     var indexPath:NSIndexPath?
-    
-    
-//    init(frame: CGRect, indexPath: NSIndexPath)
-//    {
-//        super.init(frame: frame)
-//        self.indexPath = indexPath
-//        let editView = NSBundle.mainBundle().loadNibNamed("TableViewCellEditView", owner: self, options: nil).first as! UIView
-//        editView.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 140, 0, 140, 43)
-//        self.addSubview(editView)
-//    }
-//    
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        let editView = NSBundle.mainBundle().loadNibNamed("TableViewCellEditView", owner: self, options: nil).first as! UIView
-//        editView.frame = CGRectMake(UIScreen.mainScreen().bounds.width - 140, 0, 140, 43)
-//        self.addSubview(editView)
-//        
-//    }
     
     
     required init(coder aDecoder: NSCoder) {
@@ -60,12 +43,14 @@ class TableViewCellEditView: UITableViewCell
     {
         deleteButton.hidden = false
         cancelButton.hidden = false
+        phraseTrailingConstraint.constant = 140
     }
     
     func doneEditing()
     {
         deleteButton.hidden = true
         cancelButton.hidden = true
+        phraseTrailingConstraint.constant = -8
     }
     
 }

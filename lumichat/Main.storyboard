@@ -379,7 +379,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3a-OB-ZHJ">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3a-OB-ZHJ">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <textAttributes key="titleTextAttributes">
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -399,15 +399,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type a new phrase..." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="BSY-Ap-m5Q">
-                                <rect key="frame" x="9" y="72" width="529" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="NG0-Ez-sps" id="lGT-rH-rR5"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V93-nc-wa7">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V93-nc-wa7">
                                 <rect key="frame" x="550" y="72" width="34" height="30"/>
                                 <state key="normal" title="Save">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -438,36 +430,49 @@
                                     <outlet property="delegate" destination="NG0-Ez-sps" id="drQ-Hc-1nV"/>
                                 </connections>
                             </tableView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cod-zN-mue">
+                                <rect key="frame" x="16" y="72" width="526" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ljx-h1-4aa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="ljx-h1-4aa"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="NG0-Ez-sps" id="bPX-e3-jf7"/>
+                                </connections>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="BSY-Ap-m5Q" firstAttribute="leading" secondItem="tcG-Qf-7Sx" secondAttribute="leadingMargin" constant="-7" id="6aV-BA-k8W"/>
-                            <constraint firstItem="V93-nc-wa7" firstAttribute="top" secondItem="BSY-Ap-m5Q" secondAttribute="top" id="Cjt-dG-Z85"/>
-                            <constraint firstItem="BSY-Ap-m5Q" firstAttribute="top" secondItem="dxp-rP-zT1" secondAttribute="bottom" constant="8" symbolic="YES" id="GMO-9Y-cf6"/>
+                            <constraint firstItem="Cod-zN-mue" firstAttribute="top" secondItem="V93-nc-wa7" secondAttribute="top" id="89K-dO-2cD"/>
+                            <constraint firstItem="V93-nc-wa7" firstAttribute="leading" secondItem="Cod-zN-mue" secondAttribute="trailing" constant="8" id="E8C-rc-0bi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="j3a-OB-ZHJ" secondAttribute="trailing" constant="-16" id="IeN-rk-9cg"/>
                             <constraint firstItem="qBS-Ow-EN5" firstAttribute="leading" secondItem="tcG-Qf-7Sx" secondAttribute="leadingMargin" constant="-16" id="NN5-eU-Aks"/>
+                            <constraint firstItem="Cod-zN-mue" firstAttribute="leading" secondItem="tcG-Qf-7Sx" secondAttribute="leadingMargin" id="Pk3-NX-ZTJ"/>
                             <constraint firstItem="Fa1-XR-CiQ" firstAttribute="top" secondItem="qBS-Ow-EN5" secondAttribute="bottom" id="WKR-3w-l50"/>
                             <constraint firstItem="V93-nc-wa7" firstAttribute="trailing" secondItem="tcG-Qf-7Sx" secondAttribute="trailingMargin" id="Wye-6U-8ap"/>
-                            <constraint firstItem="BSY-Ap-m5Q" firstAttribute="centerX" secondItem="j3a-OB-ZHJ" secondAttribute="centerX" constant="-26.5" id="bQk-D5-igf"/>
                             <constraint firstItem="j3a-OB-ZHJ" firstAttribute="leading" secondItem="tcG-Qf-7Sx" secondAttribute="leading" id="c4i-4z-Bvy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qBS-Ow-EN5" secondAttribute="trailing" constant="-16" id="is0-Ll-Ssf"/>
-                            <constraint firstItem="j3a-OB-ZHJ" firstAttribute="bottom" secondItem="dxp-rP-zT1" secondAttribute="bottom" id="jRI-Gk-pq7"/>
+                            <constraint firstItem="j3a-OB-ZHJ" firstAttribute="bottom" secondItem="dxp-rP-zT1" secondAttribute="bottom" constant="44" id="jRI-Gk-pq7"/>
                             <constraint firstItem="j3a-OB-ZHJ" firstAttribute="leading" secondItem="qBS-Ow-EN5" secondAttribute="leading" id="kMc-ev-4Xh"/>
-                            <constraint firstItem="BSY-Ap-m5Q" firstAttribute="trailing" secondItem="tcG-Qf-7Sx" secondAttribute="trailingMargin" constant="-46" id="n6x-lj-i1n"/>
-                            <constraint firstItem="qBS-Ow-EN5" firstAttribute="top" secondItem="BSY-Ap-m5Q" secondAttribute="bottom" constant="8" id="sju-yz-JwQ"/>
-                            <constraint firstItem="BSY-Ap-m5Q" firstAttribute="centerX" secondItem="qBS-Ow-EN5" secondAttribute="centerX" constant="-26.5" id="t9x-Cc-AW2"/>
-                            <constraint firstItem="qBS-Ow-EN5" firstAttribute="top" secondItem="BSY-Ap-m5Q" secondAttribute="bottom" constant="8" id="x8Q-N7-Nw2"/>
+                            <constraint firstItem="Cod-zN-mue" firstAttribute="top" secondItem="dxp-rP-zT1" secondAttribute="bottom" constant="8" id="pex-9u-YGj"/>
+                            <constraint firstItem="j3a-OB-ZHJ" firstAttribute="top" secondItem="dxp-rP-zT1" secondAttribute="bottom" id="r6H-1s-twb"/>
+                            <constraint firstItem="qBS-Ow-EN5" firstAttribute="top" secondItem="Cod-zN-mue" secondAttribute="bottom" constant="8" id="wcB-0L-v0d"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="kMc-ev-4Xh"/>
-                                <exclude reference="t9x-Cc-AW2"/>
-                                <exclude reference="sju-yz-JwQ"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="bluetoothTextField" destination="fEB-gM-dYU" id="AB8-sA-Z0N"/>
-                        <outlet property="phraseTextField" destination="BSY-Ap-m5Q" id="6MF-ID-fjL"/>
+                        <outlet property="phraseTextView" destination="Cod-zN-mue" id="1mu-pG-Dy3"/>
                         <outlet property="tableView" destination="qBS-Ow-EN5" id="agh-NW-dDD"/>
                     </connections>
                 </viewController>

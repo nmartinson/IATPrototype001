@@ -83,8 +83,8 @@ class TableViewScanner: Scanner
         }
         else if currentCell == 2
         {
-            (dataSource[currentCell] as! UITextField).layer.borderColor = UIColor.blackColor().CGColor
-            (dataSource[currentCell] as! UITextField).layer.borderWidth = 2
+            (dataSource[currentCell] as! UITextView).layer.borderColor = UIColor.blackColor().CGColor
+            (dataSource[currentCell] as! UITextView).layer.borderWidth = 2
         }
         else
         {
@@ -109,11 +109,16 @@ class TableViewScanner: Scanner
     ******************************************************************************************/
     func clearAllCells()
     {
-        for(var i = 0; i < 3; i++)
+        for(var i = 0; i < 2; i++)
         {
             (dataSource[i]).layer.borderColor = UIColor.blackColor().CGColor
             (dataSource[i]).layer.borderWidth = 0
         }
+        
+        // reset textview to its original styling
+        (dataSource[2]).layer.borderColor = UIColor.lightGrayColor().CGColor
+        (dataSource[2]).layer.borderWidth = 0.4
+        
         for(var i = 3; i < dataSource.count; i++)
         {
             (dataSource[i] as! TableViewCellEditView).highlighted = false
@@ -142,7 +147,7 @@ class TableViewScanner: Scanner
         if editButtonIndex == 0
         {
             (dataSource[cellIndex] as! TableViewCellEditView).cancelButton.layer.borderColor = UIColor.blackColor().CGColor
-           (dataSource[cellIndex] as! TableViewCellEditView).cancelButton.layer.borderWidth = 5
+            (dataSource[cellIndex] as! TableViewCellEditView).cancelButton.layer.borderWidth = 5
         }
         else if editButtonIndex == 1
         {
@@ -180,7 +185,7 @@ class TableViewScanner: Scanner
                 }
                 else if previousCell == 2
                 {
-                    selectedObject = dataSource[2] as! UITextField
+                    selectedObject = dataSource[2] as! UITextView
                     selectedObject?.becomeFirstResponder()
                 }
                 else
@@ -210,7 +215,7 @@ class TableViewScanner: Scanner
                     {
                         if previousCell == 2
                         {
-                            selectedObject = dataSource[2] as! UITextField
+                            selectedObject = dataSource[2] as! UITextView
                             selectedObject?.becomeFirstResponder()
                         }
                         else
@@ -229,9 +234,17 @@ class TableViewScanner: Scanner
                                     }
                                     else if editButtonIndexPrevious == 1
                                     {
+                                        // Delete cell, then update cell index if out of bounds
                                         (selectedObject as! TableViewCellEditView).deleteButton.sendActionsForControlEvents(.TouchUpInside)
-//                                        (dataSource[previousCell] as! TableViewCellEditView).deleteButton.layer.borderWidth = 0
-//                                        dataSource.removeObjectAtIndex(previousCell)
+                                        if currentCell < dataSource.count - 1
+                                        {
+                                            currentCell++
+                                        }
+                                        else
+                                        {
+                                            currentCell = 0
+                                        }
+                                        
                                     }
                                 }
                                 else
