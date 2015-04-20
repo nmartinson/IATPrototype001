@@ -38,9 +38,14 @@ class Scanner
     
     func update()
     {
+        self.switchmode = NSUserDefaults.standardUserDefaults().integerForKey("numberOfSwitches")
         self.timeInterval = defaults.doubleForKey("scanRate")
         self.buttonBorderColor = defaults.integerForKey("buttonBorderColor")
         self.buttonBorderWidth = CGFloat (defaults.integerForKey("buttonBorderWidth"))
+        if switchmode == SWITCHMODE.SINGLE.rawValue
+        {
+            setScanMode()
+        }
     }
     
     func setScanMode() {}

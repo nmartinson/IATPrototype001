@@ -1,4 +1,4 @@
-//
+ //
 //  TableViewScanner.swift
 //  lumichat
 //
@@ -18,27 +18,32 @@ class TableViewScanner: Scanner
         return SharedInstance.instance
     }
     
+    var tableView:UITableView?
     var currentCell = 0
     var previousCell = 0
+    var editButtonIndex = 0
+    var editButtonIndexPrevious = 0
     var dataSource: NSMutableArray = []
     var timer = NSTimer()
+    var editMode = false
 
+    
+    func reloadSource(data: NSMutableArray)
+    {
+        dataSource = data
+    }
     
     /******************************************************************************************
     *
     ******************************************************************************************/
     func initialization(data: NSMutableArray)
     {
-        switchmode = NSUserDefaults.standardUserDefaults().integerForKey("numberOfSwitches")
         dataSource = data
+        editMode = false
         update()
         if switchmode == SWITCHMODE.SINGLE.rawValue
         {
             setScanMode()
-        }
-        else
-        {
-            
         }
     }
     
@@ -54,7 +59,7 @@ class TableViewScanner: Scanner
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func addCell(cell: UITableViewCell)
+    func addCell(cell: TableViewCellEditView)
     {
         dataSource.addObject(cell)
     }
@@ -83,8 +88,8 @@ class TableViewScanner: Scanner
         }
         else
         {
-            (dataSource[currentCell] as! UITableViewCell).highlighted = true
-            (dataSource[currentCell] as! UITableViewCell).selected = true
+            (dataSource[currentCell] as! TableViewCellEditView).highlighted = true
+            (dataSource[currentCell] as! TableViewCellEditView).selected = true
         }
         
         previousCell = currentCell
@@ -111,9 +116,10 @@ class TableViewScanner: Scanner
         }
         for(var i = 3; i < dataSource.count; i++)
         {
-            (dataSource[i] as! UITableViewCell).highlighted = false
-            (dataSource[i] as! UITableViewCell).selected = false
+            (dataSource[i] as! TableViewCellEditView).highlighted = false
+            (dataSource[i] as! TableViewCellEditView).selected = false
         }
+        
     }
     
     /******************************************************************************************
@@ -123,6 +129,37 @@ class TableViewScanner: Scanner
     {
         let range = NSRange(location: 3, length: dataSource.count - 1)
         dataSource.removeObjectsInRange(range)
+    }
+    
+    
+    func editScan(cellIndex: Int)
+    {
+        (dataSource[cellIndex] as! TableViewCellEditView).highlighted = false
+        (dataSource[cellIndex] as! TableViewCellEditView).selected = false
+        (dataSource[cellIndex] as! TableViewCellEditView).cancelButton.layer.borderWidth = 0
+        (dataSource[cellIndex] as! TableViewCellEditView).deleteButton.layer.borderWidth = 0
+        
+        if editButtonIndex == 0
+        {
+            (dataSource[cellIndex] as! TableViewCellEditView).cancelButton.layer.borderColor = UIColor.blackColor().CGColor
+           (dataSource[cellIndex] as! TableViewCellEditView).cancelButton.layer.borderWidth = 5
+        }
+        else if editButtonIndex == 1
+        {
+            (dataSource[cellIndex] as! TableViewCellEditView).deleteButton.layer.borderColor = UIColor.blackColor().CGColor
+            (dataSource[cellIndex] as! TableViewCellEditView).deleteButton.layer.borderWidth = 5
+
+        }
+        
+        editButtonIndexPrevious = editButtonIndex
+        if editButtonIndex < 1
+        {
+            editButtonIndex++
+        }
+        else
+        {
+            editButtonIndex = 0
+        }
     }
     
     /******************************************************************************************
@@ -148,8 +185,8 @@ class TableViewScanner: Scanner
                 }
                 else
                 {
-                    selectedObject = dataSource[previousCell] as! UITableViewCell
-                    Util().speak( (selectedObject as! UITableViewCell).textLabel!.text! )
+                    selectedObject = dataSource[previousCell] as! TableViewCellEditView
+                    Util().speak( (selectedObject as! TableViewCellEditView).textLabel!.text! )
                     setScanMode() // restart time
                 }
                 secondStageOfSelection = !secondStageOfSelection
@@ -178,13 +215,48 @@ class TableViewScanner: Scanner
                         }
                         else
                         {
-                            selectedObject = dataSource[previousCell] as! UITableViewCell
-                            Util().speak( (selectedObject as! UITableViewCell).textLabel!.text! )
+                            selectedObject = dataSource[previousCell] as! TableViewCellEditView
+
+                            if editMode == true
+                            {
+                                if secondStageOfSelection
+                                {
+                                    if editButtonIndexPrevious == 0
+                                    {
+                                        (selectedObject as! TableViewCellEditView).cancelButton.sendActionsForControlEvents(.TouchUpInside)
+                                        (dataSource[previousCell] as! TableViewCellEditView).cancelButton.layer.borderWidth = 0
+
+                                    }
+                                    else if editButtonIndexPrevious == 1
+                                    {
+                                        (selectedObject as! TableViewCellEditView).deleteButton.sendActionsForControlEvents(.TouchUpInside)
+//                                        (dataSource[previousCell] as! TableViewCellEditView).deleteButton.layer.borderWidth = 0
+//                                        dataSource.removeObjectAtIndex(previousCell)
+                                    }
+                                }
+                                else
+                                {
+                                    editButtonIndex = 0
+                                    editScan(previousCell)
+                                }
+                                secondStageOfSelection = !secondStageOfSelection
+                            }
+                            else
+                            {
+                                Util().speak( (selectedObject as! TableViewCellEditView).phraseLabel!.text! )
+                            }
                         }
                     }
                     else
                     {
-                        serialScan()
+                        if editMode == true && previousCell > 2 && secondStageOfSelection
+                        {
+                            editScan(previousCell)
+                        }
+                        else
+                        {
+                            serialScan()
+                        }
                     }
                 }
 

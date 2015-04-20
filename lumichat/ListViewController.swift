@@ -71,7 +71,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             keyboardView!.delegate = self
             currentScanner = "Keyboard"
             keyboardScanner.initialization(keyboardView!.keyCollection)
-            setTapRecognizer()
+//            setTapRecognizer()
             view.addSubview(keyboardView!)
             bluetoothTextField.becomeFirstResponder()
         }
@@ -159,7 +159,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell?.delegate = self
         }
         
-        tableScanner.addCell(cell!)
         return cell!
     }
     
@@ -167,6 +166,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     {
         (cell as! TableViewCellEditView).phraseLabel.text = data![indexPath.row] as? String
         (cell as! TableViewCellEditView).indexPath = indexPath
+        tableScanner.addCell(cell as! TableViewCellEditView)
+        if tableScanner.editMode
+        {
+            (cell as! TableViewCellEditView).setEditing()
+        }
     }
     
     
@@ -208,10 +212,13 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableViewEditViewdeletePressed(indexPath: NSIndexPath)
-    {        
+    {
+        println("DELETE DELEGATE")
         CoreDataController().deletePhraseWithTitle(self.data![indexPath.row] as! String) // remove from database
         self.data?.removeObjectAtIndex(indexPath.row) // remove from datasource
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic) // update view
+        tableScanner.reloadSource([backButton!, editButton!,phraseTextField]) // reiniitialize the scanner
+        tableView.reloadData()
     }
 
     
@@ -223,7 +230,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         currentScanner = "Table"
         keyboardScanner.timer.invalidate()
         keyboardView?.removeFromSuperview()
-        self.view.removeGestureRecognizer(tapRec)
+//        self.view.removeGestureRecognizer(tapRec)
         
         phraseTextField.resignFirstResponder()
         if phraseTextField.text != ""
@@ -233,7 +240,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             phraseTextField.text = ""
             phraseTextField.placeholder = "Type a new phrase..."
             phraseTextField.resignFirstResponder()
-            tableScanner.initialization([backButton!, editButton!,phraseTextField]) // reiniitialize the scanner
+            tableScanner.reloadSource([backButton!, editButton!,phraseTextField]) // reiniitialize the scanner
             tableView.reloadData()
         }
     }
@@ -241,10 +248,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func editButtonPressed()
     {
-        
         if editButton?.titleForState(.Normal) == "Edit"
         {
-            
+            tableScanner.editMode = true
             editButton?.setTitle("Done Editing", forState: .Normal)
             editButton?.frame = CGRectMake(0, 0, 100, 30)
             let visibleCells = tableView.visibleCells() as! [TableViewCellEditView]
@@ -256,6 +262,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         else
         {
+            tableScanner.editMode = false
             editButton?.setTitle("Edit", forState: .Normal)
             editButton?.frame = CGRectMake(0, 0, 80, 30)
             let visibleCells = tableView.visibleCells() as! [TableViewCellEditView]
@@ -268,21 +275,21 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     //configures the tap recoginizer
-    func setTapRecognizer()
-    {
-        self.tapRec = UITapGestureRecognizer()
-        tapRec.addTarget( self, action: "tapHandler:")
-        tapRec.numberOfTapsRequired = 1
-        tapRec.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(tapRec)
-    }
+//    func setTapRecognizer()
+//    {
+//        self.tapRec = UITapGestureRecognizer()
+//        tapRec.addTarget( self, action: "tapHandler:")
+//        tapRec.numberOfTapsRequired = 1
+//        tapRec.numberOfTouchesRequired = 1
+//        self.view.addGestureRecognizer(tapRec)
+//    }
     
     /* ******************************************************************************************
     *
     ******************************************************************************************** */
-    func tapHandler(gesture: UITapGestureRecognizer)
-    {
-        keyboardScanner.selectionMade(true, inputKey: nil)
-    }
+//    func tapHandler(gesture: UITapGestureRecognizer)
+//    {
+//        keyboardScanner.selectionMade(true, inputKey: nil)
+//    }
     
 }

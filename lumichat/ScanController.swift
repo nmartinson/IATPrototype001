@@ -53,7 +53,7 @@ class ScanController: Scanner
         firstIndexInRow = 0
         secondStageOfSelection = false
         elementScanningCounter = 0
-        navBarScanning = false
+        navBarScanning = true
     }
 
     /******************************************************************************************

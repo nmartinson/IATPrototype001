@@ -303,7 +303,7 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
         self.collectionview = collectionView //setup(collectionView)
         setLayout()
         self.link = pageLink //setLink(pageLink)
-        setTapRecognizer()
+//        setTapRecognizer()
         getButtonsFromDB()
         collectionview.reloadData()
         scanner.reloadData(layout.collectionViewContentSize(), numButtons: buttons.count)
@@ -323,14 +323,14 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     /******************************************************************************************
     *
     ******************************************************************************************/
-    func setTapRecognizer()
-    {
-        self.tapRec = UITapGestureRecognizer()
-        tapRec.addTarget( self, action: "tapHandler:")
-        tapRec.numberOfTapsRequired = 1
-        tapRec.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(tapRec)
-    }
+//    func setTapRecognizer()
+//    {
+//        self.tapRec = UITapGestureRecognizer()
+//        tapRec.addTarget( self, action: "tapHandler:")
+//        tapRec.numberOfTapsRequired = 1
+//        tapRec.numberOfTouchesRequired = 1
+//        self.view.addGestureRecognizer(tapRec)
+//    }
     
     /******************************************************************************************
     *   gets the users preferences for button size and style
@@ -579,28 +579,28 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     *   plays the audio. If a different scan mode, it checks if it was the first tap or second tap. First tap changes
     *   scan mode, second selection, makes the selection.
     *********************************************************************************************************** */
-    func tapHandler(gesture: UITapGestureRecognizer)
-    {
-        println("Tap")
-        let nextPageLink = scanner.selectionMade(false, inputKey: nil)
-
-        if nextPageLink != ""
-        {
-            if nextPageLink == "Notes"
-            {
-                performSegueWithIdentifier("toList", sender: self)
-            }
-            else
-            {
-                scanner.selectionMade(true, inputKey:  nil)
-                let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! CollectionViewBase
-                vc.link = nextPageLink
-                vc.previousPage = link
-
-                navigationController?.pushViewController(vc, animated: true)
-            }
-        }
-    }
+//    func tapHandler(gesture: UITapGestureRecognizer)
+//    {
+//        println("Tap")
+//        let nextPageLink = scanner.selectionMade(false, inputKey: nil)
+//
+//        if nextPageLink != ""
+//        {
+//            if nextPageLink == "Notes"
+//            {
+//                performSegueWithIdentifier("toList", sender: self)
+//            }
+//            else
+//            {
+//                scanner.selectionMade(true, inputKey:  nil)
+//                let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! CollectionViewBase
+//                vc.link = nextPageLink
+//                vc.previousPage = link
+//
+//                navigationController?.pushViewController(vc, animated: true)
+//            }
+//        }
+//    }
     
     /* ************************************************************************************************************
     *	When the "Create Button" button is pressed, this configures the current ViewController to retrieve the data
@@ -637,7 +637,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
     {
-        println("text change")
         let switchMode = NSUserDefaults.standardUserDefaults().integerForKey("numberOfSwitches")
         
         if switchMode == SWITCHMODE.SINGLE.rawValue
