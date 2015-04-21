@@ -87,12 +87,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var later = utilObject.saveImage(image, title: "later")
         image = UIImage(named: "leg.jpg")
         var leg = utilObject.saveImage(image, title: "leg")
-        image = UIImage(named: "mouth.jpg")
-        var mouth = utilObject.saveImage(image, title: "mouth")
         image = UIImage(named: "throat.jpg")
         var throat = utilObject.saveImage(image, title: "throat")
         image = UIImage(named: "notes")
         var notes = utilObject.saveImage(image, title: "notes")
+        image = UIImage(named: "mouth")
+        var mouth = utilObject.saveImage(image, title: "mouth")
         
         image = UIImage(named: "bathroom")
         var bathroom = utilObject.saveImage(image, title: "bathroom")
@@ -112,6 +112,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var rest = utilObject.saveImage(image, title: "rest")
         image = UIImage(named: "thanks")
         var thanks = utilObject.saveImage(image, title: "thanks")
+        
+        
+        image = UIImage(named: "hungry")
+        var hungry = utilObject.saveImage(image, title: "hungry")
+        image = UIImage(named: "thirsty")
+        var thirsty = utilObject.saveImage(image, title: "thirsty")
+        image = UIImage(named: "bodyparts")
+        var bodyparts = utilObject.saveImage(image, title: "bodyparts")
 
         let (success, pagesArray) = coreDataObject.getPages()
         if !success
@@ -128,9 +136,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             coreDataObject.createInManagedObjectContextPage("Expressions")
             coreDataObject.createInManagedObjectContextPage("Phrases")
         
-            coreDataObject.createInManagedObjectContextTable("Body Parts", image: head, longDescription: "", table: "Home", index: 0, linkedPage: "BodyParts")
+            coreDataObject.createInManagedObjectContextTable("Body Parts", image: bodyparts, longDescription: "", table: "Home", index: 0, linkedPage: "BodyParts")
             coreDataObject.createInManagedObjectContextTable("Pain Scale", image: five, longDescription: "", table: "Home", index: 1, linkedPage: "PainScale")
-            coreDataObject.createInManagedObjectContextTable("Expressions", image: buttonTest, longDescription: "", table: "Home", index: 2, linkedPage: "Expressions")
+            coreDataObject.createInManagedObjectContextTable("Expressions", image: hungry, longDescription: "", table: "Home", index: 2, linkedPage: "Expressions")
             coreDataObject.createInManagedObjectContextTable("Phrases", image: nurse, longDescription: "", table: "Home", index: 3, linkedPage: "Phrases")
             coreDataObject.createInManagedObjectContextTable("Notes", image: notes, longDescription: "", table: "Home", index: 4, linkedPage: "Notes")
             
@@ -161,9 +169,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             coreDataObject.createInManagedObjectContextTable("Maybe", image: maybe, longDescription: "", table: "YesNoMaybe", index: 2, linkedPage: "")
             coreDataObject.createInManagedObjectContextTable("Later", image: later, longDescription: "", table: "YesNoMaybe", index: 3, linkedPage: "")
 
-            coreDataObject.createInManagedObjectContextTable("Im Hungry", image: buttonTest, longDescription: "", table: "Expressions", index: 0, linkedPage: "")
-            coreDataObject.createInManagedObjectContextTable("Im Thirsty", image: buttonTest, longDescription: "", table: "Expressions", index: 1, linkedPage: "")
-            coreDataObject.createInManagedObjectContextTable("Im Tired", image: buttonTest, longDescription: "", table: "Expressions", index: 2, linkedPage: "")
+            coreDataObject.createInManagedObjectContextTable("Im Hungry", image: hungry, longDescription: "", table: "Expressions", index: 0, linkedPage: "")
+            coreDataObject.createInManagedObjectContextTable("Im Thirsty", image: thirsty, longDescription: "", table: "Expressions", index: 1, linkedPage: "")
+            coreDataObject.createInManagedObjectContextTable("Im Tired", image: rest, longDescription: "", table: "Expressions", index: 2, linkedPage: "")
             coreDataObject.createInManagedObjectContextTable("Please Help Me", image: buttonTest, longDescription: "", table: "Expressions", index: 3, linkedPage: "")
             
             coreDataObject.createInManagedObjectContextTable("Bathroom", image: bathroom, longDescription: "I need to go to the bathroom", table: "Phrases", index: 0, linkedPage: "")

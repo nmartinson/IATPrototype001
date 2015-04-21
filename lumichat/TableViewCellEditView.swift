@@ -29,6 +29,11 @@ class TableViewCellEditView: UITableViewCell
         super.init(coder: aDecoder)
     }
 
+    override func awakeFromNib()
+    {
+        doneEditing()
+    }
+    
     @IBAction func deleteButtonPressed(sender: UIButton)
     {
         delegate?.tableViewEditViewdeletePressed(indexPath!)
@@ -43,6 +48,8 @@ class TableViewCellEditView: UITableViewCell
     {
         deleteButton.hidden = false
         cancelButton.hidden = false
+        self.deleteButton.layer.borderWidth = 0
+        self.cancelButton.layer.borderWidth = 0
         phraseTrailingConstraint.constant = 140
     }
     

@@ -130,7 +130,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func keyWasPressed(key: String)
     {
         phraseTextView.text = phraseTextView.text + key
-//        phraseTextView
     }
     
     /******************************************************************************************
