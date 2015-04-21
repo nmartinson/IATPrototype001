@@ -826,9 +826,8 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wOW-M4-O2u"/>
-                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="ArrowOverlay" translatesAutoresizingMaskIntoConstraints="NO" id="kZT-fC-hhN">
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ArrowOverlay" translatesAutoresizingMaskIntoConstraints="NO" id="kZT-fC-hhN">
                                             <rect key="frame" x="232" y="8" width="60" height="60"/>
-                                            <color key="backgroundColor" red="0.95920138889999995" green="0.022707580330000001" blue="0.0089223064220000006" alpha="1" colorSpace="calibratedRGB"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHZ-bj-6NO">
                                             <rect key="frame" x="8" y="-30" width="284" height="322"/>
@@ -855,6 +854,7 @@
                                     <constraint firstItem="kZT-fC-hhN" firstAttribute="trailing" secondItem="3uK-JG-fId" secondAttribute="trailingMargin" id="2da-UG-roM"/>
                                     <constraint firstItem="kZT-fC-hhN" firstAttribute="top" secondItem="3uK-JG-fId" secondAttribute="topMargin" id="4wl-lP-6h1"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="kZT-fC-hhN" secondAttribute="bottom" constant="209" id="7VZ-Un-fLp"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="kZT-fC-hhN" secondAttribute="bottom" constant="224" id="Aev-cA-xDn"/>
                                     <constraint firstItem="kZT-fC-hhN" firstAttribute="trailing" secondItem="3uK-JG-fId" secondAttribute="trailingMargin" id="EZ6-d4-FoO"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="yHZ-bj-6NO" secondAttribute="trailing" id="FYM-Sp-Ktc"/>
                                     <constraint firstItem="kZT-fC-hhN" firstAttribute="width" secondItem="nIA-gh-zRs" secondAttribute="height" multiplier="60:269" constant="-3.3457249070631931" id="GUf-AL-vmP"/>
@@ -873,9 +873,12 @@
                                     <constraint firstItem="kZT-fC-hhN" firstAttribute="leading" secondItem="nIA-gh-zRs" secondAttribute="leading" constant="232" id="bAA-XX-wHO"/>
                                     <constraint firstItem="yHZ-bj-6NO" firstAttribute="bottom" secondItem="3uK-JG-fId" secondAttribute="bottomMargin" id="bDJ-7e-rYS"/>
                                     <constraint firstItem="wOW-M4-O2u" firstAttribute="top" secondItem="kZT-fC-hhN" secondAttribute="bottom" constant="-60" id="btN-EE-7tS"/>
+                                    <constraint firstItem="kZT-fC-hhN" firstAttribute="leading" secondItem="3uK-JG-fId" secondAttribute="leadingMargin" constant="224" id="cQj-MA-6wM"/>
+                                    <constraint firstItem="kZT-fC-hhN" firstAttribute="top" secondItem="3uK-JG-fId" secondAttribute="topMargin" id="d30-2w-plh"/>
                                     <constraint firstItem="kZT-fC-hhN" firstAttribute="width" secondItem="nIA-gh-zRs" secondAttribute="height" multiplier="15:35" constant="1" id="ePS-ss-3UI"/>
                                     <constraint firstItem="kZT-fC-hhN" firstAttribute="top" secondItem="nIA-gh-zRs" secondAttribute="top" id="eYm-he-2go"/>
                                     <constraint firstItem="kZT-fC-hhN" firstAttribute="width" secondItem="nIA-gh-zRs" secondAttribute="height" multiplier="73:15" id="h0x-Jq-BYB"/>
+                                    <constraint firstItem="kZT-fC-hhN" firstAttribute="trailing" secondItem="3uK-JG-fId" secondAttribute="trailingMargin" id="h7r-Hy-jHo"/>
                                     <constraint firstItem="yHZ-bj-6NO" firstAttribute="top" secondItem="nIA-gh-zRs" secondAttribute="bottom" constant="-38" id="lOP-Kk-0Ew"/>
                                     <constraint firstItem="kZT-fC-hhN" firstAttribute="width" secondItem="nIA-gh-zRs" secondAttribute="height" multiplier="15:71" id="mPK-mh-QsP"/>
                                     <constraint firstItem="kZT-fC-hhN" firstAttribute="trailing" secondItem="nIA-gh-zRs" secondAttribute="trailing" id="pMf-rm-UFJ"/>
@@ -894,6 +897,7 @@
                                         <exclude reference="2da-UG-roM"/>
                                         <exclude reference="4wl-lP-6h1"/>
                                         <exclude reference="7VZ-Un-fLp"/>
+                                        <exclude reference="Aev-cA-xDn"/>
                                         <exclude reference="EZ6-d4-FoO"/>
                                         <exclude reference="GUf-AL-vmP"/>
                                         <exclude reference="KW7-BM-rwQ"/>
@@ -903,6 +907,7 @@
                                         <exclude reference="Qz1-CO-2Un"/>
                                         <exclude reference="TOe-3L-hpH"/>
                                         <exclude reference="bAA-XX-wHO"/>
+                                        <exclude reference="cQj-MA-6wM"/>
                                         <exclude reference="ePS-ss-3UI"/>
                                         <exclude reference="eYm-he-2go"/>
                                         <exclude reference="h0x-Jq-BYB"/>
@@ -931,8 +936,8 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="VMx-3E-V12">
                         <nil key="title"/>
-                        <textField key="titleView" hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="9Ma-YB-NVz">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" alpha="0.0" contentMode="scaleAspectFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="IATLogoNoWords" id="9Ma-YB-NVz" customClass="BluetoothTextField" customModule="Noddle_Talk" customModuleProvider="target">
+                            <rect key="frame" x="281" y="7" width="38" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -1329,9 +1334,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ArrowOverlay" width="70" height="70"/>
+        <image name="ArrowOverlay" width="100" height="100"/>
+        <image name="IATLogoNoWords" width="948" height="765"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2SL-8k-sNH"/>
+        <segue reference="vhJ-Au-lYb"/>
     </inferredMetricsTieBreakers>
 </document>

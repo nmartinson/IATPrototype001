@@ -235,8 +235,17 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     
     deinit
     {
-        println("Deinit")
         NSNotificationCenter.defaultCenter().removeObserver(foregroundNotification)
+    }
+    
+    
+    override func viewDidLoad()
+    {
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1*Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
+            self.viewDidLayoutSubviews()
+        }
+
     }
     
     /******************************************************************************************
@@ -390,7 +399,6 @@ class CollectionViewBase: UICollectionViewController, LXReorderableCollectionVie
     ******************************************************************************************/
     override func viewDidLayoutSubviews()
     {
-//        println("did layout")
         if !currentlyDragging
         {
             var cellMaxSide = 0

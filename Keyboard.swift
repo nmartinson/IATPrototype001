@@ -44,6 +44,7 @@ class Keyboard:UIView
     
     @IBAction func saveWasPressed(sender: AnyObject)
     {
+        println("SAVE WAS PRESSED")
         delegate?.saveWasPressed()
     }
     

@@ -120,7 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var thirsty = utilObject.saveImage(image, title: "thirsty")
         image = UIImage(named: "bodyparts")
         var bodyparts = utilObject.saveImage(image, title: "bodyparts")
-
+        image = UIImage(named: "pleasehelpme")
+        var pleasehelp = utilObject.saveImage(image, title: "pleasehelpme")
+        
         let (success, pagesArray) = coreDataObject.getPages()
         if !success
         {
@@ -172,7 +174,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             coreDataObject.createInManagedObjectContextTable("Im Hungry", image: hungry, longDescription: "", table: "Expressions", index: 0, linkedPage: "")
             coreDataObject.createInManagedObjectContextTable("Im Thirsty", image: thirsty, longDescription: "", table: "Expressions", index: 1, linkedPage: "")
             coreDataObject.createInManagedObjectContextTable("Im Tired", image: rest, longDescription: "", table: "Expressions", index: 2, linkedPage: "")
-            coreDataObject.createInManagedObjectContextTable("Please Help Me", image: buttonTest, longDescription: "", table: "Expressions", index: 3, linkedPage: "")
+            coreDataObject.createInManagedObjectContextTable("Please Help Me", image: pleasehelp, longDescription: "", table: "Expressions", index: 3, linkedPage: "")
             
             coreDataObject.createInManagedObjectContextTable("Bathroom", image: bathroom, longDescription: "I need to go to the bathroom", table: "Phrases", index: 0, linkedPage: "")
             coreDataObject.createInManagedObjectContextTable("Come back", image: comeback, longDescription: "Please come back", table: "Phrases", index: 1, linkedPage: "")

@@ -177,6 +177,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         {
             (cell as! TableViewCellEditView).setEditing()
         }
+        else
+        {
+            (cell as! TableViewCellEditView).doneEditing()
+        }
     }
     
     
@@ -185,10 +189,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     ******************************************************************************************/
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        let phrase = tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text
-        CoreDataController().incrementPressCountForPhrase(phrase!)
-        Util().speak( cell!.textLabel!.text! )
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! TableViewCellEditView
+        
+        CoreDataController().incrementPressCountForPhrase(cell.phraseLabel.text!)
+        Util().speak( cell.phraseLabel.text! )
     }
 
     
